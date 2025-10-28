@@ -1,0 +1,38 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="100" cy="100" r="90" fill="url(#grad4)" opacity="0.1"/>
+  
+  <!-- Camera/Eye outline -->
+  <ellipse cx="100" cy="100" rx="70" ry="50" fill="url(#grad4)" opacity="0.2"/>
+  <ellipse cx="100" cy="100" rx="50" ry="35" fill="url(#grad4)" opacity="0.3"/>
+  
+  <!-- Lens/Iris -->
+  <circle cx="100" cy="100" r="30" fill="url(#grad4)" opacity="0.6"/>
+  <circle cx="100" cy="100" r="15" fill="url(#grad4)"/>
+  
+  <!-- Scanning lines -->
+  <line x1="50" y1="80" x2="70" y2="80" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  <line x1="50" y1="100" x2="70" y2="100" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  <line x1="50" y1="120" x2="70" y2="120" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  
+  <line x1="130" y1="80" x2="150" y2="80" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  <line x1="130" y1="100" x2="150" y2="100" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  <line x1="130" y1="120" x2="150" y2="120" stroke="url(#grad4)" stroke-width="2" opacity="0.7"/>
+  
+  <!-- Focus corners -->
+  <path d="M 40 40 L 40 60 M 40 40 L 60 40" stroke="url(#grad4)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 160 40 L 160 60 M 160 40 L 140 40" stroke="url(#grad4)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 40 160 L 40 140 M 40 160 L 60 160" stroke="url(#grad4)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 160 160 L 160 140 M 160 160 L 140 160" stroke="url(#grad4)" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Light reflection -->
+  <circle cx="110" cy="90" r="5" fill="#fff" opacity="0.8"/>
+</svg>
+
