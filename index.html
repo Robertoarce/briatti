@@ -98,34 +98,39 @@
       font-size: 15px; color: var(--text2); max-width: 600px; line-height: 1.7;
     }
 
-    /* ─── BUSINESS AREAS (departments, not tech) ─── */
+    /* ─── BUSINESS AREAS ─── */
     #areas { background: var(--bg2); }
     .areas-header { text-align: center; margin-bottom: 44px; }
     .areas-header .section-sub { margin: 0 auto; }
     .areas-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 20px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(330px,1fr)); gap: 20px;
     }
     .area-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 28px; transition: all .3s;
+      border-radius: 10px; overflow: hidden; transition: all .3s;
     }
     .area-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .area-card img {
+      width: 100%; height: 160px; object-fit: cover;
+      border-bottom: 1px solid var(--border);
+    }
+    .area-card .body { padding: 0 24px 24px; }
     .area-card .dept {
       font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; color: var(--blue-grey); margin-bottom: 8px;
+      text-transform: uppercase; color: var(--blue-grey); margin-bottom: 4px; padding-top: 20px;
     }
     .area-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: var(--cream); }
-    .area-card p { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; }
+    .area-card p { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 10px; }
     .area-card .solutions {
       padding: 0; list-style: none;
     }
     .area-card .solutions li {
-      font-size: 12px; color: var(--text); padding: 4px 0 4px 16px;
+      font-size: 12px; color: var(--text); padding: 3px 0 3px 16px;
       position: relative; line-height: 1.5;
     }
     .area-card .solutions li::before {
-      content: ''; position: absolute; left: 0; top: 10px;
-      width: 6px; height: 6px; border-radius: 50%;
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 5px; height: 5px; border-radius: 50%;
       background: var(--indigo);
     }
 
@@ -134,8 +139,8 @@
     .how-header { text-align: center; margin-bottom: 40px; }
     .how-header .section-sub { margin: 0 auto; }
     .steps {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
-      max-width: 800px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
+      max-width: 900px; margin: 0 auto;
     }
     .step { text-align: center; }
     .step .num {
@@ -173,7 +178,7 @@
 
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .steps { grid-template-columns: 1fr; max-width: 400px; }
+      .steps { grid-template-columns: 1fr 1fr; max-width: 500px; }
       section { padding: 50px 0; }
     }
   </style>
@@ -216,69 +221,115 @@
     <div class="areas-grid">
 
       <div class="area-card">
-        <div class="dept">Supply Chain & Logistics</div>
-        <h3>Demand Forecasting & Inventory</h3>
-        <p>Stop guessing how much stock to order. Our models analyse your sales history, seasonality, and market trends to predict demand — so you order the right quantities at the right time.</p>
-        <ul class="solutions">
-          <li>Reduce overstock and stockouts</li>
-          <li>Optimise warehouse staffing</li>
-          <li>Flag supply chain risks early</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Warehouse and logistics" loading="lazy">
+        <div class="body">
+          <div class="dept">Supply Chain & Logistics</div>
+          <h3>Demand Forecasting & Inventory</h3>
+          <p>Stop guessing how much stock to order. Our models analyse your sales history, seasonality, and market trends to predict demand — so you order the right quantities at the right time.</p>
+          <ul class="solutions">
+            <li>Reduce overstock and stockouts</li>
+            <li>Optimise warehouse staffing</li>
+            <li>Flag supply chain risks early</li>
+          </ul>
+        </div>
       </div>
 
       <div class="area-card">
-        <div class="dept">Finance & Accounting</div>
-        <h3>Automated Analytics & Reporting</h3>
-        <p>Your financial data holds insights that are buried in spreadsheets. We build dashboards that automatically detect anomalies, forecast cash flow, and highlight cost-saving opportunities.</p>
-        <ul class="solutions">
-          <li>Cash flow forecasting</li>
-          <li>Fraud detection on transactions</li>
-          <li>Automated monthly report generation</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Finance charts" loading="lazy">
+        <div class="body">
+          <div class="dept">Finance & Accounting</div>
+          <h3>Automated Analytics & Reporting</h3>
+          <p>Your financial data holds insights that are buried in spreadsheets. We build dashboards that automatically detect anomalies, forecast cash flow, and highlight cost-saving opportunities.</p>
+          <ul class="solutions">
+            <li>Cash flow forecasting</li>
+            <li>Fraud detection on transactions</li>
+            <li>Automated monthly report generation</li>
+          </ul>
+        </div>
       </div>
 
       <div class="area-card">
-        <div class="dept">Sales & Marketing</div>
-        <h3>Lead Scoring & Customer Insights</h3>
-        <p>Not all leads are equal. Our tools analyse your customer data to score prospects, predict churn, and recommend the next best action — so your team focuses on what works.</p>
-        <ul class="solutions">
-          <li>Identify your most valuable leads</li>
-          <li>Predict which customers might leave</li>
-          <li>Personalise campaigns automatically</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?w=600&q=80" alt="Sales growth chart" loading="lazy">
+        <div class="body">
+          <div class="dept">Sales & Marketing</div>
+          <h3>Lead Scoring & Customer Insights</h3>
+          <p>Not all leads are equal. Our tools analyse your customer data to score prospects, predict churn, and recommend the next best action — so your team focuses on what works.</p>
+          <ul class="solutions">
+            <li>Identify your most valuable leads</li>
+            <li>Predict which customers might leave</li>
+            <li>Personalise campaigns automatically</li>
+          </ul>
+        </div>
       </div>
 
       <div class="area-card">
-        <div class="dept">Operations & HR</div>
-        <h3>Process Automation</h3>
-        <p>Eliminate repetitive manual work — invoice processing, employee onboarding, compliance checks. We deploy AI agents that handle routine tasks so your team focuses on higher-value work.</p>
-        <ul class="solutions">
-          <li>Automate invoice and expense processing</li>
-          <li>Streamline employee onboarding</li>
-          <li>Monitor compliance automatically</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1555169062-013468b47731?w=600&q=80" alt="Office operations" loading="lazy">
+        <div class="body">
+          <div class="dept">Operations & HR</div>
+          <h3>Process Automation</h3>
+          <p>Eliminate repetitive manual work — invoice processing, employee onboarding, compliance checks. We deploy AI agents that handle routine tasks so your team focuses on higher-value work.</p>
+          <ul class="solutions">
+            <li>Automate invoice and expense processing</li>
+            <li>Streamline employee onboarding</li>
+            <li>Monitor compliance automatically</li>
+          </ul>
+        </div>
       </div>
 
       <div class="area-card">
-        <div class="dept">Customer Service</div>
-        <h3>Intelligent Support Assistant</h3>
-        <p>Answer customer questions instantly — even outside business hours. We build a custom assistant trained on your products, policies, and FAQs that handles the most common inquiries.</p>
-        <ul class="solutions">
-          <li>Respond to customers 24/7</li>
-          <li>Reduce response time from hours to seconds</li>
-          <li>Free your team for complex cases</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1573497620053-e61933a2a3b0?w=600&q=80" alt="Customer support team" loading="lazy">
+        <div class="body">
+          <div class="dept">Customer Service</div>
+          <h3>Intelligent Support Assistant</h3>
+          <p>Answer customer questions instantly — even outside business hours. We build a custom assistant trained on your products, policies, and FAQs that handles the most common inquiries.</p>
+          <ul class="solutions">
+            <li>Respond to customers 24/7</li>
+            <li>Reduce response time from hours to seconds</li>
+            <li>Free your team for complex cases</li>
+          </ul>
+        </div>
       </div>
 
       <div class="area-card">
-        <div class="dept">Product & Quality</div>
-        <h3>Quality Control & Monitoring</h3>
-        <p>Detect defects, anomalies, or deviations before they become problems. Our models monitor your production data and flag issues in real time — so you can act before customers are affected.</p>
-        <ul class="solutions">
-          <li>Real-time defect detection</li>
-          <li>Automated quality reporting</li>
-          <li>Early warning for equipment issues</li>
-        </ul>
+        <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=600&q=80" alt="Quality control inspection" loading="lazy">
+        <div class="body">
+          <div class="dept">Product & Quality</div>
+          <h3>Quality Control & Monitoring</h3>
+          <p>Detect defects, anomalies, or deviations before they become problems. Our models monitor your production data and flag issues in real time — so you can act before customers are affected.</p>
+          <ul class="solutions">
+            <li>Real-time defect detection</li>
+            <li>Automated quality reporting</li>
+            <li>Early warning for equipment issues</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="E-commerce dashboard" loading="lazy">
+        <div class="body">
+          <div class="dept">Retail & E-Commerce</div>
+          <h3>Dynamic Pricing & Personalisation</h3>
+          <p>Optimise your pricing in real time based on demand, competitor activity, and customer behaviour. Deliver personalised product recommendations that increase average order value.</p>
+          <ul class="solutions">
+            <li>Real-time price optimisation</li>
+            <li>Personalised product recommendations</li>
+            <li>Customer lifetime value analysis</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area-card">
+        <img src="https://images.unsplash.com/photo-1560520031-3a4dc964e9df?w=600&q=80" alt="Healthcare analytics" loading="lazy">
+        <div class="body">
+          <div class="dept">Healthcare & Medical</div>
+          <h3>Patient Data Analytics</h3>
+          <p>Turn patient records and operational data into actionable insights. Predict appointment no-shows, optimise staff scheduling, and identify at-risk patients before costly interventions are needed.</p>
+          <ul class="solutions">
+            <li>Predict patient no-shows</li>
+            <li>Optimise staff scheduling</li>
+            <li>Early risk identification</li>
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -300,11 +351,16 @@
       </div>
       <div class="step">
         <div class="num">2</div>
+        <h4>We Propose</h4>
+        <p>We outline a tailored solution with clear expected outcomes. You approve the approach before we write a single line of code.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
         <h4>We Build</h4>
         <p>We create a working solution tailored to your data and your needs. No templates, no generic software.</p>
       </div>
       <div class="step">
-        <div class="num">3</div>
+        <div class="num">4</div>
         <h4>You Benefit</h4>
         <p>You see the results — fewer manual hours, better forecasts, faster decisions. If it works, we continue. If not, no commitment.</p>
       </div>
