@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Briatti — ML & Data Analytics</title>
+  <title>Briatti — AI Solutions for Your Business</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -50,14 +50,13 @@
       padding: 7px 18px; background: var(--indigo); color: var(--cream) !important;
       border-radius: 6px; font-weight: 600 !important;
     }
-    .nav-cta:hover { opacity: .9; }
 
-    /* ─── HERO ─── */
+    /* ─── HERO (lightweight background) ─── */
     .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      min-height: 70vh; display: flex; align-items: center; justify-content: center;
       position: relative; overflow: hidden; padding-top: 64px;
     }
-    #hero-paths {
+    #hero-bg {
       position: absolute; inset: 0; z-index: 0;
       width: 100%; height: 100%;
     }
@@ -66,14 +65,15 @@
       background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(75,86,148,0.08) 0%, transparent 60%);
       pointer-events: none;
     }
-    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 24px; }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 720px; padding: 0 24px; }
     .hero h1 {
-      font-size: clamp(32px, 5.5vw, 60px); font-weight: 700;
-      line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 14px;
+      font-size: clamp(30px, 5vw, 52px); font-weight: 700;
+      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px;
+      color: var(--cream);
     }
     .hero h1 .accent { color: var(--blue-grey); }
     .hero p {
-      font-size: 16px; color: var(--text2); max-width: 580px;
+      font-size: 16px; color: var(--text2); max-width: 560px;
       margin: 0 auto 28px; line-height: 1.7;
     }
     .btn-p {
@@ -81,7 +81,7 @@
       border: none; border-radius: 6px; font-size: 14px; font-weight: 600;
       text-decoration: none; transition: all .2s;
     }
-    .btn-p:hover { background: #5d69a8; transform: translateY(-1px); }
+    .btn-p:hover { background: #5d69a8; }
     .btn-s {
       display: inline-block; padding: 11px 26px; background: transparent; color: var(--cream);
       border: 1px solid var(--border2); border-radius: 6px; font-size: 14px; font-weight: 500;
@@ -89,74 +89,76 @@
     }
     .btn-s:hover { border-color: var(--text2); }
 
-    section { padding: 90px 0; }
+    section { padding: 80px 0; }
     .section-title {
-      font-size: clamp(24px, 3vw, 34px); font-weight: 600;
+      font-size: clamp(22px, 2.8vw, 32px); font-weight: 600;
       letter-spacing: -0.02em; margin-bottom: 10px; color: var(--cream);
     }
     .section-sub {
-      font-size: 15px; color: var(--text2); max-width: 580px; line-height: 1.7;
+      font-size: 15px; color: var(--text2); max-width: 600px; line-height: 1.7;
     }
 
-    /* ─── CASE STUDIES ─── */
-    #work { background: var(--bg2); }
-    .work-header { text-align: center; margin-bottom: 44px; }
-    .work-header .section-sub { margin: 0 auto; }
-    .work-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 20px;
+    /* ─── BUSINESS AREAS (departments, not tech) ─── */
+    #areas { background: var(--bg2); }
+    .areas-header { text-align: center; margin-bottom: 44px; }
+    .areas-header .section-sub { margin: 0 auto; }
+    .areas-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 20px;
     }
-    .work-card {
+    .area-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden; transition: all .3s;
+      border-radius: 10px; padding: 28px; transition: all .3s;
     }
-    .work-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-    .work-card img {
-      width: 100%; height: 180px; object-fit: cover;
-      border-bottom: 1px solid var(--border);
-    }
-    .work-card .body { padding: 20px 24px 24px; }
-    .work-card .meta {
+    .area-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .area-card .dept {
       font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
-      text-transform: uppercase; color: var(--blue-grey); margin-bottom: 6px;
+      text-transform: uppercase; color: var(--blue-grey); margin-bottom: 8px;
     }
-    .work-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 2px; color: var(--cream); }
-    .work-card .industry {
-      font-size: 12px; color: var(--indigo); font-weight: 500; margin-bottom: 8px;
+    .area-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: var(--cream); }
+    .area-card p { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; }
+    .area-card .solutions {
+      padding: 0; list-style: none;
     }
-    .work-card p { font-size: 13px; color: var(--text2); line-height: 1.65; }
-    .work-card .result {
-      margin-top: 10px; padding: 8px 12px; background: rgba(75,86,148,0.1);
-      border-left: 3px solid var(--indigo); border-radius: 0 4px 4px 0;
-      font-size: 12px; color: var(--cream); font-weight: 500; font-family: 'SF Mono', 'JetBrains Mono', monospace;
+    .area-card .solutions li {
+      font-size: 12px; color: var(--text); padding: 4px 0 4px 16px;
+      position: relative; line-height: 1.5;
+    }
+    .area-card .solutions li::before {
+      content: ''; position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--indigo);
     }
 
-    /* ─── SERVICES ─── */
-    #services { background: var(--bg2); border-top: 1px solid var(--border); }
-    .svc-header { text-align: center; margin-bottom: 40px; }
-    .svc-header .section-sub { margin: 0 auto; }
-    .svc-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 14px;
+    /* ─── HOW IT WORKS ─── */
+    #how { background: var(--bg); }
+    .how-header { text-align: center; margin-bottom: 40px; }
+    .how-header .section-sub { margin: 0 auto; }
+    .steps {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+      max-width: 800px; margin: 0 auto;
     }
-    .svc-item {
-      padding: 22px; background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    .step { text-align: center; }
+    .step .num {
+      width: 40px; height: 40px; line-height: 40px; border-radius: 50%;
+      background: var(--indigo); color: var(--cream); font-size: 16px; font-weight: 600;
+      margin: 0 auto 12px;
     }
-    .svc-item:hover { border-color: var(--border2); }
-    .svc-item h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--cream); }
-    .svc-item p { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .step h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--cream); }
+    .step p { font-size: 13px; color: var(--text2); line-height: 1.6; }
 
     /* ─── OFFER ─── */
-    #offer { text-align: center; padding: 70px 0; background: var(--bg); }
+    #offer { text-align: center; padding: 70px 0; background: var(--bg2); border-top: 1px solid var(--border); }
     .offer-tag {
       display: inline-block; padding: 5px 14px;
       background: rgba(75,86,148,0.15); border: 1px solid rgba(75,86,148,0.25);
       border-radius: 100px; font-size: 12px; color: var(--blue-grey); font-weight: 500;
       margin-bottom: 14px; letter-spacing: 0.04em;
     }
-    #offer h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 600; margin-bottom: 10px; color: var(--cream); }
-    #offer p { font-size: 14px; color: var(--text2); max-width: 500px; margin: 0 auto 28px; }
+    #offer h2 { font-size: clamp(22px, 2.8vw, 32px); font-weight: 600; margin-bottom: 10px; color: var(--cream); }
+    #offer p { font-size: 14px; color: var(--text2); max-width: 480px; margin: 0 auto 28px; }
 
     /* ─── CONTACT ─── */
-    #contact { text-align: center; padding: 70px 0; background: var(--bg2); border-top: 1px solid var(--border); }
+    #contact { text-align: center; padding: 60px 0; background: var(--bg); }
     #contact .section-sub { margin: 0 auto 24px; }
     .contact-e {
       display: inline-block; padding: 12px 28px;
@@ -166,12 +168,12 @@
     }
     .contact-e:hover { border-color: var(--indigo); }
 
-    footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; }
+    footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; background: var(--bg2); }
     footer p { font-size: 12px; color: var(--text3); }
 
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .work-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; max-width: 400px; }
       section { padding: 50px 0; }
     }
   </style>
@@ -182,251 +184,198 @@
   <div class="container">
     <div class="logo">Briatti</div>
     <div class="nav-links">
-      <a href="#work">Case Studies</a>
-      <a href="#services">Services</a>
+      <a href="#areas">By Department</a>
+      <a href="#how">How It Works</a>
       <a href="#offer">Free Pilot</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══ HERO: ANIMATED SVG PATHS (from 21st.dev) ═══ -->
+<!-- ═══ HERO (lightweight animated bg) ═══ -->
 <div class="hero">
-  <svg id="hero-paths" viewBox="0 0 696 316" preserveAspectRatio="none" fill="none"></svg>
+  <svg id="hero-bg" viewBox="0 0 600 300" preserveAspectRatio="none" fill="none"></svg>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1>Machine Learning &<br><span class="accent">Data Analytics</span></h1>
-    <p>We design, build, and deploy production ML systems that reduce costs, increase revenue, and automate decisions. Every engagement starts with a concrete business case.</p>
+    <h1>Practical AI Solutions<br><span class="accent">for Your Business</span></h1>
+    <p>We help SMEs save time, reduce costs, and make better decisions — using data and automation. No technical knowledge required.</p>
     <div>
-      <a href="#work" class="btn-p" style="margin-right:10px">See Case Studies →</a>
+      <a href="#areas" class="btn-p" style="margin-right:8px">See What's Possible →</a>
       <a href="#offer" class="btn-s">Free Pilot</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ CASE STUDIES (7, without chess) ═══ -->
-<section id="work">
+<!-- ═══ BUSINESS AREAS (by department) ═══ -->
+<section id="areas">
   <div class="container">
-    <div class="work-header">
-      <h2 class="section-title">Selected Engagements</h2>
-      <p class="section-sub">Each project delivered measurable business outcomes. Real problems, real data, real results.</p>
+    <div class="areas-header">
+      <h2 class="section-title">AI for Every Department</h2>
+      <p class="section-sub">Each area of your business can benefit from tailored solutions. Here's what that looks like in practice.</p>
     </div>
-    <div class="work-grid">
+    <div class="areas-grid">
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data analytics dashboard" loading="lazy">
-        <div class="body">
-          <div class="meta">Forecasting · Retail</div>
-          <h3>Demand Forecasting for Retail</h3>
-          <div class="industry">Retail / Supply Chain</div>
-          <p>Multi-horizon forecasting pipeline using AutoML to compare gradient boosting, LSTM, and transformer architectures. Reduced forecast error by 34% compared to rule-based system.</p>
-          <div class="result">Darts, Prophet, LightGBM, Airflow</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Supply Chain & Logistics</div>
+        <h3>Demand Forecasting & Inventory</h3>
+        <p>Stop guessing how much stock to order. Our models analyse your sales history, seasonality, and market trends to predict demand — so you order the right quantities at the right time.</p>
+        <ul class="solutions">
+          <li>Reduce overstock and stockouts</li>
+          <li>Optimise warehouse staffing</li>
+          <li>Flag supply chain risks early</li>
+        </ul>
       </div>
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="Document processing" loading="lazy">
-        <div class="body">
-          <div class="meta">NLP · Document AI</div>
-          <h3>Automated Contract Review</h3>
-          <div class="industry">Legal / Insurance</div>
-          <p>Fine-tuned LLM pipeline to extract clauses, obligations, and dates from PDF contracts. Review time dropped from 45 minutes per document to under 90 seconds. 1,200 contracts processed in month one.</p>
-          <div class="result">Hugging Face, TRL, Unsloth</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Finance & Accounting</div>
+        <h3>Automated Analytics & Reporting</h3>
+        <p>Your financial data holds insights that are buried in spreadsheets. We build dashboards that automatically detect anomalies, forecast cash flow, and highlight cost-saving opportunities.</p>
+        <ul class="solutions">
+          <li>Cash flow forecasting</li>
+          <li>Fraud detection on transactions</li>
+          <li>Automated monthly report generation</li>
+        </ul>
       </div>
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&q=80" alt="Fraud detection visualization" loading="lazy">
-        <div class="body">
-          <div class="meta">Anomaly Detection · Real-Time</div>
-          <h3>Payment Fraud Detection</h3>
-          <div class="industry">Fintech / Payments</div>
-          <p>Real-time ML pipeline processing 50K+ daily transactions. Gradient boosting with engineered transaction features. Flagged 96% of fraudulent activity at 0.3% false positive rate.</p>
-          <div class="result">XGBoost, Kafka, PostgreSQL, Grafana</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Sales & Marketing</div>
+        <h3>Lead Scoring & Customer Insights</h3>
+        <p>Not all leads are equal. Our tools analyse your customer data to score prospects, predict churn, and recommend the next best action — so your team focuses on what works.</p>
+        <ul class="solutions">
+          <li>Identify your most valuable leads</li>
+          <li>Predict which customers might leave</li>
+          <li>Personalise campaigns automatically</li>
+        </ul>
       </div>
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Manufacturing quality control" loading="lazy">
-        <div class="body">
-          <div class="meta">Computer Vision · QC</div>
-          <h3>Visual Defect Detection</h3>
-          <div class="industry">Manufacturing</div>
-          <p>Segmentation model trained on 5,000 labelled product images for real-time surface defect detection. Reduced manual inspection by 70% and caught 92% of defects missed by human inspectors.</p>
-          <div class="result">PyTorch, SAM2, OpenCV, ONNX</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Operations & HR</div>
+        <h3>Process Automation</h3>
+        <p>Eliminate repetitive manual work — invoice processing, employee onboarding, compliance checks. We deploy AI agents that handle routine tasks so your team focuses on higher-value work.</p>
+        <ul class="solutions">
+          <li>Automate invoice and expense processing</li>
+          <li>Streamline employee onboarding</li>
+          <li>Monitor compliance automatically</li>
+        </ul>
       </div>
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80" alt="Recommendation engine concept" loading="lazy">
-        <div class="body">
-          <div class="meta">Recommendation · Personalization</div>
-          <h3>Content Recommendation Engine</h3>
-          <div class="industry">Media / E-Learning</div>
-          <p>Two-tower neural network using implicit user feedback. Lifted content engagement by 41% and increased average session time by 6 minutes. Served 200K users with sub-50ms inference.</p>
-          <div class="result">TensorFlow, Redis, FastAPI, Kubernetes</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Customer Service</div>
+        <h3>Intelligent Support Assistant</h3>
+        <p>Answer customer questions instantly — even outside business hours. We build a custom assistant trained on your products, policies, and FAQs that handles the most common inquiries.</p>
+        <ul class="solutions">
+          <li>Respond to customers 24/7</li>
+          <li>Reduce response time from hours to seconds</li>
+          <li>Free your team for complex cases</li>
+        </ul>
       </div>
 
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80" alt="Knowledge base interface" loading="lazy">
-        <div class="body">
-          <div class="meta">RAG · Knowledge Retrieval</div>
-          <h3>Internal Knowledge Base Assistant</h3>
-          <div class="industry">Enterprise / IT</div>
-          <p>RAG system over 15K internal documents. Accuracy improved from 52% (raw LLM) to 89% (RAG with reranking). Cut Tier-1 support tickets by 38% in the first quarter.</p>
-          <div class="result">LangChain, Chroma, FastAPI</div>
-        </div>
-      </div>
-
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="ML monitoring dashboard" loading="lazy">
-        <div class="body">
-          <div class="meta">MLOps · Monitoring</div>
-          <h3>Model Monitoring & Drift Detection</h3>
-          <div class="industry">SaaS / Platform</div>
-          <p>Real-time feature drift, prediction drift, and data quality monitors with automated rollback triggers. Detected 3 data quality incidents before they reached production.</p>
-          <div class="result">Evidently, MLflow, Prometheus, Grafana</div>
-        </div>
+      <div class="area-card">
+        <div class="dept">Product & Quality</div>
+        <h3>Quality Control & Monitoring</h3>
+        <p>Detect defects, anomalies, or deviations before they become problems. Our models monitor your production data and flag issues in real time — so you can act before customers are affected.</p>
+        <ul class="solutions">
+          <li>Real-time defect detection</li>
+          <li>Automated quality reporting</li>
+          <li>Early warning for equipment issues</li>
+        </ul>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ═══ SERVICES ═══ -->
-<section id="services">
+<!-- ═══ HOW IT WORKS ═══ -->
+<section id="how">
   <div class="container">
-    <div class="svc-header">
-      <h2 class="section-title">What We Deliver</h2>
-      <p class="section-sub">Fixed-scope engagements with defined deliverables and timelines.</p>
+    <div class="how-header">
+      <h2 class="section-title">How We Work With You</h2>
+      <p class="section-sub">We keep it simple. No jargon, no long contracts, no surprises.</p>
     </div>
-    <div class="svc-grid">
-      <div class="svc-item">
-        <h3>ML Pipeline Engineering</h3>
-        <p>Data ingestion → feature engineering → training → evaluation → deployment. End-to-end with monitoring.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>We Listen</h4>
+        <p>A 30-minute call to understand your business, your challenges, and where you'd like to see improvement.</p>
       </div>
-      <div class="svc-item">
-        <h3>Forecasting & Anomaly Detection</h3>
-        <p>Demand prediction, churn forecasting, fraud detection. Multi-horizon with AutoML comparison.</p>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>We Build</h4>
+        <p>We create a working solution tailored to your data and your needs. No templates, no generic software.</p>
       </div>
-      <div class="svc-item">
-        <h3>Natural Language Processing</h3>
-        <p>Document extraction, summarisation, classification, and RAG over internal data stores.</p>
-      </div>
-      <div class="svc-item">
-        <h3>Computer Vision</h3>
-        <p>Object detection, segmentation, quality inspection. From labelled data to deployed model.</p>
-      </div>
-      <div class="svc-item">
-        <h3>Recommendation Systems</h3>
-        <p>Two-tower networks, collaborative filtering. Served at scale with sub-50ms latency.</p>
-      </div>
-      <div class="svc-item">
-        <h3>MLOps & Observability</h3>
-        <p>Model monitoring, drift detection, automated retraining. Production-grade infrastructure.</p>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>You Benefit</h4>
+        <p>You see the results — fewer manual hours, better forecasts, faster decisions. If it works, we continue. If not, no commitment.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ OFFER ═══ -->
+<!-- ═══ FREE PILOT ═══ -->
 <section id="offer">
   <div class="container">
     <div class="offer-tag">ZERO-RISK PILOT</div>
-    <h2>First 3 Engagements at No Cost</h2>
-    <p>We build your first ML solution free of charge. You invest a 30-minute call to scope the problem; we deliver a working system. If it creates value, we continue. If not, you owe nothing.</p>
-    <a href="mailto:roberto.arce@briatti.com?subject=Free%20ML%20Pilot" class="btn-p">Request a Pilot →</a>
+    <h2>First 3 Businesses — Free of Charge</h2>
+    <p>We build your first solution at no cost. You invest one short call to explain your needs; we do the rest. If you're happy, we discuss next steps. If not, you owe nothing.</p>
+    <a href="mailto:roberto.arce@briatti.com?subject=Free%20Pilot" class="btn-p">Request a Free Pilot →</a>
   </div>
 </section>
 
 <!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <div class="container">
-    <h2 class="section-title">Get in Touch</h2>
-    <p class="section-sub">Concrete use case in mind? Let's discuss scope, timeline, and whether ML is the right tool for your problem.</p>
+    <h2 class="section-title">Let's Talk</h2>
+    <p class="section-sub">No pitch, no pressure. Just a conversation about your business and whether we can help.</p>
     <a href="mailto:roberto.arce@briatti.com" class="contact-e">roberto.arce@briatti.com</a>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <p>© 2025 Briatti — Machine Learning & Data Analytics</p>
+    <p>© 2025 Briatti — AI Solutions for Business</p>
   </div>
 </footer>
 
 <script>
-// ═══ 21st.dev Background Paths — faithful vanilla implementation ═══
+// ═══ Lightweight animated background ───
 (function(){
-  const svg = document.getElementById('hero-paths');
+  const svg = document.getElementById('hero-bg');
   if (!svg) return;
   
-  // 2/3 of original width — narrower viewport
-  const W = 464, H = 316;
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.style.width = '66.67%';
-  svg.style.margin = '0 auto';
+  const W = 600, H = 300;
+  const colors = ['#4B5694', '#7288AE'];
+  const lines = 24;
   
-  function generatePath(i, pos) {
-    const s = 0.68; // scale factor for 2/3 width
-    return `M-${(380 - i * 5 * pos) * s} -${(189 + i * 6) * s}C-${
-      (380 - i * 5 * pos) * s
-    } -${(189 + i * 6) * s} -${(312 - i * 5 * pos) * s} ${(216 - i * 6) * s} ${
-      (152 - i * 5 * pos) * s
-    } ${(343 - i * 6) * s}C${(616 - i * 5 * pos) * s} ${(470 - i * 6) * s} ${
-      (684 - i * 5 * pos) * s
-    } ${(875 - i * 6) * s} ${(684 - i * 5 * pos) * s} ${(875 - i * 6) * s}`;
-  }
-  
-  const TOTAL_PATHS = 80; // much more lines
-  
-  // Create two path groups (position 1 and -1)
-  [1, -1].forEach(pos => {
-    for (let i = 0; i < TOTAL_PATHS; i++) {
+  for (let g = 0; g < 2; g++) {
+    for (let i = 0; i < lines; i++) {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', generatePath(i, pos));
-      path.setAttribute('stroke', pos === 1 ? '#4B5694' : '#7288AE');
-      path.setAttribute('stroke-width', String(0.3 + i * 0.015));
-      path.setAttribute('stroke-opacity', String(0.015 + i * 0.015));
+      const t = i / lines;
+      const y1 = -20 + t * (H + 40);
+      const x1 = g === 0 ? -20 : W + 20;
+      const cx1 = g === 0 ? W * 0.6 : W * 0.4;
+      const cx2 = g === 0 ? W * 0.8 : W * 0.2;
+      const x2 = g === 0 ? W + 20 : -20;
+      path.setAttribute('d', `M${x1} ${y1} Q${cx1} ${y1 + 30} ${cx2} ${H * 0.5} T${x2} ${y1 + 100}`);
+      path.setAttribute('stroke', colors[g]);
+      path.setAttribute('stroke-width', '0.4');
+      path.setAttribute('stroke-opacity', '0.08');
       path.setAttribute('fill', 'none');
-      path.setAttribute('pathLength', '1');
-      // Start at 30% drawn (matches framer initial: pathLength: 0.3)
-      path.style.strokeDasharray = '0.3 0.7';
-      path.style.strokeDashoffset = '0';
       svg.appendChild(path);
     }
-  });
+  }
   
-  // Animate using Web Animations API for smooth native performance
+  // Gentle opacity pulse on a few paths
   const paths = svg.querySelectorAll('path');
-  paths.forEach((path, i) => {
-    const group = i < TOTAL_PATHS ? 0 : 1;
-    const idx = i % TOTAL_PATHS;
-    const duration = 20000 + Math.random() * 10000; // 20-30s per cycle
-    
-    // Animate dasharray (pathLength 0.3 → 1 and back)
-    path.animate([
-      { strokeDasharray: '0.3 0.7', strokeDashoffset: '0' },
-      { strokeDasharray: '1 0', strokeDashoffset: '0' },
-      { strokeDasharray: '0.3 0.7', strokeDashoffset: '0' },
-    ], {
-      duration: duration,
-      iterations: Infinity,
-      easing: 'ease-in-out',
-      delay: idx * 200 + group * 5000,
-    });
-    
-    // Animate opacity (0.3 → 0.6 → 0.3)
-    path.animate([
-      { opacity: 0.3 },
-      { opacity: 0.6 },
-      { opacity: 0.3 },
-    ], {
-      duration: duration,
-      iterations: Infinity,
-      easing: 'ease-in-out',
-      delay: idx * 200 + group * 5000,
-    });
+  paths.forEach((p, i) => {
+    const delay = i * 800;
+    setTimeout(() => {
+      p.animate([
+        { strokeOpacity: 0.08 },
+        { strokeOpacity: 0.18 },
+        { strokeOpacity: 0.08 }
+      ], { duration: 6000, iterations: Infinity, easing: 'ease-in-out' });
+    }, delay);
   });
 })();
 </script>
