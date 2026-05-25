@@ -356,55 +356,78 @@
 </footer>
 
 <script>
-// ═══ 21st.dev Background Paths — Vanilla JS version ═══
+// ═══ 21st.dev Background Paths — faithful vanilla implementation ═══
 (function(){
   const svg = document.getElementById('hero-paths');
   if (!svg) return;
   
-  const W = 696, H = 316;
+  // 2/3 of original width — narrower viewport
+  const W = 464, H = 316;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.style.width = '66.67%';
+  svg.style.margin = '0 auto';
   
-  // Generate paths (same math as the original React component)
-  function generatePath(i, position) {
-    return `M-${380 - i * 5 * position} -${189 + i * 6}C-${
-      380 - i * 5 * position
-    } -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${
-      152 - i * 5 * position
-    } ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${
-      684 - i * 5 * position
-    } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`;
+  function generatePath(i, pos) {
+    const s = 0.68; // scale factor for 2/3 width
+    return `M-${(380 - i * 5 * pos) * s} -${(189 + i * 6) * s}C-${
+      (380 - i * 5 * pos) * s
+    } -${(189 + i * 6) * s} -${(312 - i * 5 * pos) * s} ${(216 - i * 6) * s} ${
+      (152 - i * 5 * pos) * s
+    } ${(343 - i * 6) * s}C${(616 - i * 5 * pos) * s} ${(470 - i * 6) * s} ${
+      (684 - i * 5 * pos) * s
+    } ${(875 - i * 6) * s} ${(684 - i * 5 * pos) * s} ${(875 - i * 6) * s}`;
   }
+  
+  const TOTAL_PATHS = 80; // much more lines
   
   // Create two path groups (position 1 and -1)
   [1, -1].forEach(pos => {
-    for (let i = 0; i < 36; i++) {
+    for (let i = 0; i < TOTAL_PATHS; i++) {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', generatePath(i, pos));
       path.setAttribute('stroke', pos === 1 ? '#4B5694' : '#7288AE');
-      path.setAttribute('stroke-width', String(0.5 + i * 0.03));
-      path.setAttribute('stroke-opacity', String(0.03 + i * 0.025));
+      path.setAttribute('stroke-width', String(0.3 + i * 0.015));
+      path.setAttribute('stroke-opacity', String(0.015 + i * 0.015));
       path.setAttribute('fill', 'none');
-      path.style.strokeDasharray = '400 400';
-      path.style.strokeDashoffset = '400';
+      path.setAttribute('pathLength', '1');
+      // Start at 30% drawn (matches framer initial: pathLength: 0.3)
+      path.style.strokeDasharray = '0.3 0.7';
+      path.style.strokeDashoffset = '0';
       svg.appendChild(path);
     }
   });
   
-  // Animate paths
+  // Animate using Web Animations API for smooth native performance
   const paths = svg.querySelectorAll('path');
-  let start = performance.now();
-  
-  function animatePaths(timestamp) {
-    const elapsed = (timestamp - start) / 1000;
-    paths.forEach((path, i) => {
-      const speed = 0.01 + (i % 36) * 0.0005;
-      const groupOffset = i < 36 ? 0 : Math.PI;
-      const offset = 400 - ((elapsed * 50 * speed + groupOffset + i * 0.3) % 400);
-      path.style.strokeDashoffset = String(offset);
+  paths.forEach((path, i) => {
+    const group = i < TOTAL_PATHS ? 0 : 1;
+    const idx = i % TOTAL_PATHS;
+    const duration = 20000 + Math.random() * 10000; // 20-30s per cycle
+    
+    // Animate dasharray (pathLength 0.3 → 1 and back)
+    path.animate([
+      { strokeDasharray: '0.3 0.7', strokeDashoffset: '0' },
+      { strokeDasharray: '1 0', strokeDashoffset: '0' },
+      { strokeDasharray: '0.3 0.7', strokeDashoffset: '0' },
+    ], {
+      duration: duration,
+      iterations: Infinity,
+      easing: 'ease-in-out',
+      delay: idx * 200 + group * 5000,
     });
-    requestAnimationFrame(animatePaths);
-  }
-  requestAnimationFrame(animatePaths);
+    
+    // Animate opacity (0.3 → 0.6 → 0.3)
+    path.animate([
+      { opacity: 0.3 },
+      { opacity: 0.6 },
+      { opacity: 0.3 },
+    ], {
+      duration: duration,
+      iterations: Infinity,
+      easing: 'ease-in-out',
+      delay: idx * 200 + group * 5000,
+    });
+  });
 })();
 </script>
 </body>
