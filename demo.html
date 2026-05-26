@@ -100,21 +100,10 @@
       -webkit-appearance: none;
     }
     .dropdown-trigger:hover { border-color: #d1d5db; }
-    .dropdown-trigger .icon-left { color: #f97316; display: flex; }
     .dropdown-trigger .label { flex: 1; text-align: left; font-weight: 500; }
     .dropdown-trigger .chevron { color: #9ca3af; transition: transform .2s; }
     .dropdown-trigger.open .chevron { transform: rotate(180deg); }
 
-    .filter-btn {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: #f9fafb; border: 1px solid #f3f4f6;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: #9ca3af; transition: all .15s;
-    }
-    .filter-btn:hover { background: #f3f4f6; color: #6b7280; }
-    .filter-btn svg { width: 18px; height: 18px; }
-
-    /* ─── DROPDOWN MENU ─── */
     .dropdown-menu {
       position: absolute; top: calc(100% + 6px); left: 0; width: 100%;
       min-width: 280px;
@@ -145,6 +134,24 @@
     .menu-item.active .mi-check { opacity: 1; color: #f97316; }
     .menu-divider { height: 1px; background: #f3f4f6; margin: 4px 8px; }
 
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 4px;
+      padding-bottom: 4px; overflow-x: auto;
+    }
+    .filter-bar::-webkit-scrollbar { height: 0; }
+    .filter-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 8px;
+      background: #f9fafb; border: 1px solid #f3f4f6;
+      color: #9ca3af; font-size: 12px; font-weight: 500; font-family: inherit;
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .filter-pill:hover { background: #f3f4f6; color: #6b7280; border-color: #e5e7eb; }
+    .filter-pill.active { background: #fef3e9; border-color: #fed7aa; color: #f97316; }
+    .filter-pill .fp-icon { display: flex; }
+    .filter-pill .fp-icon svg { width: 14px; height: 14px; }
+
     /* ─── CONTENT AREA ─── */
     .content-area {
       flex: 1; display: flex; flex-direction: column; gap: 16px;
@@ -167,12 +174,27 @@
       animation: widgetIn .25s ease;
     }
     .widget.hidden { display: none; }
+    .widget.solo {
+      grid-column: 1 / -1; min-height: 340px;
+    }
     @keyframes widgetIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
     .widget-hdr {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-bottom: 1px solid #f3f4f6;
+      padding: 10px 16px; border-bottom: 1px solid #f3f4f6;
+      background: #fafafa; min-height: 40px;
     }
+    .widget-hdr .hdr-left {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .widget-hdr .hdr-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      color: #9ca3af; cursor: pointer; transition: all .15s; flex-shrink: 0;
+    }
+    .widget-hdr .hdr-icon:hover { background: #e5e7eb; color: #374151; }
+    .widget-hdr .hdr-icon.active { background: #fef3e9; color: #f97316; }
+    .widget-hdr .hdr-icon svg { width: 16px; height: 16px; }
     .widget-hdr h3 {
       font-size: 12px; font-weight: 600; color: #6b7280;
       text-transform: uppercase; letter-spacing: 0.04em;
@@ -183,6 +205,22 @@
     }
     .widget-body { padding: 16px; flex: 1; }
     .widget-body.chart-body { padding: 8px 12px 0; }
+
+    /* ─── DEEP DIVE ─── */
+    .widget-deep {
+      border-top: 1px solid #f3f4f6; background: #fafafa;
+      padding: 10px 16px 12px; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 4px 20px;
+    }
+    .widget-deep.hidden { display: none; }
+    .deep-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 0; font-size: 12px;
+    }
+    .deep-row span { color: #9ca3af; }
+    .deep-row strong { color: #111; font-weight: 600; }
+    .deep-row strong.up { color: #10b981; }
+    .deep-row strong.down { color: #ef4444; }
 
     /* ─── KPI STRIP ─── */
     .kpi-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
@@ -319,9 +357,6 @@
         <div class="top-actions">
           <div class="dropdown-wrap" id="serviceDropdown">
             <div class="dropdown-trigger" onclick="toggleMenu()">
-              <span class="icon-left">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </span>
               <span class="label" id="dropdownLabel">All services</span>
               <span class="chevron">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -356,20 +391,50 @@
               </button>
             </div>
           </div>
-          <div class="filter-btn" onclick="toggleMenu()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-          </div>
         </div>
       </div>
 
       <!-- ═══ CONTENT ═══ -->
       <div class="content-area">
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <button class="filter-pill active" onclick="focusWidget('summary')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+            Summary
+          </button>
+          <button class="filter-pill" onclick="focusWidget('kpi')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+            KPIs
+          </button>
+          <button class="filter-pill" onclick="focusWidget('revChart')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+            Revenue
+          </button>
+          <button class="filter-pill" onclick="focusWidget('custChart')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+            Customers
+          </button>
+          <button class="filter-pill" onclick="focusWidget('insights')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+            Insights
+          </button>
+          <button class="filter-pill" onclick="focusWidget('chatbot')">
+            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            Chat
+          </button>
+        </div>
         <div class="widgets-grid" id="widgetsGrid">
 
           <!-- KPI Widget -->
           <div class="widget" data-widget="kpi">
             <div class="widget-hdr">
-              <h3>Key Metrics</h3>
+              <div class="hdr-left">
+                <div class="hdr-icon" onclick="focusWidget('kpi')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <h3>Key Metrics</h3>
+              </div>
               <span class="status-badge">● Live</span>
             </div>
             <div class="widget-body">
@@ -380,34 +445,71 @@
                 <div class="kpi-cell"><div class="kl">Churn Rate</div><div class="kv churn">4.2%</div><div class="kc down">↓ 0.8%</div></div>
               </div>
             </div>
+            <!-- deep dive content -->
+            <div class="widget-deep hidden">
+              <div class="deep-row"><span>Monthly Recurring Revenue</span><strong>€284,650</strong></div>
+              <div class="deep-row"><span>YoY Growth</span><strong class="up">+18.4%</strong></div>
+              <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
+              <div class="deep-row"><span>Avg Revenue Per User</span><strong>€154</strong></div>
+              <div class="deep-row"><span>Net Revenue Retention</span><strong>108%</strong></div>
+            </div>
           </div>
 
           <!-- Revenue Chart -->
           <div class="widget" data-widget="revChart">
             <div class="widget-hdr">
-              <h3>Revenue & Forecast</h3>
+              <div class="hdr-left">
+                <div class="hdr-icon" onclick="focusWidget('revChart')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3>Revenue & Forecast</h3>
+              </div>
               <span class="status-badge">6mo + forecast</span>
             </div>
             <div class="widget-body chart-body">
               <canvas id="revChart"></canvas>
+            </div>
+            <div class="widget-deep hidden">
+              <div class="deep-row"><span>Current Month</span><strong>€284,650</strong></div>
+              <div class="deep-row"><span>Next Month Forecast</span><strong>€312,000</strong></div>
+              <div class="deep-row"><span>Quarter Projection</span><strong>€945,000</strong></div>
+              <div class="deep-row"><span>YoY Growth</span><strong class="up">+22.3%</strong></div>
+              <div class="deep-row"><span>Top Segment</span><strong>Enterprise (48%)</strong></div>
             </div>
           </div>
 
           <!-- Customer Chart -->
           <div class="widget" data-widget="custChart">
             <div class="widget-hdr">
-              <h3>Customer Growth</h3>
+              <div class="hdr-left">
+                <div class="hdr-icon" onclick="focusWidget('custChart')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+                <h3>Customer Growth</h3>
+              </div>
               <span class="status-badge">Monthly</span>
             </div>
             <div class="widget-body chart-body">
               <canvas id="custChart"></canvas>
+            </div>
+            <div class="widget-deep hidden">
+              <div class="deep-row"><span>Total Customers</span><strong>1,847</strong></div>
+              <div class="deep-row"><span>Net New (this month)</span><strong class="up">+138</strong></div>
+              <div class="deep-row"><span>Avg Acquisition Cost</span><strong>€42</strong></div>
+              <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
+              <div class="deep-row"><span>LTV:CAC Ratio</span><strong>67.6x</strong></div>
             </div>
           </div>
 
           <!-- Insights -->
           <div class="widget" data-widget="insights">
             <div class="widget-hdr">
-              <h3>Key Insights</h3>
+              <div class="hdr-left">
+                <div class="hdr-icon" onclick="focusWidget('insights')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3>Key Insights</h3>
+              </div>
               <span class="status-badge">AI-generated</span>
             </div>
             <div class="widget-body">
@@ -418,12 +520,24 @@
                 <div class="insight-row"><div class="insight-dot red"></div><p><strong>CAC rising</strong> — Up 14% over 2 months. Consider reallocating ad spend.</p></div>
               </div>
             </div>
+            <div class="widget-deep hidden">
+              <div class="deep-row"><span>Top Opportunity</span><strong>Premium Tier Launch</strong></div>
+              <div class="deep-row"><span>Urgent Action</span><strong style="color:#ef4444">Fix Rising CAC</strong></div>
+              <div class="deep-row"><span>Revenue at Risk</span><strong style="color:#f97316">€48K/yr (churn)</strong></div>
+              <div class="deep-row"><span>Growth Levers</span><strong>Enterprise, Retention, Pricing</strong></div>
+              <div class="deep-row"><span>Confidence Score</span><strong>High (85%)</strong></div>
+            </div>
           </div>
 
           <!-- Chatbot -->
           <div class="widget" data-widget="chatbot">
             <div class="widget-hdr">
-              <h3>AI Business Assistant</h3>
+              <div class="hdr-left">
+                <div class="hdr-icon" onclick="focusWidget('chatbot')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>AI Business Assistant</h3>
+              </div>
               <span class="status-badge">Online</span>
             </div>
             <div class="widget-body">
@@ -494,6 +608,53 @@ function updateLabel() {
 function updateEmptyState() {
   const visible = SERVICES.some(s => !document.querySelector(`[data-widget="${s}"]`).classList.contains('hidden'));
   document.getElementById('emptyState').classList.toggle('hidden', visible);
+}
+
+// ═══════════════════════════════════════
+// FOCUS / DEEP DIVE
+// ═══════════════════════════════════════
+function focusWidget(id) {
+  const isSummary = id === 'summary';
+
+  // Update filter pills
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  if (isSummary) {
+    document.querySelector('.filter-pill').classList.add('active');
+  } else {
+    document.querySelector(`.filter-pill[onclick*="${id}"]`).classList.add('active');
+  }
+
+  // Show/hide widgets + toggle deep dive
+  SERVICES.forEach(s => {
+    const w = document.querySelector(`[data-widget="${s}"]`);
+    if (!w) return;
+    const deep = w.querySelector('.widget-deep');
+    const hdrIcon = w.querySelector('.hdr-icon');
+
+    if (isSummary) {
+      w.classList.remove('solo');
+      if (deep) deep.classList.add('hidden');
+      if (hdrIcon) hdrIcon.classList.remove('active');
+      // Show if enabled in dropdown
+      const menuBtn = document.querySelector(`.menu-item[data-service="${s}"]`);
+      const enabled = !menuBtn || menuBtn.classList.contains('active');
+      w.classList.toggle('hidden', !enabled);
+    } else if (s === id) {
+      w.classList.remove('hidden');
+      w.classList.add('solo');
+      if (deep) deep.classList.remove('hidden');
+      if (hdrIcon) hdrIcon.classList.add('active');
+    } else {
+      w.classList.add('hidden');
+      w.classList.remove('solo');
+      if (deep) deep.classList.add('hidden');
+      if (hdrIcon) hdrIcon.classList.remove('active');
+    }
+  });
+
+  updateLabel();
+  updateEmptyState();
+  setTimeout(rebuildCharts, 80);
 }
 
 // ═══════════════════════════════════════
