@@ -222,6 +222,7 @@
         <button class="sb-item" data-section="customers" onclick="setActiveSection('customers')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Customers</span></button>
         <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></button>
         <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
+        <button class="sb-item" data-section="agents" onclick="setActiveSection('agents')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Agents</span><span class="sb-badge" style="background:#8b5cf6">AI</span></button>
       </nav>
       <div class="sb-footer">v2.4.1 · Enterprise</div>
     </aside>
@@ -455,6 +456,40 @@
           </div>
         </div>
 
+        <!-- ═══ AGENTS (ruvnet/ruflo) ═══ -->
+        <div class="section hidden" id="sec-agents">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><h3 style="font-size:14px;font-weight:600">🌊 RuFlo Agent Swarm</h3><p style="font-size:12px;color:var(--text3);margin-top:2px">Orchestrated by ruvnet/ruflo — multi-agent intelligence platform</p></div>
+            <a href="https://github.com/ruvnet/ruflo" target="_blank" style="font-size:11px;color:var(--purple);text-decoration:none;font-weight:500">github.com/ruvnet/ruflo →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1">
+            <div class="chart-card">
+              <div class="chart-hdr"><h3>🤖 Active Agents</h3><span class="sb-badge" style="background:var(--green-light);color:var(--green);position:static;margin:0">4 online</span></div>
+              <div class="insights-scroll" style="padding:8px 14px 12px">
+                <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Revenue Analyst</span><span style="margin-left:auto;font-size:10px;padding:1px 6px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Running</span></div><div class="ii-desc">Analyzing MTD revenue trends and anomaly detection</div><div class="ii-foot blue">→ Completed: Revenue summary ready</div></div>
+                <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Customer Insights Agent</span><span style="margin-left:auto;font-size:10px;padding:1px 6px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Running</span></div><div class="ii-desc">Segment analysis and churn prediction model</div><div class="ii-foot blue">→ 83% confidence on churn signals</div></div>
+                <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot amber"></div><span class="ii-title">Forecast Agent</span><span style="margin-left:auto;font-size:10px;padding:1px 6px;border-radius:100px;background:var(--orange-light);color:var(--orange);font-weight:500">Processing</span></div><div class="ii-desc">Running Monte Carlo simulation for Q1 projections</div></div>
+                <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Report Generator</span><span style="margin-left:auto;font-size:10px;padding:1px 6px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Idle</span></div><div class="ii-desc">Waiting for next scheduled executive report</div></div>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-hdr"><h3>🧠 Swarm Intelligence</h3><span class="sb-badge" style="background:var(--purple);color:#fff;position:static;margin:0">MCP</span></div>
+              <div class="insights-scroll" style="padding:8px 14px 12px">
+                <div class="isect"><div class="isect-title">Agent Memory &amp; Context</div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">Shared Knowledge Base</span></div><div class="ii-desc">All agents share a unified RAG vector store with 2,400+ indexed business documents</div></div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">MCP Server Health</span></div><div class="ii-desc">Model Context Protocol server running — 12 tools registered, 0 errors</div></div>
+                </div>
+                <div class="isect"><div class="isect-title">Swarm Stats</div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Tasks Completed Today</span><span style="margin-left:auto;font-size:12px;font-weight:600">47</span></div></div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Avg Response Time</span><span style="margin-left:auto;font-size:12px;font-weight:600">1.2s</span></div></div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot amber"></div><span class="ii-title">Tokens Consumed Today</span><span style="margin-left:auto;font-size:12px;font-weight:600">84K</span></div></div>
+                  <div class="iitem" style="cursor:default"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Auto-Resolved Issues</span><span style="margin-left:auto;font-size:12px;font-weight:600">12</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div><!-- /scroll -->
     </main><!-- /main -->
   </div><!-- /app-inner -->
@@ -486,7 +521,8 @@ function setActiveSection(section) {
     revenue:['Revenue','Revenue analysis & forecast'],
     customers:['Customers','Customer metrics & growth'],
     insights:['Insights','AI-powered business insights'],
-    reports:['Reports','Custom reports & exports']
+    reports:['Reports','Custom reports & exports'],
+    agents:['Agents','RuFlo agent swarm orchestration']
   };
   document.getElementById('pageTitle').textContent = titles[section][0];
   document.getElementById('pageSub').textContent = titles[section][1];
