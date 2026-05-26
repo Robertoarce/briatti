@@ -7,730 +7,609 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <style>
-    /* ══════ THEMES ══════ */
-    [data-theme="midnight"] {
-      --bg: #0b0c16; --bg2: #101223; --card: #1a1d32;
-      --border: #282b47; --border2: #3a3d5c;
-      --accent: #4B5694; --accent-glow: rgba(75,86,148,0.15);
-      --text: #eeede5; --text2: #abacc0; --text3: #6e6f8a;
-      --green: #34d399; --red: #f87171; --amber: #fbbf24;
-      --cyan: #22d3ee; --pink: #f472b6; --purple: #a78bfa;
-      --teal: #2dd4bf; --rose: #fb7185; --orange: #fb923c;
-    }
-    [data-theme="ocean"] {
-      --bg: #0a0e1a; --bg2: #0d1525; --card: #111d33;
-      --border: #1a2d4a; --border2: #24405c;
-      --accent: #0ea5e9; --accent-glow: rgba(14,165,233,0.12);
-      --text: #e2f0ff; --text2: #94b8d4; --text3: #5a7d9e;
-      --green: #2dd4bf; --red: #fb7185; --amber: #fbbf24;
-      --cyan: #67e8f9; --pink: #f472b6; --purple: #818cf8;
-      --teal: #5eead4; --rose: #fda4af; --orange: #fb923c;
-    }
-    [data-theme="sunset"] {
-      --bg: #1a0c0a; --bg2: #24100d; --card: #331a14;
-      --border: #4a2820; --border2: #5c3830;
-      --accent: #f97316; --accent-glow: rgba(249,115,22,0.12);
-      --text: #ffede5; --text2: #d4a894; --text3: #9e6e54;
-      --green: #34d399; --red: #ef4444; --amber: #fbbf24;
-      --cyan: #fcd34d; --pink: #f472b6; --purple: #c084fc;
-      --teal: #2dd4bf; --rose: #fb7185; --orange: #f97316;
-    }
-    [data-theme="forest"] {
-      --bg: #0a140e; --bg2: #0d1a12; --card: #112618;
-      --border: #1a3a22; --border2: #244c30;
-      --accent: #10b981; --accent-glow: rgba(16,185,129,0.12);
-      --text: #e2f0e4; --text2: #94c4a0; --text3: #5a8e68;
-      --green: #34d399; --red: #fb7185; --amber: #fbbf24;
-      --cyan: #2dd4bf; --pink: #f472b6; --purple: #a78bfa;
-      --teal: #5eead4; --rose: #fda4af; --orange: #fb923c;
-    }
-    :root { --navy: #111844; --blue-grey: #7288AE; --cream: #EAE0CE; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow: hidden; height: 100vh;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a2e;
+      height: 100vh; overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1600px; margin: 0 auto; padding: 0 20px; }
 
-    /* ─── NAV ─── */
-    nav {
-      background: rgba(11,12,22,0.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      position: relative; z-index: 200;
+    /* ─── APP CONTAINER ─── */
+    .app {
+      width: 100%; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
     }
-    nav::after {
-      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), transparent);
-      opacity: 0.3;
-    }
-    nav .container {
-      display: flex; justify-content: space-between; align-items: center; height: 52px;
-    }
-    .logo { font-size: 17px; font-weight: 700; color: var(--cream); letter-spacing: -0.02em; text-decoration: none; }
-    .logo span.main { color: var(--accent); }
-    .nav-right { display: flex; align-items: center; gap: 14px; }
-    .nav-right .label { font-size: 11px; color: var(--text3); font-weight: 500; letter-spacing: 0.04em; }
-    .theme-switcher { display: flex; gap: 4px; }
-    .theme-btn {
-      width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border);
-      cursor: pointer; transition: all .2s;
-    }
-    .theme-btn:hover { transform: scale(1.2); border-color: var(--text); }
-    .theme-btn.active { border-color: var(--cream); box-shadow: 0 0 6px var(--accent-glow); }
-    .theme-btn.midnight { background: linear-gradient(135deg, #4B5694, #22d3ee); }
-    .theme-btn.ocean { background: linear-gradient(135deg, #0ea5e9, #67e8f9); }
-    .theme-btn.sunset { background: linear-gradient(135deg, #f97316, #fcd34d); }
-    .theme-btn.forest { background: linear-gradient(135deg, #10b981, #2dd4bf); }
-
-    /* ─── LAYOUT ─── */
-    .app-layout {
-      display: flex; height: calc(100vh - 52px);
+    .app-inner {
+      width: 100%; max-width: 1440px; height: 100%;
+      max-height: 900px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
+      display: flex; overflow: hidden;
     }
 
     /* ─── SIDEBAR ─── */
     .sidebar {
-      width: 210px; flex-shrink: 0;
-      background: var(--bg2); border-right: 1px solid var(--border);
-      padding: 16px 14px; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 4px;
+      width: 72px; flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid #f0f0f0;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 20px 0 16px;
     }
-    .sidebar-title {
-      font-size: 10px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.08em; color: var(--text3); margin-bottom: 8px;
-      padding-left: 4px;
+    .logo-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #1a1a2e; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 24px; flex-shrink: 0;
     }
-    .widget-toggle {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 10px; border-radius: 6px;
-      cursor: pointer; transition: all .2s;
-      border: none; background: transparent; color: var(--text2);
-      font-size: 12px; font-family: inherit; text-align: left; width: 100%;
+    .logo-btn svg { width: 18px; height: 18px; }
+    .nav-icons {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; flex: 1;
     }
-    .widget-toggle:hover { background: var(--card); color: var(--text); }
-    .widget-toggle .icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
-    .widget-toggle .name { flex: 1; }
-    .toggle-switch {
-      width: 28px; height: 16px; border-radius: 10px;
-      background: var(--border); position: relative; transition: all .3s; flex-shrink: 0;
+    .nav-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #9ca3af; transition: all .15s; cursor: pointer; position: relative;
     }
-    .toggle-switch.active { background: var(--accent); }
-    .toggle-switch::after {
-      content: ''; position: absolute; top: 2px; left: 2px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--text3); transition: all .3s;
+    .nav-icon:hover { background: #f5f5f5; color: #6b7280; }
+    .nav-icon.active {
+      background: #fef3e9; color: #f97316;
     }
-    .toggle-switch.active::after {
-      left: 14px; background: var(--cream);
+    .nav-icon svg { width: 20px; height: 20px; }
+    .nav-icon .tooltip {
+      position: absolute; left: 48px; top: 50%; transform: translateY(-50%);
+      background: #1a1a2e; color: #fff; padding: 4px 10px; border-radius: 6px;
+      font-size: 11px; font-weight: 500; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: all .15s;
     }
-    .sidebar-divider {
-      height: 1px; background: var(--border); margin: 8px 4px;
-    }
-    .sidebar-footer {
-      margin-top: auto; padding: 10px;
-      font-size: 10px; color: var(--text3); text-align: center;
-      border-top: 1px solid var(--border); padding-top: 12px;
-    }
-    .reset-btn {
-      background: none; border: 1px solid var(--border); color: var(--text3);
-      padding: 5px 10px; border-radius: 4px; font-size: 10px; font-family: inherit;
-      cursor: pointer; transition: all .2s; margin-top: 6px;
-    }
-    .reset-btn:hover { border-color: var(--red); color: var(--red); }
+    .nav-icon:hover .tooltip { opacity: 1; }
 
-    /* ─── MAIN PANEL (the product canvas) ─── */
-    .main-panel {
-      flex: 1; padding: 16px 20px; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 16px;
+    /* ─── MAIN CONTENT ─── */
+    .main {
+      flex: 1; padding: 28px 32px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 24px;
     }
-    .main-panel::-webkit-scrollbar { width: 4px; }
-    .main-panel::-webkit-scrollbar-track { background: transparent; }
-    .main-panel::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+    .main::-webkit-scrollbar { width: 4px; }
+    .main::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
 
-    .panel-header {
+    /* ─── TOP BAR ─── */
+    .top-bar {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 4px;
     }
-    .panel-header h1 {
-      font-size: 18px; font-weight: 600; color: var(--text);
-      letter-spacing: -0.01em;
+    .top-left h1 {
+      font-size: 30px; font-weight: 700; color: #111; letter-spacing: -0.03em;
     }
-    .panel-header .sub {
-      font-size: 12px; color: var(--text3);
+    .top-left .sub {
+      font-size: 13px; color: #9ca3af; margin-top: 2px; font-weight: 400;
     }
-    .panel-header .status {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 11px; color: var(--text3);
+    .top-actions {
+      display: flex; align-items: center; gap: 10px;
     }
-    .status-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    /* ─── WIDGETS ─── */
+    /* ─── DROPDOWN ─── */
+    .dropdown-wrap { position: relative; }
+    .dropdown-trigger {
+      display: flex; align-items: center; gap: 10px;
+      height: 44px; padding: 0 14px;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+      cursor: pointer; font-size: 13px; color: #374151; font-family: inherit;
+      min-width: 240px; transition: border-color .15s;
+      -webkit-appearance: none;
+    }
+    .dropdown-trigger:hover { border-color: #d1d5db; }
+    .dropdown-trigger .icon-left { color: #f97316; display: flex; }
+    .dropdown-trigger .label { flex: 1; text-align: left; font-weight: 500; }
+    .dropdown-trigger .chevron { color: #9ca3af; transition: transform .2s; }
+    .dropdown-trigger.open .chevron { transform: rotate(180deg); }
+
+    .filter-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: #f9fafb; border: 1px solid #f3f4f6;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #9ca3af; transition: all .15s;
+    }
+    .filter-btn:hover { background: #f3f4f6; color: #6b7280; }
+    .filter-btn svg { width: 18px; height: 18px; }
+
+    /* ─── DROPDOWN MENU ─── */
+    .dropdown-menu {
+      position: absolute; top: calc(100% + 6px); left: 0; width: 100%;
+      min-width: 280px;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #f3f4f6;
+      padding: 6px; z-index: 50;
+      display: none;
+    }
+    .dropdown-menu.open { display: block; animation: menuIn .15s ease; }
+    @keyframes menuIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .menu-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: 8px;
+      cursor: pointer; transition: all .12s;
+      font-size: 13px; color: #6b7280; font-family: inherit; font-weight: 500;
+      width: 100%; border: none; background: none; text-align: left;
+    }
+    .menu-item:hover { background: #f9fafb; color: #374151; }
+    .menu-item.active {
+      background: #fef3e9; color: #f97316;
+    }
+    .menu-item .mi-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .menu-item .mi-icon svg { width: 18px; height: 18px; }
+    .menu-item .mi-label { flex: 1; }
+    .menu-item .mi-check { opacity: 0; transition: opacity .15s; }
+    .menu-item.active .mi-check { opacity: 1; color: #f97316; }
+    .menu-divider { height: 1px; background: #f3f4f6; margin: 4px 8px; }
+
+    /* ─── CONTENT AREA ─── */
+    .content-area {
+      flex: 1; display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* ─── WIDGETS GRID ─── */
     .widgets-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 14px; flex: 1;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
     }
-    .widgets-grid.wide-layout {
-      grid-template-columns: 1.3fr 1fr;
-    }
+    .widgets-grid.single { grid-template-columns: 1fr; }
+    .widgets-grid.full { grid-template-columns: 1.4fr 1fr; }
+
     .widget {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden;
-      transition: all .3s;
-      animation: widgetIn .35s ease;
-    }
-    @keyframes widgetIn {
-      from { opacity: 0; transform: translateY(10px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      background: #fff; border: 1px solid #f3f4f6;
+      border-radius: 12px; overflow: hidden;
+      transition: all .2s; display: flex; flex-direction: column;
+      animation: widgetIn .25s ease;
     }
     .widget.hidden { display: none; }
-    .widget:hover { border-color: var(--border2); }
-    .widget-header {
+    @keyframes widgetIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .widget-hdr {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 16px; border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,0.01);
+      padding: 12px 16px; border-bottom: 1px solid #f3f4f6;
     }
-    .widget-header h3 {
-      font-size: 12px; font-weight: 600; color: var(--text2);
-      letter-spacing: 0.02em;
+    .widget-hdr h3 {
+      font-size: 12px; font-weight: 600; color: #6b7280;
+      text-transform: uppercase; letter-spacing: 0.04em;
     }
-    .widget-header .badge {
-      font-size: 9px; padding: 2px 8px; border-radius: 100px;
-      background: var(--accent-glow); color: var(--accent); font-weight: 500;
+    .widget-hdr .status-badge {
+      font-size: 11px; padding: 2px 10px; border-radius: 100px;
+      background: #f0fdf4; color: #16a34a; font-weight: 500;
     }
-    .widget-body { padding: 14px 16px; }
-    .widget-body.canvas-body { padding: 8px 12px 0; }
-    .widget-body.chat-body { padding: 0; display: flex; flex-direction: column; }
+    .widget-body { padding: 16px; flex: 1; }
+    .widget-body.chart-body { padding: 8px 12px 0; }
 
-    /* ─── KPI WIDGET ─── */
-    .kpi-strip {
-      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px;
+    /* ─── KPI STRIP ─── */
+    .kpi-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+    .kpi-cell {
+      padding: 14px; border-radius: 10px;
+      background: #fafafa; border: 1px solid #f3f4f6;
+      transition: all .15s;
     }
-    .kpi-item {
-      padding: 12px; border-radius: 8px;
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      transition: all .3s;
-    }
-    .kpi-item:hover { background: rgba(255,255,255,0.04); }
-    .kpi-item .label {
-      font-size: 10px; font-weight: 500; text-transform: uppercase;
-      letter-spacing: 0.05em; color: var(--text3); margin-bottom: 3px;
-    }
-    .kpi-item .value {
-      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
-    }
-    .kpi-item .value.rev { color: var(--cyan); }
-    .kpi-item .value.cust { color: var(--green); }
-    .kpi-item .value.aov { color: var(--amber); }
-    .kpi-item .value.churn { color: var(--red); }
-    .kpi-item .change {
-      font-size: 11px; font-weight: 500; margin-top: 2px;
-    }
-    .kpi-item .change.up { color: var(--green); }
-    .kpi-item .change.down { color: var(--red); }
+    .kpi-cell:hover { background: #f7f7f7; }
+    .kpi-cell .kl { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; margin-bottom: 4px; }
+    .kpi-cell .kv { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #111; }
+    .kpi-cell .kv.rev { color: #0ea5e9; }
+    .kpi-cell .kv.cust { color: #10b981; }
+    .kpi-cell .kv.aov { color: #f97316; }
+    .kpi-cell .kv.churn { color: #ef4444; }
+    .kpi-cell .kc { font-size: 11px; font-weight: 500; margin-top: 2px; }
+    .kpi-cell .kc.up { color: #10b981; }
+    .kpi-cell .kc.down { color: #ef4444; }
 
-    /* ─── CHART WIDGET ─── */
-    .widget chart-area { display: block; }
-    .widget canvas { width: 100% !important; max-height: 180px; }
-
-    /* ─── INSIGHTS WIDGET ─── */
+    /* ─── INSIGHT LIST ─── */
     .insight-list { display: flex; flex-direction: column; gap: 6px; }
     .insight-row {
-      display: flex; align-items: flex-start; gap: 8px;
-      padding: 8px 10px; border-radius: 6px;
-      background: rgba(255,255,255,0.01); border: 1px solid var(--border);
-      transition: all .2s;
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      background: #fafafa; border: 1px solid #f3f4f6;
     }
-    .insight-row:hover { background: rgba(255,255,255,0.03); }
     .insight-dot {
       width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
     }
-    .insight-dot.green { background: var(--green); }
-    .insight-dot.amber { background: var(--amber); }
-    .insight-dot.red { background: var(--red); }
-    .insight-row p { font-size: 12px; color: var(--text2); line-height: 1.5; }
-    .insight-row p strong { color: var(--text); }
+    .insight-dot.green { background: #10b981; }
+    .insight-dot.amber { background: #f97316; }
+    .insight-dot.red { background: #ef4444; }
+    .insight-row p { font-size: 12px; color: #6b7280; line-height: 1.5; }
+    .insight-row p strong { color: #111; font-weight: 600; }
 
-    /* ─── CHATBOT WIDGET ─── */
-    .chat-messages {
-      flex: 1; padding: 12px 16px; overflow-y: auto;
+    /* ─── CHATBOT ─── */
+    .chat-msgs {
+      flex: 1; padding: 8px 0; overflow-y: auto;
       display: flex; flex-direction: column; gap: 8px;
-      height: 200px;
+      max-height: 180px;
     }
-    .chat-messages::-webkit-scrollbar { width: 3px; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+    .chat-msgs::-webkit-scrollbar { width: 3px; }
+    .chat-msgs::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
     .msg {
-      max-width: 90%; padding: 8px 12px; border-radius: 8px;
+      max-width: 92%; padding: 8px 12px; border-radius: 8px;
       font-size: 12px; line-height: 1.5;
-      animation: fadeIn .3s ease;
+      animation: fadeIn .2s ease;
     }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    .msg.user { align-self: flex-end; background: var(--accent); color: var(--cream); }
-    .msg.bot {
-      align-self: flex-start; background: rgba(255,255,255,0.03);
-      color: var(--text); border: 1px solid var(--border);
-    }
+    .msg.user { align-self: flex-end; background: #f97316; color: #fff; }
+    .msg.bot { align-self: flex-start; background: #fafafa; color: #374151; border: 1px solid #f3f4f6; }
     .msg.bot .thinking { display: inline-block; animation: blink 1.2s steps(1) infinite; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .chat-input-area {
-      display: flex; gap: 6px; padding: 8px 12px;
-      border-top: 1px solid var(--border); background: var(--bg2);
+    .chat-in {
+      display: flex; gap: 6px; padding: 8px 0 0; border-top: 1px solid #f3f4f6; margin-top: 6px;
     }
-    .chat-input-area input {
-      flex: 1; padding: 7px 10px; border-radius: 5px;
-      background: var(--card); border: 1px solid var(--border);
-      color: var(--text); font-size: 12px; font-family: inherit; outline: none;
+    .chat-in input {
+      flex: 1; padding: 8px 12px; border-radius: 8px;
+      background: #fafafa; border: 1px solid #f3f4f6;
+      font-size: 12px; font-family: inherit; outline: none; color: #111;
     }
-    .chat-input-area input:focus { border-color: var(--accent); }
-    .chat-input-area input::placeholder { color: var(--text3); }
-    .chat-input-area button {
-      padding: 7px 12px; border-radius: 5px;
-      background: var(--accent); color: var(--cream);
-      border: none; font-size: 11px; font-weight: 600; cursor: pointer;
+    .chat-in input:focus { border-color: #f97316; }
+    .chat-in button {
+      padding: 8px 14px; border-radius: 8px;
+      background: #1a1a2e; color: #fff; border: none;
+      font-size: 11px; font-weight: 600; cursor: pointer;
     }
-    .chat-input-area button:hover { filter: brightness(1.15); }
-    .chat-suggestions {
-      display: flex; flex-wrap: wrap; gap: 4px; padding: 6px 12px 8px;
-    }
-    .chat-suggestions button {
-      padding: 3px 8px; border-radius: 100px;
-      background: var(--accent-glow); border: 1px solid var(--border);
-      color: var(--text2); font-size: 10px; font-family: inherit; cursor: pointer;
-    }
-    .chat-suggestions button:hover { border-color: var(--accent); color: var(--text); }
+    .chat-in button:hover { background: #2a2a3e; }
+
+    /* ─── CHART CANVAS ─── */
+    .widget canvas { width: 100% !important; max-height: 170px; }
 
     /* ─── EMPTY STATE ─── */
     .empty-state {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 40px; color: var(--text3); text-align: center;
-      border: 1px dashed var(--border); border-radius: 10px;
-      background: rgba(255,255,255,0.01);
+      padding: 60px; color: #9ca3af; text-align: center;
+      border: 1px dashed #e5e7eb; border-radius: 12px;
+      background: #fafafa;
     }
-    .empty-state .big-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.5; }
-    .empty-state h2 { font-size: 16px; color: var(--text2); margin-bottom: 6px; }
-    .empty-state p { font-size: 12px; max-width: 360px; line-height: 1.6; }
+    .empty-state .big-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
+    .empty-state h2 { font-size: 16px; color: #6b7280; margin-bottom: 6px; font-weight: 600; }
+    .empty-state p { font-size: 12px; max-width: 320px; line-height: 1.6; color: #9ca3af; }
 
-    @media (max-width: 820px) {
-      .sidebar { width: 160px; padding: 12px 10px; }
+    @media (max-width: 860px) {
+      .app { padding: 12px; }
+      .app-inner { max-height: none; border-radius: 12px; }
       .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .widgets-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
-      .sidebar { display: none; }
-      .panel-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .sidebar { width: 56px; padding: 16px 0; }
+      .nav-icon { width: 36px; height: 36px; }
+      .main { padding: 20px 16px; }
+      .top-left h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="container">
-    <a href="index.html" class="logo">Briatti <span class="main">Product</span></a>
-    <div class="nav-right">
-      <span class="label">Theme</span>
-      <div class="theme-switcher">
-        <div class="theme-btn midnight active" data-theme="midnight" onclick="switchTheme('midnight')"></div>
-        <div class="theme-btn ocean" data-theme="ocean" onclick="switchTheme('ocean')"></div>
-        <div class="theme-btn sunset" data-theme="sunset" onclick="switchTheme('sunset')"></div>
-        <div class="theme-btn forest" data-theme="forest" onclick="switchTheme('forest')"></div>
+<div class="app">
+  <div class="app-inner">
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <div class="sidebar">
+      <div class="logo-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/>
+        </svg>
       </div>
-    </div>
-  </div>
-</nav>
-
-<div class="app-layout">
-  <!-- ═══ SIDEBAR ═══ -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-title">Widgets</div>
-
-    <button class="widget-toggle" onclick="toggleWidget('kpi')" id="toggle-kpi">
-      <span class="icon">📊</span>
-      <span class="name">KPIs</span>
-      <div class="toggle-switch active" id="switch-kpi"></div>
-    </button>
-    <button class="widget-toggle" onclick="toggleWidget('revChart')" id="toggle-revChart">
-      <span class="icon">📈</span>
-      <span class="name">Revenue Chart</span>
-      <div class="toggle-switch active" id="switch-revChart"></div>
-    </button>
-    <button class="widget-toggle" onclick="toggleWidget('custChart')" id="toggle-custChart">
-      <span class="icon">📊</span>
-      <span class="name">Customer Chart</span>
-      <div class="toggle-switch active" id="switch-custChart"></div>
-    </button>
-    <button class="widget-toggle" onclick="toggleWidget('insights')" id="toggle-insights">
-      <span class="icon">💡</span>
-      <span class="name">Insights</span>
-      <div class="toggle-switch active" id="switch-insights"></div>
-    </button>
-    <button class="widget-toggle" onclick="toggleWidget('chatbot')" id="toggle-chatbot">
-      <span class="icon">🤖</span>
-      <span class="name">AI Assistant</span>
-      <div class="toggle-switch active" id="switch-chatbot"></div>
-    </button>
-
-    <div class="sidebar-footer">
-      <button class="reset-btn" onclick="resetWidgets()">Reset layout</button>
-    </div>
-  </div>
-
-  <!-- ═══ MAIN PANEL ═══ -->
-  <div class="main-panel" id="mainPanel">
-    <div class="panel-header">
-      <div>
-        <h1>Dashboard</h1>
-        <div class="sub">Your workspace • customize by toggling widgets in the sidebar</div>
-      </div>
-      <div class="status">
-        <span class="status-dot"></span> 5 widgets active
+      <div class="nav-icons">
+        <div class="nav-icon active" onclick="switchSidebar('dashboard')" title="Dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <span class="tooltip">Dashboard</span>
+        </div>
+        <div class="nav-icon" onclick="switchSidebar('chat')" title="AI Chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="tooltip">AI Chat</span>
+        </div>
+        <div class="nav-icon" onclick="switchSidebar('analytics')" title="Analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span class="tooltip">Analytics</span>
+        </div>
       </div>
     </div>
 
-    <div class="widgets-grid" id="widgetsGrid">
-
-      <!-- KPI Widget -->
-      <div class="widget" data-widget="kpi">
-        <div class="widget-header">
-          <h3>Key Metrics</h3>
-          <span class="badge">Live</span>
+    <!-- ═══ MAIN ═══ -->
+    <div class="main">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="top-left">
+          <h1>Dashboard</h1>
+          <div class="sub">Your workspace — pick the services you need</div>
         </div>
-        <div class="widget-body">
-          <div class="kpi-strip">
-            <div class="kpi-item">
-              <div class="label">Revenue (MTD)</div>
-              <div class="value rev">€284,650</div>
-              <div class="change up">↑ 12.3%</div>
+        <div class="top-actions">
+          <div class="dropdown-wrap" id="serviceDropdown">
+            <div class="dropdown-trigger" onclick="toggleMenu()">
+              <span class="icon-left">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span class="label" id="dropdownLabel">All services</span>
+              <span class="chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
             </div>
-            <div class="kpi-item">
-              <div class="label">Active Customers</div>
-              <div class="value cust">1,847</div>
-              <div class="change up">↑ 8.1%</div>
+
+            <div class="dropdown-menu" id="menu">
+              <button class="menu-item active" data-service="kpi" onclick="selectService(this,'kpi')">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
+                <span class="mi-label">KPIs & Metrics</span>
+                <span class="mi-check">✓</span>
+              </button>
+              <button class="menu-item active" data-service="revChart" onclick="selectService(this,'revChart')">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+                <span class="mi-label">Revenue & Forecast</span>
+                <span class="mi-check">✓</span>
+              </button>
+              <button class="menu-item active" data-service="custChart" onclick="selectService(this,'custChart')">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+                <span class="mi-label">Customer Growth</span>
+                <span class="mi-check">✓</span>
+              </button>
+              <button class="menu-item active" data-service="insights" onclick="selectService(this,'insights')">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+                <span class="mi-label">Key Insights</span>
+                <span class="mi-check">✓</span>
+              </button>
+              <button class="menu-item active" data-service="chatbot" onclick="selectService(this,'chatbot')">
+                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+                <span class="mi-label">AI Chat Assistant</span>
+                <span class="mi-check">✓</span>
+              </button>
             </div>
-            <div class="kpi-item">
-              <div class="label">Avg. Order Value</div>
-              <div class="value aov">€154</div>
-              <div class="change up">↑ 3.4%</div>
-            </div>
-            <div class="kpi-item">
-              <div class="label">Churn Rate</div>
-              <div class="value churn">4.2%</div>
-              <div class="change down">↓ 0.8%</div>
-            </div>
+          </div>
+          <div class="filter-btn" onclick="toggleMenu()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
           </div>
         </div>
       </div>
 
-      <!-- Revenue Chart Widget -->
-      <div class="widget" data-widget="revChart">
-        <div class="widget-header">
-          <h3>Revenue & Forecast</h3>
-          <span class="badge">6mo + forecast</span>
-        </div>
-        <div class="widget-body canvas-body">
-          <canvas id="revenueChart"></canvas>
-        </div>
-      </div>
+      <!-- ═══ CONTENT ═══ -->
+      <div class="content-area">
+        <div class="widgets-grid" id="widgetsGrid">
 
-      <!-- Customer Chart Widget -->
-      <div class="widget" data-widget="custChart">
-        <div class="widget-header">
-          <h3>Customer Growth</h3>
-          <span class="badge">Monthly</span>
-        </div>
-        <div class="widget-body canvas-body">
-          <canvas id="customerChart"></canvas>
-        </div>
-      </div>
-
-      <!-- Insights Widget -->
-      <div class="widget" data-widget="insights">
-        <div class="widget-header">
-          <h3>Key Insights</h3>
-          <span class="badge">AI-generated</span>
-        </div>
-        <div class="widget-body">
-          <div class="insight-list">
-            <div class="insight-row">
-              <div class="insight-dot green"></div>
-              <p><strong>Revenue acceleration</strong> — Nov projected €310K+ (highest this year). Enterprise tier launch driving growth.</p>
+          <!-- KPI Widget -->
+          <div class="widget" data-widget="kpi">
+            <div class="widget-hdr">
+              <h3>Key Metrics</h3>
+              <span class="status-badge">● Live</span>
             </div>
-            <div class="insight-row">
-              <div class="insight-dot green"></div>
-              <p><strong>Churn improving</strong> — Dropped from 5.0% to 4.2% after Q3 retention. ~€48K/yr recovered revenue.</p>
-            </div>
-            <div class="insight-row">
-              <div class="insight-dot amber"></div>
-              <p><strong>AOV near ceiling</strong> — €154 approaching €160 limit. Premium tier could unlock 15-20% upside.</p>
-            </div>
-            <div class="insight-row">
-              <div class="insight-dot red"></div>
-              <p><strong>CAC rising</strong> — Up 14% over 2 months. Social ads underperforming — consider reallocation.</p>
+            <div class="widget-body">
+              <div class="kpi-strip">
+                <div class="kpi-cell"><div class="kl">Revenue (MTD)</div><div class="kv rev">€284,650</div><div class="kc up">↑ 12.3%</div></div>
+                <div class="kpi-cell"><div class="kl">Active Customers</div><div class="kv cust">1,847</div><div class="kc up">↑ 8.1%</div></div>
+                <div class="kpi-cell"><div class="kl">Avg. Order Value</div><div class="kv aov">€154</div><div class="kc up">↑ 3.4%</div></div>
+                <div class="kpi-cell"><div class="kl">Churn Rate</div><div class="kv churn">4.2%</div><div class="kc down">↓ 0.8%</div></div>
+              </div>
             </div>
           </div>
+
+          <!-- Revenue Chart -->
+          <div class="widget" data-widget="revChart">
+            <div class="widget-hdr">
+              <h3>Revenue & Forecast</h3>
+              <span class="status-badge">6mo + forecast</span>
+            </div>
+            <div class="widget-body chart-body">
+              <canvas id="revChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Customer Chart -->
+          <div class="widget" data-widget="custChart">
+            <div class="widget-hdr">
+              <h3>Customer Growth</h3>
+              <span class="status-badge">Monthly</span>
+            </div>
+            <div class="widget-body chart-body">
+              <canvas id="custChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Insights -->
+          <div class="widget" data-widget="insights">
+            <div class="widget-hdr">
+              <h3>Key Insights</h3>
+              <span class="status-badge">AI-generated</span>
+            </div>
+            <div class="widget-body">
+              <div class="insight-list">
+                <div class="insight-row"><div class="insight-dot green"></div><p><strong>Revenue acceleration</strong> — Nov projected €310K+ (highest). Enterprise tier driving growth.</p></div>
+                <div class="insight-row"><div class="insight-dot green"></div><p><strong>Churn improving</strong> — 5.0% → 4.2% after Q3 retention. ~€48K/yr recovered.</p></div>
+                <div class="insight-row"><div class="insight-dot amber"></div><p><strong>AOV near ceiling</strong> — €154 approaching limit. Premium tier could unlock 15-20%.</p></div>
+                <div class="insight-row"><div class="insight-dot red"></div><p><strong>CAC rising</strong> — Up 14% over 2 months. Consider reallocating ad spend.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chatbot -->
+          <div class="widget" data-widget="chatbot">
+            <div class="widget-hdr">
+              <h3>AI Business Assistant</h3>
+              <span class="status-badge">Online</span>
+            </div>
+            <div class="widget-body">
+              <div class="chat-msgs" id="chatMsgs">
+                <div class="msg bot">👋 Ask me about your data — revenue, churn, forecasts, or recommendations.</div>
+              </div>
+              <div class="chat-in">
+                <input type="text" id="chatInput" placeholder="Ask about your business..." onkeydown="if(event.key==='Enter')sendChat()">
+                <button onclick="sendChat()">Send</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty -->
+          <div class="empty-state hidden" id="emptyState">
+            <div class="big-icon">✦</div>
+            <h2>No services selected</h2>
+            <p>Use the dropdown above to pick the services you want to see. Add KPIs, charts, insights, or the AI assistant.</p>
+          </div>
+
         </div>
       </div>
-
-      <!-- Chatbot Widget -->
-      <div class="widget" data-widget="chatbot">
-        <div class="widget-header">
-          <h3>AI Business Analyst</h3>
-          <span class="badge">Online</span>
-        </div>
-        <div class="widget-body chat-body">
-          <div class="chat-messages" id="chatMessages">
-            <div class="msg bot">👋 Ask me about your data — revenue, churn, forecasts, or what to focus on next.</div>
-          </div>
-          <div class="chat-suggestions">
-            <button onclick="askBot('How is revenue trending?')">Revenue trend</button>
-            <button onclick="askBot('What is our biggest risk?')">Biggest risk</button>
-            <button onclick="askBot('What actions do you recommend?')">Recommendations</button>
-            <button onclick="askBot('Forecast for next quarter?')">Forecast</button>
-          </div>
-          <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Ask about your data..." onkeydown="if(event.key==='Enter')sendChat()">
-            <button onclick="sendChat()">Ask</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Empty state (hidden when widgets are present) -->
-      <div class="empty-state hidden" id="emptyState">
-        <div class="big-icon">📦</div>
-        <h2>No widgets visible</h2>
-        <p>Open the sidebar and toggle on the widgets you'd like to see. Build your perfect dashboard.</p>
-      </div>
-
     </div>
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════
-// DEMO DATA
+// SERVICE DROPDOWN
 // ═══════════════════════════════════════
-const demoData = {
-  revenue: [210, 228, 245, 262, 285],
-  customers: [1420, 1520, 1620, 1710, 1847],
-};
+const SERVICES = ['kpi','revChart','custChart','insights','chatbot'];
+let activeCount = SERVICES.length;
 
-// ═══════════════════════════════════════
-// THEME SWITCHER
-// ═══════════════════════════════════════
-function getCSS(v) {
-  return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('open');
+  document.querySelector('.dropdown-trigger').classList.toggle('open');
 }
 
-function switchTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
-  localStorage.setItem('briatti-theme', theme);
-  if (window.revenueChart) rebuildCharts();
-}
+// Close menu on outside click
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('serviceDropdown');
+  if (!wrap.contains(e.target)) {
+    document.getElementById('menu').classList.remove('open');
+    document.querySelector('.dropdown-trigger').classList.remove('open');
+  }
+});
 
-// ═══════════════════════════════════════
-// WIDGET SYSTEM
-// ═══════════════════════════════════════
-const WIDGETS = ['kpi', 'revChart', 'custChart', 'insights', 'chatbot'];
-
-function getActiveWidgets() {
-  try { return JSON.parse(localStorage.getItem('briatti-widgets')); } catch { return null; }
-}
-
-function saveWidgets(state) {
-  localStorage.setItem('briatti-widgets', JSON.stringify(state));
-}
-
-function toggleWidget(id) {
-  const widget = document.querySelector(`[data-widget="${id}"]`);
-  const toggle = document.getElementById(`switch-${id}`);
+function selectService(btn, service) {
+  btn.classList.toggle('active');
+  const widget = document.querySelector(`[data-widget="${service}"]`);
   if (!widget) return;
-  const isHidden = widget.classList.toggle('hidden');
-  toggle.classList.toggle('active', !isHidden);
-  // Save state
-  const state = {};
-  WIDGETS.forEach(w => {
-    const el = document.querySelector(`[data-widget="${w}"]`);
-    state[w] = !el.classList.contains('hidden');
-  });
-  saveWidgets(state);
+  const isActive = btn.classList.contains('active');
+  widget.classList.toggle('hidden', !isActive);
+  updateLabel();
   updateEmptyState();
-  updateWidgetCount();
-  // Rebuild charts if showing chart widget
-  if (id === 'revChart' || id === 'custChart') {
-    if (!isHidden && window.revenueChart) setTimeout(rebuildCharts, 50);
+  if ((service === 'revChart' || service === 'custChart') && isActive) {
+    setTimeout(rebuildCharts, 50);
   }
 }
 
+function updateLabel() {
+  const count = SERVICES.filter(s => document.querySelector(`[data-widget="${s}"]`) && !document.querySelector(`[data-widget="${s}"]`).classList.contains('hidden')).length;
+  const label = document.getElementById('dropdownLabel');
+  label.textContent = count === 0 ? 'No services' : count === SERVICES.length ? 'All services' : `${count} service${count > 1 ? 's' : ''}`;
+  activeCount = count;
+}
+
 function updateEmptyState() {
-  const visible = WIDGETS.some(w => !document.querySelector(`[data-widget="${w}"]`).classList.contains('hidden'));
+  const visible = SERVICES.some(s => !document.querySelector(`[data-widget="${s}"]`).classList.contains('hidden'));
   document.getElementById('emptyState').classList.toggle('hidden', visible);
 }
 
-function updateWidgetCount() {
-  const visible = WIDGETS.filter(w => !document.querySelector(`[data-widget="${w}"]`).classList.contains('hidden')).length;
-  document.querySelector('.status').innerHTML = `<span class="status-dot"></span> ${visible} widget${visible !== 1 ? 's' : ''} active`;
-}
-
-function resetWidgets() {
-  WIDGETS.forEach(id => {
-    document.querySelector(`[data-widget="${id}"]`).classList.remove('hidden');
-    document.getElementById(`switch-${id}`).classList.add('active');
-  });
-  const all = {};
-  WIDGETS.forEach(w => all[w] = true);
-  saveWidgets(all);
-  updateEmptyState();
-  updateWidgetCount();
-  setTimeout(rebuildCharts, 50);
-}
-
 // ═══════════════════════════════════════
-// CHARTS (theme-aware)
+// CHARTS
 // ═══════════════════════════════════════
-let revenueChart, customerChart;
+const demoData = { revenue: [210,228,245,262,285], customers: [1420,1520,1620,1710,1847] };
+let revChart, custChart;
 
 function rebuildCharts() {
-  if (revenueChart) { revenueChart.destroy(); revenueChart = null; }
-  if (customerChart) { customerChart.destroy(); customerChart = null; }
-
-  const revCard = document.querySelector('[data-widget="revChart"]');
-  const custCard = document.querySelector('[data-widget="custChart"]');
-  if (revCard && !revCard.classList.contains('hidden')) drawRevenueChart();
-  if (custCard && !custCard.classList.contains('hidden')) drawCustomerChart();
+  if (revChart) { revChart.destroy(); revChart = null; }
+  if (custChart) { custChart.destroy(); custChart = null; }
+  const revW = document.querySelector('[data-widget="revChart"]');
+  const custW = document.querySelector('[data-widget="custChart"]');
+  if (revW && !revW.classList.contains('hidden')) drawRev();
+  if (custW && !custW.classList.contains('hidden')) drawCust();
 }
 
-function drawRevenueChart() {
-  const ctx = document.getElementById('revenueChart');
-  if (!ctx) return;
-  const lineColor = getCSS('--cyan') || '#22d3ee';
-  const forecastColor = getCSS('--purple') || '#a78bfa';
-  revenueChart = new Chart(ctx, {
+function drawRev() {
+  const ctx = document.getElementById('revChart'); if (!ctx) return;
+  revChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
       datasets: [
-        { label: 'Actual', data: [210,228,245,262,285,null,null,null], borderColor: lineColor,
-          backgroundColor: lineColor+'18', fill: true, tension: 0.3, pointBackgroundColor: lineColor, pointRadius: 3 },
-        { label: 'Forecast', data: [null,null,null,null,285,312,330,348], borderColor: forecastColor,
-          borderDash: [4,4], backgroundColor: forecastColor+'0C', fill: false, tension: 0.3,
-          pointBackgroundColor: forecastColor, pointRadius: 3, pointStyle: 'circle' }
+        { label: 'Actual', data: [210,228,245,262,285,null,null,null],
+          borderColor: '#0ea5e9', backgroundColor: '#0ea5e910', fill: true,
+          tension: 0.3, pointBackgroundColor: '#0ea5e9', pointRadius: 3 },
+        { label: 'Forecast', data: [null,null,null,null,285,312,330,348],
+          borderColor: '#a78bfa', borderDash: [4,4], backgroundColor: '#a78bfa0A',
+          fill: false, tension: 0.3, pointBackgroundColor: '#a78bfa', pointRadius: 3 }
       ]
     },
     options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: getCSS('--text3')||'#6e6f8a', font: {size:10,family:'Inter'} } },
-        tooltip: { callbacks: { label: ctx => ctx.parsed.y!==null ? `€${ctx.parsed.y}K` : '' } } },
-      scales: { x: { ticks: {color:getCSS('--text3')||'#6e6f8a',font:{size:9}}, grid:{display:false} },
-        y: { ticks: {color:getCSS('--text3')||'#6e6f8a',font:{size:9}, callback:v=>`€${v}K`},
-          grid:{color:'rgba(40,43,71,0.3)'}, beginAtZero:false } }
+      plugins: { legend: { labels: { color:'#9ca3af', font:{size:10,family:'Inter'} } },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y ? `€${ctx.parsed.y}K` : '' } } },
+      scales: { x: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{display:false} },
+        y: { ticks: {color:'#9ca3af',font:{size:9}, callback:v=>`€${v}K`},
+          grid:{color:'#f3f4f6'}, beginAtZero:false } }
     }
   });
 }
 
-function drawCustomerChart() {
-  const ctx = document.getElementById('customerChart');
-  if (!ctx) return;
-  const accent = getCSS('--accent')||'#4B5694';
-  const c = getCSS('--cyan')||'#22d3ee', p = getCSS('--purple')||'#a78bfa', a = getCSS('--amber')||'#fbbf24', g = getCSS('--green')||'#34d399';
-  customerChart = new Chart(ctx, {
+function drawCust() {
+  const ctx = document.getElementById('custChart'); if (!ctx) return;
+  custChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ['Jun','Jul','Aug','Sep','Oct'],
       datasets: [{
         label: 'Customers', data: demoData.customers,
-        backgroundColor: [accent+'99', c+'66', p+'73', a+'66', g+'80'],
-        borderColor: [accent, c, p, a, g], borderWidth: 1, borderRadius: 3
+        backgroundColor: ['#0ea5e980','#10b98166','#a78bfa73','#f9731666','#fbbf2480'],
+        borderColor: ['#0ea5e9','#10b981','#a78bfa','#f97316','#fbbf24'],
+        borderWidth: 1, borderRadius: 3
       }]
     },
     options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: {color:getCSS('--text3')||'#6e6f8a',font:{size:10,family:'Inter'}} } },
-      scales: { x: { ticks: {color:getCSS('--text3')||'#6e6f8a',font:{size:9}}, grid:{display:false} },
-        y: { ticks: {color:getCSS('--text3')||'#6e6f8a',font:{size:9}}, grid:{color:'rgba(40,43,71,0.3)'}, beginAtZero:true } }
+      plugins: { legend: { labels: {color:'#9ca3af',font:{size:10,family:'Inter'}} } },
+      scales: { x: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{display:false} },
+        y: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{color:'#f3f4f6'}, beginAtZero:true } }
     }
   });
 }
 
 // ═══════════════════════════════════════
-// CHATBOT (semantic knowledge engine)
+// AI CHAT
 // ═══════════════════════════════════════
-const knowledgeBase = {
-  revenue: `Revenue is growing strong at **€285K** this month, up 12.3% MoM. November forecast is **€312K** — the highest this year. The enterprise tier is the main driver.`,
-  forecast: `3-month forecast: **€312K** (Nov), **€330K** (Dec), **€348K** (Jan). That's **22% growth** over the next 3 months.`,
-  churn: `Churn is **4.2%** — our best rate this year, down from 5.0% in June. The Q3 retention campaign is working. Saving ~€4K/month in recovered revenue.`,
-  customers: `**1,847 active customers**, up 8.1% MoM. That's **138 net new** this period. Up from 1,420 in June.`,
-  aov: `AOV is **€154**, up 3.4% MoM (108% of €142 target). Approaching the €160 ceiling — a premium tier at €249/mo could unlock more.`,
-  cac: `CAC has risen **14% over 2 months**. Social ads are the main culprit. I recommend reallocating to content/SEO.`,
-  risk: `Biggest risk: **rising CAC** (+14%). Second: AOV hitting its ceiling at €160. Need new product tiers.`,
-  action: `Top 3: 1) **Premium tier** (€249/mo) 2) **Retention early-warnings** 3) **Fix CAC** — pause poor social ads, double down on content.`,
-  growth: `Revenue +12.3%, Customers +8.1%, AOV +3.4%, Churn improving (4.2%). Only negative: CAC +14%.`,
-  next: `Focus: 1) Premium tier launch 2) CAC optimization 3) Churn early-warnings 4) Inventory for €312K November.`,
+const KB = {
+  revenue: 'Revenue is growing strong at **€285K** this month, up 12.3% MoM. November forecast is **€312K** — the highest this year.',
+  forecast: '3-month forecast: **€312K** (Nov), **€330K** (Dec), **€348K** (Jan). **22% growth** over next 3 months.',
+  churn: 'Churn is **4.2%** — best rate this year, down from 5.0%. Saving ~€4K/month in recovered revenue.',
+  customers: '**1,847 active customers**, up 8.1% MoM. **138 net new** this period.',
+  aov: 'AOV is **€154**, up 3.4% MoM (108% of target). Ceiling at ~€160.',
+  risk: 'Biggest risk: **rising CAC** (+14%). Second: AOV at ceiling (€160).',
+  action: 'Top 3: 1) Premium tier (€249/mo) 2) Retention early-warnings 3) Fix CAC.',
 };
-
-function askBot(q) { document.getElementById('chatInput').value = q; sendChat(); }
-
 function sendChat() {
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg) return;
-  input.value = '';
-  const msgs = document.getElementById('chatMessages');
-
-  const u = document.createElement('div');
-  u.className = 'msg user'; u.textContent = msg; msgs.appendChild(u);
-  msgs.scrollTop = msgs.scrollHeight;
-
-  const t = document.createElement('div');
-  t.className = 'msg bot'; t.innerHTML = '<span class="thinking">● ● ●</span> thinking...';
-  msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
-
+  const i = document.getElementById('chatInput');
+  const msg = i.value.trim(); if (!msg) return; i.value = '';
+  const m = document.getElementById('chatMsgs');
+  const u = document.createElement('div'); u.className='msg user'; u.textContent=msg; m.appendChild(u);
+  m.scrollTop = m.scrollHeight;
+  const t = document.createElement('div'); t.className='msg bot'; t.innerHTML='<span class="thinking">● ● ●</span> thinking...';
+  m.appendChild(t); m.scrollTop = m.scrollHeight;
   setTimeout(() => {
     const q = msg.toLowerCase();
-    let ans;
-    if (/\b(revenue|income|sales)\b/.test(q)) ans = knowledgeBase.revenue;
-    else if (/\b(forecast|predict|project|future|outlook)\b/.test(q)) ans = knowledgeBase.forecast;
-    else if (/\b(churn|attrition|retention|leaving)\b/.test(q)) ans = knowledgeBase.churn;
-    else if (/\b(customer|users|clients)\b/.test(q)) ans = knowledgeBase.customers;
-    else if (/\b(aov|average order|order value)\b/.test(q)) ans = knowledgeBase.aov;
-    else if (/\b(cac|acquisition cost)\b/.test(q)) ans = knowledgeBase.cac;
-    else if (/\b(risk|problem|concern|issue|threat)\b/.test(q)) ans = knowledgeBase.risk;
-    else if (/\b(action|recommend|should I|suggest|advice)\b/.test(q)) ans = knowledgeBase.action;
-    else if (/\b(growth|health|summary|status|overall)\b/.test(q)) ans = knowledgeBase.growth;
-    else if (/\b(next|focus|priority|plan|roadmap)\b/.test(q)) ans = knowledgeBase.next;
-    else if (/\b(hi|hello|hey)\b/.test(q)) ans = "👋 I'm the Briatti AI Analyst. Ask me about revenue, churn, forecasts, risks, or what to focus on.";
-    else ans = "I can help with: **revenue**, **churn**, **forecasts**, **AOV**, **CAC**, **risks**, and **recommendations**. Try any of those!";
-    t.innerHTML = ans;
-    msgs.scrollTop = msgs.scrollHeight;
-  }, 400 + Math.random() * 400);
+    let a;
+    if (/\b(revenue|income|sales)\b/.test(q)) a = KB.revenue;
+    else if (/\b(forecast|predict|future|outlook)\b/.test(q)) a = KB.forecast;
+    else if (/\b(churn|attrition|retention|leaving)\b/.test(q)) a = KB.churn;
+    else if (/\b(customer|users|clients)\b/.test(q)) a = KB.customers;
+    else if (/\b(aov|average order|order value)\b/.test(q)) a = KB.aov;
+    else if (/\b(risk|problem|concern|issue)\b/.test(q)) a = KB.risk;
+    else if (/\b(action|recommend|should|advice)\b/.test(q)) a = KB.action;
+    else if (/\b(hi|hello|hey)\b/.test(q)) a = "👋 Ask me about revenue, churn, forecasts, AOV, CAC, risks, or recommendations.";
+    else a = "I can help with: **revenue**, **churn**, **forecasts**, **AOV**, **CAC**, **risks**.";
+    t.innerHTML = a; m.scrollTop = m.scrollHeight;
+  }, 400);
+}
+
+// ═══════════════════════════════════════
+// SIDEBAR NAV
+// ═══════════════════════════════════════
+function switchSidebar(view) {
+  document.querySelectorAll('.nav-icon').forEach(ic => ic.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  // Update title based on view
+  const titles = { dashboard: 'Dashboard', chat: 'AI Chat', analytics: 'Analytics' };
+  document.querySelector('.top-left h1').textContent = titles[view] || 'Dashboard';
 }
 
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
-// Load saved theme
-const savedTheme = localStorage.getItem('briatti-theme') || 'midnight';
-switchTheme(savedTheme);
-
-// Load saved widget state
-const savedState = getActiveWidgets();
-if (savedState) {
-  WIDGETS.forEach(id => {
-    const on = savedState[id];
-    if (on === false) {
-      document.querySelector(`[data-widget="${id}"]`).classList.add('hidden');
-      document.getElementById(`switch-${id}`).classList.remove('active');
-    }
-  });
-}
+updateLabel();
 updateEmptyState();
-updateWidgetCount();
-
-// Build charts
-setTimeout(rebuildCharts, 100);
+setTimeout(rebuildCharts, 150);
 </script>
 </body>
 </html>
