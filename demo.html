@@ -11,22 +11,15 @@
     body {
       font-family: 'Inter', -apple-system, system-ui, sans-serif;
       background: #f5f5f5;
-      color: #1a1a2e;
+      color: #111;
       height: 100vh; overflow: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── APP CONTAINER ─── */
-    .app {
-      width: 100%; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-    }
+    .app { width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
     .app-inner {
-      width: 100%; max-width: 1440px; height: 100%;
-      max-height: 900px;
-      background: #fff;
-      border-radius: 16px;
+      width: 100%; max-width: 1440px; height: 100%; max-height: 900px;
+      background: #fff; border-radius: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
       display: flex; overflow: hidden;
     }
@@ -34,177 +27,114 @@
     /* ─── SIDEBAR ─── */
     .sidebar {
       width: 72px; flex-shrink: 0;
-      background: #fff;
-      border-right: 1px solid #f0f0f0;
+      background: #fff; border-right: 1px solid #f0f0f0;
       display: flex; flex-direction: column; align-items: center;
       padding: 20px 0 16px;
     }
     .logo-btn {
       width: 36px; height: 36px; border-radius: 8px;
       background: #1a1a2e; display: flex; align-items: center;
-      justify-content: center; margin-bottom: 24px; flex-shrink: 0;
+      justify-content: center; margin-bottom: 20px; flex-shrink: 0;
     }
     .logo-btn svg { width: 18px; height: 18px; }
-    .nav-icons {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 4px; flex: 1;
-    }
+    .nav-icons { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
     .nav-icon {
       width: 40px; height: 40px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       color: #9ca3af; transition: all .15s; cursor: pointer; position: relative;
     }
     .nav-icon:hover { background: #f5f5f5; color: #6b7280; }
-    .nav-icon.active {
-      background: #fef3e9; color: #f97316;
-    }
+    .nav-icon.active { background: #fef3e9; color: #f97316; }
     .nav-icon svg { width: 20px; height: 20px; }
     .nav-icon .tooltip {
       position: absolute; left: 48px; top: 50%; transform: translateY(-50%);
       background: #1a1a2e; color: #fff; padding: 4px 10px; border-radius: 6px;
       font-size: 11px; font-weight: 500; white-space: nowrap;
-      opacity: 0; pointer-events: none; transition: all .15s;
+      opacity: 0; pointer-events: none; transition: all .15s; z-index: 10;
     }
     .nav-icon:hover .tooltip { opacity: 1; }
 
-    /* ─── MAIN CONTENT ─── */
-    .main {
-      flex: 1; padding: 28px 32px; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 24px;
-    }
+    /* ─── MAIN ─── */
+    .main { flex: 1; padding: 28px 32px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
     .main::-webkit-scrollbar { width: 4px; }
     .main::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
 
     /* ─── TOP BAR ─── */
-    .top-bar {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .top-left h1 {
-      font-size: 30px; font-weight: 700; color: #111; letter-spacing: -0.03em;
-    }
-    .top-left .sub {
-      font-size: 13px; color: #9ca3af; margin-top: 2px; font-weight: 400;
-    }
-    .top-actions {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .top-bar { display: flex; align-items: center; justify-content: space-between; }
+    .top-left h1 { font-size: 28px; font-weight: 700; color: #111; letter-spacing: -0.03em; }
+    .top-left .sub { font-size: 13px; color: #9ca3af; margin-top: 2px; }
 
-    /* ─── DROPDOWN ─── */
-    .dropdown-wrap { position: relative; }
-    .dropdown-trigger {
-      display: flex; align-items: center; gap: 10px;
-      height: 44px; padding: 0 14px;
-      background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
-      cursor: pointer; font-size: 13px; color: #374151; font-family: inherit;
-      min-width: 240px; transition: border-color .15s;
-      -webkit-appearance: none;
+    /* ─── CARDS GRID ─── */
+    .cards-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+    .metric-card {
+      background: #fff; border: 1px solid #f0f0f0;
+      border-radius: 10px; padding: 20px;
+      transition: all .2s; opacity: 0; animation: cardFade .5s ease forwards;
     }
-    .dropdown-trigger:hover { border-color: #d1d5db; }
-    .dropdown-trigger .label { flex: 1; text-align: left; font-weight: 500; }
-    .dropdown-trigger .chevron { color: #9ca3af; transition: transform .2s; }
-    .dropdown-trigger.open .chevron { transform: rotate(180deg); }
+    .metric-card:nth-child(1) { animation-delay: 0.05s; }
+    .metric-card:nth-child(2) { animation-delay: 0.10s; }
+    .metric-card:nth-child(3) { animation-delay: 0.15s; }
+    .metric-card:nth-child(4) { animation-delay: 0.20s; }
+    .metric-card:hover { border-color: #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    @keyframes cardFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    .dropdown-menu {
-      position: absolute; top: calc(100% + 6px); left: 0; width: 100%;
-      min-width: 280px;
-      background: #fff; border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #f3f4f6;
-      padding: 6px; z-index: 50;
-      display: none;
-    }
-    .dropdown-menu.open { display: block; animation: menuIn .15s ease; }
-    @keyframes menuIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .mc-label { font-size: 11px; font-weight: 500; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+    .mc-value { font-size: 26px; font-weight: 700; color: #111; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .mc-change { font-size: 12px; font-weight: 500; margin-bottom: 12px; }
+    .mc-change.up { color: #10b981; }
+    .mc-change.down { color: #ef4444; }
 
-    .menu-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 12px; border-radius: 8px;
-      cursor: pointer; transition: all .12s;
-      font-size: 13px; color: #6b7280; font-family: inherit; font-weight: 500;
-      width: 100%; border: none; background: none; text-align: left;
+    /* ─── MINI BAR CHARTS ─── */
+    .mini-bars {
+      display: flex; align-items: flex-end; gap: 3px; height: 36px;
     }
-    .menu-item:hover { background: #f9fafb; color: #374151; }
-    .menu-item.active {
-      background: #fef3e9; color: #f97316;
+    .mini-bar {
+      width: 8px; border-radius: 0;
+      background: #e5e7eb; transform-origin: bottom;
+      transform: scaleY(0); transition: none;
+      animation: barGrow .5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-    .menu-item .mi-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .menu-item .mi-icon svg { width: 18px; height: 18px; }
-    .menu-item .mi-label { flex: 1; }
-    .menu-item .mi-check { opacity: 0; transition: opacity .15s; }
-    .menu-item.active .mi-check { opacity: 1; color: #f97316; }
-    .menu-divider { height: 1px; background: #f3f4f6; margin: 4px 8px; }
-
-    /* ─── FILTER BAR ─── */
-    .filter-bar {
-      display: flex; align-items: center; gap: 4px;
-      padding-bottom: 4px; overflow-x: auto;
-    }
-    .filter-bar::-webkit-scrollbar { height: 0; }
-    .filter-pill {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border-radius: 8px;
-      background: #f9fafb; border: 1px solid #f3f4f6;
-      color: #9ca3af; font-size: 12px; font-weight: 500; font-family: inherit;
-      cursor: pointer; transition: all .15s; white-space: nowrap;
-    }
-    .filter-pill:hover { background: #f3f4f6; color: #6b7280; border-color: #e5e7eb; }
-    .filter-pill.active { background: #fef3e9; border-color: #fed7aa; color: #f97316; }
-    .filter-pill .fp-icon { display: flex; }
-    .filter-pill .fp-icon svg { width: 14px; height: 14px; }
-
-    /* ─── CONTENT AREA ─── */
-    .content-area {
-      flex: 1; display: flex; flex-direction: column; gap: 16px;
-    }
+    .mini-bar.dark { background: #374151; }
+    .mini-bar:nth-child(1) { animation-delay: 0.20s; }
+    .mini-bar:nth-child(2) { animation-delay: 0.24s; }
+    .mini-bar:nth-child(3) { animation-delay: 0.28s; }
+    .mini-bar:nth-child(4) { animation-delay: 0.32s; }
+    .mini-bar:nth-child(5) { animation-delay: 0.36s; }
+    .mini-bar:nth-child(6) { animation-delay: 0.40s; }
+    .mini-bar:nth-child(7) { animation-delay: 0.44s; }
+    @keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 
     /* ─── WIDGETS GRID ─── */
-    .widgets-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      flex: 1;
-    }
+    .widgets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; }
     .widgets-grid.single { grid-template-columns: 1fr; }
-    .widgets-grid.full { grid-template-columns: 1.4fr 1fr; }
-
     .widget {
-      background: #fff; border: 1px solid #f3f4f6;
-      border-radius: 12px; overflow: hidden;
+      background: #fff; border: 1px solid #f0f0f0;
+      border-radius: 10px; overflow: hidden;
       transition: all .2s; display: flex; flex-direction: column;
-      animation: widgetIn .25s ease;
+      animation: widgetIn .3s ease;
     }
     .widget.hidden { display: none; }
-    .widget.solo {
-      grid-column: 1 / -1; min-height: 340px;
-    }
-    @keyframes widgetIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .widget.solo { grid-column: 1 / -1; min-height: 340px; }
+    @keyframes widgetIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     .widget-hdr {
       display: flex; align-items: center; justify-content: space-between;
       padding: 10px 16px; border-bottom: 1px solid #f3f4f6;
-      background: #fafafa; min-height: 40px;
+      background: #fafafa; min-height: 38px;
     }
-    .widget-hdr .hdr-left {
-      display: flex; align-items: center; gap: 8px;
-    }
+    .widget-hdr .hdr-left { display: flex; align-items: center; gap: 8px; }
     .widget-hdr .hdr-icon {
-      width: 28px; height: 28px; border-radius: 7px;
+      width: 26px; height: 26px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
       color: #9ca3af; cursor: pointer; transition: all .15s; flex-shrink: 0;
     }
     .widget-hdr .hdr-icon:hover { background: #e5e7eb; color: #374151; }
-    .widget-hdr .hdr-icon.active { background: #fef3e9; color: #f97316; }
-    .widget-hdr .hdr-icon svg { width: 16px; height: 16px; }
-    .widget-hdr h3 {
-      font-size: 12px; font-weight: 600; color: #6b7280;
-      text-transform: uppercase; letter-spacing: 0.04em;
-    }
-    .widget-hdr .status-badge {
-      font-size: 11px; padding: 2px 10px; border-radius: 100px;
-      background: #f0fdf4; color: #16a34a; font-weight: 500;
-    }
+    .widget-hdr h3 { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; }
+    .widget-hdr .badge { font-size: 10px; padding: 2px 8px; border-radius: 100px; background: #f3f4f6; color: #6b7280; font-weight: 500; }
+
     .widget-body { padding: 16px; flex: 1; }
     .widget-body.chart-body { padding: 8px 12px 0; }
+    .widget canvas { width: 100% !important; max-height: 170px; }
 
     /* ─── DEEP DIVE ─── */
     .widget-deep {
@@ -213,108 +143,66 @@
       grid-template-columns: 1fr 1fr; gap: 4px 20px;
     }
     .widget-deep.hidden { display: none; }
-    .deep-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 6px 0; font-size: 12px;
-    }
+    .deep-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 12px; }
     .deep-row span { color: #9ca3af; }
     .deep-row strong { color: #111; font-weight: 600; }
     .deep-row strong.up { color: #10b981; }
     .deep-row strong.down { color: #ef4444; }
 
-    /* ─── KPI STRIP ─── */
-    .kpi-strip { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
-    .kpi-cell {
-      padding: 14px; border-radius: 10px;
-      background: #fafafa; border: 1px solid #f3f4f6;
-      transition: all .15s;
-    }
-    .kpi-cell:hover { background: #f7f7f7; }
-    .kpi-cell .kl { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #9ca3af; margin-bottom: 4px; }
-    .kpi-cell .kv { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: #111; }
-    .kpi-cell .kv.rev { color: #0ea5e9; }
-    .kpi-cell .kv.cust { color: #10b981; }
-    .kpi-cell .kv.aov { color: #f97316; }
-    .kpi-cell .kv.churn { color: #ef4444; }
-    .kpi-cell .kc { font-size: 11px; font-weight: 500; margin-top: 2px; }
-    .kpi-cell .kc.up { color: #10b981; }
-    .kpi-cell .kc.down { color: #ef4444; }
-
     /* ─── INSIGHT LIST ─── */
-    .insight-list { display: flex; flex-direction: column; gap: 6px; }
+    .insight-list { display: flex; flex-direction: column; gap: 5px; }
     .insight-row {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px; border-radius: 8px;
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 9px 10px; border-radius: 7px;
       background: #fafafa; border: 1px solid #f3f4f6;
     }
-    .insight-dot {
-      width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0;
-    }
+    .insight-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
     .insight-dot.green { background: #10b981; }
     .insight-dot.amber { background: #f97316; }
     .insight-dot.red { background: #ef4444; }
     .insight-row p { font-size: 12px; color: #6b7280; line-height: 1.5; }
     .insight-row p strong { color: #111; font-weight: 600; }
 
-    /* ─── CHATBOT ─── */
-    .chat-msgs {
-      flex: 1; padding: 8px 0; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 8px;
-      max-height: 180px;
-    }
+    /* ─── CHAT ─── */
+    .chat-msgs { flex: 1; padding: 8px 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; max-height: 170px; }
     .chat-msgs::-webkit-scrollbar { width: 3px; }
     .chat-msgs::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
-    .msg {
-      max-width: 92%; padding: 8px 12px; border-radius: 8px;
-      font-size: 12px; line-height: 1.5;
-      animation: fadeIn .2s ease;
-    }
+    .msg { max-width: 92%; padding: 8px 12px; border-radius: 8px; font-size: 12px; line-height: 1.5; animation: fadeIn .2s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     .msg.user { align-self: flex-end; background: #f97316; color: #fff; }
     .msg.bot { align-self: flex-start; background: #fafafa; color: #374151; border: 1px solid #f3f4f6; }
     .msg.bot .thinking { display: inline-block; animation: blink 1.2s steps(1) infinite; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .chat-in {
-      display: flex; gap: 6px; padding: 8px 0 0; border-top: 1px solid #f3f4f6; margin-top: 6px;
-    }
+    .chat-in { display: flex; gap: 6px; padding: 8px 0 0; border-top: 1px solid #f3f4f6; margin-top: 6px; }
     .chat-in input {
       flex: 1; padding: 8px 12px; border-radius: 8px;
       background: #fafafa; border: 1px solid #f3f4f6;
       font-size: 12px; font-family: inherit; outline: none; color: #111;
     }
     .chat-in input:focus { border-color: #f97316; }
-    .chat-in button {
-      padding: 8px 14px; border-radius: 8px;
-      background: #1a1a2e; color: #fff; border: none;
-      font-size: 11px; font-weight: 600; cursor: pointer;
-    }
+    .chat-in button { padding: 8px 14px; border-radius: 8px; background: #1a1a2e; color: #fff; border: none; font-size: 11px; font-weight: 600; cursor: pointer; }
     .chat-in button:hover { background: #2a2a3e; }
 
-    /* ─── CHART CANVAS ─── */
-    .widget canvas { width: 100% !important; max-height: 170px; }
-
-    /* ─── EMPTY STATE ─── */
+    /* ─── EMPTY ─── */
     .empty-state {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 60px; color: #9ca3af; text-align: center;
-      border: 1px dashed #e5e7eb; border-radius: 12px;
-      background: #fafafa;
+      border: 1px dashed #e5e7eb; border-radius: 10px; background: #fafafa;
+      grid-column: 1 / -1;
     }
-    .empty-state .big-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
-    .empty-state h2 { font-size: 16px; color: #6b7280; margin-bottom: 6px; font-weight: 600; }
-    .empty-state p { font-size: 12px; max-width: 320px; line-height: 1.6; color: #9ca3af; }
+    .empty-state.hidden { display: none; }
 
     @media (max-width: 860px) {
       .app { padding: 12px; }
       .app-inner { max-height: none; border-radius: 12px; }
-      .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .cards-row { grid-template-columns: 1fr 1fr; }
       .widgets-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
       .sidebar { width: 56px; padding: 16px 0; }
       .nav-icon { width: 36px; height: 36px; }
       .main { padding: 20px 16px; }
-      .top-left h1 { font-size: 24px; }
+      .cards-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -323,7 +211,7 @@
 <div class="app">
   <div class="app-inner">
 
-    <!-- ═══ SIDEBAR ═══ -->
+    <!-- ═══ SIDEBAR — services navigation ═══ -->
     <div class="sidebar">
       <div class="logo-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -331,234 +219,168 @@
         </svg>
       </div>
       <div class="nav-icons">
-        <div class="nav-icon active" onclick="switchSidebar('dashboard')" title="Dashboard">
+        <div class="nav-icon active" onclick="focusWidget('summary')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          <span class="tooltip">Dashboard</span>
+          <span class="tooltip">Summary</span>
         </div>
-        <div class="nav-icon" onclick="switchSidebar('chat')" title="AI Chat">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span class="tooltip">AI Chat</span>
+        <div class="nav-icon" onclick="focusWidget('kpi')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span class="tooltip">KPIs</span>
         </div>
-        <div class="nav-icon" onclick="switchSidebar('analytics')" title="Analytics">
+        <div class="nav-icon" onclick="focusWidget('revChart')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span class="tooltip">Revenue</span>
+        </div>
+        <div class="nav-icon" onclick="focusWidget('custChart')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span class="tooltip">Analytics</span>
+          <span class="tooltip">Customers</span>
+        </div>
+        <div class="nav-icon" onclick="focusWidget('insights')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="tooltip">Insights</span>
+        </div>
+        <div class="nav-icon" onclick="focusWidget('chatbot')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span class="tooltip">Chat</span>
         </div>
       </div>
     </div>
 
     <!-- ═══ MAIN ═══ -->
     <div class="main">
-      <!-- Top Bar -->
       <div class="top-bar">
         <div class="top-left">
           <h1>Dashboard</h1>
-          <div class="sub">Your workspace — pick the services you need</div>
+          <div class="sub">Summary overview</div>
         </div>
-        <div class="top-actions">
-          <div class="dropdown-wrap" id="serviceDropdown">
-            <div class="dropdown-trigger" onclick="toggleMenu()">
-              <span class="label" id="dropdownLabel">All services</span>
-              <span class="chevron">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </span>
-            </div>
+      </div>
 
-            <div class="dropdown-menu" id="menu">
-              <button class="menu-item active" data-service="kpi" onclick="selectService(this,'kpi')">
-                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
-                <span class="mi-label">KPIs & Metrics</span>
-                <span class="mi-check">✓</span>
-              </button>
-              <button class="menu-item active" data-service="revChart" onclick="selectService(this,'revChart')">
-                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
-                <span class="mi-label">Revenue & Forecast</span>
-                <span class="mi-check">✓</span>
-              </button>
-              <button class="menu-item active" data-service="custChart" onclick="selectService(this,'custChart')">
-                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-                <span class="mi-label">Customer Growth</span>
-                <span class="mi-check">✓</span>
-              </button>
-              <button class="menu-item active" data-service="insights" onclick="selectService(this,'insights')">
-                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-                <span class="mi-label">Key Insights</span>
-                <span class="mi-check">✓</span>
-              </button>
-              <button class="menu-item active" data-service="chatbot" onclick="selectService(this,'chatbot')">
-                <span class="mi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-                <span class="mi-label">AI Chat Assistant</span>
-                <span class="mi-check">✓</span>
-              </button>
-            </div>
+      <!-- ═══ KPI METRIC CARDS with mini bar charts ═══ -->
+      <div class="cards-row" id="kpiCards">
+        <div class="metric-card">
+          <div class="mc-label">Revenue (MTD)</div>
+          <div class="mc-value" data-target="284650" data-prefix="€" data-suffix="">€0</div>
+          <div class="mc-change up">↑ 12.3% vs last month</div>
+          <div class="mini-bars" data-pattern="high">
+            <div class="mini-bar" style="height:100%"></div>
+            <div class="mini-bar dark" style="height:72%"></div>
+            <div class="mini-bar" style="height:88%"></div>
+            <div class="mini-bar dark" style="height:64%"></div>
+            <div class="mini-bar" style="height:94%"></div>
+            <div class="mini-bar dark" style="height:78%"></div>
+            <div class="mini-bar" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">Active Customers</div>
+          <div class="mc-value" data-target="1847">0</div>
+          <div class="mc-change up">↑ 8.1% vs last month</div>
+          <div class="mini-bars" data-pattern="growth">
+            <div class="mini-bar" style="height:55%"></div>
+            <div class="mini-bar dark" style="height:62%"></div>
+            <div class="mini-bar" style="height:70%"></div>
+            <div class="mini-bar dark" style="height:78%"></div>
+            <div class="mini-bar" style="height:85%"></div>
+            <div class="mini-bar dark" style="height:92%"></div>
+            <div class="mini-bar" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">Avg. Order Value</div>
+          <div class="mc-value" data-target="154" data-prefix="€">€0</div>
+          <div class="mc-change up">↑ 3.4% vs last month</div>
+          <div class="mini-bars" data-pattern="steady">
+            <div class="mini-bar" style="height:78%"></div>
+            <div class="mini-bar dark" style="height:82%"></div>
+            <div class="mini-bar" style="height:80%"></div>
+            <div class="mini-bar dark" style="height:85%"></div>
+            <div class="mini-bar" style="height:88%"></div>
+            <div class="mini-bar dark" style="height:84%"></div>
+            <div class="mini-bar" style="height:91%"></div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="mc-label">Churn Rate</div>
+          <div class="mc-value" data-target="4.2" data-suffix="%">0%</div>
+          <div class="mc-change down">↓ 0.8% vs last month</div>
+          <div class="mini-bars" data-pattern="decline">
+            <div class="mini-bar" style="height:100%"></div>
+            <div class="mini-bar dark" style="height:92%"></div>
+            <div class="mini-bar" style="height:85%"></div>
+            <div class="mini-bar dark" style="height:78%"></div>
+            <div class="mini-bar" style="height:70%"></div>
+            <div class="mini-bar dark" style="height:65%"></div>
+            <div class="mini-bar" style="height:58%"></div>
           </div>
         </div>
       </div>
 
-      <!-- ═══ CONTENT ═══ -->
-      <div class="content-area">
+      <!-- ═══ WIDGETS ═══ -->
+      <div class="widgets-grid" id="widgetsGrid">
 
-        <!-- Filter Bar -->
-        <div class="filter-bar">
-          <button class="filter-pill active" onclick="focusWidget('summary')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
-            Summary
-          </button>
-          <button class="filter-pill" onclick="focusWidget('kpi')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-            KPIs
-          </button>
-          <button class="filter-pill" onclick="focusWidget('revChart')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
-            Revenue
-          </button>
-          <button class="filter-pill" onclick="focusWidget('custChart')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-            Customers
-          </button>
-          <button class="filter-pill" onclick="focusWidget('insights')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
-            Insights
-          </button>
-          <button class="filter-pill" onclick="focusWidget('chatbot')">
-            <span class="fp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-            Chat
-          </button>
+        <!-- Revenue Chart -->
+        <div class="widget" data-widget="revChart">
+          <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('revChart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Revenue & Forecast</h3></div><span class="badge">6mo + forecast</span></div>
+          <div class="widget-body chart-body"><canvas id="revChart"></canvas></div>
+          <div class="widget-deep hidden">
+            <div class="deep-row"><span>Current Month</span><strong>€284,650</strong></div>
+            <div class="deep-row"><span>Next Month Forecast</span><strong>€312,000</strong></div>
+            <div class="deep-row"><span>Quarter Projection</span><strong>€945,000</strong></div>
+            <div class="deep-row"><span>YoY Growth</span><strong class="up">+22.3%</strong></div>
+            <div class="deep-row"><span>Top Segment</span><strong>Enterprise (48%)</strong></div>
+          </div>
         </div>
-        <div class="widgets-grid" id="widgetsGrid">
 
-          <!-- KPI Widget -->
-          <div class="widget" data-widget="kpi">
-            <div class="widget-hdr">
-              <div class="hdr-left">
-                <div class="hdr-icon" onclick="focusWidget('kpi')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                </div>
-                <h3>Key Metrics</h3>
-              </div>
-              <span class="status-badge">● Live</span>
-            </div>
-            <div class="widget-body">
-              <div class="kpi-strip">
-                <div class="kpi-cell"><div class="kl">Revenue (MTD)</div><div class="kv rev">€284,650</div><div class="kc up">↑ 12.3%</div></div>
-                <div class="kpi-cell"><div class="kl">Active Customers</div><div class="kv cust">1,847</div><div class="kc up">↑ 8.1%</div></div>
-                <div class="kpi-cell"><div class="kl">Avg. Order Value</div><div class="kv aov">€154</div><div class="kc up">↑ 3.4%</div></div>
-                <div class="kpi-cell"><div class="kl">Churn Rate</div><div class="kv churn">4.2%</div><div class="kc down">↓ 0.8%</div></div>
-              </div>
-            </div>
-            <!-- deep dive content -->
-            <div class="widget-deep hidden">
-              <div class="deep-row"><span>Monthly Recurring Revenue</span><strong>€284,650</strong></div>
-              <div class="deep-row"><span>YoY Growth</span><strong class="up">+18.4%</strong></div>
-              <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
-              <div class="deep-row"><span>Avg Revenue Per User</span><strong>€154</strong></div>
-              <div class="deep-row"><span>Net Revenue Retention</span><strong>108%</strong></div>
-            </div>
+        <!-- Customer Chart -->
+        <div class="widget" data-widget="custChart">
+          <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('custChart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3>Customer Growth</h3></div><span class="badge">Monthly</span></div>
+          <div class="widget-body chart-body"><canvas id="custChart"></canvas></div>
+          <div class="widget-deep hidden">
+            <div class="deep-row"><span>Total Customers</span><strong>1,847</strong></div>
+            <div class="deep-row"><span>Net New (this month)</span><strong class="up">+138</strong></div>
+            <div class="deep-row"><span>Avg Acquisition Cost</span><strong>€42</strong></div>
+            <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
+            <div class="deep-row"><span>LTV:CAC Ratio</span><strong>67.6x</strong></div>
           </div>
-
-          <!-- Revenue Chart -->
-          <div class="widget" data-widget="revChart">
-            <div class="widget-hdr">
-              <div class="hdr-left">
-                <div class="hdr-icon" onclick="focusWidget('revChart')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                </div>
-                <h3>Revenue & Forecast</h3>
-              </div>
-              <span class="status-badge">6mo + forecast</span>
-            </div>
-            <div class="widget-body chart-body">
-              <canvas id="revChart"></canvas>
-            </div>
-            <div class="widget-deep hidden">
-              <div class="deep-row"><span>Current Month</span><strong>€284,650</strong></div>
-              <div class="deep-row"><span>Next Month Forecast</span><strong>€312,000</strong></div>
-              <div class="deep-row"><span>Quarter Projection</span><strong>€945,000</strong></div>
-              <div class="deep-row"><span>YoY Growth</span><strong class="up">+22.3%</strong></div>
-              <div class="deep-row"><span>Top Segment</span><strong>Enterprise (48%)</strong></div>
-            </div>
-          </div>
-
-          <!-- Customer Chart -->
-          <div class="widget" data-widget="custChart">
-            <div class="widget-hdr">
-              <div class="hdr-left">
-                <div class="hdr-icon" onclick="focusWidget('custChart')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                </div>
-                <h3>Customer Growth</h3>
-              </div>
-              <span class="status-badge">Monthly</span>
-            </div>
-            <div class="widget-body chart-body">
-              <canvas id="custChart"></canvas>
-            </div>
-            <div class="widget-deep hidden">
-              <div class="deep-row"><span>Total Customers</span><strong>1,847</strong></div>
-              <div class="deep-row"><span>Net New (this month)</span><strong class="up">+138</strong></div>
-              <div class="deep-row"><span>Avg Acquisition Cost</span><strong>€42</strong></div>
-              <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
-              <div class="deep-row"><span>LTV:CAC Ratio</span><strong>67.6x</strong></div>
-            </div>
-          </div>
-
-          <!-- Insights -->
-          <div class="widget" data-widget="insights">
-            <div class="widget-hdr">
-              <div class="hdr-left">
-                <div class="hdr-icon" onclick="focusWidget('insights')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <h3>Key Insights</h3>
-              </div>
-              <span class="status-badge">AI-generated</span>
-            </div>
-            <div class="widget-body">
-              <div class="insight-list">
-                <div class="insight-row"><div class="insight-dot green"></div><p><strong>Revenue acceleration</strong> — Nov projected €310K+ (highest). Enterprise tier driving growth.</p></div>
-                <div class="insight-row"><div class="insight-dot green"></div><p><strong>Churn improving</strong> — 5.0% → 4.2% after Q3 retention. ~€48K/yr recovered.</p></div>
-                <div class="insight-row"><div class="insight-dot amber"></div><p><strong>AOV near ceiling</strong> — €154 approaching limit. Premium tier could unlock 15-20%.</p></div>
-                <div class="insight-row"><div class="insight-dot red"></div><p><strong>CAC rising</strong> — Up 14% over 2 months. Consider reallocating ad spend.</p></div>
-              </div>
-            </div>
-            <div class="widget-deep hidden">
-              <div class="deep-row"><span>Top Opportunity</span><strong>Premium Tier Launch</strong></div>
-              <div class="deep-row"><span>Urgent Action</span><strong style="color:#ef4444">Fix Rising CAC</strong></div>
-              <div class="deep-row"><span>Revenue at Risk</span><strong style="color:#f97316">€48K/yr (churn)</strong></div>
-              <div class="deep-row"><span>Growth Levers</span><strong>Enterprise, Retention, Pricing</strong></div>
-              <div class="deep-row"><span>Confidence Score</span><strong>High (85%)</strong></div>
-            </div>
-          </div>
-
-          <!-- Chatbot -->
-          <div class="widget" data-widget="chatbot">
-            <div class="widget-hdr">
-              <div class="hdr-left">
-                <div class="hdr-icon" onclick="focusWidget('chatbot')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                </div>
-                <h3>AI Business Assistant</h3>
-              </div>
-              <span class="status-badge">Online</span>
-            </div>
-            <div class="widget-body">
-              <div class="chat-msgs" id="chatMsgs">
-                <div class="msg bot">👋 Ask me about your data — revenue, churn, forecasts, or recommendations.</div>
-              </div>
-              <div class="chat-in">
-                <input type="text" id="chatInput" placeholder="Ask about your business..." onkeydown="if(event.key==='Enter')sendChat()">
-                <button onclick="sendChat()">Send</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Empty -->
-          <div class="empty-state hidden" id="emptyState">
-            <div class="big-icon">✦</div>
-            <h2>No services selected</h2>
-            <p>Use the dropdown above to pick the services you want to see. Add KPIs, charts, insights, or the AI assistant.</p>
-          </div>
-
         </div>
+
+        <!-- Insights -->
+        <div class="widget" data-widget="insights">
+          <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><h3>Key Insights</h3></div><span class="badge">AI-generated</span></div>
+          <div class="widget-body">
+            <div class="insight-list">
+              <div class="insight-row"><div class="insight-dot green"></div><p><strong>Revenue acceleration</strong> — Nov projected €310K+ (highest). Enterprise tier driving growth.</p></div>
+              <div class="insight-row"><div class="insight-dot green"></div><p><strong>Churn improving</strong> — 5.0% → 4.2% after Q3 retention. ~€48K/yr recovered.</p></div>
+              <div class="insight-row"><div class="insight-dot amber"></div><p><strong>AOV near ceiling</strong> — €154 approaching limit. Premium tier could unlock 15-20%.</p></div>
+              <div class="insight-row"><div class="insight-dot red"></div><p><strong>CAC rising</strong> — Up 14% over 2 months. Consider reallocating ad spend.</p></div>
+            </div>
+          </div>
+          <div class="widget-deep hidden">
+            <div class="deep-row"><span>Top Opportunity</span><strong>Premium Tier Launch</strong></div>
+            <div class="deep-row"><span>Urgent Action</span><strong style="color:#ef4444">Fix Rising CAC</strong></div>
+            <div class="deep-row"><span>Revenue at Risk</span><strong style="color:#f97316">€48K/yr (churn)</strong></div>
+            <div class="deep-row"><span>Growth Levers</span><strong>Enterprise, Retention, Pricing</strong></div>
+            <div class="deep-row"><span>Confidence Score</span><strong>High (85%)</strong></div>
+          </div>
+        </div>
+
+        <!-- Chatbot -->
+        <div class="widget" data-widget="chatbot">
+          <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('chatbot')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>AI Business Assistant</h3></div><span class="badge">Online</span></div>
+          <div class="widget-body">
+            <div class="chat-msgs" id="chatMsgs"><div class="msg bot">👋 Ask me about your data — revenue, churn, forecasts, or recommendations.</div></div>
+            <div class="chat-in">
+              <input type="text" id="chatInput" placeholder="Ask about your business..." onkeydown="if(event.key==='Enter')sendChat()">
+              <button onclick="sendChat()">Send</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state hidden" id="emptyState">
+          <h2>No services selected</h2>
+          <p>Use the sidebar to pick the service you'd like to explore.</p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -566,154 +388,133 @@
 
 <script>
 // ═══════════════════════════════════════
-// SERVICE DROPDOWN
+// COUNT-UP ANIMATION
 // ═══════════════════════════════════════
-const SERVICES = ['kpi','revChart','custChart','insights','chatbot'];
-let activeCount = SERVICES.length;
+function animateCountUps() {
+  document.querySelectorAll('.mc-value').forEach(el => {
+    const target = parseFloat(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    const isFloat = target % 1 !== 0;
 
-function toggleMenu() {
-  document.getElementById('menu').classList.toggle('open');
-  document.querySelector('.dropdown-trigger').classList.toggle('open');
-}
+    function format(v) {
+      if (isFloat) return v.toFixed(1);
+      return Math.round(v).toLocaleString();
+    }
 
-// Close menu on outside click
-document.addEventListener('click', function(e) {
-  const wrap = document.getElementById('serviceDropdown');
-  if (!wrap.contains(e.target)) {
-    document.getElementById('menu').classList.remove('open');
-    document.querySelector('.dropdown-trigger').classList.remove('open');
-  }
-});
-
-function selectService(btn, service) {
-  btn.classList.toggle('active');
-  const widget = document.querySelector(`[data-widget="${service}"]`);
-  if (!widget) return;
-  const isActive = btn.classList.contains('active');
-  widget.classList.toggle('hidden', !isActive);
-  updateLabel();
-  updateEmptyState();
-  if ((service === 'revChart' || service === 'custChart') && isActive) {
-    setTimeout(rebuildCharts, 50);
-  }
-}
-
-function updateLabel() {
-  const count = SERVICES.filter(s => document.querySelector(`[data-widget="${s}"]`) && !document.querySelector(`[data-widget="${s}"]`).classList.contains('hidden')).length;
-  const label = document.getElementById('dropdownLabel');
-  label.textContent = count === 0 ? 'No services' : count === SERVICES.length ? 'All services' : `${count} service${count > 1 ? 's' : ''}`;
-  activeCount = count;
-}
-
-function updateEmptyState() {
-  const visible = SERVICES.some(s => !document.querySelector(`[data-widget="${s}"]`).classList.contains('hidden'));
-  document.getElementById('emptyState').classList.toggle('hidden', visible);
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // cubic-bezier(0.22, 1, 0.36, 1)
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+      el.textContent = prefix + format(current) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + format(target) + suffix;
+    }
+    requestAnimationFrame(step);
+  });
 }
 
 // ═══════════════════════════════════════
 // FOCUS / DEEP DIVE
 // ═══════════════════════════════════════
+const SERVICES = ['kpi','revChart','custChart','insights','chatbot'];
+
 function focusWidget(id) {
   const isSummary = id === 'summary';
 
-  // Update filter pills
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  // Update sidebar icons
+  document.querySelectorAll('.nav-icon').forEach(ic => ic.classList.remove('active'));
   if (isSummary) {
-    document.querySelector('.filter-pill').classList.add('active');
+    document.querySelector('.nav-icon').classList.add('active');
+    document.querySelector('.sub').textContent = 'Summary overview';
   } else {
-    document.querySelector(`.filter-pill[onclick*="${id}"]`).classList.add('active');
+    const idx = SERVICES.indexOf(id);
+    document.querySelectorAll('.nav-icon')[idx + 1].classList.add('active');
+    const labels = {kpi:'KPIs deep dive', revChart:'Revenue deep dive', custChart:'Customers deep dive', insights:'Insights deep dive', chatbot:'AI Chat'};
+    document.querySelector('.sub').textContent = labels[id] || '';
   }
+
+  // Toggle KPI cards visibility
+  document.getElementById('kpiCards').style.display = isSummary ? 'grid' : 'none';
 
   // Show/hide widgets + toggle deep dive
   SERVICES.forEach(s => {
     const w = document.querySelector(`[data-widget="${s}"]`);
     if (!w) return;
     const deep = w.querySelector('.widget-deep');
-    const hdrIcon = w.querySelector('.hdr-icon');
 
     if (isSummary) {
       w.classList.remove('solo');
       if (deep) deep.classList.add('hidden');
-      if (hdrIcon) hdrIcon.classList.remove('active');
-      // Show if enabled in dropdown
-      const menuBtn = document.querySelector(`.menu-item[data-service="${s}"]`);
-      const enabled = !menuBtn || menuBtn.classList.contains('active');
-      w.classList.toggle('hidden', !enabled);
+      // Summary shows chart/insight/chat widgets only (not KPI as card)
+      if (s === 'kpi') { w.classList.add('hidden'); return; }
+      w.classList.remove('hidden');
     } else if (s === id) {
       w.classList.remove('hidden');
       w.classList.add('solo');
       if (deep) deep.classList.remove('hidden');
-      if (hdrIcon) hdrIcon.classList.add('active');
     } else {
       w.classList.add('hidden');
       w.classList.remove('solo');
       if (deep) deep.classList.add('hidden');
-      if (hdrIcon) hdrIcon.classList.remove('active');
     }
   });
 
-  updateLabel();
   updateEmptyState();
   setTimeout(rebuildCharts, 80);
+}
+
+function updateEmptyState() {
+  const visible = SERVICES.some(s => {
+    const w = document.querySelector(`[data-widget="${s}"]`);
+    return w && !w.classList.contains('hidden');
+  });
+  document.getElementById('emptyState').classList.toggle('hidden', visible);
 }
 
 // ═══════════════════════════════════════
 // CHARTS
 // ═══════════════════════════════════════
-const demoData = { revenue: [210,228,245,262,285], customers: [1420,1520,1620,1710,1847] };
 let revChart, custChart;
-
 function rebuildCharts() {
   if (revChart) { revChart.destroy(); revChart = null; }
   if (custChart) { custChart.destroy(); custChart = null; }
-  const revW = document.querySelector('[data-widget="revChart"]');
-  const custW = document.querySelector('[data-widget="custChart"]');
-  if (revW && !revW.classList.contains('hidden')) drawRev();
-  if (custW && !custW.classList.contains('hidden')) drawCust();
+  const rw = document.querySelector('[data-widget="revChart"]');
+  const cw = document.querySelector('[data-widget="custChart"]');
+  if (rw && !rw.classList.contains('hidden')) drawRev();
+  if (cw && !cw.classList.contains('hidden')) drawCust();
 }
-
 function drawRev() {
   const ctx = document.getElementById('revChart'); if (!ctx) return;
-  revChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
+  revChart = new Chart(ctx, { type:'line',
+    data: { labels:['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
       datasets: [
-        { label: 'Actual', data: [210,228,245,262,285,null,null,null],
-          borderColor: '#0ea5e9', backgroundColor: '#0ea5e910', fill: true,
-          tension: 0.3, pointBackgroundColor: '#0ea5e9', pointRadius: 3 },
-        { label: 'Forecast', data: [null,null,null,null,285,312,330,348],
-          borderColor: '#a78bfa', borderDash: [4,4], backgroundColor: '#a78bfa0A',
-          fill: false, tension: 0.3, pointBackgroundColor: '#a78bfa', pointRadius: 3 }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color:'#9ca3af', font:{size:10,family:'Inter'} } },
-        tooltip: { callbacks: { label: ctx => ctx.parsed.y ? `€${ctx.parsed.y}K` : '' } } },
-      scales: { x: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{display:false} },
-        y: { ticks: {color:'#9ca3af',font:{size:9}, callback:v=>`€${v}K`},
-          grid:{color:'#f3f4f6'}, beginAtZero:false } }
+        { label:'Actual', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'#0ea5e910', fill:true, tension:0.3, pointBackgroundColor:'#0ea5e9', pointRadius:3 },
+        { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#a78bfa', borderDash:[4,4], backgroundColor:'#a78bfa0A', fill:false, tension:0.3, pointBackgroundColor:'#a78bfa', pointRadius:3 }
+      ] },
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins: { legend:{ labels:{ color:'#9ca3af', font:{size:10,family:'Inter'} } },
+        tooltip:{ callbacks:{ label: ctx => ctx.parsed.y ? `€${ctx.parsed.y}K` : '' } } },
+      scales: { x:{ ticks:{color:'#9ca3af',font:{size:9}}, grid:{display:false} },
+        y:{ ticks:{color:'#9ca3af',font:{size:9}, callback:v=>`€${v}K`}, grid:{color:'#f3f4f6'}, beginAtZero:false } }
     }
   });
 }
-
 function drawCust() {
   const ctx = document.getElementById('custChart'); if (!ctx) return;
-  custChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Jun','Jul','Aug','Sep','Oct'],
-      datasets: [{
-        label: 'Customers', data: demoData.customers,
-        backgroundColor: ['#0ea5e980','#10b98166','#a78bfa73','#f9731666','#fbbf2480'],
-        borderColor: ['#0ea5e9','#10b981','#a78bfa','#f97316','#fbbf24'],
-        borderWidth: 1, borderRadius: 3
-      }]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: {color:'#9ca3af',font:{size:10,family:'Inter'}} } },
-      scales: { x: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{display:false} },
-        y: { ticks: {color:'#9ca3af',font:{size:9}}, grid:{color:'#f3f4f6'}, beginAtZero:true } }
+  custChart = new Chart(ctx, { type:'bar',
+    data: { labels:['Jun','Jul','Aug','Sep','Oct'],
+      datasets: [{ label:'Customers', data:[1420,1520,1620,1710,1847],
+        backgroundColor:['#0ea5e980','#10b98166','#a78bfa73','#f9731666','#fbbf2480'],
+        borderColor:['#0ea5e9','#10b981','#a78bfa','#f97316','#fbbf24'], borderWidth:1, borderRadius:3 }] },
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins: { legend:{ labels:{ color:'#9ca3af', font:{size:10,family:'Inter'} } } },
+      scales: { x:{ ticks:{color:'#9ca3af',font:{size:9}}, grid:{display:false} },
+        y:{ ticks:{color:'#9ca3af',font:{size:9}}, grid:{color:'#f3f4f6'}, beginAtZero:true } }
     }
   });
 }
@@ -722,13 +523,13 @@ function drawCust() {
 // AI CHAT
 // ═══════════════════════════════════════
 const KB = {
-  revenue: 'Revenue is growing strong at **€285K** this month, up 12.3% MoM. November forecast is **€312K** — the highest this year.',
-  forecast: '3-month forecast: **€312K** (Nov), **€330K** (Dec), **€348K** (Jan). **22% growth** over next 3 months.',
-  churn: 'Churn is **4.2%** — best rate this year, down from 5.0%. Saving ~€4K/month in recovered revenue.',
-  customers: '**1,847 active customers**, up 8.1% MoM. **138 net new** this period.',
-  aov: 'AOV is **€154**, up 3.4% MoM (108% of target). Ceiling at ~€160.',
-  risk: 'Biggest risk: **rising CAC** (+14%). Second: AOV at ceiling (€160).',
-  action: 'Top 3: 1) Premium tier (€249/mo) 2) Retention early-warnings 3) Fix CAC.',
+  revenue:'Revenue is growing strong at **€285K** this month, up 12.3% MoM. November forecast is **€312K** — the highest this year.',
+  forecast:'3-month forecast: **€312K** (Nov), **€330K** (Dec), **€348K** (Jan). **22% growth** over next 3 months.',
+  churn:'Churn is **4.2%** — best rate this year, down from 5.0%. Saving ~€4K/month in recovered revenue.',
+  customers:'**1,847 active customers**, up 8.1% MoM. **138 net new** this period.',
+  aov:'AOV is **€154**, up 3.4% MoM (108% of target). Ceiling at ~€160.',
+  risk:'Biggest risk: **rising CAC** (+14%). Second: AOV at ceiling (€160).',
+  action:'Top 3: 1) Premium tier (€249/mo) 2) Retention early-warnings 3) Fix CAC.',
 };
 function sendChat() {
   const i = document.getElementById('chatInput');
@@ -748,29 +549,17 @@ function sendChat() {
     else if (/\b(aov|average order|order value)\b/.test(q)) a = KB.aov;
     else if (/\b(risk|problem|concern|issue)\b/.test(q)) a = KB.risk;
     else if (/\b(action|recommend|should|advice)\b/.test(q)) a = KB.action;
-    else if (/\b(hi|hello|hey)\b/.test(q)) a = "👋 Ask me about revenue, churn, forecasts, AOV, CAC, risks, or recommendations.";
     else a = "I can help with: **revenue**, **churn**, **forecasts**, **AOV**, **CAC**, **risks**.";
     t.innerHTML = a; m.scrollTop = m.scrollHeight;
   }, 400);
 }
 
 // ═══════════════════════════════════════
-// SIDEBAR NAV
-// ═══════════════════════════════════════
-function switchSidebar(view) {
-  document.querySelectorAll('.nav-icon').forEach(ic => ic.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  // Update title based on view
-  const titles = { dashboard: 'Dashboard', chat: 'AI Chat', analytics: 'Analytics' };
-  document.querySelector('.top-left h1').textContent = titles[view] || 'Dashboard';
-}
-
-// ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
-updateLabel();
+animateCountUps();
 updateEmptyState();
-setTimeout(rebuildCharts, 150);
+setTimeout(rebuildCharts, 200);
 </script>
 </body>
 </html>
