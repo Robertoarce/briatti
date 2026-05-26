@@ -309,29 +309,13 @@
         <!-- KPI Deep Dive (hidden in summary, shown when KPIs icon clicked) -->
         <div class="widget hidden" data-widget="kpi">
           <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('kpi')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><h3>KPIs Deep Dive</h3></div><span class="badge">Full breakdown</span></div>
-          <div class="widget-body" style="padding:12px 16px 8px">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-              <div class="kpi-cell"><div class="kl">Total Revenue</div><div class="kv rev" style="font-size:20px;font-weight:700;color:#0ea5e9">€1,248,900</div><div class="kc up">↑ 18.4% YoY</div></div>
-              <div class="kpi-cell"><div class="kl">Active Customers</div><div class="kv cust" style="font-size:20px;font-weight:700;color:#10b981">1,847</div><div class="kc up">↑ 8.1% MoM</div></div>
-              <div class="kpi-cell"><div class="kl">Avg Order Value</div><div class="kv aov" style="font-size:20px;font-weight:700;color:#f97316">€154</div><div class="kc up">↑ 3.4% MoM</div></div>
-              <div class="kpi-cell"><div class="kl">Churn Rate</div><div class="kv churn" style="font-size:20px;font-weight:700;color:#ef4444">4.2%</div><div class="kc down">↓ 0.8% MoM</div></div>
-              <div class="kpi-cell"><div class="kl">Customer LTV</div><div class="kv" style="font-size:20px;font-weight:700">€2,840</div><div class="kc up">↑ 12.1% YoY</div></div>
-              <div class="kpi-cell"><div class="kl">Net Rev Retention</div><div class="kv" style="font-size:20px;font-weight:700">108%</div><div class="kc up">Above target</div></div>
-              <div class="kpi-cell"><div class="kl">Monthly Recurring Rev</div><div class="kv" style="font-size:20px;font-weight:700">€284,650</div><div class="kc up">↑ 12.3% MoM</div></div>
-              <div class="kpi-cell"><div class="kl">Gross Margin</div><div class="kv" style="font-size:20px;font-weight:700">60%</div><div class="kc up">↑ 2.1pp YoY</div></div>
-              <div class="kpi-cell"><div class="kl">CAC</div><div class="kv" style="font-size:20px;font-weight:700;color:#f97316">€42</div><div class="kc down">↑ 14% (rising)</div></div>
-            </div>
-            <div style="font-size:11px;color:#9ca3af;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px">Monthly Trend</div>
-            <div style="display:flex;gap:4px;overflow-x:auto;padding-bottom:4px">
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Jun</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:70%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Jul</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:76%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Aug</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:82%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Sep</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:87%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Oct</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:95%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Nov*</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,#a78bfa,#c4b5fd);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Dec*</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,#a78bfa,#c4b5fd);border-radius:4px"></div></div></div>
-              <div style="flex-shrink:0;width:44px"><div style="font-size:9px;color:#9ca3af;text-align:center;margin-bottom:4px">Jan*</div><div style="height:60px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden"><div style="position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,#a78bfa,#c4b5fd);border-radius:4px"></div></div></div>
-            </div>
+          <div class="widget-body" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="kpi-cell"><div class="kl">Total Revenue</div><div class="kv rev" style="font-size:24px;font-weight:700;color:#0ea5e9">€1,248,900</div><div class="kc up" style="font-size:11px">↑ 18.4% YoY</div></div>
+            <div class="kpi-cell"><div class="kl">Active Customers</div><div class="kv cust" style="font-size:24px;font-weight:700;color:#10b981">1,847</div><div class="kc up" style="font-size:11px">↑ 8.1% MoM</div></div>
+            <div class="kpi-cell"><div class="kl">Avg Order Value</div><div class="kv aov" style="font-size:24px;font-weight:700;color:#f97316">€154</div><div class="kc up" style="font-size:11px">↑ 3.4% MoM</div></div>
+            <div class="kpi-cell"><div class="kl">Churn Rate</div><div class="kv churn" style="font-size:24px;font-weight:700;color:#ef4444">4.2%</div><div class="kc down" style="font-size:11px">↓ 0.8% MoM</div></div>
+            <div class="kpi-cell"><div class="kl">Customer LTV</div><div class="kv" style="font-size:24px;font-weight:700">€2,840</div><div class="kc up" style="font-size:11px">↑ 12.1% YoY</div></div>
+            <div class="kpi-cell"><div class="kl">Net Revenue Retention</div><div class="kv" style="font-size:24px;font-weight:700">108%</div><div class="kc up" style="font-size:11px">Above target</div></div>
           </div>
         </div>
 
@@ -340,61 +324,14 @@
           <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('revChart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h3>Revenue & Forecast</h3></div><span class="badge">6mo + forecast</span></div>
           <div class="widget-body chart-body"><canvas id="revChart"></canvas></div>
           <div class="widget-deep hidden">
-            <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px">
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">GROSS REV</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#111;margin-top:3px">€284K</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#fef2f2;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">COGS</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,#ef4444,#f87171);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#ef4444;margin-top:3px">−€114K</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">GROSS MARGIN</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:80%;background:linear-gradient(to top,#10b981,#34d399);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#10b981;margin-top:3px">€171K</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#fef2f2;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">OP. COSTS</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:45%;background:linear-gradient(to top,#f97316,#fb923c);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#f97316;margin-top:3px">−€68K</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">EBITDA</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:72%;background:linear-gradient(to top,#8b5cf6,#a78bfa);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#8b5cf6;margin-top:3px">€103K</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">NET PROFIT</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:65%;background:linear-gradient(to top,#10b981,#34d399);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#10b981;margin-top:3px">€102K</div>
-              </div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-              <div class="deep-row"><span>Gross Revenue</span><strong>€284,650</strong></div>
-              <div class="deep-row"><span>COGS</span><strong style="color:#ef4444">−€113,860</strong></div>
-              <div class="deep-row"><span>Gross Margin</span><strong class="up">€170,790</strong></div>
-              <div class="deep-row"><span>Op. Costs</span><strong style="color:#f97316">−€68,316</strong></div>
-              <div class="deep-row"><span>EBITDA</span><strong style="color:#8b5cf6">€102,474</strong></div>
-              <div class="deep-row"><span>Net Profit</span><strong class="up">€102,474</strong></div>
-              <div class="deep-row"><span>Next Month Forecast</span><strong>€312,000</strong></div>
-              <div class="deep-row"><span>Quarter Projection</span><strong>€945,000</strong></div>
-              <div class="deep-row"><span>YoY Growth</span><strong class="up">+22.3%</strong></div>
-            </div>
+            <div class="deep-row"><span>Gross Revenue</span><strong>€284,650</strong></div>
+            <div class="deep-row"><span>COGS</span><strong style="color:#ef4444">−€113,860</strong></div>
+            <div class="deep-row"><span>Gross Margin</span><strong class="up">€170,790 (60%)</strong></div>
+            <div class="deep-row"><span>Operating Costs</span><strong style="color:#ef4444">−€68,316</strong></div>
+            <div class="deep-row"><span>Net Profit</span><strong class="up">€102,474 (36%)</strong></div>
+            <div class="deep-row"><span>Next Month Forecast</span><strong>€312,000</strong></div>
+            <div class="deep-row"><span>Quarter Projection</span><strong>€945,000</strong></div>
+            <div class="deep-row"><span>YoY Growth</span><strong class="up">+22.3%</strong></div>
           </div>
         </div>
 
@@ -403,67 +340,14 @@
           <div class="widget-hdr"><div class="hdr-left"><div class="hdr-icon" onclick="focusWidget('custChart')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h3>Customer Growth</h3></div><span class="badge">Monthly</span></div>
           <div class="widget-body chart-body"><canvas id="custChart"></canvas></div>
           <div class="widget-deep hidden">
-            <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px">
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">SUBSCRIBERS</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#111;margin-top:3px">1,847</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">NEW (MTD)</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:75%;background:linear-gradient(to top,#10b981,#34d399);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#10b981;margin-top:3px">+206</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#fef2f2;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">CHURNED</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(to top,#ef4444,#f87171);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#ef4444;margin-top:3px">−68</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">NET GROWTH</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(to top,#10b981,#34d399);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#10b981;margin-top:3px">+138</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">RETENTION</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:96%;background:linear-gradient(to top,#8b5cf6,#a78bfa);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#8b5cf6;margin-top:3px">95.8%</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#fef3e9;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">CAC</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,#f97316,#fb923c);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#f97316;margin-top:3px">€42</div>
-              </div>
-              <div style="flex-shrink:0;width:80px;text-align:center;padding:8px 0;background:#f0fdf4;border-radius:8px">
-                <div style="font-size:9px;color:#9ca3af;margin-bottom:2px">LTV</div>
-                <div style="height:50px;background:#f3f4f6;border-radius:4px;position:relative;overflow:hidden;margin:0 10px">
-                  <div style="position:absolute;bottom:0;left:0;right:0;height:85%;background:linear-gradient(to top,#0ea5e9,#38bdf8);border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;font-weight:600;color:#111;margin-top:3px">€2,840</div>
-              </div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
-              <div class="deep-row"><span>Total Subscriber Base</span><strong>1,847</strong></div>
-              <div class="deep-row"><span>New Subscribers (MTD)</span><strong class="up">+206</strong></div>
-              <div class="deep-row"><span>Churned (MTD)</span><strong style="color:#ef4444">−68</strong></div>
-              <div class="deep-row"><span>Net Growth</span><strong class="up">+138</strong></div>
-              <div class="deep-row"><span>Retention Rate</span><strong class="up">95.8%</strong></div>
-              <div class="deep-row"><span>Avg Acquisition Cost</span><strong>€42</strong></div>
-              <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
-              <div class="deep-row"><span>LTV:CAC Ratio</span><strong>67.6x</strong></div>
-            </div>
+            <div class="deep-row"><span>Total Subscriber Base</span><strong>1,847</strong></div>
+            <div class="deep-row"><span>New Subscribers (MTD)</span><strong class="up">+206</strong></div>
+            <div class="deep-row"><span>Churned (MTD)</span><strong style="color:#ef4444">−68</strong></div>
+            <div class="deep-row"><span>Net Growth</span><strong class="up">+138</strong></div>
+            <div class="deep-row"><span>Retention Rate</span><strong class="up">95.8%</strong></div>
+            <div class="deep-row"><span>Avg Acquisition Cost</span><strong>€42</strong></div>
+            <div class="deep-row"><span>Customer LTV</span><strong>€2,840</strong></div>
+            <div class="deep-row"><span>LTV:CAC Ratio</span><strong>67.6x</strong></div>
           </div>
         </div>
 
