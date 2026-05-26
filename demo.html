@@ -15,8 +15,7 @@
       --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08);
       --red-light: rgba(239,68,68,.08); --orange-light: rgba(249,115,22,.08);
       --shadow-sm: 0 1px 2px rgba(0,0,0,.04); --shadow-md: 0 4px 12px rgba(0,0,0,.06);
-      --radius: 10px; --radius-sm: 7px;
-      --space-xs: 4px; --space-sm: 8px; --space-md: 14px; --space-lg: 20px;
+      --radius: 10px; --radius-sm: 7px; --radius-pill: 999px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',-apple-system,system-ui,sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; -webkit-font-smoothing:antialiased; }
@@ -24,14 +23,14 @@
     .app-inner { width:100%; max-width:1440px; height:100%; max-height:920px; background:var(--card); border-radius:14px; box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.06); display:flex; overflow:hidden; }
 
     /* ─── SIDEBAR ─── */
-    .sidebar { width:200px; flex-shrink:0; background:var(--sidebar); display:flex; flex-direction:column; padding:0; }
+    .sidebar { width:200px; flex-shrink:0; background:var(--sidebar); display:flex; flex-direction:column; }
     .sb-brand { padding:18px 16px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
     .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .sb-logo svg { width:16px; height:16px; stroke:#fff; }
     .sb-brand-text { font-size:14px; font-weight:700; color:#fff; letter-spacing:-.02em; }
     .sb-brand-text span { color:rgba(255,255,255,.4); font-weight:400; }
     .sb-nav { flex:1; padding:8px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
-    .sb-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-sm); color:rgba(255,255,255,.45); font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; text-decoration:none; }
+    .sb-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-sm); color:rgba(255,255,255,.45); font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; background:none; border:none; font-family:inherit; width:100%; text-align:left; }
     .sb-item:hover { background:var(--sidebar-hover); color:rgba(255,255,255,.7); }
     .sb-item.active { background:var(--sidebar-active); color:var(--orange); }
     .sb-item svg { width:18px; height:18px; flex-shrink:0; }
@@ -42,26 +41,28 @@
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
     /* ─── HEADER ─── */
-    .header { display:flex; align-items:center; justify-content:space-between; padding:18px 24px 0; flex-shrink:0; }
-    .h-left { display:flex; flex-direction:column; }
+    .header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px 0; flex-shrink:0; }
     .h-left h1 { font-size:22px; font-weight:700; letter-spacing:-.03em; }
-    .h-left .sub { font-size:12px; color:var(--text3); margin-top:1px; }
+    .h-left .sub { font-size:13px; color:var(--text3); margin-top:2px; }
     .h-right { display:flex; align-items:center; gap:8px; }
-    .h-btn { display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:11px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; transition:all .15s; }
+    .h-btn { display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; transition:all .15s; }
     .h-btn:hover { border-color:var(--border2); background:#fafafa; }
     .h-btn svg { width:14px; height:14px; }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
     .h-btn.primary:hover { opacity:.9; }
-    .h-btn .active-indicator { width:6px; height:6px; border-radius:50%; background:var(--green); }
 
     /* ─── SCROLL ─── */
-    .scroll { flex:1; overflow-y:auto; padding:14px 24px 20px; display:flex; flex-direction:column; gap:14px; }
+    .scroll { flex:1; overflow-y:auto; padding:16px 24px 20px; display:flex; flex-direction:column; gap:16px; }
     .scroll::-webkit-scrollbar { width:4px; }
     .scroll::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
 
+    /* ─── SECTION CONTAINERS ─── */
+    .section { display:contents; }
+    .section.hidden { display:none; }
+
     /* ─── KPI STRIP ─── */
-    .kpi-strip { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; }
-    .kpi-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; transition:all .2s; position:relative; overflow:hidden; cursor:default; }
+    .kpi-strip { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:14px; }
+    .kpi-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; transition:all .2s; position:relative; overflow:hidden; cursor:default; }
     .kpi-card:hover { border-color:var(--border2); box-shadow:var(--shadow-md); transform:translateY(-1px); }
     .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
     .kpi-card.rev::before { background:linear-gradient(90deg,var(--blue),#38bdf8); }
@@ -69,21 +70,21 @@
     .kpi-card.cust::before { background:linear-gradient(90deg,var(--purple),#a78bfa); }
     .kpi-card.churn::before { background:linear-gradient(90deg,var(--red),#f87171); }
     .kpi-top { display:flex; justify-content:space-between; align-items:flex-start; }
-    .kpi-label { font-size:11px; font-weight:500; color:var(--text3); letter-spacing:.03em; }
-    .kpi-note { font-size:10px; padding:2px 8px; border-radius:100px; font-weight:500; }
+    .kpi-label { font-size:12px; font-weight:500; color:var(--text3); letter-spacing:.03em; }
+    .kpi-note { font-size:11px; padding:2px 8px; border-radius:100px; font-weight:500; }
     .kpi-note.good { background:var(--green-light); color:var(--green); }
     .kpi-note.warn { background:var(--orange-light); color:var(--orange); }
     .kpi-note.bad { background:var(--red-light); color:var(--red); }
-    .kpi-value { font-size:26px; font-weight:700; letter-spacing:-.03em; margin:3px 0 2px; }
+    .kpi-value { font-size:26px; font-weight:700; letter-spacing:-.03em; margin:4px 0 3px; }
     .kpi-value.lg { font-size:30px; }
-    .kpi-bottom { display:flex; align-items:center; gap:12px; }
-    .kpi-change { font-size:11px; font-weight:500; }
+    .kpi-bottom { display:flex; align-items:center; gap:16px; }
+    .kpi-change { font-size:12px; font-weight:500; }
     .kpi-change.up { color:var(--green); }
     .kpi-change.down { color:var(--red); }
 
-    /* ─── DECISION INTELLIGENCE BAR ─── */
+    /* ─── DECISION INTELLIGENCE ─── */
     .di-bar { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
-    .di-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:12px 16px; transition:all .2s; display:flex; align-items:center; gap:12px; }
+    .di-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; transition:all .2s; display:flex; align-items:center; gap:12px; }
     .di-card:hover { border-color:var(--border2); box-shadow:var(--shadow-sm); }
     .di-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
     .di-icon.blue { background:var(--blue-light); color:var(--blue); }
@@ -92,81 +93,87 @@
     .di-icon.red { background:var(--red-light); color:var(--red); }
     .di-icon.purple { background:rgba(139,92,246,.1); color:var(--purple); }
     .di-body { flex:1; min-width:0; }
-    .di-label { font-size:10px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
-    .di-value { font-size:14px; font-weight:600; margin-top:1px; }
-    .di-sub { font-size:11px; color:var(--text2); margin-top:1px; }
-    .di-tag { font-size:10px; padding:1px 8px; border-radius:100px; font-weight:500; flex-shrink:0; }
+    .di-label { font-size:11px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
+    .di-value { font-size:14px; font-weight:600; margin-top:2px; }
+    .di-sub { font-size:12px; color:var(--text2); margin-top:2px; }
+    .di-tag { font-size:11px; padding:2px 8px; border-radius:100px; font-weight:500; flex-shrink:0; }
     .di-tag.good { background:var(--green-light); color:var(--green); }
     .di-tag.warn { background:var(--orange-light); color:var(--orange); }
     .di-tag.bad { background:var(--red-light); color:var(--red); }
 
     /* ─── MAIN 70/30 ─── */
-    .main-analytics { display:grid; grid-template-columns:1fr 320px; gap:14px; flex:1; min-height:0; }
+    .main-analytics { display:grid; grid-template-columns:1fr 320px; gap:16px; flex:1; min-height:0; }
 
-    /* ─── CHART CARD ─── */
-    .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; transition:box-shadow .2s; }
+    /* ─── CHART ─── */
+    .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; }
     .chart-card:hover { box-shadow:var(--shadow-sm); }
-    .chart-hdr { display:flex; align-items:center; justify-content:space-between; padding:12px 16px 0; }
-    .chart-hdr h3 { font-size:13px; font-weight:600; }
-    .chart-hdr .legend { display:flex; gap:12px; }
-    .chart-hdr .legend span { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--text3); font-weight:500; }
+    .chart-hdr { display:flex; align-items:center; justify-content:space-between; padding:14px 18px 0; }
+    .chart-hdr h3 { font-size:14px; font-weight:600; }
+    .chart-hdr .legend { display:flex; gap:14px; }
+    .chart-hdr .legend span { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text3); font-weight:500; }
     .chart-hdr .legend span::before { content:''; width:8px; height:3px; border-radius:2px; }
     .chart-hdr .legend .act::before { background:var(--blue); }
     .chart-hdr .legend .fct::before { background:var(--purple); border:1px dashed var(--purple); height:0; }
     .chart-hdr .legend .tgt::before { background:var(--orange); }
-    .chart-body { flex:1; padding:4px 8px 0; min-height:0; position:relative; }
+    .chart-body { flex:1; padding:6px 10px 0; min-height:0; position:relative; }
     .chart-body canvas { width:100%!important; height:100%!important; }
-    .chart-annotation { position:absolute; bottom:40px; right:40px; font-size:10px; padding:4px 10px; border-radius:6px; background:var(--card); border:1px solid var(--border); color:var(--text2); pointer-events:none; box-shadow:var(--shadow-sm); }
+    .chart-annotation { position:absolute; bottom:44px; right:44px; font-size:11px; padding:5px 10px; border-radius:6px; background:var(--card); border:1px solid var(--border); color:var(--text2); pointer-events:none; box-shadow:var(--shadow-sm); }
     .chart-annotation strong { color:var(--green); }
 
     /* ─── INSIGHTS ─── */
     .insights-panel { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; }
-    .insights-hdr { padding:12px 16px; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; justify-content:space-between; }
-    .insights-hdr h3 { font-size:13px; font-weight:600; }
-    .insights-hdr span { font-size:10px; color:var(--text3); font-weight:500; background:#f3f4f6; padding:2px 8px; border-radius:100px; }
-    .insights-scroll { flex:1; overflow-y:auto; padding:8px 12px; }
+    .insights-hdr { padding:14px 18px; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; justify-content:space-between; }
+    .insights-hdr h3 { font-size:14px; font-weight:600; }
+    .insights-hdr span { font-size:11px; color:var(--text3); font-weight:500; background:#f3f4f6; padding:2px 8px; border-radius:100px; }
+    .insights-scroll { flex:1; overflow-y:auto; padding:8px 14px; }
     .insights-scroll::-webkit-scrollbar { width:3px; }
     .insights-scroll::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
-    .isect { margin-bottom:6px; }
-    .isect-title { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--text3); margin-bottom:4px; padding:0 4px; }
-    .iitem { padding:9px 10px; border-radius:var(--radius-sm); transition:all .15s; cursor:default; margin-bottom:2px; border:1px solid transparent; }
+    .isect { margin-bottom:8px; }
+    .isect-title { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--text3); margin-bottom:6px; padding:0 4px; }
+    .iitem { padding:10px 12px; border-radius:var(--radius-sm); transition:all .15s; cursor:default; margin-bottom:3px; border:1px solid transparent; }
     .iitem:hover { background:#fafafa; border-color:var(--border); }
-    .iitem .ii-top { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
+    .iitem .ii-top { display:flex; align-items:center; gap:7px; margin-bottom:4px; }
     .iitem .ii-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
     .iitem .ii-dot.green { background:var(--green); }
     .iitem .ii-dot.amber { background:var(--orange); }
     .iitem .ii-dot.red { background:var(--red); }
     .iitem .ii-title { font-size:12px; font-weight:600; }
-    .iitem .ii-desc { font-size:11px; color:var(--text2); line-height:1.45; margin-left:12px; }
-    .iitem .ii-foot { font-size:10px; margin-left:12px; margin-top:2px; font-weight:500; }
+    .iitem .ii-desc { font-size:12px; color:var(--text2); line-height:1.45; margin-left:13px; }
+    .iitem .ii-foot { font-size:11px; margin-left:13px; margin-top:3px; font-weight:500; }
     .iitem .ii-foot.green { color:var(--green); }
     .iitem .ii-foot.red { color:var(--red); }
     .iitem .ii-foot.blue { color:var(--blue); }
 
-    /* ─── BOTTOM TABS ─── */
-    .bottom-sect { flex-shrink:0; }
-    .tabs { display:flex; gap:0; border-bottom:1px solid var(--border); }
-    .tab { padding:8px 18px; font-size:12px; font-weight:500; color:var(--text3); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; font-family:inherit; background:none; }
-    .tab:hover { color:var(--text2); }
-    .tab.active { color:var(--text); border-bottom-color:var(--orange); }
-    .tab-content { display:flex; gap:16px; padding:10px 0 2px; min-height:72px; }
-    .tab-pane { display:none; gap:16px; width:100%; }
-    .tab-pane.active { display:flex; }
-    .tab-metrics { display:flex; gap:0; flex:1; }
-    .tab-metric { padding:0 14px; border-right:1px solid #f3f4f6; min-width:90px; }
-    .tab-metric:last-child { border-right:none; }
-    .tm-label { font-size:10px; font-weight:500; color:var(--text3); letter-spacing:.03em; }
-    .tm-value { font-size:17px; font-weight:700; margin:1px 0; }
-    .tm-value.blue { color:var(--blue); }
-    .tm-value.green { color:var(--green); }
-    .tm-value.red { color:var(--red); }
-    .tm-value.orange { color:var(--orange); }
-    .tm-value.purple { color:var(--purple); }
-    .tm-change { font-size:10px; font-weight:500; }
-    .tm-change.up { color:var(--green); }
-    .tm-change.down { color:var(--red); }
-    .tab-chart { width:140px; flex-shrink:0; }
-    .tab-chart canvas { width:100%!important; height:56px!important; }
+    /* ─── BOTTOM SEGMENTED CONTROL ─── */
+    .seg-control { display:inline-flex; background:#f4f6f8; border-radius:var(--radius-pill); padding:4px; gap:2px; }
+    .seg-btn { padding:6px 18px; border-radius:var(--radius-pill); font-size:12px; font-weight:500; font-family:inherit; cursor:pointer; transition:all .2s; border:none; background:transparent; color:var(--text3); }
+    .seg-btn:hover { color:var(--text2); }
+    .seg-btn.active { background:var(--card); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.06); }
+    .seg-label { font-size:12px; font-weight:600; color:var(--text); margin-right:auto; }
+
+    /* ─── DIAGNOSTIC CONTENT ─── */
+    .diag-grid { display:grid; grid-template-columns:1fr 200px; gap:16px; padding:4px 0 2px; min-height:80px; }
+    .diag-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .diag-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; display:flex; flex-direction:column; }
+    .diag-card .dc-label { font-size:12px; font-weight:500; color:var(--text3); letter-spacing:.02em; }
+    .diag-card .dc-value { font-size:20px; font-weight:700; margin:3px 0 2px; }
+    .diag-card .dc-value.blue { color:var(--blue); }
+    .diag-card .dc-value.green { color:var(--green); }
+    .diag-card .dc-value.red { color:var(--red); }
+    .diag-card .dc-value.orange { color:var(--orange); }
+    .diag-card .dc-value.purple { color:var(--purple); }
+    .diag-card .dc-change { font-size:12px; font-weight:500; }
+    .diag-card .dc-change.up { color:var(--green); }
+    .diag-card .dc-change.down { color:var(--red); }
+    .diag-side { display:flex; flex-direction:column; gap:8px; }
+    .diag-side-card { background:#fafafa; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; }
+    .diag-side-card h4 { font-size:12px; font-weight:600; color:var(--text2); margin-bottom:8px; }
+    .diag-side-card .sc-row { display:flex; justify-content:space-between; padding:4px 0; font-size:12px; }
+    .diag-side-card .sc-row .scl { color:var(--text3); }
+    .diag-side-card .sc-row .scr { font-weight:600; color:var(--text); }
+    .diag-side-card .sc-total { display:flex; justify-content:space-between; padding:6px 0 0; margin-top:4px; border-top:1px solid var(--border); font-size:12px; }
+    .diag-side-card .sc-total .scl { color:var(--text2); font-weight:600; }
+    .diag-side-card .sc-total .scr { font-weight:700; color:var(--text); }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width:1100px) { .di-bar { grid-template-columns:1fr 1fr; } }
@@ -182,9 +189,11 @@
     @media (max-width:700px) {
       .kpi-strip { grid-template-columns:1fr; }
       .di-bar { grid-template-columns:1fr; }
-      .header { padding:14px 14px 0; flex-direction:column; align-items:flex-start; gap:10px; }
+      .diag-grid { grid-template-columns:1fr; }
+      .diag-cards { grid-template-columns:1fr; }
+      .header { padding:16px 14px 0; flex-direction:column; align-items:flex-start; gap:10px; }
       .h-right { flex-wrap:wrap; }
-      .scroll { padding:12px 14px; }
+      .scroll { padding:14px; }
     }
   </style>
 </head>
@@ -200,12 +209,24 @@
         <div class="sb-brand-text">Briatti <span>Dash</span></div>
       </div>
       <nav class="sb-nav" aria-label="Sidebar">
-        <a class="sb-item active" href="#" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span></a>
-        <a class="sb-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span></a>
-        <a class="sb-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Revenue</span></a>
-        <a class="sb-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Customers</span></a>
-        <a class="sb-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></a>
-        <a class="sb-item" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></a>
+        <button class="sb-item active" data-section="overview" onclick="setActiveSection('overview')" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span>
+        </button>
+        <button class="sb-item" data-section="kpis" onclick="setActiveSection('kpis')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span>
+        </button>
+        <button class="sb-item" data-section="revenue" onclick="setActiveSection('revenue')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Revenue</span>
+        </button>
+        <button class="sb-item" data-section="customers" onclick="setActiveSection('customers')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Customers</span>
+        </button>
+        <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span>
+        </button>
+        <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span>
+        </button>
       </nav>
       <div class="sb-footer">v2.4.1 · Enterprise</div>
     </aside>
@@ -216,19 +237,17 @@
       <!-- HEADER -->
       <header class="header">
         <div class="h-left">
-          <h1>Dashboard</h1>
-          <div class="sub">Executive business overview</div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <div class="sub" id="pageSub">Executive business overview</div>
         </div>
         <div class="h-right">
           <div class="h-btn" role="button" tabindex="0" aria-label="Date range">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Oct 1 – Oct 31
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            Oct 1 – Oct 31 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="h-btn" role="button" tabindex="0" aria-label="Segment filter">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
-            All segments
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            All segments <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
           <div class="h-btn primary" role="button" tabindex="0" aria-label="Export data">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -239,242 +258,228 @@
 
       <div class="scroll">
 
-        <!-- ═══ KPI STRIP ═══ -->
-        <section aria-label="Key metrics" class="kpi-strip">
-          <div class="kpi-card rev">
-            <div class="kpi-top">
-              <span class="kpi-label">Total Revenue</span>
-              <span class="kpi-note good">Best month in 6</span>
-            </div>
-            <div class="kpi-value lg rev">€1,248,900</div>
-            <div class="kpi-bottom">
-              <span class="kpi-change up">↑ 18.4% YoY</span>
-              <span style="font-size:10px;color:var(--text3)">€284,650 MTD</span>
-            </div>
-          </div>
-          <div class="kpi-card profit">
-            <div class="kpi-top">
-              <span class="kpi-label">Net Profit</span>
-              <span class="kpi-note good">Above target</span>
-            </div>
-            <div class="kpi-value lg profit">€102,474</div>
-            <div class="kpi-bottom">
-              <span class="kpi-change up">↑ 36% margin</span>
-              <span style="font-size:10px;color:var(--text3)">+15.7% MoM</span>
-            </div>
-          </div>
-          <div class="kpi-card cust">
-            <div class="kpi-top">
-              <span class="kpi-label">Active Customers</span>
-              <span class="kpi-note good">Up 8.1%</span>
-            </div>
-            <div class="kpi-value lg">1,847</div>
-            <div class="kpi-bottom">
-              <span class="kpi-change up">↑ 8.1% MoM</span>
-              <span style="font-size:10px;color:var(--text3)">+138 net new</span>
-            </div>
-          </div>
-          <div class="kpi-card churn">
-            <div class="kpi-top">
-              <span class="kpi-label">Churn Rate</span>
-              <span class="kpi-note good">Below 5% target</span>
-            </div>
-            <div class="kpi-value lg churn">4.2%</div>
-            <div class="kpi-bottom">
-              <span class="kpi-change down">↓ 0.8pp MoM</span>
-              <span style="font-size:10px;color:var(--text3)">Best rate all year</span>
-            </div>
-          </div>
-        </section>
+        <!-- ═══ SECTION: OVERVIEW (default, full dashboard) ═══ -->
+        <div class="section" id="sec-overview">
 
-        <!-- ═══ DECISION INTELLIGENCE BAR ═══ -->
-        <section aria-label="Decision intelligence" class="di-bar">
-          <div class="di-card">
-            <div class="di-icon red">⚠</div>
-            <div class="di-body">
-              <div class="di-label">Revenue at Risk</div>
-              <div class="di-value" style="color:var(--red)">€48K / yr</div>
-              <div class="di-sub">From churn — premium tier could recover 60%</div>
+          <!-- KPI STRIP -->
+          <section aria-label="Key metrics" class="kpi-strip">
+            <div class="kpi-card rev">
+              <div class="kpi-top"><span class="kpi-label">Total Revenue</span><span class="kpi-note good">Best month in 6</span></div>
+              <div class="kpi-value lg rev">€1,248,900</div>
+              <div class="kpi-bottom"><span class="kpi-change up">↑ 18.4% YoY</span><span style="font-size:12px;color:var(--text3)">€284,650 MTD</span></div>
             </div>
-            <span class="di-tag bad">Critical</span>
-          </div>
-          <div class="di-card">
-            <div class="di-icon blue">📈</div>
-            <div class="di-body">
-              <div class="di-label">Forecast Confidence</div>
-              <div class="di-value" style="color:var(--blue)">85%</div>
-              <div class="di-sub">High — driven by enterprise pipeline</div>
+            <div class="kpi-card profit">
+              <div class="kpi-top"><span class="kpi-label">Net Profit</span><span class="kpi-note good">Above target</span></div>
+              <div class="kpi-value lg profit">€102,474</div>
+              <div class="kpi-bottom"><span class="kpi-change up">↑ 36% margin</span><span style="font-size:12px;color:var(--text3)">+15.7% MoM</span></div>
             </div>
-            <span class="di-tag good">Stable</span>
-          </div>
-          <div class="di-card">
-            <div class="di-icon purple">🏆</div>
-            <div class="di-body">
-              <div class="di-label">Top Growth Driver</div>
-              <div class="di-value" style="color:var(--purple)">Enterprise</div>
-              <div class="di-sub">48% of revenue · +32% YoY</div>
+            <div class="kpi-card cust">
+              <div class="kpi-top"><span class="kpi-label">Active Customers</span><span class="kpi-note good">Up 8.1%</span></div>
+              <div class="kpi-value lg">1,847</div>
+              <div class="kpi-bottom"><span class="kpi-change up">↑ 8.1% MoM</span><span style="font-size:12px;color:var(--text3)">+138 net new</span></div>
             </div>
-            <span class="di-tag good">Scaling</span>
-          </div>
-          <div class="di-card">
-            <div class="di-icon orange">👥</div>
-            <div class="di-body">
-              <div class="di-label">Highest Churn Segment</div>
-              <div class="di-value" style="color:var(--orange)">SMB Monthly</div>
-              <div class="di-sub">7.2% churn · 3× above enterprise</div>
+            <div class="kpi-card churn">
+              <div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div>
+              <div class="kpi-value lg churn">4.2%</div>
+              <div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div>
             </div>
-            <span class="di-tag warn">Monitor</span>
-          </div>
-          <div class="di-card">
-            <div class="di-icon red">📊</div>
-            <div class="di-body">
-              <div class="di-label">CAC Warning</div>
-              <div class="di-value" style="color:var(--red)">↑ 14%</div>
-              <div class="di-sub">Social ads driving cost up · €58 CAC vs €31 content</div>
-            </div>
-            <span class="di-tag bad">Action needed</span>
-          </div>
-          <div class="di-card">
-            <div class="di-icon green">💡</div>
-            <div class="di-body">
-              <div class="di-label">Recommended Action</div>
-              <div class="di-value" style="color:var(--green)">Launch Premium Tier</div>
-              <div class="di-sub">€249/mo — 12 accounts pre-interested</div>
-            </div>
-            <span class="di-tag good">High impact</span>
-          </div>
-        </section>
+          </section>
 
-        <!-- ═══ MAIN ANALYTICS 70/30 ═══ -->
-        <section aria-label="Main analytics" class="main-analytics">
+          <!-- DECISION INTELLIGENCE -->
+          <section aria-label="Decision intelligence" class="di-bar">
+            <div class="di-card"><div class="di-icon red">⚠</div><div class="di-body"><div class="di-label">Revenue at Risk</div><div class="di-value" style="color:var(--red)">€48K / yr</div><div class="di-sub">From churn — premium tier could recover 60%</div></div><span class="di-tag bad">Critical</span></div>
+            <div class="di-card"><div class="di-icon blue">📈</div><div class="di-body"><div class="di-label">Forecast Confidence</div><div class="di-value" style="color:var(--blue)">85%</div><div class="di-sub">High — driven by enterprise pipeline</div></div><span class="di-tag good">Stable</span></div>
+            <div class="di-card"><div class="di-icon purple">🏆</div><div class="di-body"><div class="di-label">Top Growth Driver</div><div class="di-value" style="color:var(--purple)">Enterprise</div><div class="di-sub">48% of revenue · +32% YoY</div></div><span class="di-tag good">Scaling</span></div>
+            <div class="di-card"><div class="di-icon orange">👥</div><div class="di-body"><div class="di-label">Highest Churn</div><div class="di-value" style="color:var(--orange)">SMB Monthly</div><div class="di-sub">7.2% churn · 3× above enterprise</div></div><span class="di-tag warn">Monitor</span></div>
+            <div class="di-card"><div class="di-icon red">📊</div><div class="di-body"><div class="di-label">CAC Warning</div><div class="di-value" style="color:var(--red)">↑ 14%</div><div class="di-sub">Social ads: €58 CAC vs €31 content</div></div><span class="di-tag bad">Action needed</span></div>
+            <div class="di-card"><div class="di-icon green">💡</div><div class="di-body"><div class="di-label">Recommended Action</div><div class="di-value" style="color:var(--green)">Launch Premium Tier</div><div class="di-sub">€249/mo — 12 accounts pre-interested</div></div><span class="di-tag good">High impact</span></div>
+          </section>
 
-          <!-- CHART -->
-          <div class="chart-card">
-            <div class="chart-hdr">
-              <h3>Revenue &amp; Forecast</h3>
-              <div class="legend">
-                <span class="act">Actual</span>
-                <span class="fct">Forecast</span>
-                <span class="tgt">Target</span>
-              </div>
+          <!-- MAIN 70/30 -->
+          <section aria-label="Main analytics" class="main-analytics">
+            <div class="chart-card">
+              <div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div>
+              <div class="chart-body"><canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas><div class="chart-annotation">📈 <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div></div>
             </div>
-            <div class="chart-body">
-              <canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas>
-              <div class="chart-annotation">📈 <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div>
-            </div>
-          </div>
-
-          <!-- AI INSIGHTS -->
-          <div class="insights-panel">
-            <div class="insights-hdr">
-              <h3>AI Insights</h3>
-              <span>Updated 2m ago</span>
-            </div>
-            <div class="insights-scroll">
-
-              <div class="isect">
-                <div class="isect-title">Opportunities</div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Premium tier launch</span></div>
-                  <div class="ii-desc">Revenue ceiling can be broken with a €249/mo enterprise plan.</div>
-                  <div class="ii-foot green">Impact: +€48K/yr</div>
+            <div class="insights-panel">
+              <div class="insights-hdr"><h3>AI Insights</h3><span>Updated 2m ago</span></div>
+              <div class="insights-scroll">
+                <div class="isect"><div class="isect-title">Opportunities</div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Premium tier launch</span></div><div class="ii-desc">Revenue ceiling can be broken with a €249/mo enterprise plan.</div><div class="ii-foot green">Impact: +€48K/yr</div></div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Content channel scaling</span></div><div class="ii-desc">Content CAC is 30% lower than social — reallocation could save 12%.</div><div class="ii-foot green">Impact: −€5 CAC</div></div>
                 </div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Content channel scaling</span></div>
-                  <div class="ii-desc">Content CAC is 30% lower than social — reallocation could save 12%.</div>
-                  <div class="ii-foot green">Impact: −€5 CAC</div>
+                <div class="isect"><div class="isect-title">Risks</div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot red"></div><span class="ii-title">CAC rising 14%</span></div><div class="ii-desc">Social ad inefficiency is the primary driver. Needs immediate review.</div><div class="ii-foot red">At risk: €12K/mo</div></div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot amber"></div><span class="ii-title">AOV approaching ceiling</span></div><div class="ii-desc">AOV at €154 vs €160 ceiling. New bundles or tiers needed.</div><div class="ii-foot red">At risk: Growth cap</div></div>
                 </div>
-              </div>
-
-              <div class="isect">
-                <div class="isect-title">Risks</div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot red"></div><span class="ii-title">CAC rising 14%</span></div>
-                  <div class="ii-desc">Social ad inefficiency is the primary driver. Needs immediate review.</div>
-                  <div class="ii-foot red">At risk: €12K/mo</div>
-                </div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot amber"></div><span class="ii-title">AOV approaching ceiling</span></div>
-                  <div class="ii-desc">AOV at €154 vs €160 ceiling. New bundles or tiers needed.</div>
-                  <div class="ii-foot red">At risk: Growth cap</div>
-                </div>
-              </div>
-
-              <div class="isect">
-                <div class="isect-title">Recommended Actions</div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">1. Launch premium plan</span></div>
-                  <div class="ii-desc">Target enterprise at €249/mo. 12 pre-qualified accounts ready.</div>
-                </div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">2. Optimize ad channels</span></div>
-                  <div class="ii-desc">Pause bottom-20% social campaigns. Shift budget to SEO/content.</div>
-                </div>
-                <div class="iitem">
-                  <div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">3. Retention early-warning</span></div>
-                  <div class="ii-desc">Usage-drop alerts for at-risk accounts. Proven by Q3 campaign.</div>
+                <div class="isect"><div class="isect-title">Recommended Actions</div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">1. Launch premium plan</span></div><div class="ii-desc">Target enterprise at €249/mo. 12 pre-qualified accounts ready.</div></div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">2. Optimize ad channels</span></div><div class="ii-desc">Pause bottom-20% social campaigns. Shift budget to SEO/content.</div></div>
+                  <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">3. Retention early-warning</span></div><div class="ii-desc">Usage-drop alerts for at-risk accounts. Proven by Q3 campaign.</div></div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- ═══ BOTTOM TABS ═══ -->
-        <section aria-label="Diagnostics" class="bottom-sect">
-          <div class="tabs" role="tablist">
-            <button class="tab active" role="tab" aria-selected="true" onclick="switchTab(this,'revDiag')">Revenue</button>
-            <button class="tab" role="tab" aria-selected="false" onclick="switchTab(this,'custDiag')">Customers</button>
-            <button class="tab" role="tab" aria-selected="false" onclick="switchTab(this,'retDiag')">Retention</button>
-            <button class="tab" role="tab" aria-selected="false" onclick="switchTab(this,'chDiag')">Channels</button>
-          </div>
+          <!-- BOTTOM DIAGNOSTICS -->
+          <section aria-label="Diagnostics" class="bottom-sect" style="display:flex;flex-direction:column;gap:12px">
+            <div class="seg-control" role="tablist">
+              <button class="seg-btn active" role="tab" aria-selected="true" onclick="setDiagTab('revenue')">Revenue</button>
+              <button class="seg-btn" role="tab" aria-selected="false" onclick="setDiagTab('customers')">Customers</button>
+              <button class="seg-btn" role="tab" aria-selected="false" onclick="setDiagTab('retention')">Retention</button>
+              <button class="seg-btn" role="tab" aria-selected="false" onclick="setDiagTab('channels')">Channels</button>
+            </div>
 
-          <div class="tab-content">
-            <div class="tab-pane active" id="revDiag" role="tabpanel">
-              <div class="tab-metrics">
-                <div class="tab-metric"><div class="tm-label">Gross Revenue</div><div class="tm-value blue">€284,650</div><div class="tm-change up">↑ 12.3%</div></div>
-                <div class="tab-metric"><div class="tm-label">COGS</div><div class="tm-value">€113,860</div><div class="tm-change down">+4.1%</div></div>
-                <div class="tab-metric"><div class="tm-label">Gross Margin</div><div class="tm-value green">60%</div><div class="tm-change up">+2.1pp</div></div>
-                <div class="tab-metric"><div class="tm-label">Op. Costs</div><div class="tm-value orange">€68,316</div><div class="tm-change down">+3.2%</div></div>
-                <div class="tab-metric"><div class="tm-label">Net Profit</div><div class="tm-value green">€102,474</div><div class="tm-change up">+15.7%</div></div>
-                <div class="tab-metric"><div class="tm-label">Forecast (Nov)</div><div class="tm-value blue">€312K</div><div class="tm-change up">+9.6%</div></div>
+            <!-- Revenue Diagnostics -->
+            <div class="diag-pane" data-diag="revenue">
+              <div class="diag-grid">
+                <div class="diag-cards">
+                  <div class="diag-card"><div class="dc-label">Gross Revenue</div><div class="dc-value blue">€284,650</div><div class="dc-change up">↑ 12.3% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Gross Margin</div><div class="dc-value green">60%</div><div class="dc-change up">+2.1pp vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Net Profit</div><div class="dc-value green">€102,474</div><div class="dc-change up">↑ 15.7% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Nov Forecast</div><div class="dc-value blue">€312K</div><div class="dc-change up">+9.6% vs Oct</div></div>
+                </div>
+                <div class="diag-side">
+                  <div class="diag-side-card">
+                    <h4>Cost Breakdown</h4>
+                    <div class="sc-row"><span class="scl">COGS</span><span class="scr" style="color:var(--red)">€113,860</span></div>
+                    <div class="sc-row"><span class="scl">Operating Costs</span><span class="scr" style="color:var(--orange)">€68,316</span></div>
+                    <div class="sc-total"><span class="scl">Total Costs</span><span class="scr">€182,176</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-chart"><canvas id="revDiagChart" aria-label="Revenue trend"></canvas></div>
             </div>
-            <div class="tab-pane" id="custDiag" role="tabpanel">
-              <div class="tab-metrics">
-                <div class="tab-metric"><div class="tm-label">Total Base</div><div class="tm-value">1,847</div><div class="tm-change up">+138 net</div></div>
-                <div class="tab-metric"><div class="tm-label">New (MTD)</div><div class="tm-value green">+206</div><div class="tm-change up">+12%</div></div>
-                <div class="tab-metric"><div class="tm-label">Churned (MTD)</div><div class="tm-value red">−68</div><div class="tm-change down">−5.2%</div></div>
-                <div class="tab-metric"><div class="tm-label">Retention</div><div class="tm-value green">95.8%</div><div class="tm-change up">+0.6pp</div></div>
-                <div class="tab-metric"><div class="tm-label">LTV</div><div class="tm-value purple">€2,840</div><div class="tm-change up">+12.1%</div></div>
-                <div class="tab-metric"><div class="tm-label">LTV:CAC</div><div class="tm-value">67.6x</div><div class="tm-change up">+3.2x</div></div>
+
+            <!-- Customers Diagnostics -->
+            <div class="diag-pane hidden" data-diag="customers">
+              <div class="diag-grid">
+                <div class="diag-cards">
+                  <div class="diag-card"><div class="dc-label">Total Base</div><div class="dc-value">1,847</div><div class="dc-change up">+138 net new</div></div>
+                  <div class="diag-card"><div class="dc-label">New (MTD)</div><div class="dc-value green">+206</div><div class="dc-change up">+12% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Churned (MTD)</div><div class="dc-value red">−68</div><div class="dc-change down">−5.2% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Retention Rate</div><div class="dc-value green">95.8%</div><div class="dc-change up">+0.6pp</div></div>
+                </div>
+                <div class="diag-side">
+                  <div class="diag-side-card">
+                    <h4>Value Metrics</h4>
+                    <div class="sc-row"><span class="scl">Customer LTV</span><span class="scr">€2,840</span></div>
+                    <div class="sc-row"><span class="scl">LTV:CAC Ratio</span><span class="scr">67.6x</span></div>
+                    <div class="sc-row"><span class="scl">Avg Acquisition Cost</span><span class="scr" style="color:var(--orange)">€42</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-chart"><canvas id="custDiagChart" aria-label="Customer growth"></canvas></div>
             </div>
-            <div class="tab-pane" id="retDiag" role="tabpanel">
-              <div class="tab-metrics">
-                <div class="tab-metric"><div class="tm-label">Churn Rate</div><div class="tm-value red">4.2%</div><div class="tm-change down">−0.8pp</div></div>
-                <div class="tab-metric"><div class="tm-label">NRR</div><div class="tm-value green">108%</div><div class="tm-change up">+3.2pp</div></div>
-                <div class="tab-metric"><div class="tm-label">At-Risk</div><div class="tm-value orange">23</div><div class="tm-change down">−8</div></div>
-                <div class="tab-metric"><div class="tm-label">Avg Lifespan</div><div class="tm-value">18.2 mo</div><div class="tm-change up">+2.4 mo</div></div>
-                <div class="tab-metric"><div class="tm-label">Recovered Rev</div><div class="tm-value green">€4.2K</div><div class="tm-change up">+18%</div></div>
-                <div class="tab-metric"><div class="tm-label">Confidence</div><div class="tm-value blue">85%</div><div class="tm-change up">High</div></div>
+
+            <!-- Retention Diagnostics -->
+            <div class="diag-pane hidden" data-diag="retention">
+              <div class="diag-grid">
+                <div class="diag-cards">
+                  <div class="diag-card"><div class="dc-label">Churn Rate</div><div class="dc-value red">4.2%</div><div class="dc-change down">−0.8pp MoM</div></div>
+                  <div class="diag-card"><div class="dc-label">Net Rev Retention</div><div class="dc-value green">108%</div><div class="dc-change up">+3.2pp</div></div>
+                  <div class="diag-card"><div class="dc-label">At-Risk Accounts</div><div class="dc-value orange">23</div><div class="dc-change down">−8 vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Avg Customer Lifespan</div><div class="dc-value">18.2 mo</div><div class="dc-change up">+2.4 mo</div></div>
+                </div>
+                <div class="diag-side">
+                  <div class="diag-side-card">
+                    <h4>Recovery</h4>
+                    <div class="sc-row"><span class="scl">Recovered Revenue</span><span class="scr" style="color:var(--green)">€4.2K/mo</span></div>
+                    <div class="sc-row"><span class="scl">Q3 Campaign Lift</span><span class="scr" style="color:var(--green)">+18%</span></div>
+                    <div class="sc-row"><span class="scl">Confidence Score</span><span class="scr" style="color:var(--blue)">85%</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-chart"><canvas id="retDiagChart" aria-label="Retention trend"></canvas></div>
             </div>
-            <div class="tab-pane" id="chDiag" role="tabpanel">
-              <div class="tab-metrics">
-                <div class="tab-metric"><div class="tm-label">Overall CAC</div><div class="tm-value orange">€42</div><div class="tm-change down">+14%</div></div>
-                <div class="tab-metric"><div class="tm-label">Social Ads</div><div class="tm-value red">€58</div><div class="tm-change down">+22%</div></div>
-                <div class="tab-metric"><div class="tm-label">Content</div><div class="tm-value green">€31</div><div class="tm-change up">−8%</div></div>
-                <div class="tab-metric"><div class="tm-label">Email</div><div class="tm-value green">€22</div><div class="tm-change up">−12%</div></div>
-                <div class="tab-metric"><div class="tm-label">Referral</div><div class="tm-value green">€14</div><div class="tm-change up">−5%</div></div>
-                <div class="tab-metric"><div class="tm-label">Best Channel</div><div class="tm-value green">Referral</div><div class="tm-change up">3× ROI</div></div>
+
+            <!-- Channels Diagnostics -->
+            <div class="diag-pane hidden" data-diag="channels">
+              <div class="diag-grid">
+                <div class="diag-cards">
+                  <div class="diag-card"><div class="dc-label">Overall CAC</div><div class="dc-value orange">€42</div><div class="dc-change down">+14% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Social Ads CAC</div><div class="dc-value red">€58</div><div class="dc-change down">+22% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Content CAC</div><div class="dc-value green">€31</div><div class="dc-change up">−8% vs Sep</div></div>
+                  <div class="diag-card"><div class="dc-label">Best Channel</div><div class="dc-value green">Referral</div><div class="dc-change up">3× ROI</div></div>
+                </div>
+                <div class="diag-side">
+                  <div class="diag-side-card">
+                    <h4>Channel Comparison</h4>
+                    <div class="sc-row"><span class="scl">Email CAC</span><span class="scr" style="color:var(--green)">€22</span></div>
+                    <div class="sc-row"><span class="scl">Referral CAC</span><span class="scr" style="color:var(--green)">€14</span></div>
+                    <div class="sc-row"><span class="scl">Cost Gap (Social vs Content)</span><span class="scr" style="color:var(--red)">€27</span></div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-chart"><canvas id="chDiagChart" aria-label="Channel CAC trend"></canvas></div>
+            </div>
+
+          </section>
+        </div>
+
+        <!-- ═══ SECTION: KPIS ═══ -->
+        <div class="section hidden" id="sec-kpis">
+          <section aria-label="Key metrics" class="kpi-strip">
+            <div class="kpi-card rev"><div class="kpi-top"><span class="kpi-label">Total Revenue</span><span class="kpi-note good">Best month in 6</span></div><div class="kpi-value lg rev">€1,248,900</div><div class="kpi-bottom"><span class="kpi-change up">↑ 18.4% YoY</span><span style="font-size:12px;color:var(--text3)">€284,650 MTD</span></div></div>
+            <div class="kpi-card profit"><div class="kpi-top"><span class="kpi-label">Net Profit</span><span class="kpi-note good">Above target</span></div><div class="kpi-value lg profit">€102,474</div><div class="kpi-bottom"><span class="kpi-change up">↑ 36% margin</span><span style="font-size:12px;color:var(--text3)">+15.7% MoM</span></div></div>
+            <div class="kpi-card cust"><div class="kpi-top"><span class="kpi-label">Active Customers</span><span class="kpi-note good">Up 8.1%</span></div><div class="kpi-value lg">1,847</div><div class="kpi-bottom"><span class="kpi-change up">↑ 8.1% MoM</span><span style="font-size:12px;color:var(--text3)">+138 net new</span></div></div>
+            <div class="kpi-card churn"><div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div><div class="kpi-value lg churn">4.2%</div><div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div></div>
+          </section>
+        </div>
+
+        <!-- ═══ SECTION: REVENUE ═══ -->
+        <div class="section hidden" id="sec-revenue">
+          <div class="chart-card" style="flex:1;min-height:300px">
+            <div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div>
+            <div class="chart-body"><canvas id="revSectionChart" aria-label="Revenue and forecast chart" role="img"></canvas></div>
+          </div>
+        </div>
+
+        <!-- ═══ SECTION: CUSTOMERS ═══ -->
+        <div class="section hidden" id="sec-customers">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1">
+            <div class="chart-card" style="min-height:260px">
+              <div class="chart-hdr"><h3>Customer Growth</h3></div>
+              <div class="chart-body"><canvas id="custSectionChart" aria-label="Customer growth chart" role="img"></canvas></div>
+            </div>
+            <div class="kpi-card cust" style="border:none;background:#fafafa">
+              <div class="kpi-top"><span class="kpi-label">Active Customers</span><span class="kpi-note good">Up 8.1%</span></div>
+              <div class="kpi-value lg">1,847</div>
+              <div class="kpi-bottom"><span class="kpi-change up">↑ 8.1% MoM</span><span style="font-size:12px;color:var(--text3)">+138 net new</span></div>
+              <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div><div style="font-size:12px;color:var(--text3)">New (MTD)</div><div style="font-size:20px;font-weight:700;color:var(--green)">+206</div></div>
+                <div><div style="font-size:12px;color:var(--text3)">Churned</div><div style="font-size:20px;font-weight:700;color:var(--red)">−68</div></div>
+                <div><div style="font-size:12px;color:var(--text3)">Retention</div><div style="font-size:20px;font-weight:700;color:var(--green)">95.8%</div></div>
+                <div><div style="font-size:12px;color:var(--text3)">LTV</div><div style="font-size:20px;font-weight:700">€2,840</div></div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+
+        <!-- ═══ SECTION: INSIGHTS ═══ -->
+        <div class="section hidden" id="sec-insights">
+          <div class="insights-panel" style="flex:1">
+            <div class="insights-hdr"><h3>AI Insights</h3><span>Updated 2m ago</span></div>
+            <div class="insights-scroll" style="max-height:none;padding:12px 16px">
+              <div class="isect"><div class="isect-title">Opportunities</div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Premium tier launch</span></div><div class="ii-desc">Revenue ceiling can be broken with a €249/mo enterprise plan targeting high-value accounts. 12 pre-qualified.</div><div class="ii-foot green">Impact: +€48K/yr</div></div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Content channel scaling</span></div><div class="ii-desc">Content CAC (€31) is 30% lower than social ads (€58). Reallocating 70% of social budget could reduce overall CAC by 12%.</div><div class="ii-foot green">Impact: −€5 CAC</div></div>
+              </div>
+              <div class="isect"><div class="isect-title">Risks</div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot red"></div><span class="ii-title">CAC rising 14%</span></div><div class="ii-desc">Customer acquisition cost increased 14% over the last 2 months. Social ad inefficiency is the primary cause — needs immediate review.</div><div class="ii-foot red">At risk: €12K/mo</div></div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot amber"></div><span class="ii-title">AOV approaching ceiling</span></div><div class="ii-desc">Average order value at €154 vs estimated €160 ceiling. New product bundles or premium tiers are needed to continue growth.</div><div class="ii-foot red">At risk: Growth ceiling</div></div>
+              </div>
+              <div class="isect"><div class="isect-title">Recommended Actions</div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">1. Launch premium plan</span></div><div class="ii-desc">Target enterprise at €249/mo. 12 pre-qualified accounts ready to convert. Estimated 15-20% revenue uplift.</div></div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">2. Optimize ad channels</span></div><div class="ii-desc">Pause bottom-20% social campaigns. Shift 70% of saved budget to content marketing and SEO channels.</div></div>
+                <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">3. Retention early-warning</span></div><div class="ii-desc">Deploy usage-drop alerts to identify at-risk accounts before they churn. Q3 retention campaign proved the model works.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ SECTION: REPORTS ═══ -->
+        <div class="section hidden" id="sec-reports">
+          <div style="display:flex;align-items:center;justify-content:center;flex:1;color:var(--text3);font-size:14px;border:1px dashed var(--border);border-radius:var(--radius);padding:60px">
+            <div style="text-align:center"><div style="font-size:32px;margin-bottom:8px;opacity:.4">📄</div><p>Reports module coming soon. You'll be able to generate custom reports, export PDFs, and schedule deliveries.</p></div>
+          </div>
+        </div>
 
       </div><!-- /scroll -->
     </main><!-- /main -->
@@ -483,61 +488,133 @@
 
 <script>
 // ═══════════════════════════════════════
-// MAIN CHART - Revenue & Forecast
+// STATE
 // ═══════════════════════════════════════
-const mCtx = document.getElementById('mainChart').getContext('2d');
-new Chart(mCtx, {
-  type: 'line',
-  data: {
-    labels: ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
-    datasets: [
-      { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
-      { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
-      { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0, pointHoverRadius:0 }
-    ]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    interaction:{ mode:'index', intersect:false },
-    plugins: {
-      legend:{ display:false },
-      tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10,
-        callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' }
-      }
-    },
-    scales: {
-      x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'}} },
-      y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'},callback:v=>`€${v}K`}, beginAtZero:false }
-    }
-  }
-});
+let activeSection = 'overview';
+let activeDiagTab = 'revenue';
 
 // ═══════════════════════════════════════
-// DIAGNOSTIC SPARKLINES
+// SIDEBAR NAVIGATION
 // ═══════════════════════════════════════
-const diagConfigs = {
-  revDiagChart: { data:[210,228,245,262,285], color:'#0ea5e9' },
-  custDiagChart:{ data:[1420,1520,1620,1710,1847], color:'#8b5cf6' },
-  retDiagChart: { data:[5.0,5.2,4.8,4.5,4.2], color:'#f97316' },
-  chDiagChart:  { data:[36,38,40,42,42], color:'#ef4444' },
-};
-Object.entries(diagConfigs).forEach(([id,cfg]) => {
-  const el = document.getElementById(id); if(!el) return;
-  new Chart(el, { type:'line',
-    data:{ labels:['Jun','Jul','Aug','Sep','Oct'], datasets:[{ data:cfg.data, borderColor:cfg.color, backgroundColor:cfg.color+'15', fill:true, tension:0.3, pointRadius:0, borderWidth:1.5 }] },
-    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false},tooltip:{enabled:false}}, scales:{x:{display:false},y:{display:false,beginAtZero:false}}, elements:{point:{radius:0}} }
+function setActiveSection(section) {
+  activeSection = section;
+
+  // Update sidebar
+  document.querySelectorAll('.sb-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.section === section);
+    item.setAttribute('aria-current', item.dataset.section === section ? 'page' : 'false');
   });
-});
+
+  // Update header
+  const titles = {
+    overview: ['Dashboard', 'Executive business overview'],
+    kpis: ['KPIs', 'Key performance indicators'],
+    revenue: ['Revenue', 'Revenue analysis & forecast'],
+    customers: ['Customers', 'Customer metrics & growth'],
+    insights: ['Insights', 'AI-powered business insights'],
+    reports: ['Reports', 'Custom reports & exports']
+  };
+  document.getElementById('pageTitle').textContent = titles[section][0];
+  document.getElementById('pageSub').textContent = titles[section][1];
+
+  // Show/hide sections
+  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+  document.getElementById('sec-' + section).classList.remove('hidden');
+
+  // Rebuild charts if needed
+  setTimeout(rebuildSectionCharts, 80);
+}
 
 // ═══════════════════════════════════════
-// TAB SWITCHER
+// DIAGNOSTIC TAB SWITCHER
 // ═══════════════════════════════════════
-function switchTab(btn, paneId) {
-  document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('active'); t.setAttribute('aria-selected','false');});
-  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  document.getElementById(paneId).classList.add('active');
+function setDiagTab(tab) {
+  activeDiagTab = tab;
+  document.querySelectorAll('.seg-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === tab);
+    b.setAttribute('aria-selected', b.textContent.trim().toLowerCase() === tab ? 'true' : 'false');
+  });
+  document.querySelectorAll('.diag-pane').forEach(p => {
+    p.classList.toggle('hidden', p.dataset.diag !== tab);
+  });
 }
+
+// ═══════════════════════════════════════
+// CHARTS
+// ═══════════════════════════════════════
+let mainChart, revChart, custChart;
+
+function initCharts() {
+  // Main chart
+  const mCtx = document.getElementById('mainChart');
+  if (mCtx) {
+    mainChart = new Chart(mCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
+        datasets: [
+          { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
+          { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0, pointHoverRadius:0 }
+        ]
+      },
+      options: { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins: { legend:{ display:false },
+          tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10,
+            callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' }
+          }
+        },
+        scales: {
+          x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'}} },
+          y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'},callback:v=>`€${v}K`}, beginAtZero:false }
+        }
+      }
+    });
+  }
+
+  // Revenue section chart (clone)
+  const rCtx = document.getElementById('revSectionChart');
+  if (rCtx) {
+    revChart = new Chart(rCtx, {
+      type: 'line',
+      data: { labels:['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
+        datasets: [
+          { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
+          { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0, pointHoverRadius:0 }
+        ] },
+      options: { responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins: { legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
+        scales: { x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'}} }, y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10,family:'Inter'},callback:v=>`€${v}K`}, beginAtZero:false } }
+      }
+    });
+  }
+
+  // Customer section chart
+  const cCtx = document.getElementById('custSectionChart');
+  if (cCtx) {
+    custChart = new Chart(cCtx, {
+      type:'bar',
+      data:{ labels:['Jun','Jul','Aug','Sep','Oct'], datasets:[{ label:'Customers', data:[1420,1520,1620,1710,1847], backgroundColor:'rgba(139,92,246,0.5)', borderColor:'#8b5cf6', borderWidth:1, borderRadius:4 }] },
+      options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } },
+        scales:{ x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10}} }, y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10}}, beginAtZero:true } }
+      }
+    });
+  }
+}
+
+function rebuildSectionCharts() {
+  // Charts auto-resize with responsive:true + maintainAspectRatio:false
+  // Just trigger a resize
+  if (mainChart) mainChart.resize();
+  if (revChart) revChart.resize();
+  if (custChart) custChart.resize();
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+initCharts();
 </script>
 </body>
 </html>
