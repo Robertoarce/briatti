@@ -777,6 +777,7 @@ function updateSegmentUI() {
   }
   document.getElementById('segLabel').textContent = label;
   // Keep dropdown open for multi-select
+  applyDashboardFilters();
 }
 
 // ═══════════════════════════════════════
@@ -859,6 +860,7 @@ function applyDatepicker() {
     dpEnd = dpTempEnd;
     const fmt = s => { const d=new Date(s+'T12:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
     document.getElementById('dpLabel').textContent = fmt(dpStart)+' – '+fmt(dpEnd);
+    applyDashboardFilters();
   }
   closeDatepicker();
 }
@@ -970,6 +972,102 @@ function toggleSidebar() {
 }
 
 // ═══════════════════════════════════════
+// FILTER ENGINE — updates all dashboard data
+// ═══════════════════════════════════════
+const BASE_DATA = {
+  rev: 1248900, profit: 102474, cust: 1847, churn: 4.2, mtd: 284650,
+  chartRev: [210,228,245,262,285,null,null,null],
+  chartFct: [null,null,null,null,285,312,330,348],
+  chartTgt: [195,215,230,250,270,290,310,330],
+  custChart: [1420,1520,1620,1710,1847]
+};
+
+function applyDashboardFilters() {
+  // Segment factor
+  const segW = {enterprise:0.48, smb:0.34, individual:0.18};
+  let segF = 0;
+  const indiv = ['enterprise','smb','individual'];
+  if (selectedSegments.has('all') || indiv.every(s => selectedSegments.has(s))) segF = 1;
+  else indiv.forEach(s => { if (selectedSegments.has(s)) segF += segW[s]; });
+  if (segF === 0) segF = 1;
+
+  // Date factor (days / 31)
+  let dateF = 1;
+  if (dpStart && dpEnd) {
+    const s = new Date(dpStart+'T12:00:00'), e = new Date(dpEnd+'T12:00:00');
+    dateF = Math.max(1, Math.round((e-s)/86400000)+1) / 31;
+  }
+
+  const f = Math.round(segF * dateF * 100) / 100;
+
+  // ---- Update Overview KPI cards ----
+  const el = s => document.querySelector('#sec-overview ' + s);
+  const k = n => Math.round(n);
+  const fmt = n => '€' + (n).toLocaleString();
+
+  const revEl = el('.kpi-card.rev .kpi-value');
+  if (revEl) revEl.textContent = fmt(k(BASE_DATA.rev * f));
+
+  const profitEl = el('.kpi-card.profit .kpi-value');
+  if (profitEl) profitEl.textContent = fmt(k(BASE_DATA.profit * f));
+
+  const custEl = el('.kpi-card.cust .kpi-value');
+  if (custEl) custEl.textContent = k(BASE_DATA.cust * f).toLocaleString();
+
+  const churnEl = el('.kpi-card.churn .kpi-value');
+  if (churnEl) churnEl.textContent = (BASE_DATA.churn / segF).toFixed(1) + '%';
+
+  // MTD subtext
+  const mtdEl = el('.kpi-card.rev .kpi-bottom span:last-child');
+  if (mtdEl) mtdEl.textContent = fmt(k(BASE_DATA.mtd * f)) + ' MTD';
+
+  // Net profit margin subtext
+  const marginEl = el('.kpi-card.profit .kpi-bottom span:last-child');
+  if (marginEl) marginEl.textContent = '+' + Math.round(15.7 * f) + '% MoM';
+
+  // ---- Update charts ----
+  const scaleArr = (arr, fac) => arr.map(v => v === null ? null : Math.round(v * fac));
+  const scaled = (fac) => ({
+    r: scaleArr(BASE_DATA.chartRev, fac),
+    f: scaleArr(BASE_DATA.chartFct, fac),
+    t: scaleArr(BASE_DATA.chartTgt, fac),
+    c: scaleArr(BASE_DATA.custChart, fac)
+  });
+  const d = scaled(f);
+
+  if (mainChart) {
+    mainChart.data.datasets[0].data = d.r;
+    mainChart.data.datasets[1].data = d.f;
+    mainChart.data.datasets[2].data = d.t;
+    mainChart.update('none');
+  }
+  if (revChart) {
+    revChart.data.datasets[0].data = d.r;
+    revChart.data.datasets[1].data = d.f;
+    revChart.data.datasets[2].data = d.t;
+    revChart.update('none');
+  }
+  if (custChart) {
+    custChart.data.datasets[0].data = d.c;
+    custChart.update('none');
+  }
+
+  // ---- Update diagnostics pane ----
+  const dcs = document.querySelectorAll('#sec-overview .diag-card .dc-value');
+  if (dcs.length >= 4) {
+    const gr = k(BASE_DATA.mtd * f);
+    dcs[0].textContent = fmt(gr);
+    dcs[0].className = 'dc-value blue';
+    dcs[1].textContent = Math.round(60 * segF) + '%';
+    dcs[1].className = 'dc-value green';
+    dcs[2].textContent = fmt(k(BASE_DATA.profit * f / 4.39));
+    dcs[2].className = 'dc-value green';
+    dcs[3].textContent = fmt(k(312000 * f / 1000)) + 'K';
+    dcs[3].className = 'dc-value blue';
+  }
+}
+
+// ═══════════════════════════════════════
 // CHARTS
 // ═══════════════════════════════════════
 let mainChart, revChart, custChart;
@@ -1023,6 +1121,7 @@ function rebuildSectionCharts() {
 }
 
 initCharts();
+applyDashboardFilters();
 </script>
 </body>
 </html>
