@@ -48,6 +48,8 @@
     .h-btn.active { border-color:var(--orange); color:var(--orange); }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
     .h-btn.primary:hover { opacity:.9; }
+    .hamburger { display:none; }
+    .sb-backdrop { display:none; }
 
     .scroll { flex:1; overflow-y:auto; padding:16px 24px 20px; display:flex; flex-direction:column; gap:16px; }
     .scroll::-webkit-scrollbar { width:4px; }
@@ -199,11 +201,116 @@
       .diag-grid { grid-template-columns:1fr; }
     }
     @media (max-width:700px) {
-      .kpi-strip { grid-template-columns:1fr; }
-      .di-bar { grid-template-columns:1fr; }
-      .header { flex-direction:column; align-items:flex-start; gap:10px; padding:16px 14px 0; }
+      .kpi-strip { grid-template-columns:1fr 1fr; }
+      .di-bar { grid-template-columns:1fr 1fr; }
+      .header { flex-direction:row; align-items:flex-start; gap:8px; padding:14px 14px 0; }
       .scroll { padding:14px; }
       .filter-row { flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width:640px) {
+      .app { padding:0; align-items:stretch; }
+      .app-inner { max-width:100%; max-height:none; border-radius:0; height:100vh; }
+      .sidebar { position:fixed; top:0; left:0; bottom:0; width:260px; z-index:1000; transform:translateX(-100%); transition:transform .25s ease; border-radius:0 14px 14px 0; box-shadow:0 0 40px rgba(0,0,0,.15); }
+      .sidebar.open { transform:translateX(0); }
+      .sidebar .sb-brand-text, .sidebar .sb-item span, .sidebar .sb-badge, .sidebar .sb-footer { display:revert; }
+      .sidebar .sb-item { justify-content:flex-start; padding:9px 12px; }
+      .sidebar .sb-brand { justify-content:flex-start; padding:18px 16px 14px; }
+      .sb-footer { display:block; }
+      .hamburger { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); cursor:pointer; flex-shrink:0; }
+      .hamburger svg { width:18px; height:18px; stroke:var(--text2); }
+      .sb-backdrop { display:block; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999; opacity:0; pointer-events:none; transition:opacity .25s ease; }
+      .sb-backdrop.show { opacity:1; pointer-events:auto; }
+      .header { padding:12px 12px 0; flex-wrap:wrap; }
+      .hamburger { margin-left:auto; }
+      .h-left h1 { font-size:18px; }
+      .h-left .sub { font-size:12px; }
+      .h-right { gap:5px; }
+      .h-btn { padding:5px 8px; font-size:11px; }
+      .h-btn svg { width:12px; height:12px; }
+      .scroll { padding:10px 12px 16px; gap:12px; }
+      .kpi-strip { grid-template-columns:1fr 1fr; gap:10px; }
+      .kpi-card { padding:16px; }
+      .kpi-value { font-size:22px; }
+      .kpi-value.lg { font-size:24px; }
+      .kpi-bottom { flex-wrap:wrap; gap:8px; }
+      .di-bar { grid-template-columns:1fr; gap:10px; }
+      .di-card { padding:12px; gap:10px; }
+      .di-icon { width:32px; height:32px; font-size:14px; }
+      .di-body .di-value { font-size:13px; }
+      .main-analytics { grid-template-columns:1fr; min-height:300px; gap:12px; }
+      .chart-card { min-height:180px; }
+      .chart-hdr { padding:12px 14px 0; }
+      .chart-hdr h3 { font-size:13px; }
+      .chart-hdr .legend { gap:8px; }
+      .chart-body { padding:4px 8px 0; }
+      .chart-annotation { bottom:12px; right:12px; font-size:10px; padding:4px 8px; }
+      .insights-panel { max-height:200px; }
+      .insights-hdr { padding:12px 14px; }
+      .insights-hdr h3 { font-size:13px; }
+      .insights-scroll { padding:6px 10px; }
+      .iitem { padding:8px 10px; }
+      .diag-grid { grid-template-columns:1fr; gap:10px; }
+      .diag-cards { grid-template-columns:1fr 1fr; gap:8px; }
+      .diag-card { padding:12px; }
+      .diag-card .dc-value { font-size:18px; }
+      .diag-side-card { padding:12px; }
+      .seg-control { flex-wrap:wrap; gap:2px; }
+      .seg-btn { padding:5px 12px; font-size:11px; }
+      .filter-row { flex-direction:column; align-items:flex-start; gap:6px; }
+      .filter-group { flex-wrap:wrap; }
+      .filter-opt { padding:4px 9px; font-size:10px; }
+      .report-grid { grid-template-columns:1fr; }
+      .report-card { padding:14px 16px; }
+      table.export-table { display:block; overflow-x:auto; white-space:nowrap; font-size:12px; }
+      .h-btn.primary { padding:4px 10px; font-size:11px; }
+    }
+    @media (max-width:420px) {
+      .header { padding:8px 8px 0; gap:4px; flex-wrap:wrap; }
+      .h-left h1 { font-size:15px; }
+      .h-left .sub { display:none; }
+      .h-right { gap:3px; }
+      .h-btn { padding:3px 6px; font-size:10px; }
+      .h-btn svg { width:10px; height:10px; }
+      .hamburger { width:30px; height:30px; }
+      .scroll { padding:8px 8px 12px; gap:10px; }
+      .kpi-strip { grid-template-columns:1fr; gap:8px; }
+      .kpi-card { padding:12px 14px; }
+      .kpi-value { font-size:20px; }
+      .kpi-value.lg { font-size:22px; }
+      .kpi-label { font-size:11px; }
+      .kpi-note { font-size:10px; padding:1px 6px; }
+      .kpi-change { font-size:11px; }
+      .di-bar { gap:8px; }
+      .di-card { padding:10px; gap:8px; }
+      .di-icon { width:26px; height:26px; font-size:12px; }
+      .di-body .di-value { font-size:12px; }
+      .di-sub { font-size:11px; }
+      .di-tag { font-size:10px; padding:1px 5px; }
+      .main-analytics { min-height:240px; gap:10px; }
+      .chart-card { min-height:140px; }
+      .chart-hdr { padding:10px 10px 0; flex-direction:column; align-items:flex-start; }
+      .chart-hdr .legend span { font-size:10px; }
+      .chart-body { padding:2px 6px 0; }
+      .chart-annotation { bottom:6px; right:6px; font-size:9px; padding:2px 6px; max-width:calc(100% - 12px); }
+      .insights-panel { max-height:160px; }
+      .insights-hdr { padding:10px; }
+      .insights-scroll { padding:4px 8px; }
+      .isect-title { font-size:10px; }
+      .iitem { padding:6px 8px; }
+      .iitem .ii-title { font-size:11px; }
+      .iitem .ii-desc { font-size:11px; margin-left:10px; }
+      .diag-cards { grid-template-columns:1fr; }
+      .diag-card { padding:10px; }
+      .diag-card .dc-value { font-size:16px; }
+      .seg-btn { padding:4px 9px; font-size:10px; }
+      .bottom-sect .seg-control { justify-content:center; }
+      .report-card { padding:12px; }
+      .report-card h4 { font-size:13px; }
+      .report-card p { font-size:11px; }
+      .sidebar { width:100%; max-width:260px; }
+      .sb-item { padding:8px; font-size:12px; }
+      .sb-item svg { width:16px; height:16px; }
+      table.export-table th, table.export-table td { padding:6px 8px; }
     }
   </style>
 </head>
@@ -235,7 +342,7 @@
           <h1 id="pageTitle">Dashboard</h1>
           <div class="sub" id="pageSub">Executive business overview</div>
         </div>
-        <div class="h-right" id="headerControls"></div>
+        <div class="h-right" id="headerControls"></div><button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </header>
 
       <div class="scroll">
@@ -457,6 +564,7 @@
 
       </div><!-- /scroll -->
     </main><!-- /main -->
+    <div class="sb-backdrop" onclick="toggleSidebar()"></div>
   </div><!-- /app-inner -->
 </div><!-- /app -->
 
@@ -631,6 +739,14 @@ function setInsightView(btn, view) {
   const data = insightData[view];
   document.getElementById('insightPeriod').textContent = data.period;
   document.getElementById('insightContent').innerHTML = data.content;
+}
+
+// ═══════════════════════════════════════
+// MOBILE SIDEBAR TOGGLE
+// ═══════════════════════════════════════
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sb-backdrop').classList.toggle('show');
 }
 
 // ═══════════════════════════════════════
