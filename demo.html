@@ -202,6 +202,7 @@
     }
     @media (max-width:700px) {
       .kpi-strip { grid-template-columns:1fr 1fr; }
+      .kpi-layout { grid-template-columns:1fr; }
       .di-bar { grid-template-columns:1fr 1fr; }
       .header { flex-direction:row; align-items:flex-start; gap:8px; padding:14px 14px 0; }
       .scroll { padding:14px; }
@@ -210,6 +211,7 @@
     @media (max-width:640px) {
       .app { padding:0; align-items:stretch; }
       .app-inner { max-width:100%; max-height:none; border-radius:0; height:100vh; }
+      .kpi-layout { grid-template-columns:1fr; }
       .sidebar { position:fixed; top:0; left:0; bottom:0; width:260px; z-index:1000; transform:translateX(-100%); transition:transform .25s ease; border-radius:0 14px 14px 0; box-shadow:0 0 40px rgba(0,0,0,.15); }
       .sidebar.open { transform:translateX(0); }
       .sidebar .sb-brand-text, .sidebar .sb-item span, .sidebar .sb-badge, .sidebar .sb-footer { display:revert; }
@@ -274,6 +276,7 @@
       .hamburger { width:30px; height:30px; }
       .scroll { padding:8px 8px 12px; gap:10px; }
       .kpi-strip { grid-template-columns:1fr; gap:8px; }
+      .kpi-layout { grid-template-columns:1fr; }
       .kpi-card { padding:12px 14px; }
       .kpi-value { font-size:20px; }
       .kpi-value.lg { font-size:22px; }
@@ -400,7 +403,7 @@
             <div class="kpi-card cust"><div class="kpi-top"><span class="kpi-label">Active Customers</span><span class="kpi-note good">Up 8.1%</span></div><div class="kpi-value lg">1,847</div><div class="kpi-bottom"><span class="kpi-change up">↑ 8.1% MoM</span><span style="font-size:12px;color:var(--text3)">+138 net new</span></div></div>
             <div class="kpi-card churn"><div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div><div class="kpi-value lg churn">4.2%</div><div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div></div>
           </section>
-          <div style="display:grid;grid-template-columns:1fr 260px;gap:16px;flex:1">
+          <div class="kpi-layout" style="display:grid;grid-template-columns:1fr 260px;gap:16px;flex:1">
             <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h3>KPI Performance</h3></div>
               <div style="padding:4px 0"><table style="width:100%;border-collapse:collapse;font-size:13px">
                 <thead><tr style="border-bottom:1px solid var(--border);color:var(--text3);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em"><th style="text-align:left;padding:10px 14px">Metric</th><th style="text-align:right;padding:10px 14px">Current</th><th style="text-align:right;padding:10px 14px">Previous</th><th style="text-align:right;padding:10px 14px">Change</th><th style="text-align:center;padding:10px 14px">Status</th><th style="text-align:left;padding:10px 14px">Owner</th></tr></thead>
