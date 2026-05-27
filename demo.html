@@ -58,7 +58,8 @@
     .dropdown-item { display:block; width:100%; padding:8px 12px; border:none; background:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; text-align:left; transition:all .1s; }
     .dropdown-item:hover { background:#f3f4f6; color:var(--text); }
     .dropdown-item.active { color:var(--orange); background:var(--orange-light); }
-    .dropdown-item .di-check { float:right; color:var(--orange); }
+    .dropdown-item .di-check { float:right; color:var(--orange); display:none; }
+    .dropdown-item.active .di-check { display:inline; }
     .dp-popup { position:absolute; top:calc(100% + 4px); left:0; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:14px; display:none; width:300px; }
     .dp-popup.open { display:block; }
     .dp-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
@@ -624,7 +625,7 @@ let activeRevTab = 'revRev';
 let activeInsightView = 'weekly';
 let custDateRange = 'oct';
 let custSegment = 'all';
-let selectedSegment = 'all';
+let selectedSegments = new Set(['all','enterprise','smb','individual']);
 let dpViewMonth, dpViewYear;
 let dpStart = null, dpEnd = null;
 let dpTempStart = null, dpTempEnd = null;
@@ -730,13 +731,52 @@ function toggleSegDropdown() {
 }
 
 function selectSegment(seg) {
-  selectedSegment = seg;
+  if (seg === 'all') {
+    // Toggle all
+    const allChecked = selectedSegments.size === 4;
+    if (allChecked) {
+      selectedSegments = new Set();
+    } else {
+      selectedSegments = new Set(['all','enterprise','smb','individual']);
+    }
+  } else {
+    // Toggle individual
+    if (selectedSegments.has(seg)) {
+      selectedSegments.delete(seg);
+    } else {
+      selectedSegments.add(seg);
+    }
+    // Sync 'all' — if all 3 individual are checked, add 'all'; otherwise remove it
+    const indiv = ['enterprise','smb','individual'];
+    if (indiv.every(s => selectedSegments.has(s))) {
+      selectedSegments.add('all');
+    } else {
+      selectedSegments.delete('all');
+    }
+  }
+  updateSegmentUI();
+}
+
+function updateSegmentUI() {
+  // Update check marks
   document.querySelectorAll('#segDropdown .dropdown-item').forEach(i => {
-    i.classList.toggle('active', i.dataset.seg === seg);
+    i.classList.toggle('active', selectedSegments.has(i.dataset.seg));
   });
-  const labels = {all:'All segments', enterprise:'Enterprise', smb:'SMB', individual:'Individual'};
-  document.getElementById('segLabel').textContent = labels[seg];
-  document.getElementById('segDropdown').classList.remove('open');
+  // Update label
+  const segNames = {enterprise:'Enterprise', smb:'SMB', individual:'Individual'};
+  const picked = ['enterprise','smb','individual'].filter(s => selectedSegments.has(s));
+  let label;
+  if (selectedSegments.has('all') || picked.length === 3) {
+    label = 'All segments';
+  } else if (picked.length === 0) {
+    label = 'None';
+  } else if (picked.length === 1) {
+    label = segNames[picked[0]];
+  } else {
+    label = picked.map(s => segNames[s]).join(', ');
+  }
+  document.getElementById('segLabel').textContent = label;
+  // Keep dropdown open for multi-select
 }
 
 // ═══════════════════════════════════════
