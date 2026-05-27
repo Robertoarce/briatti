@@ -3,325 +3,374 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Briatti — Practical AI & Data Systems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Briatti — AI Systems for Messy Business Data</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --navy: #111844;
-      --indigo: #4B5694;
-      --blue-grey: #7288AE;
-      --cream: #EAE0CE;
-      --orange: #f97316;
-      --bg: #0b0c16;
-      --bg2: #101223;
-      --card: #1a1d32;
-      --border: #282b47;
-      --border2: #3a3d5c;
-      --text: #eeede5;
-      --text2: #abacc0;
-      --text3: #6e6f8a;
-      --shadow-card: 0 4px 20px rgba(0,0,0,.2);
-    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: #fbfbfb;
+      color: #1a1a2e;
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+    .serif {
+      font-family: 'Fraunces', Georgia, serif;
+      font-feature-settings: "ss01", "ss02";
+    }
 
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(11,12,22,0.85); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(251,251,251,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #efefef;
     }
     nav .container {
-      display: flex; justify-content: space-between; align-items: center; height: 64px;
+      display: flex; justify-content: space-between; align-items: center; height: 60px;
     }
-    .logo { font-size: 20px; font-weight: 700; color: var(--cream); letter-spacing: -0.02em; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .logo { font-size: 16px; font-weight: 800; color: #1a1a2e; letter-spacing: -.04em; }
+    .logo em { font-style: normal; color: #6366f1; font-weight: 700; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
     .nav-links a {
-      color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500;
-      transition: color .2s;
+      color: #6b7280; text-decoration: none; font-size: 12px; font-weight: 500;
+      transition: color .2s; letter-spacing: .01em;
     }
-    .nav-links a:hover { color: var(--cream); }
+    .nav-links a:hover { color: #1a1a2e; }
     .nav-cta {
-      padding: 7px 18px; background: var(--indigo); color: var(--cream) !important;
-      border-radius: 6px; font-weight: 600 !important;
+      padding: 8px 18px; background: #1a1a2e; color: #fff !important;
+      border-radius: 5px; font-weight: 600 !important; font-size: 11px !important;
+      letter-spacing: .02em; transition: all .2s;
     }
-
-    section { padding: 80px 0; }
-    .section-title {
-      font-size: clamp(22px, 2.8vw, 32px); font-weight: 600;
-      letter-spacing: -0.02em; margin-bottom: 10px; color: var(--cream);
-    }
-    .section-sub {
-      font-size: 15px; color: var(--text2); max-width: 600px; line-height: 1.7;
-    }
+    .nav-cta:hover { background: #6366f1; }
 
     /* ─── HERO ─── */
     .hero {
-      min-height: 70vh; display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden; padding-top: 64px;
+      padding: 140px 0 100px; position: relative; overflow: hidden;
     }
-    #hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      width: 100%; height: 100%;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: radial-gradient(ellipse 70% 50% at 50% 40%, rgba(75,86,148,0.08) 0%, transparent 60%);
+    .hero::before {
+      content: ''; position: absolute; top: -50%; right: -15%;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.02) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 24px; }
+    .hero::after {
+      content: ''; position: absolute; bottom: -30%; left: -10%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.015) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 1; }
     .hero-tag {
-      display: inline-block; padding: 5px 14px;
-      background: rgba(75,86,148,0.15); border: 1px solid rgba(75,86,148,0.25);
-      border-radius: 100px; font-size: 12px; color: var(--blue-grey); font-weight: 500;
-      margin-bottom: 16px; letter-spacing: 0.04em;
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px;
+      font-size: 11px; font-weight: 600; color: #6366f1; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .hero-tag::before {
+      content: ''; width: 28px; height: 1px; background: #6366f1;
     }
     .hero h1 {
-      font-size: clamp(30px, 5vw, 52px); font-weight: 700;
-      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px;
-      color: var(--cream);
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(40px, 5.6vw, 72px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      line-height: 1.05; letter-spacing: -.025em; margin-bottom: 28px;
+      max-width: 880px; color: #1a1a2e;
     }
-    .hero h1 .accent { color: var(--blue-grey); }
+    .hero h1 .accent {
+      color: #6366f1; font-style: italic; font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 100;
+    }
     .hero p {
-      font-size: 16px; color: var(--text2); max-width: 640px;
-      margin: 0 auto 28px; line-height: 1.7;
+      font-size: 18px; color: #5a5f7f; max-width: 600px;
+      line-height: 1.7; margin-bottom: 44px; font-weight: 400;
     }
-    .hero-features {
-      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-    .hero-features span {
-      font-size: 13px; color: var(--text2); display: flex; align-items: center; gap: 6px;
-    }
-    .hero-features span::before {
-      content: '✓'; color: var(--blue-grey); font-weight: 700;
-    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 50px; }
     .btn-p {
-      display: inline-block; padding: 11px 26px; background: var(--indigo); color: var(--cream);
-      border: none; border-radius: 6px; font-size: 14px; font-weight: 600;
-      text-decoration: none; transition: all .2s;
-    }
-    .btn-p:hover { background: #5d69a8; }
-    .btn-s {
-      display: inline-block; padding: 11px 26px; background: transparent; color: var(--cream);
-      border: 1px solid var(--border2); border-radius: 6px; font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: all .2s;
-    }
-    .btn-s:hover { border-color: var(--text2); }
-    .btn-orange {
-      display: inline-block; padding: 11px 26px; background: var(--orange); color: #fff;
-      border: none; border-radius: 6px; font-size: 14px; font-weight: 600;
-      text-decoration: none; transition: all .2s;
-    }
-    .btn-orange:hover { opacity: .85; }
-
-    /* ─── SERVICES / PACKAGES ─── */
-    #services { background: var(--bg2); }
-    .services-header { text-align: center; margin-bottom: 44px; }
-    .services-header .section-sub { margin: 0 auto; }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 20px;
-    }
-    .service-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 28px 24px; transition: all .3s;
-      display: flex; flex-direction: column;
-    }
-    .service-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: var(--shadow-card); }
-    .service-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: rgba(75,86,148,0.15); display: flex; align-items: center; justify-content: center;
-      font-size: 20px; margin-bottom: 14px;
-    }
-    .service-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: var(--cream); }
-    .service-card .desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; flex: 1; }
-    .service-card .price { font-size: 14px; font-weight: 700; color: var(--blue-grey); margin-bottom: 10px; }
-    .service-card .price span { font-weight: 400; font-size: 12px; color: var(--text3); }
-    .service-card .use-list { list-style: none; margin-bottom: 14px; }
-    .service-card .use-list li {
-      font-size: 12px; color: var(--text); padding: 2px 0 2px 16px;
-      position: relative; line-height: 1.5;
-    }
-    .service-card .use-list li::before {
-      content: ''; position: absolute; left: 0; top: 9px;
-      width: 5px; height: 5px; border-radius: 50%; background: var(--indigo);
-    }
-    .service-card .tag {
-      display: inline-block; padding: 3px 10px; border-radius: 100px;
-      font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-      margin-bottom: 12px; align-self: flex-start;
-    }
-    .tag-entry { background: rgba(114,136,174,0.15); color: var(--blue-grey); }
-    .tag-popular { background: rgba(249,115,22,0.12); color: var(--orange); }
-
-    /* ─── AI READINESS LADDER ─── */
-    #ladder { background: var(--bg); }
-    .ladder-header { text-align: center; margin-bottom: 44px; }
-    .ladder-header .section-sub { margin: 0 auto; }
-    .ladder-steps {
-      display: flex; flex-direction: column; gap: 8px;
-      max-width: 780px; margin: 0 auto;
-    }
-    .ladder-step {
-      display: flex; align-items: center; gap: 16px;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 20px; transition: all .2s;
-    }
-    .ladder-step:hover { border-color: var(--border2); }
-    .ladder-step .ls-num {
-      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 700; color: #fff;
-    }
-    .ladder-step:nth-child(1) .ls-num { background: #6b7280; }
-    .ladder-step:nth-child(2) .ls-num { background: var(--blue-grey); }
-    .ladder-step:nth-child(3) .ls-num { background: var(--indigo); }
-    .ladder-step:nth-child(4) .ls-num { background: #7c3aed; }
-    .ladder-step:nth-child(5) .ls-num { background: #0891b2; }
-    .ladder-step:nth-child(6) .ls-num { background: var(--orange); }
-    .ladder-step .ls-label { font-size: 14px; font-weight: 600; color: var(--cream); min-width: 140px; }
-    .ladder-step .ls-desc { font-size: 12px; color: var(--text3); }
-    .ladder-step .ls-arrow { margin-left: auto; color: var(--text3); font-size: 14px; flex-shrink: 0; }
-
-    /* ─── DEMOS ─── */
-    #demos { background: var(--bg2); }
-    .demos-header { text-align: center; margin-bottom: 44px; }
-    .demos-header .section-sub { margin: 0 auto; }
-    .demos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .demo-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden; transition: all .3s;
-    }
-    .demo-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: var(--shadow-card); }
-    .demo-card .demo-preview {
-      height: 180px; background: var(--bg); border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; color: var(--text3);
-    }
-    .demo-card .demo-body { padding: 20px 24px 24px; }
-    .demo-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 4px; color: var(--cream); }
-    .demo-card p { font-size: 13px; color: var(--text2); margin-bottom: 14px; line-height: 1.6; }
-    .demo-card .demo-btn {
       display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 600;
-      text-decoration: none; transition: all .2s;
+      padding: 13px 32px; background: #1a1a2e; color: #fff;
+      border: none; border-radius: 5px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all .25s; letter-spacing: .01em;
+    }
+    .btn-p:hover { background: #6366f1; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(99,102,241,0.2); }
+    .btn-s {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 13px 32px; background: transparent; color: #1a1a2e;
+      border: 1.5px solid #d1d5db; border-radius: 5px; font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all .25s; letter-spacing: .01em;
+    }
+    .btn-s:hover { border-color: #6366f1; background: rgba(99,102,241,0.04); }
+    .hero-graphic {
+      position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+      width: 420px; height: 340px; background: #fff;
+      border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb; padding: 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .hero-graphic .hg-line {
+      height: 8px; border-radius: 3px; background: #f0f0f0;
+    }
+    .hero-graphic .hg-line:nth-child(1) { width: 70%; background: #e0e7ff; height: 24px; }
+    .hero-graphic .hg-line:nth-child(2) { width: 45%; }
+    .hero-graphic .hg-line:nth-child(3) { width: 60%; }
+    .hero-graphic .hg-line:nth-child(4) { width: 35%; }
+    .hero-graphic .hg-line:nth-child(5) { width: 55%; background: #e0e7ff; height: 20px; }
+    .hero-graphic .hg-line:nth-child(6) { width: 40%; }
+    .hero-graphic .hg-line:nth-child(7) { width: 50%; }
+    .hero-graphic .hg-line:nth-child(8) { width: 30%; }
+    .hero-graphic .hg-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #6366f1; align-self: flex-end; margin-top: auto;
     }
 
-    /* ─── CASE STUDIES ─── */
-    #cases { background: var(--bg); }
-    .cases-header { text-align: center; margin-bottom: 44px; }
-    .cases-header .section-sub { margin: 0 auto; }
-    .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 20px; }
-    .case-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 24px; transition: all .3s;
+    /* ─── PROBLEM / INTRO ─── */
+    #intro {
+      padding: 80px 0 100px; border-top: 1px solid #efefef;
     }
-    .case-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-    .case-card .case-dept {
-      font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-      color: var(--blue-grey); margin-bottom: 4px;
+    #intro .container {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
     }
-    .case-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--cream); }
-    .case-card .case-result {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;
+    #intro h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(26px, 2.8vw, 38px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #1a1a2e; margin-bottom: 22px; line-height: 1.15;
     }
-    .case-card .case-metric {
-      background: var(--bg); border-radius: 6px; padding: 10px; text-align: center;
+    #intro p { font-size: 15px; color: #5a5f7f; line-height: 1.75; margin-bottom: 18px; font-weight: 400; }
+    #intro .targets {
+      display: flex; flex-wrap: wrap; gap: 10px;
     }
-    .case-card .case-metric .cm-val { font-size: 18px; font-weight: 700; color: var(--blue-grey); }
-    .case-card .case-metric .cm-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
-    .case-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    #intro .targets span {
+      font-size: 11px; padding: 6px 13px; border-radius: 5px;
+      background: #f3f4f6; color: #5a5f7f; border: 1px solid #e5e7eb; font-weight: 500;
+    }
+    #intro .intro-visual {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); position: sticky; top: 80px;
+    }
+    #intro .intro-visual .iv-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: #8b8d9a; margin-bottom: 18px;
+    }
+    #intro .iv-chain { display: flex; flex-direction: column; gap: 8px; }
+    #intro .iv-chain .iv-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; border-radius: 5px;
+      background: #f9fafb; border: 1px solid #efefef;
+      font-size: 13px; color: #5a5f7f; font-weight: 500;
+    }
+    #intro .iv-chain .iv-link .iv-icon { font-size: 14px; width: 20px; text-align: center; }
+    #intro .iv-chain .iv-link .iv-label2 { font-weight: 600; color: #1a1a2e; }
+    #intro .iv-chain .iv-link.end { border-color: #e0e7ff; background: #f8faff; }
+
+    /* ─── PATHWAY ─── */
+    #pathway { padding: 100px 0; background: #fff; border-top: 1px solid #efefef; }
+    .path-header { margin-bottom: 56px; }
+    .path-header .path-tag {
+      font-size: 11px; font-weight: 700; color: #6366f1; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .path-header h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #1a1a2e; max-width: 620px; line-height: 1.12;
+    }
+
+    .step-diagnostic {
+      background: linear-gradient(135deg, #f8faff 0%, #fbfdff 100%); border: 1px solid #e0e7ff; border-radius: 8px;
+      padding: 40px; margin-bottom: 48px; position: relative;
+    }
+    .step-diagnostic::before {
+      content: 'STEP 1'; position: absolute; top: -12px; left: 32px;
+      font-size: 9px; font-weight: 800; letter-spacing: .08em;
+      background: #6366f1; color: #fff; padding: 3px 11px; border-radius: 3px;
+    }
+    .step-diagnostic h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #1a1a2e; }
+    .step-diagnostic p { font-size: 15px; color: #5a5f7f; max-width: 620px; line-height: 1.7; margin-bottom: 24px; }
+    .step-diagnostic .sd-meta {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .step-diagnostic .sd-meta span {
+      font-size: 13px; color: #5a5f7f; display: flex; align-items: center; gap: 6px;
+    }
+    .step-diagnostic .sd-meta strong { color: #1a1a2e; font-weight: 700; }
+
+    .builds-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+    }
+    .build-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 28px; transition: all .25s; position: relative;
+    }
+    .build-card:hover { border-color: #d1d5db; box-shadow: 0 12px 32px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .build-card .bc-step {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: #8b8d9a; margin-bottom: 12px;
+    }
+    .build-card .bc-icon {
+      font-size: 24px; margin-bottom: 12px; display: block;
+    }
+    .build-card h4 { font-size: 17px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+    .build-card .bc-desc { font-size: 14px; color: #5a5f7f; line-height: 1.65; margin-bottom: 14px; }
+    .build-card .bc-use { list-style: none; }
+    .build-card .bc-use li {
+      font-size: 13px; color: #5a5f7f; padding: 4px 0; line-height: 1.6;
+      padding-left: 16px; position: relative;
+    }
+    .build-card .bc-use li::before {
+      content: '→'; position: absolute; left: 0; color: #6366f1; font-weight: 700;
+    }
+
+    /* ─── DEMO ─── */
+    #demo { padding: 100px 0; border-top: 1px solid #efefef; }
+    .demo-header { margin-bottom: 48px; }
+    .demo-header .demo-tag {
+      font-size: 11px; font-weight: 700; color: #6366f1; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .demo-header h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #1a1a2e; line-height: 1.12;
+    }
+    .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .demo-item {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      overflow: hidden; transition: all .25s;
+    }
+    .demo-item:hover { border-color: #d1d5db; box-shadow: 0 12px 32px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .demo-item .di-preview {
+      height: 200px; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-bottom: 1px solid #efefef;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; color: #d1d5db;
+    }
+    .demo-item .di-body { padding: 28px; }
+    .demo-item .di-body h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
+    .demo-item .di-body p { font-size: 14px; color: #5a5f7f; line-height: 1.7; margin-bottom: 18px; }
+    .demo-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 5px; font-size: 12px; font-weight: 600;
+      text-decoration: none; transition: all .2s; letter-spacing: .01em;
+    }
+
+    /* ─── EXAMPLES ─── */
+    #examples { padding: 100px 0; background: #fff; border-top: 1px solid #efefef; }
+    .examples-header { margin-bottom: 52px; }
+    .examples-header .ex-tag {
+      font-size: 11px; font-weight: 700; color: #6366f1; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .examples-header h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(28px, 3.2vw, 44px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #1a1a2e; max-width: 620px; line-height: 1.12;
+    }
+    .examples-header p { font-size: 15px; color: #5a5f7f; margin-top: 12px; max-width: 540px; }
+    .examples-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+    .ex-card {
+      border: 1px solid #e5e7eb; border-radius: 8px; padding: 28px;
+      background: #fff; transition: all .25s;
+    }
+    .ex-card:hover { border-color: #d1d5db; box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+    .ex-card .ex-dept {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #8b8d9a; margin-bottom: 8px;
+    }
+    .ex-card h3 { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+    .ex-card .ex-result {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
+    }
+    .ex-card .ex-metric {
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 5px; padding: 10px; text-align: center;
+    }
+    .ex-card .ex-metric .em-val { font-size: 17px; font-weight: 800; color: #6366f1; }
+    .ex-card .ex-metric .em-label { font-size: 10px; color: #8b8d9a; margin-top: 2px; font-weight: 500; }
+    .ex-card p { font-size: 13px; color: #5a5f7f; line-height: 1.7; }
+    .ex-card .ex-note {
+      font-size: 11px; color: #8b8d9a; font-style: italic; margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid #efefef;
+    }
 
     /* ─── ABOUT ─── */
-    #about { background: var(--bg2); }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    #about { padding: 100px 0; border-top: 1px solid #efefef; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-grid h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(26px, 2.8vw, 38px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #1a1a2e; margin-bottom: 22px; line-height: 1.15;
     }
-    .about-text h2 { margin-bottom: 14px; }
-    .about-text p { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 12px; }
-    .about-text .skills {
+    .about-grid p { font-size: 15px; color: #5a5f7f; line-height: 1.75; margin-bottom: 16px; }
+    .about-grid .skills {
       display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
     }
-    .about-text .skills span {
-      padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 500;
-      background: rgba(75,86,148,0.12); color: var(--blue-grey); border: 1px solid rgba(75,86,148,0.2);
+    .about-grid .skills span {
+      font-size: 12px; padding: 6px 13px; border-radius: 5px;
+      background: #f3f4f6; color: #5a5f7f; border: 1px solid #efefef; font-weight: 500;
     }
-    .about-visual {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 10px; padding: 28px;
+    .about-grid .about-quote {
+      background: transparent; border: none; border-left: 2px solid #6366f1; border-radius: 0;
+      padding: 8px 0 8px 32px; position: relative;
     }
-    .about-visual h4 { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 16px; }
-    .about-chain { display: flex; flex-direction: column; gap: 6px; }
-    .about-chain .link {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; border-radius: 8px;
-      background: var(--bg); border: 1px solid var(--border);
-      font-size: 13px; color: var(--text2); transition: all .15s;
+    .about-grid .about-quote p {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 22px; color: #1a1a2e; line-height: 1.45; font-style: italic; font-weight: 300;
+      font-variation-settings: "opsz" 144, "SOFT" 50;
+      letter-spacing: -.01em;
     }
-    .about-chain .link .lk-icon { font-size: 16px; }
-    .about-chain .link .lk-label { font-weight: 500; color: var(--text); }
-    .about-chain .link.active { border-color: var(--indigo); background: rgba(75,86,148,0.08); }
+    .about-grid .about-quote .aq-by {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 12px; color: #6366f1; font-style: normal; margin-top: 20px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
 
-    /* ─── HOW IT WORKS (existing) ─── */
-    #how { background: var(--bg); }
-    .how-header { text-align: center; margin-bottom: 40px; }
-    .how-header .section-sub { margin: 0 auto; }
-    .steps {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 20px;
-      max-width: 900px; margin: 0 auto;
+    /* ─── CTA ─── */
+    #cta-section {
+      padding: 100px 0; background: #1a1a2e; text-align: center;
     }
-    .step { text-align: center; }
-    .step .num {
-      width: 40px; height: 40px; line-height: 40px; border-radius: 50%;
-      background: var(--indigo); color: var(--cream); font-size: 16px; font-weight: 600;
-      margin: 0 auto 12px;
+    #cta-section .cta-tag {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: #6366f1; margin-bottom: 16px;
     }
-    .step h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--cream); }
-    .step p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    #cta-section h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(30px, 3.4vw, 46px); font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: #fff; max-width: 620px; margin: 0 auto 18px; line-height: 1.12;
+    }
+    #cta-section p { font-size: 15px; color: #9ca3af; max-width: 520px; margin: 0 auto 32px; }
+    .btn-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 14px 32px; background: #6366f1; color: #fff;
+      border: none; border-radius: 5px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: all .25s; letter-spacing: .01em;
+    }
+    .btn-cta:hover { background: #fff; color: #1a1a2e; transform: translateY(-1px); }
+    .btn-cta-s {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 14px 32px; background: transparent; color: #9ca3af;
+      border: 1px solid #374151; border-radius: 5px; font-size: 14px; font-weight: 500;
+      text-decoration: none; transition: all .25s; margin-left: 10px; letter-spacing: .01em;
+    }
+    .btn-cta-s:hover { border-color: #6366f1; color: #fff; }
 
-    /* ─── FREE PILOT ─── */
-    #pilot { text-align: center; padding: 70px 0; background: var(--bg2); border-top: 1px solid var(--border); }
-    .offer-tag {
-      display: inline-block; padding: 5px 14px;
-      background: rgba(75,86,148,0.15); border: 1px solid rgba(75,86,148,0.25);
-      border-radius: 100px; font-size: 12px; color: var(--blue-grey); font-weight: 500;
-      margin-bottom: 14px; letter-spacing: 0.04em;
-    }
-    #pilot h2 { font-size: clamp(22px, 2.8vw, 32px); font-weight: 600; margin-bottom: 10px; color: var(--cream); }
-    #pilot p { font-size: 14px; color: var(--text2); max-width: 480px; margin: 0 auto 28px; }
-
-    /* ─── CONTACT ─── */
-    #contact { text-align: center; padding: 60px 0; background: var(--bg); }
-    #contact .section-sub { margin: 0 auto 24px; }
-    .contact-e {
-      display: inline-block; padding: 12px 28px;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--cream); text-decoration: none;
-      font-size: 14px; font-weight: 500; transition: border-color .2s;
-    }
-    .contact-e:hover { border-color: var(--indigo); }
-
-    footer { padding: 28px 0; border-top: 1px solid var(--border); text-align: center; background: var(--bg2); }
-    footer p { font-size: 12px; color: var(--text3); }
+    /* ─── FOOTER ─── */
+    footer { padding: 32px 0; border-top: 1px solid #efefef; text-align: center; background: #fff; }
+    footer p { font-size: 12px; color: #8b8d9a; }
 
     @media (max-width: 768px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .steps { grid-template-columns: 1fr 1fr; max-width: 500px; }
-      section { padding: 50px 0; }
-      .demos-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .cases-grid { grid-template-columns: 1fr; }
-      .ladder-step { flex-wrap: wrap; }
-      .ladder-step .ls-label { min-width: auto; }
-      .ladder-step .ls-arrow { display: none; }
+      .hero { padding: 110px 0 70px; }
+      .hero-graphic { display: none; }
+      #intro .container { grid-template-columns: 1fr; gap: 40px; }
+      #intro .intro-visual { position: static; }
+      .builds-grid { grid-template-columns: 1fr; }
+      .demo-grid { grid-template-columns: 1fr; }
+      .examples-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .step-diagnostic { padding: 28px; }
+      .step-diagnostic .sd-meta { flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
@@ -329,221 +378,197 @@
 
 <nav>
   <div class="container">
-    <div class="logo">Briatti</div>
+    <div class="logo">bri<em>atti</em></div>
     <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#ladder">Ladder</a>
-      <a href="#demos">Demos</a>
+      <a href="#pathway">How we work</a>
+      <a href="#demo">See it</a>
       <a href="#about">About</a>
-      <a href="demo.html" class="nav-cta">Dashboard Demo</a>
-      <a href="#contact">Contact</a>
+      <a href="demo.html" class="nav-cta">Dashboard Demo →</a>
     </div>
   </div>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 <div class="hero">
-  <svg id="hero-bg" viewBox="0 0 600 300" preserveAspectRatio="none" fill="none"></svg>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-tag">STRATEGY · ANALYTICS · LLMs · AGENTS</div>
-    <h1>Practical AI &amp; Data Systems<br><span class="accent">for Growing Companies</span></h1>
-    <p>We help companies turn scattered data, documents, and workflows into dashboards, AI assistants, and automated agents. Start with a practical audit — build only what creates measurable value.</p>
-    <div class="hero-features">
-      <span>Data &amp; AI readiness audit</span>
-      <span>File Q&amp;A assistants</span>
-      <span>AI dashboards</span>
-      <span>Workflow automation</span>
+  <div class="container">
+    <div class="hero-tag">AI systems for messy business data</div>
+    <h1>From scattered files to <span class="accent">working decision systems</span></h1>
+    <p>Briatti helps operations, finance, and commercial teams turn spreadsheets, documents, and reports into dashboards, AI assistants, and automated workflows — without hiring a full data team.</p>
+    <div class="hero-actions">
+      <a href="#pathway" class="btn-p">See how it works →</a>
+      <a href="#cta-section" class="btn-s">Book a diagnostic call</a>
     </div>
-    <div>
-      <a href="#services" class="btn-p" style="margin-right:8px">Explore Services →</a>
-      <a href="#pilot" class="btn-s">Free Pilot</a>
+    <div class="hero-graphic">
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-line"></div>
+      <div class="hg-dot"></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SERVICES / PACKAGES ═══ -->
-<section id="services">
+<!-- ═══ INTRO ═══ -->
+<section id="intro">
   <div class="container">
-    <div class="services-header">
-      <h2 class="section-title">Services &amp; Packages</h2>
-      <p class="section-sub">Four concrete offers. Fixed scope, clear pricing, fast delivery. Choose where to start.</p>
+    <div>
+      <h2>Most companies don't need "AI transformation."</h2>
+      <p>They need to know what data they have, what's usable, and which workflows are worth automating. That's where we start — with a structured diagnostic, not a buzzword pitch.</p>
+      <p>We cover the full chain: business question → data audit → dashboard → predictive model → AI assistant → agent automation. One partner, end to end.</p>
+      <div class="targets">
+        <span>Operations teams</span>
+        <span>Finance &amp; accounting</span>
+        <span>Commercial &amp; sales ops</span>
+        <span>Supply chain</span>
+        <span>HR &amp; knowledge teams</span>
+      </div>
     </div>
-    <div class="services-grid">
+    <div class="intro-visual">
+      <div class="iv-label">Full delivery chain</div>
+      <div class="iv-chain">
+        <div class="iv-link"><span class="iv-icon">💡</span><span class="iv-label2">Business question</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link"><span class="iv-icon">📋</span><span class="iv-label2">Data audit &amp; strategy</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link"><span class="iv-icon">🧹</span><span class="iv-label2">Data cleaning &amp; pipelines</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link"><span class="iv-icon">📊</span><span class="iv-label2">Dashboard &amp; KPIs</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link"><span class="iv-icon">🔮</span><span class="iv-label2">Predictive models</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link"><span class="iv-icon">💬</span><span class="iv-label2">LLM assistant / RAG</span> <span style="margin-left:auto;color:#d1d5db;">→</span></div>
+        <div class="iv-link end"><span class="iv-icon">🤖</span><span class="iv-label2">Agent automation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="service-card">
-        <span class="tag tag-entry">ENTRY</span>
-        <div class="service-icon">🔍</div>
-        <h3>AI / Data Readiness Audit</h3>
-        <p class="desc">Not sure where AI fits your business? In 5 days we audit your data, identify use cases, and deliver a ranked roadmap — no commitment required.</p>
-        <ul class="use-list">
-          <li>Data maturity score &amp; source inventory</li>
-          <li>Top 5 use cases ranked by ROI</li>
-          <li>30-day implementation roadmap</li>
+<!-- ═══ PATHWAY ═══ -->
+<section id="pathway">
+  <div class="container">
+    <div class="path-header">
+      <div class="path-tag">Start here, then build what matters</div>
+      <h2>One diagnostic. Three paths.</h2>
+    </div>
+
+    <div class="step-diagnostic">
+      <h3>AI / Data Diagnostic</h3>
+      <p>A short assessment of your data sources, documents, dashboards, and workflows. You get a maturity score, a ranked map of feasible use cases, and a 30-day implementation roadmap.</p>
+      <div class="sd-meta">
+        <span>⏱ <strong>5 days</strong></span>
+        <span>📋 <strong>Deliverable:</strong> Score + roadmap + top 5 opportunities</span>
+        <span>💰 <strong>€1,000 – €3,000</strong> (limited pilot pricing available)</span>
+      </div>
+    </div>
+
+    <div class="builds-grid">
+      <div class="build-card">
+        <div class="bc-step">Then build →</div>
+        <div class="bc-icon">📊</div>
+        <h4>Decision Dashboard</h4>
+        <p class="bc-desc">For teams working from Excel, CRM exports, scattered reports, or manual KPIs.</p>
+        <ul class="bc-use">
+          <li>Clean data pipeline</li>
+          <li>KPI dashboard with automated insights</li>
+          <li>Anomaly detection &amp; weekly summaries</li>
+          <li>€3,000 – €12,000 · 2–6 weeks</li>
         </ul>
-        <div class="price">€1,000 – €5,000 <span>· 1 week</span></div>
       </div>
 
-      <div class="service-card">
-        <span class="tag tag-popular">POPULAR</span>
-        <div class="service-icon">💬</div>
-        <h3>File Q&amp;A Assistant</h3>
-        <p class="desc">Upload your PDFs, Word docs, Excel files, policies, or manuals — your team asks questions and gets cited answers instantly.</p>
-        <ul class="use-list">
+      <div class="build-card">
+        <div class="bc-step">Then build →</div>
+        <div class="bc-icon">💬</div>
+        <h4>File Q&amp;A Assistant</h4>
+        <p class="bc-desc">For teams that waste time searching PDFs, policies, reports, manuals, or internal docs.</p>
+        <ul class="bc-use">
           <li>Secure document ingestion</li>
-          <li>Source-cited chat interface</li>
-          <li>Admin panel + 30–50 test questions</li>
+          <li>Cited answers in a chat interface</li>
+          <li>Admin panel &amp; evaluation set</li>
+          <li>€3,000 – €15,000 · 2–4 weeks</li>
         </ul>
-        <div class="price">€3,000 – €15,000 <span>· 2–4 weeks</span></div>
       </div>
 
-      <div class="service-card">
-        <span class="tag tag-popular">POPULAR</span>
-        <div class="service-icon">📊</div>
-        <h3>Dashboard + AI Insights</h3>
-        <p class="desc">Turn messy business data into a clean dashboard with AI that explains changes, flags anomalies, and answers questions in plain language.</p>
-        <ul class="use-list">
-          <li>Data cleaning pipeline</li>
-          <li>KPI dashboard with AI summaries</li>
-          <li>Natural-language Q&amp;A over metrics</li>
-        </ul>
-        <div class="price">€3,000 – €12,000 <span>· 2–6 weeks</span></div>
-      </div>
-
-      <div class="service-card">
-        <span class="tag tag-entry">ADVANCED</span>
-        <div class="service-icon">🤖</div>
-        <h3>Agent Automation</h3>
-        <p class="desc">An AI agent that performs a repetitive workflow using your tools, documents, and data — email triage, report generation, data extraction, and more.</p>
-        <ul class="use-list">
+      <div class="build-card">
+        <div class="bc-step">Then build →</div>
+        <div class="bc-icon">🤖</div>
+        <h4>Workflow Automation Agent</h4>
+        <p class="bc-desc">For repetitive processes involving files, emails, reports, extraction, or summaries.</p>
+        <ul class="bc-use">
           <li>Workflow analysis &amp; design</li>
           <li>Agent prototype or production build</li>
-          <li>Integration with your existing tools</li>
+          <li>Integration with existing tools</li>
+          <li>€5,000 – €25,000 · 3–8 weeks</li>
         </ul>
-        <div class="price">€5,000 – €25,000 <span>· 3–8 weeks</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ AI READINESS LADDER ═══ -->
-<section id="ladder">
-  <div class="container">
-    <div class="ladder-header">
-      <h2 class="section-title">The Briatti AI Readiness Ladder</h2>
-      <p class="section-sub">Our signature framework for understanding where your business is today — and what the next step looks like.</p>
-    </div>
-    <div class="ladder-steps">
-      <div class="ladder-step">
-        <div class="ls-num">1</div>
-        <div class="ls-label">Data Chaos</div>
-        <div class="ls-desc">Files, spreadsheets, emails — no structure, no single source of truth</div>
-        <div class="ls-arrow">→</div>
-      </div>
-      <div class="ladder-step">
-        <div class="ls-num">2</div>
-        <div class="ls-label">Data Visibility</div>
-        <div class="ls-desc">Dashboards and KPIs bring clarity — you see what's happening</div>
-        <div class="ls-arrow">→</div>
-      </div>
-      <div class="ladder-step">
-        <div class="ls-num">3</div>
-        <div class="ls-label">Data Reliability</div>
-        <div class="ls-desc">Cleaned pipelines, defined metrics — your data can be trusted</div>
-        <div class="ls-arrow">→</div>
-      </div>
-      <div class="ladder-step">
-        <div class="ls-num">4</div>
-        <div class="ls-label">Predictive Intelligence</div>
-        <div class="ls-desc">ML forecasts, anomaly detection — you see what will happen</div>
-        <div class="ls-arrow">→</div>
-      </div>
-      <div class="ladder-step">
-        <div class="ls-num">5</div>
-        <div class="ls-label">Knowledge Intelligence</div>
-        <div class="ls-desc">LLMs over documents and databases — ask questions, get answers</div>
-        <div class="ls-arrow">→</div>
-      </div>
-      <div class="ladder-step">
-        <div class="ls-num">6</div>
-        <div class="ls-label">Agentic Automation</div>
-        <div class="ls-desc">AI agents execute workflows autonomously — your team focuses on growth</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ DEMOS ═══ -->
-<section id="demos">
+<!-- ═══ DEMO ═══ -->
+<section id="demo">
   <div class="container">
-    <div class="demos-header">
-      <h2 class="section-title">See It In Action</h2>
-      <p class="section-sub">Two working demos that show exactly what Briatti delivers — try them yourself.</p>
+    <div class="demo-header">
+      <div class="demo-tag">See it in action</div>
+      <h2>Working systems, not slideware</h2>
     </div>
-    <div class="demos-grid">
-
-      <div class="demo-card">
-        <div class="demo-preview">📊</div>
-        <div class="demo-body">
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="di-preview">📊</div>
+        <div class="di-body">
           <h3>Executive Dashboard</h3>
-          <p>Live KPI dashboard with revenue forecasting, customer analytics, AI insights, and segment filtering. Built with real interactivity — try the date picker and segment filters.</p>
-          <a href="demo.html" class="demo-btn" style="background:var(--indigo);color:var(--cream)">Launch Dashboard →</a>
+          <p>Live dashboard with revenue forecasting, customer analytics, AI insights, and segment filtering. Built with real data — try the date picker and filters.</p>
+          <a href="demo.html" class="demo-btn" style="background:#1a1a2e;color:#fff">Launch dashboard →</a>
         </div>
       </div>
-
-      <div class="demo-card">
-        <div class="demo-preview">💬</div>
-        <div class="demo-body">
+      <div class="demo-item">
+        <div class="di-preview">💬</div>
+        <div class="di-body">
           <h3>Chat With Your Files</h3>
-          <p>Upload documents and ask questions in natural language. Get cited answers, summaries, and extracted data from your PDFs, Word docs, and spreadsheets.</p>
-          <span class="demo-btn" style="background:var(--card);color:var(--text3);border:1px solid var(--border);cursor:default">Coming Soon</span>
+          <p>Upload documents and ask questions in natural language. Get cited answers from your PDFs, Word docs, and spreadsheets.</p>
+          <span class="demo-btn" style="background:#f3f4f6;color:#9ca3af;cursor:default">Coming soon</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══ CASE STUDIES ═══ -->
-<section id="cases">
+<!-- ═══ EXAMPLES ═══ -->
+<section id="examples">
   <div class="container">
-    <div class="cases-header">
-      <h2 class="section-title">Case Studies</h2>
-      <p class="section-sub">Real projects, real results. Here's what Briatti has delivered.</p>
+    <div class="examples-header">
+      <div class="ex-tag">Example implementations</div>
+      <h2>What Briatti builds looks like in practice</h2>
+      <p>These are anonymised scenarios based on real project patterns. Each example shows the type of problem, the approach, and the outcome.</p>
     </div>
-    <div class="cases-grid">
-
-      <div class="case-card">
-        <div class="case-dept">Knowledge Management</div>
-        <h3>AI Assistant over 200 Company Documents</h3>
-        <div class="case-result">
-          <div class="case-metric"><div class="cm-val">-85%</div><div class="cm-label">Search time</div></div>
-          <div class="case-metric"><div class="cm-val">24/7</div><div class="cm-label">Availability</div></div>
+    <div class="examples-grid">
+      <div class="ex-card">
+        <div class="ex-dept">Knowledge management</div>
+        <h3>AI assistant over company documents</h3>
+        <div class="ex-result">
+          <div class="ex-metric"><div class="em-val">~85%</div><div class="em-label">Less search time</div></div>
+          <div class="ex-metric"><div class="em-val">24/7</div><div class="em-label">Availability</div></div>
         </div>
-        <p>A consulting firm with 200+ internal documents, policies, and reports needed instant access to knowledge. We built a secure Q&amp;A assistant that answers questions with cited sources — eliminating hours of manual document searching.</p>
+        <p>A firm with hundreds of internal documents needed instant access to policies, reports, and procedures. We built a secure Q&amp;A assistant that answers with cited sources.</p>
+        <div class="ex-note">Anonymised example based on a real engagement</div>
       </div>
-
-      <div class="case-card">
-        <div class="case-dept">Business Intelligence</div>
-        <h3>Executive Dashboard with AI Insights</h3>
-        <div class="case-result">
-          <div class="case-metric"><div class="cm-val">€48K/yr</div><div class="cm-label">Revenue at risk flagged</div></div>
-          <div class="case-metric"><div class="cm-val">12.3%</div><div class="cm-label">Revenue growth identified</div></div>
+      <div class="ex-card">
+        <div class="ex-dept">Business intelligence</div>
+        <h3>Dashboard with AI-driven insights</h3>
+        <div class="ex-result">
+          <div class="ex-metric"><div class="em-val">€48K/yr</div><div class="em-label">Revenue at risk flagged</div></div>
+          <div class="ex-metric"><div class="em-val">+12%</div><div class="em-label">Growth identified</div></div>
         </div>
-        <p>An SME with scattered sales data across spreadsheets needed visibility. We built a live dashboard with automated anomaly detection, revenue forecasting, and natural-language Q&amp;A — turning raw data into daily decisions.</p>
+        <p>A company with scattered sales data needed visibility. We built a dashboard with automated anomaly detection, forecasting, and natural-language Q&amp;A over metrics.</p>
+        <div class="ex-note">Anonymised example based on a real engagement</div>
       </div>
-
-      <div class="case-card">
-        <div class="case-dept">AI Readiness</div>
-        <h3>Data Audit &amp; 30-Day Roadmap</h3>
-        <div class="case-result">
-          <div class="case-metric"><div class="cm-val">5</div><div class="cm-label">Use cases identified</div></div>
-          <div class="case-metric"><div class="cm-val">2</div><div class="cm-label">Quick wins found</div></div>
+      <div class="ex-card">
+        <div class="ex-dept">AI readiness</div>
+        <h3>Data audit &amp; 30-day roadmap</h3>
+        <div class="ex-result">
+          <div class="em-val" style="font-size:16px;font-weight:700;color:#6366f1;text-align:center;grid-column:1/-1">5 use cases identified, 2 quick wins</div>
         </div>
-        <p>A growing company with "AI confusion" needed direction. In one week we audited their data sources, identified five feasible AI use cases, and delivered a prioritised 30-day implementation roadmap — starting with their highest-ROI project.</p>
+        <p>A growing company with "AI confusion" needed direction. In one week we audited data sources, identified feasible use cases, and delivered a prioritised implementation roadmap.</p>
+        <div class="ex-note">Anonymised example based on a real engagement</div>
       </div>
-
     </div>
   </div>
 </section>
@@ -552,132 +577,46 @@
 <section id="about">
   <div class="container">
     <div class="about-grid">
-      <div class="about-text">
-        <h2 class="section-title">About Briatti</h2>
-        <p>Briatti was founded to fill a gap: most companies want AI, but their real problem is earlier — their data is scattered, unstructured, undocumented, or not trusted. And most "AI consultants" only know one piece of the puzzle.</p>
-        <p>Our founder covers the full chain: business question → data audit → data cleaning → dashboard → predictive model → LLM assistant → agent automation. That means we don't just propose ideas — we build working systems end to end.</p>
+      <div>
+        <h2>Who's behind Briatti</h2>
+        <p>Briatti was founded to fill a gap: most companies want AI, but their real problem is earlier — scattered, unstructured, undocumented data.</p>
+        <p>The founder covers the full chain — from business question through data engineering, machine learning, LLMs, and agent automation. That means we don't just propose; we build working systems end to end.</p>
+        <p>Background includes data science, supply chain analytics, financial modelling, and production AI systems. We speak both business and technical.</p>
         <div class="skills">
-          <span>Data Strategy</span>
+          <span>Data strategy</span>
           <span>Analytics &amp; ML</span>
           <span>LLMs &amp; RAG</span>
-          <span>AI Agents</span>
+          <span>AI agents</span>
           <span>Dashboards</span>
-          <span>Process Automation</span>
+          <span>Process automation</span>
         </div>
       </div>
-      <div class="about-visual">
-        <h4>Full-Stack AI Delivery</h4>
-        <div class="about-chain">
-          <div class="link"><span class="lk-icon">💡</span><span class="lk-label">Business Question</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link"><span class="lk-icon">📋</span><span class="lk-label">Data Audit &amp; Strategy</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link"><span class="lk-icon">🧹</span><span class="lk-label">Data Cleaning &amp; Pipelines</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link"><span class="lk-icon">📊</span><span class="lk-label">Dashboard &amp; KPIs</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link"><span class="lk-icon">🔮</span><span class="lk-label">Predictive ML Models</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link"><span class="lk-icon">💬</span><span class="lk-label">LLM Assistant / RAG</span> <span style="margin-left:auto;color:var(--text3)">→</span></div>
-          <div class="link active"><span class="lk-icon">🤖</span><span class="lk-label">AI Agent Automation</span></div>
-        </div>
+      <div class="about-quote">
+        <p>Most "AI consultants" only know one piece of the puzzle — either the strategy talk or the technical build. Briatti was built to do both, because that's what messy business data actually needs.</p>
+        <div class="aq-by">— Roberto, Founder</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ HOW IT WORKS ═══ -->
-<section id="how">
+<!-- ═══ CTA ═══ -->
+<section id="cta-section">
   <div class="container">
-    <div class="how-header">
-      <h2 class="section-title">How We Work With You</h2>
-      <p class="section-sub">We keep it simple. No jargon, no long contracts, no surprises.</p>
+    <div class="cta-tag">Start with a conversation</div>
+    <h2>Book a 30-minute AI/Data Diagnostic Call</h2>
+    <p>No pitch, no pressure. We'll discuss your data situation, identify what's possible, and tell you honestly whether we can help.</p>
+    <div>
+      <a href="mailto:roberto.arce@briatti.com?subject=AI/Data%20Diagnostic%20Call" class="btn-cta">Book a call →</a>
+      <a href="demo.html" class="btn-cta-s">See the dashboard demo →</a>
     </div>
-    <div class="steps">
-      <div class="step">
-        <div class="num">1</div>
-        <h4>We Listen</h4>
-        <p>A 30-minute call to understand your business, your challenges, and where improvement matters most.</p>
-      </div>
-      <div class="step">
-        <div class="num">2</div>
-        <h4>We Propose</h4>
-        <p>A tailored solution with clear outcomes. You approve before we build anything.</p>
-      </div>
-      <div class="step">
-        <div class="num">3</div>
-        <h4>We Build</h4>
-        <p>A working system using your real data. No templates, no generic software.</p>
-      </div>
-      <div class="step">
-        <div class="num">4</div>
-        <h4>You Benefit</h4>
-        <p>Fewer manual hours, better forecasts, faster decisions. If it works, we continue. If not, no commitment.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FREE PILOT ═══ -->
-<section id="pilot">
-  <div class="container">
-    <div class="offer-tag">ZERO-RISK PILOT</div>
-    <h2>First 3 Businesses — Free of Charge</h2>
-    <p>We build your first solution at no cost. You invest one short call to explain your needs; we do the rest. If you're happy, we discuss next steps. If not, you owe nothing.</p>
-    <a href="mailto:roberto.arce@briatti.com?subject=Free%20Pilot" class="btn-orange">Request a Free Pilot →</a>
-  </div>
-</section>
-
-<!-- ═══ CONTACT ═══ -->
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Let's Talk</h2>
-    <p class="section-sub">No pitch, no pressure. Just a conversation about your business and whether we can help.</p>
-    <a href="mailto:roberto.arce@briatti.com" class="contact-e">roberto.arce@briatti.com</a>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <p>© 2025 Briatti — Practical AI &amp; Data Systems</p>
+    <p>© 2025 Briatti — AI systems for messy business data</p>
   </div>
 </footer>
 
-<script>
-// ═══ Lightweight animated background ───
-(function(){
-  const svg = document.getElementById('hero-bg');
-  if (!svg) return;
-
-  const W = 600, H = 300;
-  const colors = ['#4B5694', '#7288AE'];
-  const lines = 24;
-
-  for (let g = 0; g < 2; g++) {
-    for (let i = 0; i < lines; i++) {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      const t = i / lines;
-      const y1 = -20 + t * (H + 40);
-      const x1 = g === 0 ? -20 : W + 20;
-      const cx1 = g === 0 ? W * 0.6 : W * 0.4;
-      const cx2 = g === 0 ? W * 0.8 : W * 0.2;
-      const x2 = g === 0 ? W + 20 : -20;
-      path.setAttribute('d', `M${x1} ${y1} Q${cx1} ${y1 + 30} ${cx2} ${H * 0.5} T${x2} ${y1 + 100}`);
-      path.setAttribute('stroke', colors[g]);
-      path.setAttribute('stroke-width', '0.4');
-      path.setAttribute('stroke-opacity', '0.08');
-      path.setAttribute('fill', 'none');
-      svg.appendChild(path);
-    }
-  }
-
-  const paths = svg.querySelectorAll('path');
-  paths.forEach((p, i) => {
-    const delay = i * 800;
-    setTimeout(() => {
-      p.animate([
-        { strokeOpacity: 0.08 },
-        { strokeOpacity: 0.18 },
-        { strokeOpacity: 0.08 }
-      ], { duration: 6000, iterations: Infinity, easing: 'ease-in-out' });
-    }, delay);
-  });
-})();
-</script>
 </body>
 </html>
