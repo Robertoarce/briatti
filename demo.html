@@ -10,11 +10,12 @@
     :root {
       --bg: #fbfbfb; --card: #fff; --border: #efefef; --border2: #e5e7eb;
       --text: #1a1a2e; --text2: #5a5f7f; --text3: #8b8d9a;
-      --sidebar: #3a3d4a; --sidebar-hover: rgba(255,255,255,.08); --sidebar-active: rgba(99,102,241,.15);
-      --orange: #6366f1; --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
-      --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08);
-      --red-light: rgba(239,68,68,.08); --orange-light: rgba(99,102,241,.08);
-      --shadow-sm: 0 1px 2px rgba(0,0,0,.04); --shadow-md: 0 4px 12px rgba(0,0,0,.06);
+      --sidebar: #1a1a2e; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(99,102,241,.18);
+      --accent: #6366f1; --accent-light: rgba(99,102,241,.08); --accent-deep: #4f46e5;
+      --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
+      --orange: #f59e0b; --orange-light: rgba(245,158,11,.1);
+      --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08); --red-light: rgba(239,68,68,.08);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.04); --shadow-md: 0 4px 16px rgba(0,0,0,.06);
       --radius: 8px; --radius-sm: 5px; --radius-pill: 999px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -24,21 +25,21 @@
 
     .sidebar { width:200px; flex-shrink:0; background:var(--sidebar); display:flex; flex-direction:column; }
     .sb-brand { padding:18px 16px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
-    .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(249,115,22,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sb-logo { width:32px; height:32px; border-radius:6px; background:rgba(99,102,241,.18); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .sb-logo svg { width:16px; height:16px; }
     .sb-brand-text { font-size:14px; font-weight:700; color:#fff; letter-spacing:-.02em; }
     .sb-brand-text span { color:rgba(255,255,255,.4); font-weight:400; }
     .sb-nav { flex:1; padding:8px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
     .sb-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-sm); color:rgba(255,255,255,.45); font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; background:none; border:none; font-family:inherit; width:100%; text-align:left; }
     .sb-item:hover { background:var(--sidebar-hover); color:rgba(255,255,255,.7); }
-    .sb-item.active { background:var(--sidebar-active); color:var(--orange); }
+    .sb-item.active { background:var(--sidebar-active); color:var(--accent); }
     .sb-item svg { width:18px; height:18px; flex-shrink:0; }
-    .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--orange); color:#fff; font-weight:600; }
+    .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--accent); color:#fff; font-weight:600; }
     .sb-footer { padding:10px 16px; border-top:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.25); }
-    .sb-back-link { color:var(--orange); text-decoration:none; transition:opacity .15s; }
+    .sb-back-link { color:var(--accent); text-decoration:none; transition:opacity .15s; }
     .sb-back-link:hover { opacity:.7; }
-    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--orange); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
-    .top-back-link:hover { border-color:var(--orange); background:#fffaf5; }
+    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--accent); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
+    .top-back-link:hover { border-color:var(--accent); background:var(--accent-light); }
 
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
@@ -49,16 +50,16 @@
     .h-btn { display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; transition:all .15s; }
     .h-btn:hover { border-color:var(--border2); background:#fafafa; }
     .h-btn svg { width:14px; height:14px; }
-    .h-btn.active { border-color:var(--orange); color:var(--orange); }
+    .h-btn.active { border-color:var(--accent); color:var(--accent); }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
-    .h-btn.primary:hover { opacity:.9; }
+    .h-btn.primary:hover { background:var(--accent); border-color:var(--accent); }
     .h-btn-wrap { position:relative; }
     .dropdown-menu { position:absolute; top:calc(100% + 4px); left:0; min-width:160px; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:4px; display:none; }
     .dropdown-menu.open { display:block; }
     .dropdown-item { display:block; width:100%; padding:8px 12px; border:none; background:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; text-align:left; transition:all .1s; }
     .dropdown-item:hover { background:#f3f4f6; color:var(--text); }
-    .dropdown-item.active { color:var(--orange); background:var(--orange-light); }
-    .dropdown-item .di-check { float:right; color:var(--orange); display:none; }
+    .dropdown-item.active { color:var(--accent); background:var(--accent-light); }
+    .dropdown-item .di-check { float:right; color:var(--accent); display:none; }
     .dropdown-item.active .di-check { display:inline; }
     .dp-popup { position:absolute; top:calc(100% + 4px); left:0; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:14px; display:none; width:300px; }
     .dp-popup.open { display:block; }
@@ -71,21 +72,21 @@
     .dp-days .dp-dow { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; padding:4px 0; }
     .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; flex-direction:column; line-height:1.1; }
     .dp-day:hover { background:#f3f4f6; }
-    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--orange); }
+    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--accent); }
     .dp-day .dp-label { font-size:7px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; opacity:0; transition:opacity .1s; margin-top:1px; }
     .dp-day.range-start .dp-label, .dp-day.range-end .dp-label { opacity:1; }
     .dp-day.range-start .dp-label { color:#fff; }
     .dp-day.range-end .dp-label { color:#fff; }
     .dp-day.other { color:var(--text3); }
-    .dp-day.in-range { background:var(--orange-light); color:var(--orange); border-radius:0; }
-    .dp-day.range-start { background:var(--orange); color:#fff; border-radius:50%; }
-    .dp-day.range-end { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.in-range { background:var(--accent-light); color:var(--accent); border-radius:0; }
+    .dp-day.range-start { background:var(--accent); color:#fff; border-radius:50%; }
+    .dp-day.range-end { background:var(--accent); color:#fff; border-radius:50%; }
     .dp-day.today { font-weight:700; border:1px solid var(--border2); }
     .dp-footer { display:flex; justify-content:flex-end; gap:6px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
     .dp-footer button { padding:5px 12px; border-radius:var(--radius-sm); font-size:11px; font-weight:500; font-family:inherit; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text2); transition:all .1s; }
     .dp-footer button:hover { border-color:var(--border2); background:#fafafa; }
-    .dp-footer .dp-apply { background:var(--orange); border-color:var(--orange); color:#fff; }
-    .dp-footer .dp-apply:hover { opacity:.9; }
+    .dp-footer .dp-apply { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .dp-footer .dp-apply:hover { background:var(--accent-deep); border-color:var(--accent-deep); }
     .hamburger { display:none; }
     .sb-backdrop { display:none; }
 
@@ -146,7 +147,7 @@
     .chart-hdr .legend span::before { content:''; width:8px; height:3px; border-radius:2px; }
     .chart-hdr .legend .act::before { background:var(--blue); }
     .chart-hdr .legend .fct::before { background:var(--purple); border:1px dashed var(--purple); height:0; }
-    .chart-hdr .legend .tgt::before { background:var(--orange); }
+    .chart-hdr .legend .tgt::before { background:#94a3b8; }
     .chart-body { flex:1; padding:6px 10px 0; min-height:0; position:relative; }
     .chart-body canvas { width:100%!important; height:100%!important; }
     .chart-annotation { position:absolute; bottom:44px; right:44px; font-size:11px; padding:5px 10px; border-radius:6px; background:var(--card); border:1px solid var(--border); color:var(--text2); pointer-events:none; box-shadow:var(--shadow-sm); }
@@ -216,7 +217,7 @@
     .report-card h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
     .report-card p { font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:12px; }
     .report-card .rc-btn { padding:6px 16px; border-radius:var(--radius-sm); font-size:11px; font-weight:600; font-family:inherit; cursor:pointer; transition:all .15s; border:1px solid var(--border); background:var(--card); color:var(--text2); }
-    .report-card .rc-btn:hover { border-color:var(--orange); color:var(--orange); }
+    .report-card .rc-btn:hover { border-color:var(--accent); color:var(--accent); }
 
     table.export-table { width:100%; border-collapse:collapse; font-size:13px; }
     table.export-table th { text-align:left; padding:10px 14px; font-size:11px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--border); }
@@ -368,7 +369,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" aria-label="Main navigation">
-      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
+      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
       <nav class="sb-nav" aria-label="Sidebar">
         <button class="sb-item active" data-section="overview" onclick="setActiveSection('overview')" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span></button>
         <button class="sb-item" data-section="kpis" onclick="setActiveSection('kpis')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span></button>
@@ -1080,7 +1081,7 @@ function initCharts() {
         datasets:[
           { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
           { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
-          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#94a3b8', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
         ]},
       options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
@@ -1095,7 +1096,7 @@ function initCharts() {
         datasets:[
           { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
           { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
-          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#94a3b8', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
         ]},
       options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
         plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
