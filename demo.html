@@ -10,7 +10,7 @@
     :root {
       --bg: #f5f5f5; --card: #fff; --border: #f0f0f0; --border2: #e5e7eb;
       --text: #111; --text2: #6b7280; --text3: #9ca3af;
-      --sidebar: #1a1a2e; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(249,115,22,.15);
+      --sidebar: #2d2d2d; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(249,115,22,.15);
       --orange: #f97316; --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
       --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08);
       --red-light: rgba(239,68,68,.08); --orange-light: rgba(249,115,22,.08);
@@ -24,8 +24,8 @@
 
     .sidebar { width:200px; flex-shrink:0; background:var(--sidebar); display:flex; flex-direction:column; }
     .sb-brand { padding:18px 16px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
-    .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .sb-logo svg { width:16px; height:16px; stroke:#fff; }
+    .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(249,115,22,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sb-logo svg { width:16px; height:16px; }
     .sb-brand-text { font-size:14px; font-weight:700; color:#fff; letter-spacing:-.02em; }
     .sb-brand-text span { color:rgba(255,255,255,.4); font-weight:400; }
     .sb-nav { flex:1; padding:8px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
@@ -35,6 +35,10 @@
     .sb-item svg { width:18px; height:18px; flex-shrink:0; }
     .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--orange); color:#fff; font-weight:600; }
     .sb-footer { padding:10px 16px; border-top:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.25); }
+    .sb-back-link { color:var(--orange); text-decoration:none; transition:opacity .15s; }
+    .sb-back-link:hover { opacity:.7; }
+    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--orange); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
+    .top-back-link:hover { border-color:var(--orange); background:#fffaf5; }
 
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
@@ -48,6 +52,42 @@
     .h-btn.active { border-color:var(--orange); color:var(--orange); }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
     .h-btn.primary:hover { opacity:.9; }
+    .h-btn-wrap { position:relative; }
+    .dropdown-menu { position:absolute; top:calc(100% + 4px); left:0; min-width:160px; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:4px; display:none; }
+    .dropdown-menu.open { display:block; }
+    .dropdown-item { display:block; width:100%; padding:8px 12px; border:none; background:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; text-align:left; transition:all .1s; }
+    .dropdown-item:hover { background:#f3f4f6; color:var(--text); }
+    .dropdown-item.active { color:var(--orange); background:var(--orange-light); }
+    .dropdown-item .di-check { float:right; color:var(--orange); display:none; }
+    .dropdown-item.active .di-check { display:inline; }
+    .dp-popup { position:absolute; top:calc(100% + 4px); left:0; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:14px; display:none; width:300px; }
+    .dp-popup.open { display:block; }
+    .dp-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .dp-header .dp-month { font-size:13px; font-weight:600; }
+    .dp-nav { display:flex; gap:6px; }
+    .dp-nav button { width:26px; height:26px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text2); font-size:14px; transition:all .1s; }
+    .dp-nav button:hover { background:#f3f4f6; color:var(--text); }
+    .dp-days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
+    .dp-days .dp-dow { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; padding:4px 0; }
+    .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; flex-direction:column; line-height:1.1; }
+    .dp-day:hover { background:#f3f4f6; }
+    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--orange); }
+    .dp-day .dp-label { font-size:7px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; opacity:0; transition:opacity .1s; margin-top:1px; }
+    .dp-day.range-start .dp-label, .dp-day.range-end .dp-label { opacity:1; }
+    .dp-day.range-start .dp-label { color:#fff; }
+    .dp-day.range-end .dp-label { color:#fff; }
+    .dp-day.other { color:var(--text3); }
+    .dp-day.in-range { background:var(--orange-light); color:var(--orange); border-radius:0; }
+    .dp-day.range-start { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.range-end { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.today { font-weight:700; border:1px solid var(--border2); }
+    .dp-footer { display:flex; justify-content:flex-end; gap:6px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+    .dp-footer button { padding:5px 12px; border-radius:var(--radius-sm); font-size:11px; font-weight:500; font-family:inherit; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text2); transition:all .1s; }
+    .dp-footer button:hover { border-color:var(--border2); background:#fafafa; }
+    .dp-footer .dp-apply { background:var(--orange); border-color:var(--orange); color:#fff; }
+    .dp-footer .dp-apply:hover { opacity:.9; }
+    .hamburger { display:none; }
+    .sb-backdrop { display:none; }
 
     .scroll { flex:1; overflow-y:auto; padding:16px 24px 20px; display:flex; flex-direction:column; gap:16px; }
     .scroll::-webkit-scrollbar { width:4px; }
@@ -95,9 +135,9 @@
     .di-tag.warn { background:var(--orange-light); color:var(--orange); }
     .di-tag.bad { background:var(--red-light); color:var(--red); }
 
-    .main-analytics { display:grid; grid-template-columns:1fr 320px; gap:16px; flex:1; min-height:0; }
+    .main-analytics { display:grid; grid-template-columns:1fr 320px; gap:16px; min-height:380px; }
 
-    .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; }
+    .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; min-height:200px; }
     .chart-card:hover { box-shadow:var(--shadow-sm); }
     .chart-hdr { display:flex; align-items:center; justify-content:space-between; padding:14px 18px 0; gap:12px; flex-wrap:wrap; }
     .chart-hdr h3 { font-size:14px; font-weight:600; }
@@ -199,22 +239,136 @@
       .diag-grid { grid-template-columns:1fr; }
     }
     @media (max-width:700px) {
-      .kpi-strip { grid-template-columns:1fr; }
-      .di-bar { grid-template-columns:1fr; }
-      .header { flex-direction:column; align-items:flex-start; gap:10px; padding:16px 14px 0; }
+      .kpi-strip { grid-template-columns:1fr 1fr; }
+      .kpi-layout { grid-template-columns:1fr; }
+      .di-bar { grid-template-columns:1fr 1fr; }
+      .header { flex-direction:row; align-items:flex-start; gap:8px; padding:14px 14px 0; }
       .scroll { padding:14px; }
       .filter-row { flex-direction:column; align-items:flex-start; }
+    }
+    @media (max-width:640px) {
+      .app { padding:0; align-items:stretch; }
+      .app-inner { max-width:100%; max-height:none; border-radius:0; height:100vh; }
+      .kpi-layout { grid-template-columns:1fr; }
+      .sidebar { position:fixed; top:0; left:0; bottom:0; width:260px; z-index:1000; transform:translateX(-100%); transition:transform .25s ease; border-radius:0 14px 14px 0; box-shadow:0 0 40px rgba(0,0,0,.15); }
+      .sidebar.open { transform:translateX(0); }
+      .sidebar .sb-brand-text, .sidebar .sb-item span, .sidebar .sb-badge, .sidebar .sb-footer { display:revert; }
+      .sidebar .sb-item { justify-content:flex-start; padding:9px 12px; }
+      .sidebar .sb-brand { justify-content:flex-start; padding:18px 16px 14px; }
+      .sb-footer { display:block; }
+      .hamburger { display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); cursor:pointer; flex-shrink:0; }
+      .hamburger svg { width:18px; height:18px; stroke:var(--text2); }
+      .sb-backdrop { display:block; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999; opacity:0; pointer-events:none; transition:opacity .25s ease; }
+      .sb-backdrop.show { opacity:1; pointer-events:auto; }
+      .header { padding:12px 12px 0; flex-wrap:wrap; }
+      .hamburger { margin-left:auto; }
+      .h-left h1 { font-size:18px; }
+      .h-left .sub { font-size:12px; }
+      .h-right { gap:5px; }
+      .h-btn { padding:5px 8px; font-size:11px; }
+      .h-btn svg { width:12px; height:12px; }
+      .scroll { padding:10px 12px 16px; gap:12px; }
+      .kpi-strip { grid-template-columns:1fr 1fr; gap:10px; }
+      .kpi-card { padding:16px; }
+      .kpi-value { font-size:22px; }
+      .kpi-value.lg { font-size:24px; }
+      .kpi-bottom { flex-wrap:wrap; gap:8px; }
+      .di-bar { grid-template-columns:1fr; gap:10px; }
+      .di-card { padding:12px; gap:10px; }
+      .di-icon { width:32px; height:32px; font-size:14px; }
+      .di-body .di-value { font-size:13px; }
+      .main-analytics { grid-template-columns:1fr; min-height:300px; gap:12px; }
+      .chart-card { min-height:180px; }
+      .chart-hdr { padding:12px 14px 0; }
+      .chart-hdr h3 { font-size:13px; }
+      .chart-hdr .legend { gap:8px; }
+      .chart-body { padding:4px 8px 0; }
+      .chart-annotation { bottom:12px; right:12px; font-size:10px; padding:4px 8px; }
+      .insights-panel { max-height:200px; }
+      .insights-hdr { padding:12px 14px; }
+      .insights-hdr h3 { font-size:13px; }
+      .insights-scroll { padding:6px 10px; }
+      .iitem { padding:8px 10px; }
+      .diag-grid { grid-template-columns:1fr; gap:10px; }
+      .diag-cards { grid-template-columns:1fr 1fr; gap:8px; }
+      .diag-card { padding:12px; }
+      .diag-card .dc-value { font-size:18px; }
+      .diag-side-card { padding:12px; }
+      .seg-control { flex-wrap:wrap; gap:2px; }
+      .seg-btn { padding:5px 12px; font-size:11px; }
+      .filter-row { flex-direction:column; align-items:flex-start; gap:6px; }
+      .filter-group { flex-wrap:wrap; }
+      .filter-opt { padding:4px 9px; font-size:10px; }
+      .report-grid { grid-template-columns:1fr; }
+      .report-card { padding:14px 16px; }
+      table.export-table { display:block; overflow-x:auto; white-space:nowrap; font-size:12px; }
+      .h-btn-wrap .dp-popup { width:260px; }
+      .h-btn-wrap .dropdown-menu { right:0; left:auto; }
+      .top-back-link { top:6px; right:8px; font-size:12px; padding:5px 10px; }
+      .h-btn.primary { padding:4px 10px; font-size:11px; }
+    }
+    @media (max-width:420px) {
+      .header { padding:8px 8px 0; gap:4px; flex-wrap:wrap; }
+      .h-left h1 { font-size:15px; }
+      .h-left .sub { display:none; }
+      .h-right { gap:3px; }
+      .h-btn { padding:3px 6px; font-size:10px; }
+      .h-btn svg { width:10px; height:10px; }
+      .hamburger { width:30px; height:30px; }
+      .scroll { padding:8px 8px 12px; gap:10px; }
+      .kpi-strip { grid-template-columns:1fr; gap:8px; }
+      .kpi-layout { grid-template-columns:1fr; }
+      .kpi-card { padding:12px 14px; }
+      .kpi-value { font-size:20px; }
+      .kpi-value.lg { font-size:22px; }
+      .kpi-label { font-size:11px; }
+      .kpi-note { font-size:10px; padding:1px 6px; }
+      .kpi-change { font-size:11px; }
+      .di-bar { gap:8px; }
+      .di-card { padding:10px; gap:8px; }
+      .di-icon { width:26px; height:26px; font-size:12px; }
+      .di-body .di-value { font-size:12px; }
+      .di-sub { font-size:11px; }
+      .di-tag { font-size:10px; padding:1px 5px; }
+      .main-analytics { min-height:240px; gap:10px; }
+      .chart-card { min-height:140px; }
+      .chart-hdr { padding:10px 10px 0; flex-direction:column; align-items:flex-start; }
+      .chart-hdr .legend span { font-size:10px; }
+      .chart-body { padding:2px 6px 0; }
+      .chart-annotation { bottom:6px; right:6px; font-size:9px; padding:2px 6px; max-width:calc(100% - 12px); }
+      .insights-panel { max-height:160px; }
+      .insights-hdr { padding:10px; }
+      .insights-scroll { padding:4px 8px; }
+      .isect-title { font-size:10px; }
+      .iitem { padding:6px 8px; }
+      .iitem .ii-title { font-size:11px; }
+      .iitem .ii-desc { font-size:11px; margin-left:10px; }
+      .diag-cards { grid-template-columns:1fr; }
+      .diag-card { padding:10px; }
+      .diag-card .dc-value { font-size:16px; }
+      .seg-btn { padding:4px 9px; font-size:10px; }
+      .bottom-sect .seg-control { justify-content:center; }
+      .report-card { padding:12px; }
+      .report-card h4 { font-size:13px; }
+      .report-card p { font-size:11px; }
+      .sidebar { width:100%; max-width:260px; }
+      .h-btn-wrap .dp-popup { width:240px; }
+      .h-btn-wrap .dropdown-menu { right:0; left:auto; }
+      .sb-item { padding:8px; font-size:12px; }
+      .sb-item svg { width:16px; height:16px; }
+      table.export-table th, table.export-table td { padding:6px 8px; }
     }
   </style>
 </head>
 <body>
 
 <div class="app">
+  <a href="index.html" class="top-back-link">← Back to Briatti</a>
   <div class="app-inner">
 
     <!-- SIDEBAR -->
     <aside class="sidebar" aria-label="Main navigation">
-      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
+      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
       <nav class="sb-nav" aria-label="Sidebar">
         <button class="sb-item active" data-section="overview" onclick="setActiveSection('overview')" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span></button>
         <button class="sb-item" data-section="kpis" onclick="setActiveSection('kpis')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span></button>
@@ -223,7 +377,7 @@
         <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></button>
         <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
       </nav>
-      <div class="sb-footer">v2.4.1 · Enterprise</div>
+      <div class="sb-footer"><a href="index.html" class="sb-back-link">← Back to site</a> · v2.4.1</div>
     </aside>
 
     <!-- MAIN -->
@@ -235,7 +389,7 @@
           <h1 id="pageTitle">Dashboard</h1>
           <div class="sub" id="pageSub">Executive business overview</div>
         </div>
-        <div class="h-right" id="headerControls"></div>
+        <div class="h-right" id="headerControls"></div><button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </header>
 
       <div class="scroll">
@@ -293,7 +447,7 @@
             <div class="kpi-card cust"><div class="kpi-top"><span class="kpi-label">Active Customers</span><span class="kpi-note good">Up 8.1%</span></div><div class="kpi-value lg">1,847</div><div class="kpi-bottom"><span class="kpi-change up">↑ 8.1% MoM</span><span style="font-size:12px;color:var(--text3)">+138 net new</span></div></div>
             <div class="kpi-card churn"><div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div><div class="kpi-value lg churn">4.2%</div><div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div></div>
           </section>
-          <div style="display:grid;grid-template-columns:1fr 260px;gap:16px;flex:1">
+          <div class="kpi-layout" style="display:grid;grid-template-columns:1fr 260px;gap:16px;flex:1">
             <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h3>KPI Performance</h3></div>
               <div style="padding:4px 0"><table style="width:100%;border-collapse:collapse;font-size:13px">
                 <thead><tr style="border-bottom:1px solid var(--border);color:var(--text3);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em"><th style="text-align:left;padding:10px 14px">Metric</th><th style="text-align:right;padding:10px 14px">Current</th><th style="text-align:right;padding:10px 14px">Previous</th><th style="text-align:right;padding:10px 14px">Change</th><th style="text-align:center;padding:10px 14px">Status</th><th style="text-align:left;padding:10px 14px">Owner</th></tr></thead>
@@ -457,6 +611,7 @@
 
       </div><!-- /scroll -->
     </main><!-- /main -->
+    <div class="sb-backdrop" onclick="toggleSidebar()"></div>
   </div><!-- /app-inner -->
 </div><!-- /app -->
 
@@ -470,6 +625,10 @@ let activeRevTab = 'revRev';
 let activeInsightView = 'weekly';
 let custDateRange = 'oct';
 let custSegment = 'all';
+let selectedSegments = new Set(['all','enterprise','smb','individual']);
+let dpViewMonth, dpViewYear;
+let dpStart = null, dpEnd = null;
+let dpTempStart = null, dpTempEnd = null;
 
 // ═══════════════════════════════════════
 // SIDEBAR NAV
@@ -506,10 +665,24 @@ function setActiveSection(section) {
     `;
   } else {
     controls.innerHTML = `
-      <div class="h-btn" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Oct 1 – Oct 31 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-      <div class="h-btn" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> All segments <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="h-btn-wrap"><div class="h-btn" role="button" onclick="toggleDatepicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="dpLabel">Oct 1 – Oct 31</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="dp-popup" id="dpPopup">
+          <div class="dp-header"><button onclick="dpMonth(-1)" style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text2)">‹</button><span class="dp-month" id="dpMonthLabel"></span><button onclick="dpMonth(1)" style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text2)">›</button></div>
+          <div class="dp-days" id="dpDays"></div>
+          <div class="dp-footer"><button onclick="closeDatepicker()">Cancel</button><button class="dp-apply" onclick="applyDatepicker()">Apply</button></div>
+        </div></div>
+      <div class="h-btn-wrap"><div class="h-btn" role="button" onclick="toggleSegDropdown()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> <span id="segLabel">All segments</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="dropdown-menu" id="segDropdown">
+          <button class="dropdown-item active" data-seg="all" onclick="selectSegment('all')">All segments <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="enterprise" onclick="selectSegment('enterprise')">Enterprise <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="smb" onclick="selectSegment('smb')">SMB <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="individual" onclick="selectSegment('individual')">Individual <span class="di-check">✓</span></button>
+        </div></div>
       <div class="h-btn primary" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</div>
     `;
+    dpViewMonth = new Date().getMonth();
+    dpViewYear = new Date().getFullYear();
+    renderDatepicker();
   }
 
   document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
@@ -548,6 +721,163 @@ function setCustSegment(seg) {
     b.classList.toggle('active', ['all','enterprise','smb','individual'].includes(t) ? t===seg : false);
   });
 }
+
+// ═══════════════════════════════════════
+// SEGMENT DROPDOWN
+// ═══════════════════════════════════════
+function toggleSegDropdown() {
+  closeDatepicker();
+  document.getElementById('segDropdown').classList.toggle('open');
+}
+
+function selectSegment(seg) {
+  if (seg === 'all') {
+    // Toggle all
+    const allChecked = selectedSegments.size === 4;
+    if (allChecked) {
+      selectedSegments = new Set();
+    } else {
+      selectedSegments = new Set(['all','enterprise','smb','individual']);
+    }
+  } else {
+    // Toggle individual
+    if (selectedSegments.has(seg)) {
+      selectedSegments.delete(seg);
+    } else {
+      selectedSegments.add(seg);
+    }
+    // Sync 'all' — if all 3 individual are checked, add 'all'; otherwise remove it
+    const indiv = ['enterprise','smb','individual'];
+    if (indiv.every(s => selectedSegments.has(s))) {
+      selectedSegments.add('all');
+    } else {
+      selectedSegments.delete('all');
+    }
+  }
+  updateSegmentUI();
+}
+
+function updateSegmentUI() {
+  // Update check marks
+  document.querySelectorAll('#segDropdown .dropdown-item').forEach(i => {
+    i.classList.toggle('active', selectedSegments.has(i.dataset.seg));
+  });
+  // Update label
+  const segNames = {enterprise:'Enterprise', smb:'SMB', individual:'Individual'};
+  const picked = ['enterprise','smb','individual'].filter(s => selectedSegments.has(s));
+  let label;
+  if (selectedSegments.has('all') || picked.length === 3) {
+    label = 'All segments';
+  } else if (picked.length === 0) {
+    label = 'None';
+  } else if (picked.length === 1) {
+    label = segNames[picked[0]];
+  } else {
+    label = picked.map(s => segNames[s]).join(', ');
+  }
+  document.getElementById('segLabel').textContent = label;
+  // Keep dropdown open for multi-select
+  applyDashboardFilters();
+}
+
+// ═══════════════════════════════════════
+// DATE PICKER
+// ═══════════════════════════════════════
+function toggleDatepicker() {
+  document.getElementById('segDropdown').classList.remove('open');
+  const popup = document.getElementById('dpPopup');
+  if (popup.classList.contains('open')) { closeDatepicker(); return; }
+  dpTempStart = dpStart;
+  dpTempEnd = dpEnd;
+  popup.classList.add('open');
+}
+
+function closeDatepicker() {
+  document.getElementById('dpPopup').classList.remove('open');
+}
+
+function dpMonth(delta) {
+  dpViewMonth += delta;
+  if (dpViewMonth < 0) { dpViewMonth = 11; dpViewYear--; }
+  if (dpViewMonth > 11) { dpViewMonth = 0; dpViewYear++; }
+  renderDatepicker();
+}
+
+function renderDatepicker() {
+  const el = document.getElementById('dpMonthLabel');
+  if (!el) return;
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  el.textContent = months[dpViewMonth] + ' ' + dpViewYear;
+  const grid = document.getElementById('dpDays');
+  if (!grid) return;
+  const firstDay = new Date(dpViewYear, dpViewMonth, 1).getDay();
+  const daysInMonth = new Date(dpViewYear, dpViewMonth + 1, 0).getDate();
+  const today = new Date();
+  const todayStr = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  let html = '<div class="dp-dow">M</div><div class="dp-dow">T</div><div class="dp-dow">W</div><div class="dp-dow">T</div><div class="dp-dow">F</div><div class="dp-dow">S</div><div class="dp-dow">S</div>';
+  const sunIdx = firstDay === 0 ? 6 : firstDay - 1;
+  for (let i = 0; i < sunIdx; i++) html += '<div></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = dpViewYear+'-'+String(dpViewMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    let cls = 'dp-day';
+    if (dateStr === todayStr) cls += ' today';
+    if (dpTempStart && dpTempEnd && dateStr > dpTempStart && dateStr < dpTempEnd) cls += ' in-range';
+    let labelHtml = '';
+    if (dateStr === dpTempStart) { cls += ' range-start'; labelHtml = '<span class="dp-label">From</span>'; }
+    if (dateStr === dpTempEnd) { cls += ' range-end'; labelHtml = '<span class="dp-label">Until</span>'; }
+    html += '<button class="'+cls+'" data-date="'+dateStr+'">'+d+labelHtml+'</button>';
+  }
+  grid.innerHTML = html;
+}
+
+function dpPickDate(dateStr) {
+  // First click: set From
+  if (dpTempStart === null) {
+    dpTempStart = dateStr;
+    dpTempEnd = null;
+  }
+  // Second click: set Until (must be same or later than From)
+  else if (dpTempEnd === null) {
+    if (dateStr < dpTempStart) {
+      // Clicked before From — swap
+      dpTempEnd = dpTempStart;
+      dpTempStart = dateStr;
+    } else {
+      dpTempEnd = dateStr;
+    }
+  }
+  // Third click: reset, start new selection
+  else {
+    dpTempStart = dateStr;
+    dpTempEnd = null;
+  }
+  renderDatepicker();
+}
+
+function applyDatepicker() {
+  if (dpTempStart && dpTempEnd) {
+    dpStart = dpTempStart;
+    dpEnd = dpTempEnd;
+    const fmt = s => { const d=new Date(s+'T12:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+    document.getElementById('dpLabel').textContent = fmt(dpStart)+' – '+fmt(dpEnd);
+    applyDashboardFilters();
+  }
+  closeDatepicker();
+}
+
+// Close dropdowns/datepicker on outside click + datepicker day click delegation
+document.addEventListener('click', function(e) {
+  // Date picker day click via delegation
+  const day = e.target.closest('.dp-day');
+  if (day && day.closest('#dpPopup')) {
+    dpPickDate(day.dataset.date);
+    return;
+  }
+  // Close popups on outside click
+  if (!e.target.closest('.h-btn-wrap')) {
+    document.querySelectorAll('.dropdown-menu, .dp-popup').forEach(el => el.classList.remove('open'));
+  }
+});
 
 // ═══════════════════════════════════════
 // DIAGNOSTIC TAB
@@ -634,6 +964,110 @@ function setInsightView(btn, view) {
 }
 
 // ═══════════════════════════════════════
+// MOBILE SIDEBAR TOGGLE
+// ═══════════════════════════════════════
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sb-backdrop').classList.toggle('show');
+}
+
+// ═══════════════════════════════════════
+// FILTER ENGINE — updates all dashboard data
+// ═══════════════════════════════════════
+const BASE_DATA = {
+  rev: 1248900, profit: 102474, cust: 1847, churn: 4.2, mtd: 284650,
+  chartRev: [210,228,245,262,285,null,null,null],
+  chartFct: [null,null,null,null,285,312,330,348],
+  chartTgt: [195,215,230,250,270,290,310,330],
+  custChart: [1420,1520,1620,1710,1847]
+};
+
+function applyDashboardFilters() {
+  // Segment factor
+  const segW = {enterprise:0.48, smb:0.34, individual:0.18};
+  let segF = 0;
+  const indiv = ['enterprise','smb','individual'];
+  if (selectedSegments.has('all') || indiv.every(s => selectedSegments.has(s))) segF = 1;
+  else indiv.forEach(s => { if (selectedSegments.has(s)) segF += segW[s]; });
+  if (segF === 0) segF = 1;
+
+  // Date factor (days / 31)
+  let dateF = 1;
+  if (dpStart && dpEnd) {
+    const s = new Date(dpStart+'T12:00:00'), e = new Date(dpEnd+'T12:00:00');
+    dateF = Math.max(1, Math.round((e-s)/86400000)+1) / 31;
+  }
+
+  const f = Math.round(segF * dateF * 100) / 100;
+
+  // ---- Update Overview KPI cards ----
+  const el = s => document.querySelector('#sec-overview ' + s);
+  const k = n => Math.round(n);
+  const fmt = n => '€' + (n).toLocaleString();
+
+  const revEl = el('.kpi-card.rev .kpi-value');
+  if (revEl) revEl.textContent = fmt(k(BASE_DATA.rev * f));
+
+  const profitEl = el('.kpi-card.profit .kpi-value');
+  if (profitEl) profitEl.textContent = fmt(k(BASE_DATA.profit * f));
+
+  const custEl = el('.kpi-card.cust .kpi-value');
+  if (custEl) custEl.textContent = k(BASE_DATA.cust * f).toLocaleString();
+
+  const churnEl = el('.kpi-card.churn .kpi-value');
+  if (churnEl) churnEl.textContent = (BASE_DATA.churn / segF).toFixed(1) + '%';
+
+  // MTD subtext
+  const mtdEl = el('.kpi-card.rev .kpi-bottom span:last-child');
+  if (mtdEl) mtdEl.textContent = fmt(k(BASE_DATA.mtd * f)) + ' MTD';
+
+  // Net profit margin subtext
+  const marginEl = el('.kpi-card.profit .kpi-bottom span:last-child');
+  if (marginEl) marginEl.textContent = '+' + Math.round(15.7 * f) + '% MoM';
+
+  // ---- Update charts ----
+  const scaleArr = (arr, fac) => arr.map(v => v === null ? null : Math.round(v * fac));
+  const scaled = (fac) => ({
+    r: scaleArr(BASE_DATA.chartRev, fac),
+    f: scaleArr(BASE_DATA.chartFct, fac),
+    t: scaleArr(BASE_DATA.chartTgt, fac),
+    c: scaleArr(BASE_DATA.custChart, fac)
+  });
+  const d = scaled(f);
+
+  if (mainChart) {
+    mainChart.data.datasets[0].data = d.r;
+    mainChart.data.datasets[1].data = d.f;
+    mainChart.data.datasets[2].data = d.t;
+    mainChart.update('none');
+  }
+  if (revChart) {
+    revChart.data.datasets[0].data = d.r;
+    revChart.data.datasets[1].data = d.f;
+    revChart.data.datasets[2].data = d.t;
+    revChart.update('none');
+  }
+  if (custChart) {
+    custChart.data.datasets[0].data = d.c;
+    custChart.update('none');
+  }
+
+  // ---- Update diagnostics pane ----
+  const dcs = document.querySelectorAll('#sec-overview .diag-card .dc-value');
+  if (dcs.length >= 4) {
+    const gr = k(BASE_DATA.mtd * f);
+    dcs[0].textContent = fmt(gr);
+    dcs[0].className = 'dc-value blue';
+    dcs[1].textContent = Math.round(60 * segF) + '%';
+    dcs[1].className = 'dc-value green';
+    dcs[2].textContent = fmt(k(BASE_DATA.profit * f / 4.39));
+    dcs[2].className = 'dc-value green';
+    dcs[3].textContent = fmt(k(312000 * f / 1000)) + 'K';
+    dcs[3].className = 'dc-value blue';
+  }
+}
+
+// ═══════════════════════════════════════
 // CHARTS
 // ═══════════════════════════════════════
 let mainChart, revChart, custChart;
@@ -687,6 +1121,7 @@ function rebuildSectionCharts() {
 }
 
 initCharts();
+applyDashboardFilters();
 </script>
 </body>
 </html>
