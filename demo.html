@@ -37,6 +37,8 @@
     .sb-footer { padding:10px 16px; border-top:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.25); }
     .sb-back-link { color:var(--orange); text-decoration:none; transition:opacity .15s; }
     .sb-back-link:hover { opacity:.7; }
+    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--orange); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
+    .top-back-link:hover { border-color:var(--orange); background:#fffaf5; }
 
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
@@ -301,6 +303,7 @@
       table.export-table { display:block; overflow-x:auto; white-space:nowrap; font-size:12px; }
       .h-btn-wrap .dp-popup { width:260px; }
       .h-btn-wrap .dropdown-menu { right:0; left:auto; }
+      .top-back-link { top:6px; right:8px; font-size:12px; padding:5px 10px; }
       .h-btn.primary { padding:4px 10px; font-size:11px; }
     }
     @media (max-width:420px) {
@@ -359,6 +362,7 @@
 <body>
 
 <div class="app">
+  <a href="index.html" class="top-back-link">← Back to Briatti</a>
   <div class="app-inner">
 
     <!-- SIDEBAR -->
@@ -780,7 +784,7 @@ function renderDatepicker() {
     let labelHtml = '';
     if (dateStr === dpTempStart) { cls += ' range-start'; labelHtml = '<span class="dp-label">From</span>'; }
     if (dateStr === dpTempEnd) { cls += ' range-end'; labelHtml = '<span class="dp-label">Until</span>'; }
-    html += `<button class="`+cls+`" onclick="dpPickDate('`+dateStr+`')">`+d+labelHtml+`</button>`;
+    html += '<button class="'+cls+'" data-date="'+dateStr+'">'+d+labelHtml+'</button>';
   }
   grid.innerHTML = html;
 }
@@ -819,8 +823,15 @@ function applyDatepicker() {
   closeDatepicker();
 }
 
-// Close dropdowns/datepicker on outside click
+// Close dropdowns/datepicker on outside click + datepicker day click delegation
 document.addEventListener('click', function(e) {
+  // Date picker day click via delegation
+  const day = e.target.closest('.dp-day');
+  if (day && day.closest('#dpPopup')) {
+    dpPickDate(day.dataset.date);
+    return;
+  }
+  // Close popups on outside click
   if (!e.target.closest('.h-btn-wrap')) {
     document.querySelectorAll('.dropdown-menu, .dp-popup').forEach(el => el.classList.remove('open'));
   }
