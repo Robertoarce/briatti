@@ -10,7 +10,7 @@
     :root {
       --bg: #f5f5f5; --card: #fff; --border: #f0f0f0; --border2: #e5e7eb;
       --text: #111; --text2: #6b7280; --text3: #9ca3af;
-      --sidebar: #1a1a2e; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(249,115,22,.15);
+      --sidebar: #2d2d2d; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(249,115,22,.15);
       --orange: #f97316; --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
       --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08);
       --red-light: rgba(239,68,68,.08); --orange-light: rgba(249,115,22,.08);
@@ -24,8 +24,8 @@
 
     .sidebar { width:200px; flex-shrink:0; background:var(--sidebar); display:flex; flex-direction:column; }
     .sb-brand { padding:18px 16px 14px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
-    .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .sb-logo svg { width:16px; height:16px; stroke:#fff; }
+    .sb-logo { width:32px; height:32px; border-radius:8px; background:rgba(249,115,22,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .sb-logo svg { width:16px; height:16px; }
     .sb-brand-text { font-size:14px; font-weight:700; color:#fff; letter-spacing:-.02em; }
     .sb-brand-text span { color:rgba(255,255,255,.4); font-weight:400; }
     .sb-nav { flex:1; padding:8px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
@@ -35,6 +35,8 @@
     .sb-item svg { width:18px; height:18px; flex-shrink:0; }
     .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--orange); color:#fff; font-weight:600; }
     .sb-footer { padding:10px 16px; border-top:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.25); }
+    .sb-back-link { color:var(--orange); text-decoration:none; transition:opacity .15s; }
+    .sb-back-link:hover { opacity:.7; }
 
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
@@ -324,7 +326,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" aria-label="Main navigation">
-      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
+      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
       <nav class="sb-nav" aria-label="Sidebar">
         <button class="sb-item active" data-section="overview" onclick="setActiveSection('overview')" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span></button>
         <button class="sb-item" data-section="kpis" onclick="setActiveSection('kpis')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span></button>
@@ -333,7 +335,7 @@
         <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></button>
         <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
       </nav>
-      <div class="sb-footer">v2.4.1 · Enterprise</div>
+      <div class="sb-footer"><a href="index.html" class="sb-back-link">← Back to site</a> · v2.4.1</div>
     </aside>
 
     <!-- MAIN -->
