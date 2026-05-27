@@ -66,8 +66,13 @@
     .dp-nav button:hover { background:#f3f4f6; color:var(--text); }
     .dp-days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
     .dp-days .dp-dow { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; padding:4px 0; }
-    .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; }
+    .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; flex-direction:column; line-height:1.1; }
     .dp-day:hover { background:#f3f4f6; }
+    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--orange); }
+    .dp-day .dp-label { font-size:7px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; opacity:0; transition:opacity .1s; margin-top:1px; }
+    .dp-day.range-start .dp-label, .dp-day.range-end .dp-label { opacity:1; }
+    .dp-day.range-start .dp-label { color:#fff; }
+    .dp-day.range-end .dp-label { color:#fff; }
     .dp-day.other { color:var(--text3); }
     .dp-day.in-range { background:var(--orange-light); color:var(--orange); border-radius:0; }
     .dp-day.range-start { background:var(--orange); color:#fff; border-radius:50%; }
@@ -294,7 +299,8 @@
       .report-grid { grid-template-columns:1fr; }
       .report-card { padding:14px 16px; }
       table.export-table { display:block; overflow-x:auto; white-space:nowrap; font-size:12px; }
-      .h-btn-wrap .dp-popup { width:260px; left:0; }
+      .h-btn-wrap .dp-popup { width:260px; }
+      .h-btn-wrap .dropdown-menu { right:0; left:auto; }
       .h-btn.primary { padding:4px 10px; font-size:11px; }
     }
     @media (max-width:420px) {
@@ -342,6 +348,8 @@
       .report-card h4 { font-size:13px; }
       .report-card p { font-size:11px; }
       .sidebar { width:100%; max-width:260px; }
+      .h-btn-wrap .dp-popup { width:240px; }
+      .h-btn-wrap .dropdown-menu { right:0; left:auto; }
       .sb-item { padding:8px; font-size:12px; }
       .sb-item svg { width:16px; height:16px; }
       table.export-table th, table.export-table td { padding:6px 8px; }
@@ -769,9 +777,10 @@ function renderDatepicker() {
     let cls = 'dp-day';
     if (dateStr === todayStr) cls += ' today';
     if (dpTempStart && dpTempEnd && dateStr > dpTempStart && dateStr < dpTempEnd) cls += ' in-range';
-    if (dateStr === dpTempStart) cls += ' range-start';
-    if (dateStr === dpTempEnd) cls += ' range-end';
-    html += `<button class="${cls}" onclick="dpPickDate('${dateStr}')">${d}</button>`;
+    let labelHtml = '';
+    if (dateStr === dpTempStart) { cls += ' range-start'; labelHtml = '<span class="dp-label">From</span>'; }
+    if (dateStr === dpTempEnd) { cls += ' range-end'; labelHtml = '<span class="dp-label">Until</span>'; }
+    html += `<button class="${cls}" onclick="dpPickDate('${dateStr}')">${d}${labelHtml}</button>`;
   }
   grid.innerHTML = html;
 }
