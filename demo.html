@@ -780,19 +780,31 @@ function renderDatepicker() {
     let labelHtml = '';
     if (dateStr === dpTempStart) { cls += ' range-start'; labelHtml = '<span class="dp-label">From</span>'; }
     if (dateStr === dpTempEnd) { cls += ' range-end'; labelHtml = '<span class="dp-label">Until</span>'; }
-    html += `<button class="${cls}" onclick="dpPickDate('${dateStr}')">${d}${labelHtml}</button>`;
+    html += `<button class="`+cls+`" onclick="dpPickDate('`+dateStr+`')">`+d+labelHtml+`</button>`;
   }
   grid.innerHTML = html;
 }
 
 function dpPickDate(dateStr) {
-  if (!dpTempStart || (dpTempStart && dpTempEnd)) {
+  // First click: set From
+  if (dpTempStart === null) {
     dpTempStart = dateStr;
     dpTempEnd = null;
-  } else {
-    if (dateStr < dpTempStart) { dpTempEnd = dpTempStart; dpTempStart = dateStr; }
-    else if (dateStr === dpTempStart) { dpTempEnd = dateStr; }
-    else { dpTempEnd = dateStr; }
+  }
+  // Second click: set Until (must be same or later than From)
+  else if (dpTempEnd === null) {
+    if (dateStr < dpTempStart) {
+      // Clicked before From — swap
+      dpTempEnd = dpTempStart;
+      dpTempStart = dateStr;
+    } else {
+      dpTempEnd = dateStr;
+    }
+  }
+  // Third click: reset, start new selection
+  else {
+    dpTempStart = dateStr;
+    dpTempEnd = null;
   }
   renderDatepicker();
 }
