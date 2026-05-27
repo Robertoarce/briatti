@@ -50,6 +50,34 @@
     .h-btn.active { border-color:var(--orange); color:var(--orange); }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
     .h-btn.primary:hover { opacity:.9; }
+    .h-btn-wrap { position:relative; }
+    .dropdown-menu { position:absolute; top:calc(100% + 4px); left:0; min-width:160px; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:4px; display:none; }
+    .dropdown-menu.open { display:block; }
+    .dropdown-item { display:block; width:100%; padding:8px 12px; border:none; background:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; text-align:left; transition:all .1s; }
+    .dropdown-item:hover { background:#f3f4f6; color:var(--text); }
+    .dropdown-item.active { color:var(--orange); background:var(--orange-light); }
+    .dropdown-item .di-check { float:right; color:var(--orange); }
+    .dp-popup { position:absolute; top:calc(100% + 4px); left:0; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:14px; display:none; width:300px; }
+    .dp-popup.open { display:block; }
+    .dp-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .dp-header .dp-month { font-size:13px; font-weight:600; }
+    .dp-nav { display:flex; gap:6px; }
+    .dp-nav button { width:26px; height:26px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text2); font-size:14px; transition:all .1s; }
+    .dp-nav button:hover { background:#f3f4f6; color:var(--text); }
+    .dp-days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
+    .dp-days .dp-dow { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; padding:4px 0; }
+    .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; }
+    .dp-day:hover { background:#f3f4f6; }
+    .dp-day.other { color:var(--text3); }
+    .dp-day.in-range { background:var(--orange-light); color:var(--orange); border-radius:0; }
+    .dp-day.range-start { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.range-end { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.today { font-weight:700; border:1px solid var(--border2); }
+    .dp-footer { display:flex; justify-content:flex-end; gap:6px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+    .dp-footer button { padding:5px 12px; border-radius:var(--radius-sm); font-size:11px; font-weight:500; font-family:inherit; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text2); transition:all .1s; }
+    .dp-footer button:hover { border-color:var(--border2); background:#fafafa; }
+    .dp-footer .dp-apply { background:var(--orange); border-color:var(--orange); color:#fff; }
+    .dp-footer .dp-apply:hover { opacity:.9; }
     .hamburger { display:none; }
     .sb-backdrop { display:none; }
 
@@ -266,6 +294,7 @@
       .report-grid { grid-template-columns:1fr; }
       .report-card { padding:14px 16px; }
       table.export-table { display:block; overflow-x:auto; white-space:nowrap; font-size:12px; }
+      .h-btn-wrap .dp-popup { width:260px; left:0; }
       .h-btn.primary { padding:4px 10px; font-size:11px; }
     }
     @media (max-width:420px) {
@@ -583,6 +612,10 @@ let activeRevTab = 'revRev';
 let activeInsightView = 'weekly';
 let custDateRange = 'oct';
 let custSegment = 'all';
+let selectedSegment = 'all';
+let dpViewMonth, dpViewYear;
+let dpStart = null, dpEnd = null;
+let dpTempStart = null, dpTempEnd = null;
 
 // ═══════════════════════════════════════
 // SIDEBAR NAV
@@ -619,10 +652,24 @@ function setActiveSection(section) {
     `;
   } else {
     controls.innerHTML = `
-      <div class="h-btn" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Oct 1 – Oct 31 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-      <div class="h-btn" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> All segments <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="h-btn-wrap"><div class="h-btn" role="button" onclick="toggleDatepicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="dpLabel">Oct 1 – Oct 31</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="dp-popup" id="dpPopup">
+          <div class="dp-header"><button onclick="dpMonth(-1)" style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text2)">‹</button><span class="dp-month" id="dpMonthLabel"></span><button onclick="dpMonth(1)" style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text2)">›</button></div>
+          <div class="dp-days" id="dpDays"></div>
+          <div class="dp-footer"><button onclick="closeDatepicker()">Cancel</button><button class="dp-apply" onclick="applyDatepicker()">Apply</button></div>
+        </div></div>
+      <div class="h-btn-wrap"><div class="h-btn" role="button" onclick="toggleSegDropdown()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> <span id="segLabel">All segments</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="dropdown-menu" id="segDropdown">
+          <button class="dropdown-item active" data-seg="all" onclick="selectSegment('all')">All segments <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="enterprise" onclick="selectSegment('enterprise')">Enterprise <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="smb" onclick="selectSegment('smb')">SMB <span class="di-check">✓</span></button>
+          <button class="dropdown-item" data-seg="individual" onclick="selectSegment('individual')">Individual <span class="di-check">✓</span></button>
+        </div></div>
       <div class="h-btn primary" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</div>
     `;
+    dpViewMonth = new Date().getMonth();
+    dpViewYear = new Date().getFullYear();
+    renderDatepicker();
   }
 
   document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
@@ -661,6 +708,102 @@ function setCustSegment(seg) {
     b.classList.toggle('active', ['all','enterprise','smb','individual'].includes(t) ? t===seg : false);
   });
 }
+
+// ═══════════════════════════════════════
+// SEGMENT DROPDOWN
+// ═══════════════════════════════════════
+function toggleSegDropdown() {
+  closeDatepicker();
+  document.getElementById('segDropdown').classList.toggle('open');
+}
+
+function selectSegment(seg) {
+  selectedSegment = seg;
+  document.querySelectorAll('#segDropdown .dropdown-item').forEach(i => {
+    i.classList.toggle('active', i.dataset.seg === seg);
+  });
+  const labels = {all:'All segments', enterprise:'Enterprise', smb:'SMB', individual:'Individual'};
+  document.getElementById('segLabel').textContent = labels[seg];
+  document.getElementById('segDropdown').classList.remove('open');
+}
+
+// ═══════════════════════════════════════
+// DATE PICKER
+// ═══════════════════════════════════════
+function toggleDatepicker() {
+  document.getElementById('segDropdown').classList.remove('open');
+  const popup = document.getElementById('dpPopup');
+  if (popup.classList.contains('open')) { closeDatepicker(); return; }
+  dpTempStart = dpStart;
+  dpTempEnd = dpEnd;
+  popup.classList.add('open');
+}
+
+function closeDatepicker() {
+  document.getElementById('dpPopup').classList.remove('open');
+}
+
+function dpMonth(delta) {
+  dpViewMonth += delta;
+  if (dpViewMonth < 0) { dpViewMonth = 11; dpViewYear--; }
+  if (dpViewMonth > 11) { dpViewMonth = 0; dpViewYear++; }
+  renderDatepicker();
+}
+
+function renderDatepicker() {
+  const el = document.getElementById('dpMonthLabel');
+  if (!el) return;
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  el.textContent = months[dpViewMonth] + ' ' + dpViewYear;
+  const grid = document.getElementById('dpDays');
+  if (!grid) return;
+  const firstDay = new Date(dpViewYear, dpViewMonth, 1).getDay();
+  const daysInMonth = new Date(dpViewYear, dpViewMonth + 1, 0).getDate();
+  const today = new Date();
+  const todayStr = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  let html = '<div class="dp-dow">M</div><div class="dp-dow">T</div><div class="dp-dow">W</div><div class="dp-dow">T</div><div class="dp-dow">F</div><div class="dp-dow">S</div><div class="dp-dow">S</div>';
+  const sunIdx = firstDay === 0 ? 6 : firstDay - 1;
+  for (let i = 0; i < sunIdx; i++) html += '<div></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = dpViewYear+'-'+String(dpViewMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    let cls = 'dp-day';
+    if (dateStr === todayStr) cls += ' today';
+    if (dpTempStart && dpTempEnd && dateStr > dpTempStart && dateStr < dpTempEnd) cls += ' in-range';
+    if (dateStr === dpTempStart) cls += ' range-start';
+    if (dateStr === dpTempEnd) cls += ' range-end';
+    html += `<button class="${cls}" onclick="dpPickDate('${dateStr}')">${d}</button>`;
+  }
+  grid.innerHTML = html;
+}
+
+function dpPickDate(dateStr) {
+  if (!dpTempStart || (dpTempStart && dpTempEnd)) {
+    dpTempStart = dateStr;
+    dpTempEnd = null;
+  } else {
+    if (dateStr < dpTempStart) { dpTempEnd = dpTempStart; dpTempStart = dateStr; }
+    else if (dateStr === dpTempStart) { dpTempEnd = dateStr; }
+    else { dpTempEnd = dateStr; }
+  }
+  renderDatepicker();
+}
+
+function applyDatepicker() {
+  if (dpTempStart && dpTempEnd) {
+    dpStart = dpTempStart;
+    dpEnd = dpTempEnd;
+    const fmt = s => { const d=new Date(s+'T12:00:00'); return d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); };
+    document.getElementById('dpLabel').textContent = fmt(dpStart)+' – '+fmt(dpEnd);
+  }
+  closeDatepicker();
+}
+
+// Close dropdowns/datepicker on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.h-btn-wrap')) {
+    document.querySelectorAll('.dropdown-menu, .dp-popup').forEach(el => el.classList.remove('open'));
+  }
+});
 
 // ═══════════════════════════════════════
 // DIAGNOSTIC TAB
