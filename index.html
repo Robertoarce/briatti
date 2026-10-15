@@ -3,486 +3,794 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Briatti — Practical AI & Data Systems</title>
+  <title>Briatti | AI and data systems for messy business data</title>
+  <meta name="description" content="Briatti turns scattered spreadsheets, documents and reports into dashboards, AI assistants and automated workflows. Fixed-scope services, published pricing, and a zero-risk first build.">
+  <link rel="canonical" href="https://www.briatti.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Briatti">
+  <meta property="og:title" content="Briatti | From scattered files to working decision systems">
+  <meta property="og:description" content="AI and data systems for messy business data. Start with a diagnostic, build only what creates measurable value.">
+  <meta property="og:url" content="https://www.briatti.com/">
+  <meta property="og:image" content="https://www.briatti.com/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#FBFBFA">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/icon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.briatti.com/#org",
+        "name": "Briatti",
+        "url": "https://www.briatti.com/",
+        "logo": "https://www.briatti.com/img/og.png",
+        "email": "roberto.arce@briatti.com",
+        "description": "Briatti builds dashboards, AI assistants and automated workflows for companies whose data is scattered, unstructured or not trusted.",
+        "founder": { "@type": "Person", "name": "Roberto" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.briatti.com/#site",
+        "url": "https://www.briatti.com/",
+        "name": "Briatti",
+        "publisher": { "@id": "https://www.briatti.com/#org" }
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Briatti services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "AI / Data Readiness Audit" },
+            "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": 5000 }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Dashboard + AI Insights" },
+            "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": 12000 }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "File Q&A Assistant" },
+            "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "EUR", "minPrice": 15000 }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Agent Automation" }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
-      --bg: #0b0d17;
-      --bg2: #11142a;
-      --card: #181d3a;
-      --border: #242851;
-      --border2: #323763;
-      --text: #e2e1ec;
-      --text2: #9496b8;
-      --text3: #5c5e82;
-      --accent: #6372c2;
-      --accent-hover: #7886d4;
-      --radius: 8px;
+      --ink: #11181D;
+      --ink-2: #4A5259;
+      --ink-3: #63696F;
+      --paper: #FBFBFA;
+      --paper-2: #F4F5F3;
+      --line: #E3E5E2;
+      --line-2: #D9DCD8;
+      --cobalt: #1F4E79;
+      --cobalt-deep: #16395A;
+      --cobalt-tint: #EBF0F5;
+      --teal: #164E4A;
+      --sand: #E6E1D8;
+      --line-tint: #D5DFE8;
+      --cobalt-on-dark: #8FB4D4;
+      --r: 6px;
+      --e-out: cubic-bezier(.16,1,.3,1);
+      --e-in-out: cubic-bezier(.65,0,.35,1);
+      --gutter: 24px;
+      --nav-h: 64px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--cobalt); }
+    :focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; border-radius: 2px; }
+    .band-ink :focus-visible { outline-color: var(--cobalt-on-dark); }
+    .skip {
+      position: absolute; left: 12px; top: -60px; z-index: 200;
+      background: var(--ink); color: var(--paper); padding: 10px 16px;
+      border-radius: var(--r); font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: top .18s var(--e-out);
+    }
+    .skip:focus { top: 12px; }
 
+    .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+    section { padding: 96px 0; scroll-margin-top: calc(var(--nav-h) + 16px); }
+    .sec-head { max-width: 60ch; margin-bottom: 44px; }
+    .sec-head h2 { margin-bottom: 12px; }
+    .sec-head p { color: var(--ink-2); font-size: 17px; }
+
+    /* ---------- type ---------- */
+    h1, h2, .figure {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em;
+      color: var(--ink);
+    }
+    h1 { font-size: clamp(30px, 4.2vw, 50px); line-height: 1.06; }
+    h2 { font-size: clamp(25px, 3.1vw, 38px); line-height: 1.12; }
+    h3 { font-size: 18px; font-weight: 600; line-height: 1.35; letter-spacing: -.01em; }
+    p { max-width: 68ch; }
+    .eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3);
+    }
+
+    /* ---------- nav ---------- */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(11,13,23,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
-    nav .container {
-      display: flex; justify-content: space-between; align-items: center; height: 60px;
+    nav.is-stuck { box-shadow: 0 1px 0 rgba(17,24,29,.04), 0 10px 30px -22px rgba(17,24,29,.3); }
+    .nav-inner { display: flex; align-items: center; gap: 28px; height: var(--nav-h); }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+    .brand svg { width: 24px; height: 24px; flex-shrink: 0; }
+    .brand span { font-size: 17px; font-weight: 600; letter-spacing: -.02em; }
+    .nav-links { display: flex; align-items: center; gap: 26px; margin-left: auto; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.nav-cta {
+      color: #fff; background: var(--cobalt);
+      padding: 9px 16px; border-radius: var(--r); font-weight: 600;
+      transition: background .14s var(--e-out);
     }
-    .logo { font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-links a {
-      color: var(--text2); text-decoration: none; font-size: 13px; font-weight: 500;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta {
-      padding: 6px 16px; background: var(--accent); color: #fff !important;
-      border-radius: 4px; font-weight: 600;
-    }
-    .nav-cta:hover { background: var(--accent-hover) !important; }
+    .nav-links a.nav-cta:hover { background: var(--cobalt-deep); color: #fff; }
 
-    section { padding: 80px 0; }
-    .section-title {
-      font-size: clamp(20px, 2.4vw, 28px); font-weight: 600;
-      letter-spacing: -0.02em; margin-bottom: 8px;
-      color: var(--text);
-    }
-    .section-sub {
-      font-size: 14px; color: var(--text2); line-height: 1.7;
-    }
-
+    /* ---------- buttons & chips ---------- */
     .btn {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 10px 22px; border: none; border-radius: 4px;
-      font-size: 14px; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 24px; border-radius: var(--r);
+      font-size: 15px; font-weight: 600; letter-spacing: .005em;
+      text-decoration: none; border: 1px solid transparent;
+      transition: background .14s var(--e-out), border-color .14s var(--e-out), color .14s var(--e-out), transform .14s var(--e-out);
     }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border2);
+    .btn-primary { background: var(--cobalt); color: #fff; }
+    .btn-primary:hover { background: var(--cobalt-deep); }
+    .btn:active { transform: translateY(1px); }
+    .link-arrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none;
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .link-arrow svg { transition: transform .18s var(--e-out); }
+    .link-arrow:hover svg { transform: translateX(3px); }
+    .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips li {
+      font-size: 13px; font-weight: 500; color: var(--ink-2);
+      background: var(--paper); border: 1px solid var(--line);
+      padding: 5px 12px; border-radius: var(--r);
+    }
+    .tag {
+      display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 9px; border-radius: 100px; margin-bottom: 14px;
+    }
+    .tag-start { background: var(--cobalt-tint); color: var(--cobalt); }
+    .tag-plain { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
 
-    /* ─── HERO ─── */
-    .hero {
-      padding: 120px 0 70px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-    }
-    .hero .container { max-width: 780px; }
-    .hero h1 {
-      font-size: clamp(28px, 4vw, 42px); font-weight: 700;
-      line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 14px;
-    }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero p {
-      font-size: 15px; color: var(--text2); line-height: 1.7;
-      margin-bottom: 28px;
-    }
-    .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
-    .hero-sub {
-      margin-top: 24px; display: flex; gap: 18px; flex-wrap: wrap;
-    }
-    .hero-sub span {
-      font-size: 13px; color: var(--text3);
-      display: flex; align-items: center; gap: 5px;
-    }
-    .hero-sub span::before {
-      content: ''; width: 4px; height: 4px; border-radius: 50%;
-      background: var(--accent); opacity: 0.5;
-    }
+    /* ---------- hero ---------- */
+    .hero { padding: calc(var(--nav-h) + 88px) 0 40px; }
+    .hero h1 { max-width: 20ch; margin-bottom: 22px; }
+    .hero-sub { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 46ch; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+    .hero-art { margin-top: 64px; }
+    .hero-art img { width: 100%; height: auto; aspect-ratio: 1400 / 600; }
 
-    /* ─── SERVICES ─── */
-    #services { background: var(--bg2); }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px;
+    /* ---------- lede ---------- */
+    .lede { padding: 0 0 96px; }
+    .lede .statement {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: clamp(22px, 2.6vw, 31px); line-height: 1.3; letter-spacing: -.02em;
+      max-width: 30ch; margin-bottom: 20px;
     }
-    .service-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px;
+    .lede > .container > p:not(.statement) { font-size: 17px; color: var(--ink-2); margin-bottom: 28px; max-width: 62ch; }
+
+    /* ---------- offers ---------- */
+    #services { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .offers { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .offer {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 28px;
       display: flex; flex-direction: column;
     }
-    .service-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-    .service-card .desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 12px; flex: 1; }
-    .service-card .price { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
-    .service-card .price span { font-weight: 400; font-size: 12px; color: var(--text3); }
-    .service-card ul { list-style: none; margin-bottom: 12px; }
-    .service-card ul li {
-      font-size: 12px; color: var(--text2); padding: 2px 0;
-      position: relative; padding-left: 14px;
-    }
-    .service-card ul li::before {
-      content: ''; position: absolute; left: 0; top: 9px;
-      width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.5;
-    }
-    .service-card .tag {
-      display: inline-block; padding: 2px 8px; border-radius: 3px;
-      font-size: 10px; font-weight: 600; text-transform: uppercase;
-      margin-bottom: 10px; align-self: flex-start; letter-spacing: 0.04em;
-    }
-    .tag-entry { background: rgba(99,114,194,0.08); color: var(--accent); }
+    .offer .tag { align-self: flex-start; }
+    .offer h3 { margin-bottom: 10px; }
+    .offer > p { font-size: 15px; color: var(--ink-2); margin-bottom: 18px; }
+    .offer ul { list-style: none; margin-bottom: 24px; display: grid; gap: 9px; }
+    .offer ul li { display: flex; gap: 10px; font-size: 14px; color: var(--ink-2); }
+    .offer ul li svg { width: 16px; height: 16px; margin-top: 5px; color: var(--teal); flex-shrink: 0; }
+    .price { margin-top: auto; margin-bottom: 0 !important; font-size: 15px; color: var(--ink-2); }
+    .price strong { font-size: 19px; color: var(--ink); font-weight: 600; letter-spacing: -.01em; }
+    .price span { color: var(--ink-3); }
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .offer-tinted { background: var(--cobalt-tint); border-color: var(--line-tint); }
+    .offer-quiet { background: var(--paper-2); }
 
-    /* ─── LADDER ─── */
-    .ladder-list { max-width: 680px; margin: 0 auto; }
-    .ladder-row {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
+    /* ---------- ladder ---------- */
+    .band-ink { background: var(--ink); color: var(--paper); }
+    .band-ink h2, .band-ink .figure { color: var(--paper); }
+    .band-ink .sec-head p { color: rgba(251,251,250,.72); }
+    .ladder { list-style: none; position: relative; max-width: 760px; }
+    .ladder::before {
+      content: ''; position: absolute; left: 19px; top: 14px; bottom: 14px; width: 1px;
+      background: linear-gradient(180deg, rgba(251,251,250,.34), rgba(251,251,250,.06));
     }
-    .ladder-row:last-child { border-bottom: none; }
-    .ladder-row .lr-num {
-      width: 28px; height: 28px; line-height: 28px; text-align: center;
-      border-radius: 50%; font-size: 12px; font-weight: 600;
-      background: var(--card); color: var(--accent); flex-shrink: 0;
+    .js .ladder::before {
+      transform-origin: top; transform: scaleY(0);
+      transition: transform 1.1s var(--e-out) .1s;
     }
-    .ladder-row .lr-label { font-size: 14px; font-weight: 600; min-width: 130px; }
-    .ladder-row .lr-desc { font-size: 13px; color: var(--text2); }
+    .js .ladder.is-in::before { transform: scaleY(1); }
+    .ladder li {
+      position: relative; display: grid; grid-template-columns: 40px 1fr;
+      gap: 20px; padding: 0 0 30px;
+    }
+    .ladder li:last-child { padding-bottom: 0; }
+    .rung-n {
+      width: 39px; height: 39px; border-radius: 50%;
+      border: 1px solid rgba(251,251,250,.3); background: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', Georgia, serif; font-size: 16px;
+      font-variation-settings: "opsz" 144, "SOFT" 30; color: var(--paper);
+    }
+    .ladder li h3 { color: var(--paper); margin: 7px 0 5px; }
+    .ladder li p { font-size: 15px; color: rgba(251,251,250,.72); max-width: 54ch; }
 
-    /* ─── DEMOS ─── */
-    #demos { background: var(--bg2); }
-    .demos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .demo-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px;
+    /* ---------- demos ---------- */
+    .demo-rows { display: grid; gap: 56px; }
+    .demo-row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+    .demo-row-flip .demo-panel { order: 2; }
+    .demo-shot {
+      display: block; border: 1px solid var(--line); border-radius: var(--r);
+      overflow: hidden; background: var(--paper-2);
+      transition: transform .24s var(--e-out), border-color .24s var(--e-out);
     }
-    .demo-card .demo-label {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      color: var(--text3); margin-bottom: 4px;
+    .demo-shot:hover { transform: translateY(-2px); border-color: var(--line-2); }
+    .demo-copy h3 { font-size: 21px; margin-bottom: 10px; }
+    .demo-copy p { font-size: 16px; color: var(--ink-2); margin-bottom: 20px; }
+    .demo-panel {
+      aspect-ratio: 16 / 11; border: 1px solid var(--line); border-radius: var(--r);
+      background: var(--paper-2); display: flex; align-items: center; justify-content: center;
+      color: var(--ink-3);
     }
-    .demo-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .demo-card p { font-size: 13px; color: var(--text2); margin-bottom: 14px; line-height: 1.6; }
-
-    /* ─── ABOUT ─── */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
-    }
-    .about-text p { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; }
-    .about-skills {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
-    .about-skills span {
-      padding: 4px 10px; border-radius: 3px; font-size: 12px; font-weight: 500;
-      background: rgba(99,114,194,0.06); color: var(--text2);
-      border: 1px solid var(--border);
-    }
-    .about-steps {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px;
-    }
-    .about-steps h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-    .about-steps .step-row {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 12px; border-radius: 4px;
-      font-size: 13px; color: var(--text2); margin-bottom: 3px;
-    }
-    .about-steps .step-row .step-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0;
-    }
-    .about-steps .step-row:last-child .step-dot { background: var(--accent); }
-
-    /* ─── PROCESS ─── */
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-      max-width: 800px; margin: 0 auto;
-    }
-    .process-step { text-align: center; }
-    .process-step .num {
-      width: 32px; height: 32px; line-height: 32px; border-radius: 50%;
-      background: var(--card); color: var(--accent); font-size: 13px; font-weight: 600;
-      margin: 0 auto 10px;
-    }
-    .process-step h4 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-    .process-step p { font-size: 13px; color: var(--text2); line-height: 1.6; }
-
-    /* ─── PILOT ─── */
-    #pilot {
-      text-align: center; padding: 70px 0;
-      border-top: 1px solid var(--border);
-      background: var(--bg2);
-    }
-    .offer-tag {
-      display: inline-block; padding: 3px 10px; border-radius: 3px;
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      background: rgba(99,114,194,0.08); color: var(--accent);
-      margin-bottom: 12px;
-    }
-    #pilot h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; margin-bottom: 10px; }
-    #pilot p { font-size: 14px; color: var(--text2); max-width: 500px; margin: 0 auto 24px; line-height: 1.7; }
-
-    /* ─── CONTACT ─── */
-    #contact { text-align: center; padding: 60px 0; }
-    #contact p { margin: 0 auto 24px; }
-    .contact-row {
-      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
-    }
-    .contact-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 22px; background: var(--card); border: 1px solid var(--border);
-      border-radius: 4px; color: var(--text); text-decoration: none;
-      font-size: 13px; font-weight: 500;
-    }
-    .contact-link:hover { border-color: var(--accent); }
-
-    footer {
-      padding: 24px 0; border-top: 1px solid var(--border);
-      text-align: center; font-size: 12px; color: var(--text3);
+    .demo-panel svg { width: 46px; height: 46px; }
+    .soon {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500; color: var(--ink-3);
+      border: 1px dashed var(--line-2); border-radius: var(--r); padding: 8px 14px;
     }
 
-    @media (max-width: 768px) {
+    /* ---------- process ---------- */
+    #process { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .process-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; align-items: start; }
+    .process-head { position: sticky; top: calc(var(--nav-h) + 40px); }
+    .process-head h2 { margin-bottom: 14px; }
+    .process-head p { font-size: 16px; color: var(--ink-2); margin-bottom: 24px; }
+    .meta-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+    .meta-chips li {
+      font-size: 12px; font-weight: 500; color: var(--ink-2);
+      background: var(--paper); border: 1px solid var(--line);
+      padding: 4px 11px; border-radius: var(--r);
+    }
+    .steps { list-style: none; position: relative; }
+    .steps::before {
+      content: ''; position: absolute; left: 17px; top: 10px; bottom: 10px; width: 1px;
+      background: var(--line-2);
+    }
+    .js .steps::before {
+      transform-origin: top; transform: scaleY(0);
+      transition: transform 1.2s var(--e-out);
+    }
+    .js .steps.is-in::before { transform: scaleY(1); }
+    .steps li { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: 20px; padding-bottom: 32px; }
+    .steps li:last-child { padding-bottom: 0; }
+    .step-n {
+      width: 35px; height: 35px; border-radius: 50%;
+      background: var(--paper); border: 1px solid var(--line-2); color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;
+    }
+    .steps h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin: 6px 0 6px; }
+    .steps h3 span { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+    .steps p { font-size: 15px; color: var(--ink-2); max-width: 56ch; }
+
+    /* ---------- cases ---------- */
+    .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .case {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 30px; display: flex; flex-direction: column;
+    }
+    .case-dept { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+    .case h3 { font-size: 19px; margin-bottom: 20px; }
+    .case-figs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 22px; }
+    .case-figs dd { font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: 34px; line-height: 1; letter-spacing: -.02em; color: var(--cobalt);
+      font-variant-numeric: tabular-nums; }
+    .case-figs dt { font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+    .case > p { font-size: 15px; color: var(--ink-2); }
+    .case-note { margin-top: auto; padding-top: 20px; font-size: 12px; color: var(--ink-3); }
+    .case-wide { grid-column: span 2; }
+    .case-wide .figure { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; color: var(--cobalt); margin-bottom: 20px; }
+
+    /* ---------- pilot ---------- */
+    .band-pilot { background: var(--cobalt-tint); border-top: 1px solid var(--line-tint); border-bottom: 1px solid var(--line-tint); text-align: center; }
+    .band-pilot .container { max-width: 720px; }
+    .band-pilot .pill {
+      display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--cobalt);
+      background: var(--paper); border: 1px solid var(--line-tint);
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .band-pilot h2 { margin-bottom: 16px; }
+    .band-pilot p { font-size: 17px; color: var(--ink-2); margin: 0 auto 30px; max-width: 54ch; }
+
+    /* ---------- about ---------- */
+    #about { background: var(--paper-2); border-top: 1px solid var(--line); }
+    .about-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; align-items: start; }
+    .about-grid h2 { margin-bottom: 18px; }
+    .about-grid p { font-size: 16px; color: var(--ink-2); margin-bottom: 16px; }
+    .about-grid .chips { margin-top: 26px; }
+    .about-quote {
+      border-left: 2px solid var(--cobalt); padding-left: 26px;
+    }
+    .about-quote blockquote p {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: clamp(19px, 2vw, 24px); line-height: 1.35; letter-spacing: -.02em;
+      color: var(--ink); margin-bottom: 18px;
+    }
+    .about-quote figcaption { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+
+    /* ---------- contact ---------- */
+    #contact { text-align: center; }
+    #contact .container { max-width: 720px; }
+    #contact h2 { margin-bottom: 14px; }
+    #contact p { font-size: 17px; color: var(--ink-2); margin: 0 auto 30px; max-width: 50ch; }
+    .contact-alt { margin-top: 22px; font-size: 14px; color: var(--ink-3); }
+    .contact-alt a { color: var(--ink-2); }
+
+    footer { border-top: 1px solid var(--line); padding: 40px 0; }
+    .foot-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
+    .foot-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -.02em; }
+    .foot-brand svg { width: 22px; height: 22px; }
+    .foot-inner p { font-size: 13px; color: var(--ink-3); margin-left: auto; }
+    .foot-inner a { color: var(--ink-2); }
+
+    /* ---------- motion ---------- */
+    .js [data-reveal] {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .48s var(--e-out) var(--d, 0s), transform .48s var(--e-out) var(--d, 0s);
+    }
+    .js [data-reveal].is-in { opacity: 1; transform: none; }
+    @media (max-width: 900px) {
+      section { padding: 64px 0; }
+      .hero { padding: calc(var(--nav-h) + 56px) 0 32px; }
+      .hero-art { margin-top: 44px; }
+      .lede { padding-bottom: 64px; }
+      .offers { grid-template-columns: 1fr; }
+      .offer { grid-column: auto; }
+      .demo-row { grid-template-columns: 1fr; gap: 26px; }
+      .demo-row-flip .demo-panel { order: 0; }
+      .process-grid { grid-template-columns: 1fr; gap: 40px; }
+      .process-head { position: static; }
+      .cases { grid-template-columns: 1fr; }
+      .case-wide { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 720px) {
+      :root { --gutter: 20px; }
+      .nav-links { gap: 16px; }
       .nav-links a:not(.nav-cta) { display: none; }
-      .process-grid { grid-template-columns: 1fr 1fr; }
-      section { padding: 50px 0; }
-      .demos-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .hero { padding: 100px 0 50px; }
-      .ladder-row { flex-wrap: wrap; gap: 4px; }
-      .ladder-row .lr-label { min-width: auto; }
+      .hero h1 br { display: none; }
+      .hero-sub { font-size: 17px; }
+      .case { padding: 24px; }
+      .foot-inner p { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .js [data-reveal] { opacity: 1; transform: none; }
+      .js .steps::before, .js .ladder::before { transform: scaleY(1); }
     }
   </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav>
-  <div class="container">
-    <div class="logo">Bri<span>atti</span></div>
+<nav id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="/" aria-label="Briatti home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 20 175 175" aria-hidden="true">
+        <path d="M116.348 33.2713L142.242 33.2119C149.758 33.1987 158.725 32.9492 166.064 34.5917C177.576 37.1682 187.753 43.0405 194.163 53.1893C199.784 62.0899 201.543 74.379 199.308 84.5898C197.755 91.6795 193.043 100.448 187.524 105.29C185.774 106.826 184.088 107.886 182.116 109.115C196.881 117.627 204.254 129.649 204.236 146.959C204.212 171.199 183.215 189.168 160.04 190.965C153.876 191.443 147.265 191.215 141.025 191.237C132.076 191.309 123.126 191.307 114.177 191.233L114.11 173.507C124.539 173.156 135.599 173.682 146.096 173.449C151.556 173.33 156.997 173.664 162.408 172.759C183 169.314 192.897 148.048 181.177 130.423C174.536 121.661 164.323 118.642 153.681 118.74C139.632 118.869 125.434 118.259 111.421 119.135C109.161 119.48 105.37 120.927 103.826 122.582C101.293 125.296 101.748 132.201 101.689 135.71C101.588 141.456 101.577 147.202 101.656 152.948L101.639 191.422C95.6568 191.354 89.674 191.354 83.6918 191.423C83.5064 184.415 83.663 177.341 83.5787 170.313C83.4668 157.014 83.4627 143.579 83.4412 130.289C83.4245 120.041 87.9382 111.537 96.6454 106.179C106.523 100.102 115.534 101.029 126.437 101.037L148.765 101.126C152.863 101.111 158.135 101.202 162.003 100.256C173.344 97.4843 182.586 88.4803 182.385 76.3006C182.272 69.5179 180.672 63.8961 175.859 59.006C172.605 55.6846 168.496 53.3276 163.987 52.1953C157.824 50.5899 148.439 51.04 141.797 51.0398L114.089 51.0575C113.988 46.4814 113.751 37.6101 114.133 33.3254L116.348 33.2713Z" fill="currentColor"/>
+        <path d="M52.887 33.2747C59.0009 33.2624 64.7558 33.0827 70.8906 33.4163C70.671 47.6821 71.2865 190.588 71.1179 190.907C71.0569 191.022 70.9489 191.105 70.8647 191.204C65.1184 191.554 58.5793 191.352 52.7667 191.347C52.4197 172.833 52.8293 154.053 52.8557 135.518L52.887 33.2747Z" fill="currentColor"/>
+        <path d="M83.6477 33.1898C89.6915 33.3256 95.7365 33.3928 101.782 33.3912L101.761 75.0962C101.741 81.2169 101.95 88.5765 101.722 94.5692L83.5168 94.3959C83.6889 80.5682 83.3444 66.6183 83.5305 52.7718C83.6168 46.3584 83.3417 39.5705 83.6477 33.1898Z" fill="currentColor"/>
+      </svg>
+      <span>Briatti</span>
+    </a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#ladder">Ladder</a>
       <a href="#demos">Demos</a>
       <a href="#about">About</a>
-      <a href="demo.html" class="nav-cta">Dashboard Demo</a>
+      <a href="demo.html" class="nav-cta">View the dashboard</a>
     </div>
   </div>
 </nav>
 
-<div class="hero">
-  <div class="container">
-    <h1>Practical AI &amp; Data Systems<br>for <em>Growing Companies</em></h1>
-    <p>We help businesses turn scattered data, documents, and workflows into dashboards, AI assistants, and automated agents. Start with a practical audit — build only what creates measurable value.</p>
-    <div class="hero-ctas">
-      <a href="#services" class="btn btn-primary">Explore Services</a>
-      <a href="#pilot" class="btn btn-outline">Free Pilot</a>
-    </div>
-    <div class="hero-sub">
-      <span>Data &amp; AI readiness audit</span>
-      <span>File Q&amp;A assistants</span>
-      <span>AI dashboards</span>
-      <span>Workflow automation</span>
-    </div>
-  </div>
-</div>
+<main id="main">
 
-<section id="services">
-  <div class="container">
-    <h2 class="section-title">Services &amp; Packages</h2>
-    <p class="section-sub" style="margin-bottom:36px">Four concrete offers. Fixed scope, clear pricing, fast delivery.</p>
-    <div class="services-grid">
+  <header class="hero">
+    <div class="container">
+      <h1>From scattered files to<br>working decision systems</h1>
+      <p class="hero-sub">Operations, finance and commercial teams turn spreadsheets, documents and reports into dashboards, AI assistants and automated workflows.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Book a diagnostic call</a>
+        <a class="link-arrow" href="demo.html">View the dashboard
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="container hero-art">
+      <img src="img/data-flow.svg" width="1400" height="600" fetchpriority="high"
+           alt="Reports, PDFs, spreadsheets and databases flowing into Briatti, and back out as dashboards, insights, AI assistants and agents.">
+    </div>
+  </header>
 
-      <div class="service-card">
-        <span class="tag tag-entry">Entry</span>
-        <h3>AI / Data Readiness Audit</h3>
-        <p class="desc">In 5 days we audit your data, identify use cases, and deliver a ranked roadmap — no commitment required.</p>
-        <ul>
-          <li>Data maturity score &amp; source inventory</li>
-          <li>Top 5 use cases ranked by ROI</li>
-          <li>30-day implementation roadmap</li>
+  <section class="lede" aria-labelledby="lede-h">
+    <div class="container">
+      <p class="statement" id="lede-h">Most companies don't need &ldquo;AI transformation.&rdquo;</p>
+      <p>They need to know what data they have, what is usable, and which workflows are worth automating. That is where we start: with a structured diagnostic, not a buzzword pitch.</p>
+      <ul class="chips">
+        <li>Operations teams</li>
+        <li>Finance &amp; accounting</li>
+        <li>Commercial &amp; sales ops</li>
+        <li>Supply chain</li>
+        <li>HR &amp; knowledge teams</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="services-h">
+    <div class="container">
+      <div class="sec-head">
+        <h2 id="services-h">Services &amp; Packages</h2>
+        <p>Four concrete offers. Fixed scope, clear pricing, fast delivery.</p>
+      </div>
+      <div class="offers">
+        <article class="offer offer-tinted span-7" data-reveal>
+          <span class="tag tag-start">Start here</span>
+          <h3>AI / Data Readiness Audit</h3>
+          <p>In five days we audit your data, identify the use cases that matter, and hand you a ranked roadmap. No commitment required.</p>
+          <ul>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Data maturity score &amp; source inventory</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Top five use cases ranked by return</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A 30-day implementation roadmap</li>
+          </ul>
+          <p class="price">Starts at <strong>&euro;5,000</strong> <span>&middot; 1 week</span></p>
+        </article>
+
+        <article class="offer span-5" data-reveal style="--d:.06s">
+          <span class="tag tag-plain">Popular</span>
+          <h3>Dashboard + AI Insights</h3>
+          <p>Turn messy data into a clean dashboard that explains what changed, flags anomalies and answers questions.</p>
+          <ul>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Data cleaning pipeline</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>KPI dashboard with AI summaries</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Natural-language questions over metrics</li>
+          </ul>
+          <p class="price">Starts at <strong>&euro;12,000</strong> <span>&middot; 2&ndash;6 weeks</span></p>
+        </article>
+
+        <article class="offer span-6" data-reveal style="--d:.12s">
+          <span class="tag tag-plain">Popular</span>
+          <h3>File Q&amp;A Assistant</h3>
+          <p>Upload your PDFs, manuals and reports. Your team asks questions and gets answers with the sources cited.</p>
+          <ul>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Secure document ingestion</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Source-cited chat interface</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Admin panel and a 30-question evaluation set</li>
+          </ul>
+          <p class="price">Starts at <strong>&euro;15,000</strong> <span>&middot; 2&ndash;4 weeks</span></p>
+        </article>
+
+        <article class="offer offer-quiet span-6" data-reveal style="--d:.18s">
+          <span class="tag tag-plain">Advanced</span>
+          <h3>Agent Automation</h3>
+          <p>An agent that does the repetitive work inside your own tools: email triage, report generation, data entry, summaries.</p>
+          <ul>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Workflow analysis &amp; design</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Prototype or production build</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Integration with existing tools</li>
+          </ul>
+          <p class="price">Tailored pricing <span>&middot; 3&ndash;8 weeks</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ladder" class="band-ink" aria-labelledby="ladder-h">
+    <div class="container">
+      <div class="sec-head">
+        <h2 id="ladder-h">The AI Readiness Ladder</h2>
+        <p>Where your business is today, and what the next step looks like.</p>
+      </div>
+      <ol class="ladder" data-rise>
+        <li><span class="rung-n">1</span><div><h3>Data Chaos</h3><p>Files, spreadsheets and emails, with no structure and no single source of truth.</p></div></li>
+        <li><span class="rung-n">2</span><div><h3>Data Visibility</h3><p>Dashboards and KPIs bring clarity. You can see what is happening.</p></div></li>
+        <li><span class="rung-n">3</span><div><h3>Data Reliability</h3><p>Cleaned pipelines and defined metrics. Your numbers can be trusted.</p></div></li>
+        <li><span class="rung-n">4</span><div><h3>Predictive Intelligence</h3><p>Forecasts and anomaly detection. You can see what is likely to happen next.</p></div></li>
+        <li><span class="rung-n">5</span><div><h3>Knowledge Intelligence</h3><p>Language models over your documents and databases. Ask a question, get a sourced answer.</p></div></li>
+        <li><span class="rung-n">6</span><div><h3>Agentic Automation</h3><p>Agents run the workflow on their own, so your team gets its hours back.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="demos" aria-labelledby="demos-h">
+    <div class="container">
+      <div class="sec-head">
+        <h2 id="demos-h">See It In Action</h2>
+        <p>Two working demos that show exactly what Briatti delivers.</p>
+      </div>
+      <div class="demo-rows">
+        <article class="demo-row" data-reveal>
+          <a class="demo-shot" href="demo.html">
+            <img src="img/demo-dashboard.webp" width="1440" height="900" loading="lazy"
+                 alt="The Briatti executive dashboard demo: revenue at risk, forecast confidence and a revenue and forecast chart.">
+          </a>
+          <div class="demo-copy">
+            <h3>Executive Dashboard</h3>
+            <p>Live KPI dashboard with revenue forecasting, customer analytics, AI insights and segment filtering. Built on real-shaped data, so try the date picker and the filters.</p>
+            <a class="btn btn-primary" href="demo.html">View the dashboard</a>
+          </div>
+        </article>
+        <article class="demo-row demo-row-flip" data-reveal style="--d:.06s">
+          <div class="demo-panel" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z"/></svg>
+          </div>
+          <div class="demo-copy">
+            <h3>Chat With Your Files</h3>
+            <p>Upload documents and ask questions in plain language. Answers come back with the source cited, so every claim is traceable to a page.</p>
+            <p class="soon">In build &middot; not public yet</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" aria-labelledby="process-h">
+    <div class="container process-grid">
+      <div class="process-head">
+        <h2 id="process-h">How we work</h2>
+        <p>Every engagement follows the same five phases, whether you start with a diagnostic or go straight to a production build. No jargon, no long contracts, no surprises.</p>
+        <ul class="meta-chips">
+          <li>5 phases</li>
+          <li>~12 weeks to production</li>
+          <li>Ongoing optimisation</li>
         </ul>
-        <div class="price"> Starts at €€5,000 <span>· 1 week</span></div>
       </div>
-
-      <div class="service-card">
-        <span class="tag tag-entry">Popular</span>
-        <h3>File Q&amp;A Assistant</h3>
-        <p class="desc">Upload your PDFs, docs, or manuals — your team asks questions and gets cited answers instantly.</p>
-        <ul>
-          <li>Secure document ingestion</li>
-          <li>Source-cited chat interface</li>
-          <li>Admin panel + 30 test questions</li>
-        </ul>
-        <div class="price">Starts at €15,000 <span>· 2–4 weeks</span></div>
-      </div>
-
-      <div class="service-card">
-        <span class="tag tag-entry">Popular</span>
-        <h3>Dashboard + AI Insights</h3>
-        <p class="desc">Turn messy data into a clean dashboard with AI that explains changes, flags anomalies, and answers questions.</p>
-        <ul>
-          <li>Data cleaning pipeline</li>
-          <li>KPI dashboard with AI summaries</li>
-          <li>Natural-language Q&amp;A over metrics</li>
-        </ul>
-        <div class="price">Starts at €12,000 <span>· 2–6 weeks</span></div>
-      </div>
-
-      <div class="service-card">
-        <span class="tag tag-entry">Advanced</span>
-        <h3>Agent Automation</h3>
-        <p class="desc">An AI agent that performs repetitive work using your tools and data — email triage, report generation, and more.</p>
-        <ul>
-          <li>Workflow analysis &amp; design</li>
-          <li>Agent prototype or production build</li>
-          <li>Integration with existing tools</li>
-        </ul>
-        <div class="price"> Tailored pricing <span>· 3–8 weeks</span></div>
-      </div>
-
+      <ol class="steps" data-rise>
+        <li data-reveal>
+          <span class="step-n">1</span>
+          <div>
+            <h3>Discovery <span>Week 0&ndash;1</span></h3>
+            <p>We audit your workflows, data landscape and business goals, work out where AI will earn the most, and agree how success will be measured.</p>
+          </div>
+        </li>
+        <li data-reveal style="--d:.06s">
+          <span class="step-n">2</span>
+          <div>
+            <h3>Solution Design <span>Week 1&ndash;2</span></h3>
+            <p>We architect the system: which models, which data pipelines, which integrations. You get a technical proposal and a project roadmap, and nothing gets built until you approve it.</p>
+          </div>
+        </li>
+        <li data-reveal style="--d:.12s">
+          <span class="step-n">3</span>
+          <div>
+            <h3>Pilot / PoC <span>Week 2&ndash;6</span></h3>
+            <p>We build a working proof of concept on your real data. That validates feasibility, accuracy and integration before anyone commits to a full build.</p>
+          </div>
+        </li>
+        <li data-reveal style="--d:.18s">
+          <span class="step-n">4</span>
+          <div>
+            <h3>Production Build <span>Week 6&ndash;12</span></h3>
+            <p>A full engineering sprint: production-grade code, tests, security hardening, deployment pipelines and monitoring. We ship in iterations, with a demo every week.</p>
+          </div>
+        </li>
+        <li data-reveal style="--d:.24s">
+          <span class="step-n">5</span>
+          <div>
+            <h3>Launch &amp; Optimise <span>Ongoing</span></h3>
+            <p>You go live with support in place. We watch performance, retrain models, take cost out and iterate on what real usage tells us.</p>
+          </div>
+        </li>
+      </ol>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="ladder">
-  <div class="container">
-    <h2 class="section-title">The AI Readiness Ladder</h2>
-    <p class="section-sub" style="margin-bottom:32px">Where your business is today — and what the next step looks like.</p>
-    <div class="ladder-list">
-      <div class="ladder-row">
-        <div class="lr-num">1</div>
-        <div class="lr-label">Data Chaos</div>
-        <div class="lr-desc">Files, spreadsheets, emails — no structure, no single source of truth</div>
+  <section id="examples" aria-labelledby="examples-h">
+    <div class="container">
+      <div class="sec-head">
+        <h2 id="examples-h">In practice</h2>
+        <p>Anonymised scenarios drawn from real project patterns. Each one shows the problem, the approach and the outcome.</p>
       </div>
-      <div class="ladder-row">
-        <div class="lr-num">2</div>
-        <div class="lr-label">Data Visibility</div>
-        <div class="lr-desc">Dashboards and KPIs bring clarity — you see what's happening</div>
-      </div>
-      <div class="ladder-row">
-        <div class="lr-num">3</div>
-        <div class="lr-label">Data Reliability</div>
-        <div class="lr-desc">Cleaned pipelines, defined metrics — your data can be trusted</div>
-      </div>
-      <div class="ladder-row">
-        <div class="lr-num">4</div>
-        <div class="lr-label">Predictive Intelligence</div>
-        <div class="lr-desc">ML forecasts and anomaly detection — you see what will happen</div>
-      </div>
-      <div class="ladder-row">
-        <div class="lr-num">5</div>
-        <div class="lr-label">Knowledge Intelligence</div>
-        <div class="lr-desc">LLMs over documents and databases — ask questions, get answers</div>
-      </div>
-      <div class="ladder-row">
-        <div class="lr-num">6</div>
-        <div class="lr-label">Agentic Automation</div>
-        <div class="lr-desc">AI agents execute workflows autonomously — your team focuses on growth</div>
-      </div>
-    </div>
-  </div>
-</section>
+      <div class="cases">
+        <article class="case" data-reveal>
+          <p class="case-dept">Knowledge management</p>
+          <h3>An assistant over company documents</h3>
+          <dl class="case-figs">
+            <div><dt>Less search time</dt><dd data-count="85" data-prefix="~" data-suffix="%">~85%</dd></div>
+            <div><dt>Availability</dt><dd>24/7</dd></div>
+          </dl>
+          <p>A firm with hundreds of internal documents needed instant access to policies, reports and procedures. We built a secure assistant that answers with cited sources.</p>
+          <p class="case-note">Anonymised example based on a real engagement</p>
+        </article>
 
-<section id="demos">
-  <div class="container">
-    <h2 class="section-title">See It In Action</h2>
-    <p class="section-sub" style="margin-bottom:36px">Two working demos that show exactly what Briatti delivers.</p>
-    <div class="demos-grid">
-      <div class="demo-card">
-        <div class="demo-label">Dashboard</div>
-        <h3>Executive Dashboard</h3>
-        <p>Live KPI dashboard with revenue forecasting, customer analytics, AI insights, and segment filtering.</p>
-        <a href="demo.html" class="btn btn-primary" style="font-size:13px;padding:8px 16px">Launch Dashboard</a>
-      </div>
-      <div class="demo-card">
-        <div class="demo-label">Chat</div>
-        <h3>Chat With Your Files</h3>
-        <p>Upload documents and ask questions. Get cited answers, summaries, and extracted data instantly.</p>
-        <span class="btn btn-outline" style="font-size:13px;padding:8px 16px;cursor:default;opacity:0.5">Coming Soon</span>
+        <article class="case" data-reveal style="--d:.06s">
+          <p class="case-dept">Business intelligence</p>
+          <h3>A dashboard with AI-driven insight</h3>
+          <dl class="case-figs">
+            <div><dt>Revenue at risk flagged</dt><dd data-count="48" data-prefix="&euro;" data-suffix="K/yr">&euro;48K/yr</dd></div>
+            <div><dt>Growth identified</dt><dd data-count="12" data-prefix="+" data-suffix="%">+12%</dd></div>
+          </dl>
+          <p>A company with scattered sales data needed visibility. We built a dashboard with automatic anomaly detection, forecasting and natural-language questions over the metrics.</p>
+          <p class="case-note">Anonymised example based on a real engagement</p>
+        </article>
+
+        <article class="case case-wide" data-reveal style="--d:.12s">
+          <p class="case-dept">AI readiness</p>
+          <h3>A data audit and a 30-day roadmap</h3>
+          <p class="figure">5 use cases identified, 2 quick wins</p>
+          <p>A growing company with a lot of AI enthusiasm and no clear direction needed a decision. In one week we audited the data sources, identified the use cases that were actually feasible, and delivered a prioritised roadmap.</p>
+          <p class="case-note">Anonymised example based on a real engagement</p>
+        </article>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
+  <section id="pilot" class="band-pilot" aria-labelledby="pilot-h">
+    <div class="container">
+      <p class="pill">Zero-Risk Pilot</p>
+      <h2 id="pilot-h">First consultation, free of charge</h2>
+      <p>We build your first solution at no cost. You invest one short call to explain your needs; we do the rest. If you are happy, we discuss what comes next. If not, you owe nothing.</p>
+      <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=Free%20Pilot">Claim the free pilot</a>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="container about-grid">
       <div>
-        <h2 class="section-title">About Briatti</h2>
-        <p>Most companies want AI — but their real problem is earlier. Data is scattered, unstructured, undocumented, or not trusted. Most AI consultants only know one piece of the puzzle.</p>
-        <p>Our founder covers the full chain: business question to data audit to cleaning to dashboard to predictive model to LLM assistant to agent automation. We don't propose ideas — we build working systems end to end.</p>
-        <div class="about-skills">
-          <span>Data Strategy</span>
-          <span>Analytics &amp; ML</span>
-          <span>LLMs &amp; RAG</span>
-          <span>AI Agents</span>
-          <span>Dashboards</span>
-          <span>Process Automation</span>
-        </div>
+        <h2 id="about-h">Who's behind Briatti</h2>
+        <p>Briatti was founded to fill a gap. Most companies want AI, but their real problem is earlier: the data is scattered, unstructured, undocumented, or simply not trusted.</p>
+        <p>The founder covers the whole chain, from the business question through data engineering, machine learning, language models and agent automation. Background spans data science, supply chain analytics, financial modelling and production AI systems. We speak both business and technical.</p>
+        <ul class="chips">
+          <li>Data strategy</li>
+          <li>Analytics &amp; ML</li>
+          <li>LLMs &amp; RAG</li>
+          <li>AI agents</li>
+          <li>Dashboards</li>
+          <li>Process automation</li>
+        </ul>
       </div>
-      <div class="about-steps">
-        <h4>Full-Stack AI Delivery</h4>
-        <div class="step-row"><span class="step-dot"></span> Business Question</div>
-        <div class="step-row"><span class="step-dot"></span> Data Audit &amp; Strategy</div>
-        <div class="step-row"><span class="step-dot"></span> Data Cleaning &amp; Pipelines</div>
-        <div class="step-row"><span class="step-dot"></span> Dashboard &amp; KPIs</div>
-        <div class="step-row"><span class="step-dot"></span> Predictive ML Models</div>
-        <div class="step-row"><span class="step-dot"></span> LLM Assistant / RAG</div>
-        <div class="step-row"><span class="step-dot"></span> AI Agent Automation</div>
-      </div>
+      <figure class="about-quote">
+        <blockquote>
+          <p>Most AI consultants know one piece of the puzzle, either the strategy or the build. Briatti does both, because that is what messy business data needs.</p>
+        </blockquote>
+        <figcaption>Roberto, founder</figcaption>
+      </figure>
+      <!-- TODO: founder portrait, 640x800, 4:5. Drop it here as
+           <img src="img/founder.webp" width="640" height="800" loading="lazy" alt="Roberto, founder of Briatti.">
+           inside the .about-grid once the photograph exists. -->
     </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="container">
-    <h2 class="section-title" style="text-align:center">How We Work With You</h2>
-    <p class="section-sub" style="text-align:center;margin:0 auto 32px">No jargon, no long contracts, no surprises.</p>
-    <div class="process-grid">
-      <div class="process-step">
-        <div class="num">1</div>
-        <h4>We Listen</h4>
-        <p>A 30-minute call to understand your business and where improvement matters most.</p>
-      </div>
-      <div class="process-step">
-        <div class="num">2</div>
-        <h4>We Propose</h4>
-        <p>A tailored solution with clear outcomes. You approve before we build anything.</p>
-      </div>
-      <div class="process-step">
-        <div class="num">3</div>
-        <h4>We Build</h4>
-        <p>A working system using your real data. No templates, no generic software.</p>
-      </div>
-      <div class="process-step">
-        <div class="num">4</div>
-        <h4>You Benefit</h4>
-        <p>Fewer manual hours, better decisions. If it works we continue — if not, no commitment.</p>
-      </div>
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="container">
+      <h2 id="contact-h">Let's talk</h2>
+      <p>No pitch and no pressure. We will look at your data situation, tell you what is possible, and say honestly whether we can help.</p>
+      <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Book a diagnostic call</a>
+      <p class="contact-alt">Or write directly: <a href="mailto:roberto.arce@briatti.com">roberto.arce@briatti.com</a></p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="pilot">
-  <div class="container">
-    <div class="offer-tag">Zero-Risk Pilot</div>
-    <h2>First Consultation — Free of Charge</h2>
-    <p>We build your first solution at no cost. You invest one short call to explain your needs; we do the rest. If you're happy, we discuss next steps. If not, you owe nothing.</p>
-    <a href="mailto:roberto.arce@briatti.com?subject=Free%20Pilot" class="btn btn-primary">Request a Free Pilot</a>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="container">
-    <h2 class="section-title">Let's Talk</h2>
-    <p class="section-sub" style="margin:0 auto 24px">No pitch, no pressure. Just a conversation about your business.</p>
-    <div class="contact-row">
-      <a href="mailto:roberto.arce@briatti.com" class="contact-link">roberto.arce@briatti.com</a>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer>
-  <p>&copy; 2026 Briatti — Practical AI &amp; Data Systems</p>
+  <div class="container foot-inner">
+    <div class="foot-brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 20 175 175" aria-hidden="true">
+        <path d="M116.348 33.2713L142.242 33.2119C149.758 33.1987 158.725 32.9492 166.064 34.5917C177.576 37.1682 187.753 43.0405 194.163 53.1893C199.784 62.0899 201.543 74.379 199.308 84.5898C197.755 91.6795 193.043 100.448 187.524 105.29C185.774 106.826 184.088 107.886 182.116 109.115C196.881 117.627 204.254 129.649 204.236 146.959C204.212 171.199 183.215 189.168 160.04 190.965C153.876 191.443 147.265 191.215 141.025 191.237C132.076 191.309 123.126 191.307 114.177 191.233L114.11 173.507C124.539 173.156 135.599 173.682 146.096 173.449C151.556 173.33 156.997 173.664 162.408 172.759C183 169.314 192.897 148.048 181.177 130.423C174.536 121.661 164.323 118.642 153.681 118.74C139.632 118.869 125.434 118.259 111.421 119.135C109.161 119.48 105.37 120.927 103.826 122.582C101.293 125.296 101.748 132.201 101.689 135.71C101.588 141.456 101.577 147.202 101.656 152.948L101.639 191.422C95.6568 191.354 89.674 191.354 83.6918 191.423C83.5064 184.415 83.663 177.341 83.5787 170.313C83.4668 157.014 83.4627 143.579 83.4412 130.289C83.4245 120.041 87.9382 111.537 96.6454 106.179C106.523 100.102 115.534 101.029 126.437 101.037L148.765 101.126C152.863 101.111 158.135 101.202 162.003 100.256C173.344 97.4843 182.586 88.4803 182.385 76.3006C182.272 69.5179 180.672 63.8961 175.859 59.006C172.605 55.6846 168.496 53.3276 163.987 52.1953C157.824 50.5899 148.439 51.04 141.797 51.0398L114.089 51.0575C113.988 46.4814 113.751 37.6101 114.133 33.3254L116.348 33.2713Z" fill="currentColor"/>
+        <path d="M52.887 33.2747C59.0009 33.2624 64.7558 33.0827 70.8906 33.4163C70.671 47.6821 71.2865 190.588 71.1179 190.907C71.0569 191.022 70.9489 191.105 70.8647 191.204C65.1184 191.554 58.5793 191.352 52.7667 191.347C52.4197 172.833 52.8293 154.053 52.8557 135.518L52.887 33.2747Z" fill="currentColor"/>
+        <path d="M83.6477 33.1898C89.6915 33.3256 95.7365 33.3928 101.782 33.3912L101.761 75.0962C101.741 81.2169 101.95 88.5765 101.722 94.5692L83.5168 94.3959C83.6889 80.5682 83.3444 66.6183 83.5305 52.7718C83.6168 46.3584 83.3417 39.5705 83.6477 33.1898Z" fill="currentColor"/>
+      </svg>
+      <span>Briatti</span>
+    </div>
+    <p>AI and data systems for messy business data &middot; <a href="mailto:roberto.arce@briatti.com">roberto.arce@briatti.com</a> &middot; &copy; 2026 Briatti</p>
+  </div>
 </footer>
 
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('[data-reveal], [data-rise]');
+
+    if (reduce || !('IntersectionObserver' in window)) {
+      for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+    for (var j = 0; j < items.length; j++) io.observe(items[j]);
+
+    // counters: the final value is already in the markup, so JS-off loses nothing
+    var counters = document.querySelectorAll('[data-count]');
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        cio.unobserve(el);
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var prefix = el.getAttribute('data-prefix') || '';
+        var suffix = el.getAttribute('data-suffix') || '';
+        var start = performance.now();
+        var dur = 800;
+        (function tick(now) {
+          var t = Math.min(1, (now - start) / dur);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = prefix + Math.round(target * eased) + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+        })(start);
+      });
+    }, { threshold: 0.5 });
+    for (var k = 0; k < counters.length; k++) cio.observe(counters[k]);
+
+    // nav shadow appears once the page has scrolled past the hero top
+    var sentinel = document.createElement('div');
+    sentinel.setAttribute('aria-hidden', 'true');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;';
+    document.body.appendChild(sentinel);
+    new IntersectionObserver(function (entries) {
+      document.getElementById('nav').classList.toggle('is-stuck', !entries[0].isIntersecting);
+    }, { threshold: 1 }).observe(sentinel);
+  })();
+</script>
 </body>
 </html>

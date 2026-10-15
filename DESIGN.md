@@ -18,13 +18,16 @@ default accent of AI-generated landing pages and reads as generic.
 | --- | --- | --- |
 | `--ink` | `#11181D` | Primary text, logo, dark band background |
 | `--ink-2` | `#4A5259` | Secondary text |
-| `--ink-3` | `#6E757B` | Labels, captions, meta |
+| `--ink-3` | `#63696F` | Labels, captions, meta. Held dark enough to clear 4.5:1 on `--paper-2`, not just on white |
 | `--paper` | `#FBFBFA` | Page background (the logo plate colour) |
 | `--paper-2` | `#F4F5F3` | Alternating section background |
 | `--line` | `#E3E5E2` | Hairlines, borders |
+| `--line-2` | `#D9DCD8` | Stronger hairline, timeline spine |
+| `--line-tint` | `#D5DFE8` | Border on cobalt-tinted surfaces |
 | `--cobalt` | `#1F4E79` | Brand accent, primary action, inbound data |
 | `--cobalt-deep` | `#16395A` | Accent hover/active |
 | `--cobalt-tint` | `#EBF0F5` | Accent-tinted surface |
+| `--cobalt-on-dark` | `#8FB4D4` | Accent that stays legible on `--ink` surfaces |
 | `--teal` | `#164E4A` | Secondary accent, outbound data |
 | `--sand` | `#E6E1D8` | Quiet rule/divider, artwork halo only |
 
@@ -34,6 +37,8 @@ Rules:
 - Exactly one dark band per page (the Readiness Ladder). No section flips theme.
 - Warning/semantic colour is separate from brand colour. `demo.html` keeps a distinct amber for
   warnings; never reuse the brand accent to mean "attention".
+- Nothing outside this block hardcodes a colour. The only literal left in the file is the
+  `theme-color` meta value, which cannot reference a custom property.
 
 ## Type
 
@@ -48,6 +53,11 @@ Scale (desktop): `h1` clamp(34px, 5.2vw, 58px) / 1.06 / -0.02em; `h2` clamp(26px
 
 Fraunces is restricted to display sizes on purpose. Set below ~20px it loses the optical sizing that
 makes it worth loading, and the page starts to look like every other LLM-redesigned site.
+
+**Accepted trade-off:** the Impeccable detector flags both faces as "overused" (Inter, Fraunces).
+That is recorded, not ignored. They stay because Fraunces and Inter were the incumbent brand choice
+made deliberately, the brief wins over a saturation default, and swapping the face would invalidate
+every measurement in this file. If the site is ever rebranded, change the face here first.
 
 ## Space, shape, depth
 
