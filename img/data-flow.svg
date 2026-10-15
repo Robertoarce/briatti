@@ -1,0 +1,329 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="briatti-flow" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1400 600" role="img" aria-labelledby="title desc">
+  <style>
+:root {
+    /* site tokens, mirrored from index.html */
+    --ink: #11181D;
+    --ink-2: #4A5259;
+    --paper: #FBFBFA;
+    --sand: #E6E1D8;
+    --cobalt: #1F4E79;
+    --teal: #164E4A;
+  }
+
+  text {
+    fill: var(--ink);
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .icon-stroke { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .blue-stroke { stroke: var(--cobalt); }
+  .teal-stroke { stroke: var(--teal); }
+  .white-stroke { stroke: var(--paper); }
+  .sand-stroke { stroke: var(--sand); }
+  .sand-fill { fill: var(--sand); }
+  .blue-fill { fill: var(--cobalt); }
+  .teal-fill { fill: var(--teal); }
+
+  .logo-wrap {
+    opacity: 0;
+    animation: logoIn 9s ease-in-out infinite;
+    transform-origin: 700px 300px;
+  }
+
+  .logo-pulse {
+    fill: none;
+    stroke: var(--sand);
+    stroke-width: 1.2;
+    opacity: 0;
+    transform-origin: 700px 300px;
+    animation: pulse 9s ease-in-out infinite;
+  }
+
+  .halo {
+    fill: none;
+    stroke: var(--sand);
+    stroke-width: 1.1;
+    opacity: .9;
+  }
+
+  .halo-dash {
+    stroke-dasharray: 3 12;
+    animation: rotateDash 9s linear infinite;
+    transform-origin: 700px 300px;
+  }
+
+  .input-card {
+    opacity: 0;
+    transform: translateX(-18px);
+    animation: inputAppear 9s ease-in-out infinite;
+  }
+  .input-card:nth-of-type(1) { animation-delay: .00s; }
+  .input-card:nth-of-type(2) { animation-delay: .08s; }
+  .input-card:nth-of-type(3) { animation-delay: .16s; }
+  .input-card:nth-of-type(4) { animation-delay: .24s; }
+
+  .output-card {
+    opacity: 0;
+    transform: translateX(18px);
+    animation: outputAppear 9s ease-in-out infinite;
+  }
+
+  .flow-path {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 520;
+    stroke-dashoffset: 520;
+  }
+  .input-path { animation: drawInput 9s cubic-bezier(.4,0,.2,1) infinite; }
+  .output-path { animation: drawOutput 9s cubic-bezier(.4,0,.2,1) infinite; }
+
+  .particle {
+    opacity: 0;
+    offset-rotate: 0deg;
+    animation: particleOpacity 9s ease-in-out infinite, particleMove 2.25s linear infinite;
+    animation-delay: 0s, var(--pd, 0s);
+  }
+  .particle.output { animation-name: particleOpacityOut, particleMove; }
+
+  @keyframes particleMove {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+  }
+
+  .node {
+    opacity: 0;
+    animation: nodePop 9s ease-in-out infinite;
+  }
+
+  @keyframes inputAppear {
+    0%, 5% { opacity: 0; transform: translateX(-18px); }
+    12%, 92% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(-10px); }
+  }
+
+  @keyframes logoIn {
+    0%, 8% { opacity: 0; transform: scale(.94); }
+    14%, 100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes drawInput {
+    0%, 14% { stroke-dashoffset: 520; opacity: 0; }
+    24%, 45% { stroke-dashoffset: 0; opacity: 1; }
+    88% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+
+  @keyframes pulse {
+    0%, 28% { opacity: 0; transform: scale(.82); }
+    36% { opacity: .8; transform: scale(1); }
+    48% { opacity: .18; transform: scale(1.18); }
+    100% { opacity: .15; transform: scale(1.08); }
+  }
+
+  @keyframes drawOutput {
+    0%, 45% { stroke-dashoffset: 520; opacity: 0; }
+    55%, 78% { stroke-dashoffset: 0; opacity: 1; }
+    91% { stroke-dashoffset: 0; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+
+  @keyframes outputAppear {
+    0%, 58% { opacity: 0; transform: translateX(18px); }
+    68%, 92% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(10px); }
+  }
+
+  @keyframes particleOpacity {
+    0%, 14% { opacity: 0; }
+    22%, 48% { opacity: .95; }
+    58%, 100% { opacity: 0; }
+  }
+
+  @keyframes particleOpacityOut {
+    0%, 46% { opacity: 0; }
+    54%, 82% { opacity: .95; }
+    94%, 100% { opacity: 0; }
+  }
+
+  @keyframes nodePop {
+    0%, 9% { opacity: 0; transform: scale(.4); }
+    15%, 90% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(.6); }
+  }
+
+  @keyframes rotateDash {
+    to { stroke-dashoffset: -120; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wrap, .logo-pulse, .halo-dash, .input-card, .output-card, .flow-path, .particle, .node { animation: none !important; opacity: 1; transform: none; stroke-dashoffset: 0; }
+  }
+
+  .pm-inReports { offset-path: path("M222 100 C360 100 384 245 540 285"); }
+  .pm-inPDFs { offset-path: path("M222 205 C355 205 400 282 540 292"); }
+  .pm-inSheets { offset-path: path("M222 314 C360 314 405 300 540 300"); }
+  .pm-inDB { offset-path: path("M222 425 C360 425 397 326 540 308"); }
+  .pm-outDash { offset-path: path("M860 287 C1022 279 1020 100 1174 100"); }
+  .pm-outInsight { offset-path: path("M860 295 C1000 295 1029 205 1174 205"); }
+  .pm-outAssistant { offset-path: path("M860 303 C1005 310 1033 314 1174 314"); }
+  .pm-outAgent { offset-path: path("M860 311 C1006 325 1034 425 1174 425"); }
+  </style>
+
+  <title id="title">Data flow animation into Briatti B logo and out to analytics outputs</title>
+  <desc id="desc">Reports, PDFs, spreadsheets, and databases flow into a central B logo, then flow out to dashboards, insights, AI assistants, and agents.</desc>
+
+  <defs>
+    <path id="inReports" d="M222 100 C360 100 384 245 540 285" />
+    <path id="inPDFs" d="M222 205 C355 205 400 282 540 292" />
+    <path id="inSheets" d="M222 314 C360 314 405 300 540 300" />
+    <path id="inDB" d="M222 425 C360 425 397 326 540 308" />
+
+    <path id="outDash" d="M860 287 C1022 279 1020 100 1174 100" />
+    <path id="outInsight" d="M860 295 C1000 295 1029 205 1174 205" />
+    <path id="outAssistant" d="M860 303 C1005 310 1033 314 1174 314" />
+    <path id="outAgent" d="M860 311 C1006 325 1034 425 1174 425" />
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#111111" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- central halo -->
+  <circle class="halo halo-dash" cx="700" cy="300" r="210" />
+  <circle class="halo" cx="700" cy="300" r="170" opacity=".35" />
+  <path class="halo" d="M605 85 A235 235 0 0 1 795 85" opacity=".4" />
+  <path class="halo" d="M605 515 A235 235 0 0 0 795 515" opacity=".4" />
+  <circle class="logo-pulse" cx="700" cy="300" r="158" />
+
+  <!-- inputs -->
+  <g class="input-card">
+    <path class="icon-stroke" d="M102 48 h58 l22 22 v78 h-80 z" />
+    <path class="icon-stroke" d="M160 48 v24 h22" />
+    <rect class="teal-fill" x="117" y="96" width="7" height="25" />
+    <rect class="blue-fill" x="131" y="82" width="7" height="39" />
+    <rect class="teal-fill" x="145" y="66" width="7" height="55" />
+    <path class="blue-fill" d="M163 96 A24 24 0 1 0 187 120 H163 Z" />
+    <line class="sand-stroke" x1="118" y1="129" x2="146" y2="129" />
+    <line class="sand-stroke" x1="118" y1="139" x2="146" y2="139" />
+    <text x="142" y="40" text-anchor="middle">Reports</text>
+  </g>
+
+  <g class="input-card">
+    <path class="icon-stroke" d="M102 158 h58 l22 22 v78 h-80 z" />
+    <path class="icon-stroke" d="M160 158 v24 h22" />
+    <path class="blue-stroke" stroke-width="2.2" fill="none" d="M122 237 C147 221 154 177 139 185 C130 191 140 225 166 236 C186 244 184 218 157 228 C142 234 128 245 117 249" />
+    <text x="132" y="174" text-anchor="middle">PDFs</text>
+  </g>
+
+  <g class="input-card">
+    <path class="icon-stroke" d="M102 268 h58 l22 22 v78 h-80 z" />
+    <path class="icon-stroke" d="M160 268 v24 h22" />
+    <rect class="white-stroke" x="118" y="314" width="49" height="43" />
+    <line class="white-stroke" x1="118" y1="328" x2="167" y2="328" />
+    <line class="white-stroke" x1="118" y1="342" x2="167" y2="342" />
+    <line class="white-stroke" x1="134" y1="314" x2="134" y2="357" />
+    <line class="white-stroke" x1="151" y1="314" x2="151" y2="357" />
+    <text x="142" y="394" text-anchor="middle">Spreadsheets</text>
+  </g>
+
+  <g class="input-card">
+    <ellipse class="icon-stroke" cx="142" cy="454" rx="39" ry="15" />
+    <path class="icon-stroke" d="M103 454 v70 c0 9 17 16 39 16 s39-7 39-16 v-70" />
+    <path class="icon-stroke" d="M103 489 c0 9 17 16 39 16 s39-7 39-16" />
+    <path class="icon-stroke" d="M103 519 c0 9 17 16 39 16 s39-7 39-16" />
+    <circle class="teal-fill" cx="166" cy="482" r="3.4" />
+    <circle class="teal-fill" cx="166" cy="512" r="3.4" />
+    <text x="142" y="560" text-anchor="middle">Databases</text>
+  </g>
+
+  <!-- outputs -->
+  <g class="output-card">
+    <rect class="icon-stroke" x="1196" y="45" width="122" height="82" rx="7" />
+    <circle class="teal-fill" cx="1208" cy="57" r="3" /><circle class="teal-fill" cx="1220" cy="57" r="3" /><circle class="teal-fill" cx="1232" cy="57" r="3" />
+    <path class="teal-stroke" d="M1231 82 A24 24 0 1 0 1255 106 H1231 Z" stroke-width="9" fill="none" />
+    <rect class="teal-fill" x="1282" y="96" width="10" height="22" />
+    <rect class="blue-fill" x="1300" y="78" width="10" height="40" />
+    <line class="sand-stroke" x1="1265" y1="78" x2="1289" y2="78" />
+    <line class="sand-stroke" x1="1265" y1="91" x2="1289" y2="91" />
+    <text x="1257" y="33" text-anchor="middle">Dashboards</text>
+  </g>
+
+  <g class="output-card">
+    <path class="teal-stroke" stroke-width="2.7" fill="none" d="M1257 191 c-28 0-50 22-50 49 0 19 10 34 23 44 7 5 8 13 8 19 h38 c0-6 1-14 8-19 14-10 23-25 23-44 0-27-22-49-50-49z" />
+    <path class="teal-stroke" stroke-width="2.7" d="M1238 314 h38 M1244 326 h26" />
+    <polyline class="teal-stroke" stroke-width="2.7" fill="none" points="1232,249 1249,236 1260,250 1281,229" />
+    <circle class="teal-fill" cx="1232" cy="249" r="3" /><circle class="teal-fill" cx="1249" cy="236" r="3" /><circle class="teal-fill" cx="1260" cy="250" r="3" /><circle class="teal-fill" cx="1281" cy="229" r="3" />
+    <line class="teal-stroke" x1="1257" y1="170" x2="1257" y2="182" />
+    <line class="teal-stroke" x1="1212" y1="186" x2="1202" y2="176" />
+    <line class="teal-stroke" x1="1302" y1="186" x2="1312" y2="176" />
+    <text x="1257" y="220" text-anchor="middle">Insights</text>
+  </g>
+
+  <g class="output-card">
+    <rect class="blue-stroke" x="1214" y="393" width="86" height="61" rx="17" fill="none" stroke-width="2.7" />
+    <path class="blue-stroke" d="M1236 454 l-18 21 v-21" fill="none" stroke-width="2.7" /> 
+    <text x="1257" y="385" text-anchor="middle">AI Assistants</text>
+  </g>
+
+  <g class="output-card">
+    <circle class="teal-stroke" cx="1257" cy="548" r="27" fill="none" stroke-width="2.7" />
+    <rect class="teal-fill" x="1240" y="538" width="34" height="24" rx="7" />
+    <circle fill="#FAF9F6" cx="1249" cy="550" r="2.4" /><circle fill="#FAF9F6" cx="1265" cy="550" r="2.4" />
+    <line class="teal-stroke" x1="1257" y1="521" x2="1257" y2="497" stroke-width="2.7" />
+    <circle class="teal-stroke" cx="1257" cy="489" r="7" fill="none" stroke-width="2.7" />
+    <line class="teal-stroke" x1="1234" y1="534" x2="1212" y2="518" stroke-width="2.7" />
+    <circle class="teal-stroke" cx="1204" cy="512" r="7" fill="none" stroke-width="2.7" />
+    <line class="teal-stroke" x1="1280" y1="534" x2="1302" y2="518" stroke-width="2.7" />
+    <circle class="teal-stroke" cx="1310" cy="512" r="7" fill="none" stroke-width="2.7" />
+    <line class="teal-stroke" x1="1234" y1="562" x2="1212" y2="579" stroke-width="2.7" />
+    <circle class="teal-stroke" cx="1204" cy="585" r="7" fill="none" stroke-width="2.7" />
+    <line class="teal-stroke" x1="1280" y1="562" x2="1302" y2="579" stroke-width="2.7" />
+    <circle class="teal-stroke" cx="1310" cy="585" r="7" fill="none" stroke-width="2.7" />
+    <text x="1257" y="590" text-anchor="middle">Agents</text>
+  </g>
+
+  <!-- animated paths -->
+  <use href="#inReports" class="flow-path input-path blue-stroke" />
+  <use href="#inPDFs" class="flow-path input-path teal-stroke" />
+  <use href="#inSheets" class="flow-path input-path blue-stroke" />
+  <use href="#inDB" class="flow-path input-path teal-stroke" />
+  <use href="#outDash" class="flow-path output-path blue-stroke" />
+  <use href="#outInsight" class="flow-path output-path teal-stroke" />
+  <use href="#outAssistant" class="flow-path output-path blue-stroke" />
+  <use href="#outAgent" class="flow-path output-path teal-stroke" />
+
+  <!-- start nodes -->
+  <circle class="node blue-fill" cx="222" cy="100" r="4.5" />
+  <circle class="node teal-fill" cx="222" cy="205" r="4.5" />
+  <circle class="node blue-fill" cx="222" cy="314" r="4.5" />
+  <circle class="node teal-fill" cx="222" cy="425" r="4.5" />
+
+  <!-- particles into logo -->
+  <g>
+    <circle class="particle blue-fill pm-inReports" r="2.0" style="--pd:1.4s" /><circle class="particle teal-fill pm-inReports" r="2.5" style="--pd:1.48s" /><circle class="particle blue-fill pm-inReports" r="3.0" style="--pd:1.5599999999999998s" /><circle class="particle teal-fill pm-inReports" r="2.0" style="--pd:1.64s" /><circle class="particle blue-fill pm-inReports" r="2.5" style="--pd:1.72s" /><circle class="particle teal-fill pm-inReports" r="3.0" style="--pd:1.7999999999999998s" /><circle class="particle blue-fill pm-inReports" r="2.0" style="--pd:1.88s" /><circle class="particle teal-fill pm-inReports" r="2.5" style="--pd:1.96s" /><circle class="particle blue-fill pm-inReports" r="3.0" style="--pd:2.04s" /><circle class="particle teal-fill pm-inReports" r="2.0" style="--pd:2.12s" /><circle class="particle blue-fill pm-inReports" r="2.5" style="--pd:2.2s" /><circle class="particle teal-fill pm-inReports" r="3.0" style="--pd:2.28s" />
+    <circle class="particle teal-fill pm-inPDFs" r="1.8" style="--pd:1.65s" /><circle class="particle blue-fill pm-inPDFs" r="2.25" style="--pd:1.74s" /><circle class="particle teal-fill pm-inPDFs" r="2.7" style="--pd:1.8299999999999998s" /><circle class="particle blue-fill pm-inPDFs" r="1.8" style="--pd:1.92s" /><circle class="particle teal-fill pm-inPDFs" r="2.25" style="--pd:2.01s" /><circle class="particle blue-fill pm-inPDFs" r="2.7" style="--pd:2.0999999999999996s" /><circle class="particle teal-fill pm-inPDFs" r="1.8" style="--pd:2.19s" /><circle class="particle blue-fill pm-inPDFs" r="2.25" style="--pd:2.28s" /><circle class="particle teal-fill pm-inPDFs" r="2.7" style="--pd:2.37s" /><circle class="particle blue-fill pm-inPDFs" r="1.8" style="--pd:2.46s" /><circle class="particle teal-fill pm-inPDFs" r="2.25" style="--pd:2.55s" /><circle class="particle blue-fill pm-inPDFs" r="2.7" style="--pd:2.6399999999999997s" />
+    <circle class="particle blue-fill pm-inSheets" r="1.8" style="--pd:1.85s" /><circle class="particle teal-fill pm-inSheets" r="2.25" style="--pd:1.935s" /><circle class="particle blue-fill pm-inSheets" r="2.7" style="--pd:2.02s" /><circle class="particle teal-fill pm-inSheets" r="1.8" style="--pd:2.105s" /><circle class="particle blue-fill pm-inSheets" r="2.25" style="--pd:2.19s" /><circle class="particle teal-fill pm-inSheets" r="2.7" style="--pd:2.2750000000000004s" /><circle class="particle blue-fill pm-inSheets" r="1.8" style="--pd:2.3600000000000003s" /><circle class="particle teal-fill pm-inSheets" r="2.25" style="--pd:2.4450000000000003s" /><circle class="particle blue-fill pm-inSheets" r="2.7" style="--pd:2.5300000000000002s" /><circle class="particle teal-fill pm-inSheets" r="1.8" style="--pd:2.615s" />
+    <circle class="particle teal-fill pm-inDB" r="1.8" style="--pd:1.75s" /><circle class="particle blue-fill pm-inDB" r="2.25" style="--pd:1.84s" /><circle class="particle teal-fill pm-inDB" r="2.7" style="--pd:1.93s" /><circle class="particle blue-fill pm-inDB" r="1.8" style="--pd:2.02s" /><circle class="particle teal-fill pm-inDB" r="2.25" style="--pd:2.11s" /><circle class="particle blue-fill pm-inDB" r="2.7" style="--pd:2.2s" /><circle class="particle teal-fill pm-inDB" r="1.8" style="--pd:2.29s" /><circle class="particle blue-fill pm-inDB" r="2.25" style="--pd:2.38s" /><circle class="particle teal-fill pm-inDB" r="2.7" style="--pd:2.4699999999999998s" /><circle class="particle blue-fill pm-inDB" r="1.8" style="--pd:2.56s" />
+  </g>
+
+  <!-- particles out of logo -->
+  <g>
+    <circle class="particle output blue-fill pm-outDash" r="1.8" style="--pd:4.35s" /><circle class="particle output teal-fill pm-outDash" r="2.25" style="--pd:4.4399999999999995s" /><circle class="particle output blue-fill pm-outDash" r="2.7" style="--pd:4.529999999999999s" /><circle class="particle output teal-fill pm-outDash" r="1.8" style="--pd:4.619999999999999s" /><circle class="particle output blue-fill pm-outDash" r="2.25" style="--pd:4.71s" /><circle class="particle output teal-fill pm-outDash" r="2.7" style="--pd:4.8s" /><circle class="particle output blue-fill pm-outDash" r="1.8" style="--pd:4.89s" /><circle class="particle output teal-fill pm-outDash" r="2.25" style="--pd:4.9799999999999995s" /><circle class="particle output blue-fill pm-outDash" r="2.7" style="--pd:5.069999999999999s" /><circle class="particle output teal-fill pm-outDash" r="1.8" style="--pd:5.159999999999999s" />
+    <circle class="particle output teal-fill pm-outInsight" r="1.7" style="--pd:4.55s" /><circle class="particle output blue-fill pm-outInsight" r="2.15" style="--pd:4.64s" /><circle class="particle output teal-fill pm-outInsight" r="2.6" style="--pd:4.7299999999999995s" /><circle class="particle output blue-fill pm-outInsight" r="1.7" style="--pd:4.82s" /><circle class="particle output teal-fill pm-outInsight" r="2.15" style="--pd:4.91s" /><circle class="particle output blue-fill pm-outInsight" r="2.6" style="--pd:5.0s" /><circle class="particle output teal-fill pm-outInsight" r="1.7" style="--pd:5.09s" /><circle class="particle output blue-fill pm-outInsight" r="2.15" style="--pd:5.18s" /><circle class="particle output teal-fill pm-outInsight" r="2.6" style="--pd:5.27s" /><circle class="particle output blue-fill pm-outInsight" r="1.7" style="--pd:5.359999999999999s" />
+    <circle class="particle output blue-fill pm-outAssistant" r="1.7" style="--pd:4.75s" /><circle class="particle output teal-fill pm-outAssistant" r="2.15" style="--pd:4.84s" /><circle class="particle output blue-fill pm-outAssistant" r="2.6" style="--pd:4.93s" /><circle class="particle output teal-fill pm-outAssistant" r="1.7" style="--pd:5.02s" /><circle class="particle output blue-fill pm-outAssistant" r="2.15" style="--pd:5.11s" /><circle class="particle output teal-fill pm-outAssistant" r="2.6" style="--pd:5.2s" /><circle class="particle output blue-fill pm-outAssistant" r="1.7" style="--pd:5.29s" /><circle class="particle output teal-fill pm-outAssistant" r="2.15" style="--pd:5.38s" /><circle class="particle output blue-fill pm-outAssistant" r="2.6" style="--pd:5.47s" /><circle class="particle output teal-fill pm-outAssistant" r="1.7" style="--pd:5.56s" />
+    <circle class="particle output teal-fill pm-outAgent" r="1.7" style="--pd:4.65s" /><circle class="particle output blue-fill pm-outAgent" r="2.15" style="--pd:4.74s" /><circle class="particle output teal-fill pm-outAgent" r="2.6" style="--pd:4.83s" /><circle class="particle output blue-fill pm-outAgent" r="1.7" style="--pd:4.92s" /><circle class="particle output teal-fill pm-outAgent" r="2.15" style="--pd:5.010000000000001s" /><circle class="particle output blue-fill pm-outAgent" r="2.6" style="--pd:5.1000000000000005s" /><circle class="particle output teal-fill pm-outAgent" r="1.7" style="--pd:5.19s" /><circle class="particle output blue-fill pm-outAgent" r="2.15" style="--pd:5.28s" /><circle class="particle output teal-fill pm-outAgent" r="2.6" style="--pd:5.37s" /><circle class="particle output blue-fill pm-outAgent" r="1.7" style="--pd:5.46s" />
+  </g>
+
+  <!-- center logo -->
+  <g class="logo-wrap" filter="url(#softShadow)">
+    <g class="brand-mark" transform="translate(586 197) scale(0.9702 0.9763)">
+    <path d="M116.348 33.2713L142.242 33.2119C149.758 33.1987 158.725 32.9492 166.064 34.5917C177.576 37.1682 187.753 43.0405 194.163 53.1893C199.784 62.0899 201.543 74.379 199.308 84.5898C197.755 91.6795 193.043 100.448 187.524 105.29C185.774 106.826 184.088 107.886 182.116 109.115C196.881 117.627 204.254 129.649 204.236 146.959C204.212 171.199 183.215 189.168 160.04 190.965C153.876 191.443 147.265 191.215 141.025 191.237C132.076 191.309 123.126 191.307 114.177 191.233L114.11 173.507C124.539 173.156 135.599 173.682 146.096 173.449C151.556 173.33 156.997 173.664 162.408 172.759C183 169.314 192.897 148.048 181.177 130.423C174.536 121.661 164.323 118.642 153.681 118.74C139.632 118.869 125.434 118.259 111.421 119.135C109.161 119.48 105.37 120.927 103.826 122.582C101.293 125.296 101.748 132.201 101.689 135.71C101.588 141.456 101.577 147.202 101.656 152.948L101.639 191.422C95.6568 191.354 89.674 191.354 83.6918 191.423C83.5064 184.415 83.663 177.341 83.5787 170.313C83.4668 157.014 83.4627 143.579 83.4412 130.289C83.4245 120.041 87.9382 111.537 96.6454 106.179C106.523 100.102 115.534 101.029 126.437 101.037L148.765 101.126C152.863 101.111 158.135 101.202 162.003 100.256C173.344 97.4843 182.586 88.4803 182.385 76.3006C182.272 69.5179 180.672 63.8961 175.859 59.006C172.605 55.6846 168.496 53.3276 163.987 52.1953C157.824 50.5899 148.439 51.04 141.797 51.0398L114.089 51.0575C113.988 46.4814 113.751 37.6101 114.133 33.3254L116.348 33.2713Z" fill="#11181D" />
+    <path d="M52.887 33.2747C59.0009 33.2624 64.7558 33.0827 70.8906 33.4163C70.671 47.6821 71.2865 190.588 71.1179 190.907C71.0569 191.022 70.9489 191.105 70.8647 191.204C65.1184 191.554 58.5793 191.352 52.7667 191.347C52.4197 172.833 52.8293 154.053 52.8557 135.518L52.887 33.2747Z" fill="#11181D" />
+    <path d="M83.6477 33.1898C89.6915 33.3256 95.7365 33.3928 101.782 33.3912L101.761 75.0962C101.741 81.2169 101.95 88.5765 101.722 94.5692L83.5168 94.3959C83.6889 80.5682 83.3444 66.6183 83.5305 52.7718C83.6168 46.3584 83.3417 39.5705 83.6477 33.1898Z" fill="#11181D" />
+  </g>
+  </g>
+</svg>
