@@ -4,18 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Briatti — Executive Dashboard</title>
+  <meta name="description" content="A working executive dashboard demo by Briatti: revenue forecasting, customer analytics, segment filtering and AI-generated diagnostics over real-shaped data.">
+  <link rel="canonical" href="https://www.briatti.com/demo.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Briatti Dashboard Demo">
+  <meta property="og:description" content="A working executive dashboard: revenue forecasting, customer analytics, segment filtering and AI diagnostics.">
+  <meta property="og:url" content="https://www.briatti.com/demo.html">
+  <meta property="og:image" content="https://www.briatti.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="img/icon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <style>
     :root {
-      --bg: #f5f5f5; --card: #fff; --border: #f0f0f0; --border2: #e5e7eb;
-      --text: #111; --text2: #6b7280; --text3: #9ca3af;
-      --sidebar: #2d2d2d; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(249,115,22,.15);
-      --orange: #f97316; --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
+      --bg: #F4F5F3; --card: #fff; --border: #E3E5E2; --border2: #D9DCD8;
+      --text: #11181D; --text2: #4A5259; --text3: #6E757B;
+      --sidebar: #11181D; --sidebar-hover: rgba(255,255,255,.06); --sidebar-active: rgba(143,180,212,.14);
+      --accent: #1F4E79; --accent-deep: #16395A; --accent-light: rgba(31,78,121,.08); --accent-on-dark: #8FB4D4; --hover: #F4F5F3;
+      --orange: #B45309; --blue: #0ea5e9; --green: #10b981; --red: #ef4444; --purple: #8b5cf6;
       --blue-light: rgba(14,165,233,.08); --green-light: rgba(16,185,129,.08);
-      --red-light: rgba(239,68,68,.08); --orange-light: rgba(249,115,22,.08);
+      --red-light: rgba(239,68,68,.08); --orange-light: rgba(180,83,9,.10);
       --shadow-sm: 0 1px 2px rgba(0,0,0,.04); --shadow-md: 0 4px 12px rgba(0,0,0,.06);
-      --radius: 10px; --radius-sm: 7px; --radius-pill: 999px;
+      --radius: 6px; --radius-sm: 4px; --radius-pill: 999px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',-apple-system,system-ui,sans-serif; background:var(--bg); color:var(--text); height:100vh; overflow:hidden; -webkit-font-smoothing:antialiased; }
@@ -31,14 +45,14 @@
     .sb-nav { flex:1; padding:8px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
     .sb-item { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:var(--radius-sm); color:rgba(255,255,255,.45); font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; background:none; border:none; font-family:inherit; width:100%; text-align:left; }
     .sb-item:hover { background:var(--sidebar-hover); color:rgba(255,255,255,.7); }
-    .sb-item.active { background:var(--sidebar-active); color:var(--orange); }
+    .sb-item.active { background:var(--sidebar-active); color:var(--accent-on-dark); }
     .sb-item svg { width:18px; height:18px; flex-shrink:0; }
-    .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--orange); color:#fff; font-weight:600; }
+    .sb-item .sb-badge { margin-left:auto; font-size:10px; padding:1px 7px; border-radius:100px; background:var(--accent); color:#fff; font-weight:600; }
     .sb-footer { padding:10px 16px; border-top:1px solid rgba(255,255,255,.06); font-size:11px; color:rgba(255,255,255,.25); }
-    .sb-back-link { color:var(--orange); text-decoration:none; transition:opacity .15s; }
+    .sb-back-link { color:var(--accent-on-dark); text-decoration:none; transition:opacity .15s; }
     .sb-back-link:hover { opacity:.7; }
-    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--orange); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
-    .top-back-link:hover { border-color:var(--orange); background:#fffaf5; }
+    .top-back-link { position:fixed; top:12px; right:16px; font-size:14px; font-weight:600; color:var(--accent); text-decoration:none; z-index:1001; background:var(--card); padding:7px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); box-shadow:var(--shadow-sm); transition:all .15s; display:flex; align-items:center; gap:5px; }
+    .top-back-link:hover { border-color:var(--accent); background:var(--accent-light); }
 
     .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 
@@ -47,18 +61,18 @@
     .h-left .sub { font-size:13px; color:var(--text3); margin-top:2px; }
     .h-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
     .h-btn { display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; transition:all .15s; }
-    .h-btn:hover { border-color:var(--border2); background:#fafafa; }
+    .h-btn:hover { border-color:var(--border2); background:var(--hover); }
     .h-btn svg { width:14px; height:14px; }
-    .h-btn.active { border-color:var(--orange); color:var(--orange); }
+    .h-btn.active { border-color:var(--accent); color:var(--accent); }
     .h-btn.primary { background:var(--sidebar); border-color:var(--sidebar); color:#fff; }
     .h-btn.primary:hover { opacity:.9; }
     .h-btn-wrap { position:relative; }
     .dropdown-menu { position:absolute; top:calc(100% + 4px); left:0; min-width:160px; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:4px; display:none; }
     .dropdown-menu.open { display:block; }
     .dropdown-item { display:block; width:100%; padding:8px 12px; border:none; background:none; border-radius:var(--radius-sm); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; text-align:left; transition:all .1s; }
-    .dropdown-item:hover { background:#f3f4f6; color:var(--text); }
-    .dropdown-item.active { color:var(--orange); background:var(--orange-light); }
-    .dropdown-item .di-check { float:right; color:var(--orange); display:none; }
+    .dropdown-item:hover { background:var(--hover); color:var(--text); }
+    .dropdown-item.active { color:var(--accent); background:var(--accent-light); }
+    .dropdown-item .di-check { float:right; color:var(--accent); display:none; }
     .dropdown-item.active .di-check { display:inline; }
     .dp-popup { position:absolute; top:calc(100% + 4px); left:0; background:var(--card); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,.1); z-index:100; padding:14px; display:none; width:300px; }
     .dp-popup.open { display:block; }
@@ -66,25 +80,25 @@
     .dp-header .dp-month { font-size:13px; font-weight:600; }
     .dp-nav { display:flex; gap:6px; }
     .dp-nav button { width:26px; height:26px; border-radius:50%; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text2); font-size:14px; transition:all .1s; }
-    .dp-nav button:hover { background:#f3f4f6; color:var(--text); }
+    .dp-nav button:hover { background:var(--hover); color:var(--text); }
     .dp-days { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; text-align:center; }
     .dp-days .dp-dow { font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; padding:4px 0; }
     .dp-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:12px; font-weight:500; color:var(--text); cursor:pointer; transition:all .1s; border:none; background:transparent; font-family:inherit; flex-direction:column; line-height:1.1; }
-    .dp-day:hover { background:#f3f4f6; }
-    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--orange); }
+    .dp-day:hover { background:var(--hover); }
+    .dp-day.range-start:hover, .dp-day.range-end:hover { background:var(--accent); }
     .dp-day .dp-label { font-size:7px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; opacity:0; transition:opacity .1s; margin-top:1px; }
     .dp-day.range-start .dp-label, .dp-day.range-end .dp-label { opacity:1; }
     .dp-day.range-start .dp-label { color:#fff; }
     .dp-day.range-end .dp-label { color:#fff; }
     .dp-day.other { color:var(--text3); }
-    .dp-day.in-range { background:var(--orange-light); color:var(--orange); border-radius:0; }
-    .dp-day.range-start { background:var(--orange); color:#fff; border-radius:50%; }
-    .dp-day.range-end { background:var(--orange); color:#fff; border-radius:50%; }
+    .dp-day.in-range { background:var(--accent-light); color:var(--accent); border-radius:0; }
+    .dp-day.range-start { background:var(--accent); color:#fff; border-radius:50%; }
+    .dp-day.range-end { background:var(--accent); color:#fff; border-radius:50%; }
     .dp-day.today { font-weight:700; border:1px solid var(--border2); }
     .dp-footer { display:flex; justify-content:flex-end; gap:6px; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
     .dp-footer button { padding:5px 12px; border-radius:var(--radius-sm); font-size:11px; font-weight:500; font-family:inherit; cursor:pointer; border:1px solid var(--border); background:var(--card); color:var(--text2); transition:all .1s; }
-    .dp-footer button:hover { border-color:var(--border2); background:#fafafa; }
-    .dp-footer .dp-apply { background:var(--orange); border-color:var(--orange); color:#fff; }
+    .dp-footer button:hover { border-color:var(--border2); background:var(--hover); }
+    .dp-footer .dp-apply { background:var(--accent); border-color:var(--accent); color:#fff; }
     .dp-footer .dp-apply:hover { opacity:.9; }
     .hamburger { display:none; }
     .sb-backdrop { display:none; }
@@ -120,6 +134,8 @@
     .di-bar { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
     .di-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; transition:all .2s; display:flex; align-items:center; gap:12px; }
     .di-card:hover { border-color:var(--border2); box-shadow:var(--shadow-sm); }
+    .ic { width:1em; height:1em; vertical-align:-0.125em; flex-shrink:0; }
+    .di-icon svg.ic { width:18px; height:18px; }
     .di-icon { width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
     .di-icon.blue { background:var(--blue-light); color:var(--blue); }
     .di-icon.green { background:var(--green-light); color:var(--green); }
@@ -153,16 +169,16 @@
     .chart-annotation strong { color:var(--green); }
 
     .insights-panel { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; }
-    .insights-hdr { padding:14px 18px; border-bottom:1px solid #f3f4f6; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+    .insights-hdr { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
     .insights-hdr h3 { font-size:14px; font-weight:600; }
-    .insights-hdr span { font-size:11px; color:var(--text3); font-weight:500; background:#f3f4f6; padding:2px 8px; border-radius:100px; }
+    .insights-hdr span { font-size:11px; color:var(--text3); font-weight:500; background:var(--hover); padding:2px 8px; border-radius:100px; }
     .insights-scroll { flex:1; overflow-y:auto; padding:8px 14px; }
     .insights-scroll::-webkit-scrollbar { width:3px; }
     .insights-scroll::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
     .isect { margin-bottom:8px; }
     .isect-title { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--text3); margin-bottom:6px; padding:0 4px; }
     .iitem { padding:10px 12px; border-radius:var(--radius-sm); transition:all .15s; cursor:default; margin-bottom:3px; border:1px solid transparent; }
-    .iitem:hover { background:#fafafa; border-color:var(--border); }
+    .iitem:hover { background:var(--hover); border-color:var(--border); }
     .iitem .ii-top { display:flex; align-items:center; gap:7px; margin-bottom:4px; }
     .iitem .ii-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
     .iitem .ii-dot.green { background:var(--green); }
@@ -175,7 +191,7 @@
     .iitem .ii-foot.red { color:var(--red); }
     .iitem .ii-foot.blue { color:var(--blue); }
 
-    .seg-control { display:inline-flex; background:#f4f6f8; border-radius:var(--radius-pill); padding:4px; gap:2px; }
+    .seg-control { display:inline-flex; background:var(--hover); border-radius:var(--radius-pill); padding:4px; gap:2px; }
     .seg-btn { padding:6px 18px; border-radius:var(--radius-pill); font-size:12px; font-weight:500; font-family:inherit; cursor:pointer; transition:all .2s; border:none; background:transparent; color:var(--text3); }
     .seg-btn:hover { color:var(--text2); }
     .seg-btn.active { background:var(--card); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,.06); }
@@ -194,7 +210,7 @@
     .diag-card .dc-change.up { color:var(--green); }
     .diag-card .dc-change.down { color:var(--red); }
     .diag-side { display:flex; flex-direction:column; gap:8px; }
-    .diag-side-card { background:#fafafa; border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; }
+    .diag-side-card { background:var(--hover); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; }
     .diag-side-card h4 { font-size:12px; font-weight:600; color:var(--text2); margin-bottom:8px; }
     .diag-side-card .sc-row { display:flex; justify-content:space-between; padding:4px 0; font-size:12px; }
     .diag-side-card .sc-row .scl { color:var(--text3); }
@@ -207,7 +223,7 @@
     .filter-group { display:flex; align-items:center; gap:6px; }
     .filter-label { font-size:11px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; }
     .filter-opt { padding:5px 12px; border-radius:var(--radius-sm); font-size:11px; font-weight:500; font-family:inherit; cursor:pointer; transition:all .15s; border:1px solid transparent; background:transparent; color:var(--text3); }
-    .filter-opt:hover { background:#f3f4f6; color:var(--text2); }
+    .filter-opt:hover { background:var(--hover); color:var(--text2); }
     .filter-opt.active { background:var(--card); border-color:var(--border2); color:var(--text); }
 
     .report-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
@@ -216,11 +232,11 @@
     .report-card h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
     .report-card p { font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:12px; }
     .report-card .rc-btn { padding:6px 16px; border-radius:var(--radius-sm); font-size:11px; font-weight:600; font-family:inherit; cursor:pointer; transition:all .15s; border:1px solid var(--border); background:var(--card); color:var(--text2); }
-    .report-card .rc-btn:hover { border-color:var(--orange); color:var(--orange); }
+    .report-card .rc-btn:hover { border-color:var(--accent); color:var(--accent); }
 
     table.export-table { width:100%; border-collapse:collapse; font-size:13px; }
     table.export-table th { text-align:left; padding:10px 14px; font-size:11px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid var(--border); }
-    table.export-table td { padding:10px 14px; border-bottom:1px solid #f3f4f6; color:var(--text2); }
+    table.export-table td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text2); }
     table.export-table td:first-child { font-weight:600; color:var(--text); }
     table.export-table .status-ready { font-size:11px; padding:1px 8px; border-radius:100px; background:var(--green-light); color:var(--green); font-weight:500; }
     table.export-table .status-processing { font-size:11px; padding:1px 8px; border-radius:100px; background:var(--orange-light); color:var(--orange); font-weight:500; }
@@ -358,6 +374,13 @@
       .sb-item svg { width:16px; height:16px; }
       table.export-table th, table.export-table td { padding:6px 8px; }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -368,7 +391,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" aria-label="Main navigation">
-      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
+      <div class="sb-brand"><div class="sb-logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-on-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L14 8L20 8L15.5 12L17.5 18L12 14.5L6.5 18L8.5 12L4 8L10 8L12 2Z"/></svg></div><div class="sb-brand-text">Briatti <span>Dash</span></div></div>
       <nav class="sb-nav" aria-label="Sidebar">
         <button class="sb-item active" data-section="overview" onclick="setActiveSection('overview')" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Overview</span></button>
         <button class="sb-item" data-section="kpis" onclick="setActiveSection('kpis')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>KPIs</span></button>
@@ -377,7 +400,7 @@
         <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></button>
         <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
       </nav>
-      <div class="sb-footer"><a href="index.html" class="sb-back-link">← Back to site</a> · v2.4.1</div>
+      <div class="sb-footer"><a href="index.html" class="sb-back-link">Back to briatti.com</a></div>
     </aside>
 
     <!-- MAIN -->
@@ -403,15 +426,15 @@
             <div class="kpi-card churn"><div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div><div class="kpi-value lg churn">4.2%</div><div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div></div>
           </section>
           <section aria-label="Decision intelligence" class="di-bar">
-            <div class="di-card"><div class="di-icon red">⚠</div><div class="di-body"><div class="di-label">Revenue at Risk</div><div class="di-value" style="color:var(--red)">€48K / yr</div><div class="di-sub">From churn — premium tier could recover 60%</div></div><span class="di-tag bad">Critical</span></div>
-            <div class="di-card"><div class="di-icon blue">📈</div><div class="di-body"><div class="di-label">Forecast Confidence</div><div class="di-value" style="color:var(--blue)">85%</div><div class="di-sub">High — driven by enterprise pipeline</div></div><span class="di-tag good">Stable</span></div>
-            <div class="di-card"><div class="di-icon purple">🏆</div><div class="di-body"><div class="di-label">Top Growth Driver</div><div class="di-value" style="color:var(--purple)">Enterprise</div><div class="di-sub">48% of revenue · +32% YoY</div></div><span class="di-tag good">Scaling</span></div>
-            <div class="di-card"><div class="di-icon orange">👥</div><div class="di-body"><div class="di-label">Highest Churn</div><div class="di-value" style="color:var(--orange)">SMB Monthly</div><div class="di-sub">7.2% churn · 3× above enterprise</div></div><span class="di-tag warn">Monitor</span></div>
-            <div class="di-card"><div class="di-icon red">📊</div><div class="di-body"><div class="di-label">CAC Warning</div><div class="di-value" style="color:var(--red)">↑ 14%</div><div class="di-sub">Social ads: €58 CAC vs €31 content</div></div><span class="di-tag bad">Action needed</span></div>
-            <div class="di-card"><div class="di-icon green">💡</div><div class="di-body"><div class="di-label">Recommended Action</div><div class="di-value" style="color:var(--green)">Launch Premium Tier</div><div class="di-sub">€249/mo — 12 accounts pre-interested</div></div><span class="di-tag good">High impact</span></div>
+            <div class="di-card"><div class="di-icon red"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M12 9v4" /> <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /> <path d="M12 16h.01" /></svg></div><div class="di-body"><div class="di-label">Revenue at Risk</div><div class="di-value" style="color:var(--red)">€48K / yr</div><div class="di-sub">From churn — premium tier could recover 60%</div></div><span class="di-tag bad">Critical</span></div>
+            <div class="di-card"><div class="di-icon blue"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M4 19l16 0" /> <path d="M4 15l4 -6l4 2l4 -5l4 4" /></svg></div><div class="di-body"><div class="di-label">Forecast Confidence</div><div class="di-value" style="color:var(--blue)">85%</div><div class="di-sub">High — driven by enterprise pipeline</div></div><span class="di-tag good">Stable</span></div>
+            <div class="di-card"><div class="di-icon purple"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M8 21l8 0" /> <path d="M12 17l0 4" /> <path d="M7 4l10 0" /> <path d="M17 4v8a5 5 0 0 1 -10 0v-8" /> <path d="M5 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /> <path d="M19 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /></svg></div><div class="di-body"><div class="di-label">Top Growth Driver</div><div class="di-value" style="color:var(--purple)">Enterprise</div><div class="di-sub">48% of revenue · +32% YoY</div></div><span class="di-tag good">Scaling</span></div>
+            <div class="di-card"><div class="di-icon orange"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /> <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /> <path d="M16 3.13a4 4 0 0 1 0 7.75" /> <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" /></svg></div><div class="di-body"><div class="di-label">Highest Churn</div><div class="di-value" style="color:var(--orange)">SMB Monthly</div><div class="di-sub">7.2% churn · 3× above enterprise</div></div><span class="di-tag warn">Monitor</span></div>
+            <div class="di-card"><div class="di-icon red"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /> <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /> <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" /> <path d="M4 20h14" /></svg></div><div class="di-body"><div class="di-label">CAC Warning</div><div class="di-value" style="color:var(--red)">↑ 14%</div><div class="di-sub">Social ads: €58 CAC vs €31 content</div></div><span class="di-tag bad">Action needed</span></div>
+            <div class="di-card"><div class="di-icon green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" /> <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" /> <path d="M9.7 17l4.6 0" /></svg></div><div class="di-body"><div class="di-label">Recommended Action</div><div class="di-value" style="color:var(--green)">Launch Premium Tier</div><div class="di-sub">€249/mo — 12 accounts pre-interested</div></div><span class="di-tag good">High impact</span></div>
           </section>
           <section aria-label="Main analytics" class="main-analytics">
-            <div class="chart-card"><div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div><div class="chart-body"><canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas><div class="chart-annotation">📈 <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div></div></div>
+            <div class="chart-card"><div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div><div class="chart-body"><canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas><div class="chart-annotation"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M4 19l16 0" /> <path d="M4 15l4 -6l4 2l4 -5l4 4" /></svg> <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div></div></div>
             <div class="insights-panel"><div class="insights-hdr"><h3>AI Insights</h3><span>Updated 2m ago</span></div><div class="insights-scroll">
               <div class="isect"><div class="isect-title">Opportunities</div>
                 <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Premium tier launch</span></div><div class="ii-desc">Revenue ceiling can be broken with a €249/mo enterprise plan.</div><div class="ii-foot green">Impact: +€48K/yr</div></div>
@@ -452,18 +475,18 @@
               <div style="padding:4px 0"><table style="width:100%;border-collapse:collapse;font-size:13px">
                 <thead><tr style="border-bottom:1px solid var(--border);color:var(--text3);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em"><th style="text-align:left;padding:10px 14px">Metric</th><th style="text-align:right;padding:10px 14px">Current</th><th style="text-align:right;padding:10px 14px">Previous</th><th style="text-align:right;padding:10px 14px">Change</th><th style="text-align:center;padding:10px 14px">Status</th><th style="text-align:left;padding:10px 14px">Owner</th></tr></thead>
                 <tbody>
-                  <tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px 14px;font-weight:500">Total Revenue</td><td style="padding:10px 14px;text-align:right;font-weight:600">€1,248,900</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€1,054,814</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+18.4%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Revenue</td></tr>
-                  <tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px 14px;font-weight:500">Net Profit</td><td style="padding:10px 14px;text-align:right;font-weight:600">€102,474</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€88,543</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+15.7%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Finance</td></tr>
-                  <tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px 14px;font-weight:500">Active Customers</td><td style="padding:10px 14px;text-align:right;font-weight:600">1,847</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">1,709</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+8.1%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Growth</td></tr>
-                  <tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px 14px;font-weight:500">Churn Rate</td><td style="padding:10px 14px;text-align:right;font-weight:600">4.2%</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">5.0%</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">Improving</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--orange-light);color:var(--orange);font-weight:500">Watch</span></td><td style="padding:10px 14px;color:var(--text2)">Customer Success</td></tr>
-                  <tr style="border-bottom:1px solid #f3f4f6"><td style="padding:10px 14px;font-weight:500">CAC</td><td style="padding:10px 14px;text-align:right;font-weight:600">€42</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€37</td><td style="padding:10px 14px;text-align:right;color:var(--red);font-weight:500">+14%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--red-light);color:var(--red);font-weight:500">Risk</span></td><td style="padding:10px 14px;color:var(--text2)">Marketing</td></tr>
+                  <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">Total Revenue</td><td style="padding:10px 14px;text-align:right;font-weight:600">€1,248,900</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€1,054,814</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+18.4%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Revenue</td></tr>
+                  <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">Net Profit</td><td style="padding:10px 14px;text-align:right;font-weight:600">€102,474</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€88,543</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+15.7%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Finance</td></tr>
+                  <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">Active Customers</td><td style="padding:10px 14px;text-align:right;font-weight:600">1,847</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">1,709</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+8.1%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Growth</td></tr>
+                  <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">Churn Rate</td><td style="padding:10px 14px;text-align:right;font-weight:600">4.2%</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">5.0%</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">Improving</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--orange-light);color:var(--orange);font-weight:500">Watch</span></td><td style="padding:10px 14px;color:var(--text2)">Customer Success</td></tr>
+                  <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">CAC</td><td style="padding:10px 14px;text-align:right;font-weight:600">€42</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€37</td><td style="padding:10px 14px;text-align:right;color:var(--red);font-weight:500">+14%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--red-light);color:var(--red);font-weight:500">Risk</span></td><td style="padding:10px 14px;color:var(--text2)">Marketing</td></tr>
                   <tr><td style="padding:10px 14px;font-weight:500">Retention Rate</td><td style="padding:10px 14px;text-align:right;font-weight:600">95.8%</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">95.2%</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+0.6pp</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Customer Success</td></tr>
                 </tbody></table></div></div>
-            <div class="diag-side-card" style="background:#fafafa;border:1px solid var(--border);padding:16px"><h4 style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px">Key KPI Notes</h4>
+            <div class="diag-side-card" style="background:var(--hover);border:1px solid var(--border);padding:16px"><h4 style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px">Key KPI Notes</h4>
               <div style="display:flex;flex-direction:column;gap:10px">
-                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--green);font-weight:600">✓</span> Revenue and profit remain above target. Growth trajectory is strong across both metrics.</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--red);font-weight:600">⚠</span> CAC is rising and requires marketing channel review. Social ad spend is the primary driver.</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--green);font-weight:600">✓</span> Churn is improving but SMB Monthly remains the weakest segment at 7.2%.</div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--green);font-weight:600"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span> Revenue and profit remain above target. Growth trajectory is strong across both metrics.</div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--red);font-weight:600"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M12 9v4" /> <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /> <path d="M12 16h.01" /></svg></span> CAC is rising and requires marketing channel review. Social ad spend is the primary driver.</div>
+                <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--green);font-weight:600"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span> Churn is improving but SMB Monthly remains the weakest segment at 7.2%.</div>
               </div>
             </div>
           </div>
@@ -616,6 +639,7 @@
 </div><!-- /app -->
 
 <script>
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // ═══════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════
@@ -673,10 +697,10 @@ function setActiveSection(section) {
         </div></div>
       <div class="h-btn-wrap"><div class="h-btn" role="button" onclick="toggleSegDropdown()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg> <span id="segLabel">All segments</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
         <div class="dropdown-menu" id="segDropdown">
-          <button class="dropdown-item active" data-seg="all" onclick="selectSegment('all')">All segments <span class="di-check">✓</span></button>
-          <button class="dropdown-item" data-seg="enterprise" onclick="selectSegment('enterprise')">Enterprise <span class="di-check">✓</span></button>
-          <button class="dropdown-item" data-seg="smb" onclick="selectSegment('smb')">SMB <span class="di-check">✓</span></button>
-          <button class="dropdown-item" data-seg="individual" onclick="selectSegment('individual')">Individual <span class="di-check">✓</span></button>
+          <button class="dropdown-item active" data-seg="all" onclick="selectSegment('all')">All segments <span class="di-check"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span></button>
+          <button class="dropdown-item" data-seg="enterprise" onclick="selectSegment('enterprise')">Enterprise <span class="di-check"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span></button>
+          <button class="dropdown-item" data-seg="smb" onclick="selectSegment('smb')">SMB <span class="di-check"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span></button>
+          <button class="dropdown-item" data-seg="individual" onclick="selectSegment('individual')">Individual <span class="di-check"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span></button>
         </div></div>
       <div class="h-btn primary" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</div>
     `;
@@ -1075,40 +1099,40 @@ let mainChart, revChart, custChart;
 function initCharts() {
   const mCtx = document.getElementById('mainChart');
   if (mCtx) {
-    mainChart = new Chart(mCtx, { type:'line',
+    mainChart = new Chart(mCtx, { animation: !REDUCED, type:'line',
       data:{ labels:['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
         datasets:[
           { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
           { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
-          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#B45309', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
         ]},
       options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-        plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
-        scales:{ x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10}} }, y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10},callback:v=>`€${v}K`}, beginAtZero:false } }
+        plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#11181D', bodyColor:'#4A5259', borderColor:'#E3E5E2', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
+        scales:{ x:{ grid:{display:false}, ticks:{color:'#6E757B',font:{size:10}} }, y:{ grid:{color:'#E3E5E2'}, ticks:{color:'#6E757B',font:{size:10},callback:v=>`€${v}K`}, beginAtZero:false } }
       }
     });
   }
   const rCtx = document.getElementById('revSectionChart');
   if (rCtx) {
-    revChart = new Chart(rCtx, { type:'line',
+    revChart = new Chart(rCtx, { animation: !REDUCED, type:'line',
       data:{ labels:['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'],
         datasets:[
           { label:'Actual Revenue', data:[210,228,245,262,285,null,null,null], borderColor:'#0ea5e9', backgroundColor:'rgba(14,165,233,0.08)', fill:true, tension:0.35, pointBackgroundColor:'#0ea5e9', pointRadius:[2,2,2,2,5,0,0,0], pointHoverRadius:6 },
           { label:'Forecast', data:[null,null,null,null,285,312,330,348], borderColor:'#8b5cf6', borderDash:[5,4], backgroundColor:'rgba(139,92,246,0.06)', fill:'-1', tension:0.35, pointBackgroundColor:'#8b5cf6', pointRadius:[0,0,0,0,0,4,4,4], pointStyle:'circle' },
-          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#f97316', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
+          { label:'Target', data:[195,215,230,250,270,290,310,330], borderColor:'#B45309', borderDash:[2,4], borderWidth:1.5, fill:false, tension:0.35, pointRadius:0 }
         ]},
       options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
-        plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#111', bodyColor:'#6b7280', borderColor:'#f3f4f6', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
-        scales:{ x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10}} }, y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10},callback:v=>`€${v}K`}, beginAtZero:false } }
+        plugins:{ legend:{ display:false }, tooltip:{ backgroundColor:'#fff', titleColor:'#11181D', bodyColor:'#4A5259', borderColor:'#E3E5E2', borderWidth:1, cornerRadius:8, padding:10, callbacks:{ label:ctx=>ctx.parsed.y!==null?`${ctx.dataset.label}: €${ctx.parsed.y}K`:'' } } },
+        scales:{ x:{ grid:{display:false}, ticks:{color:'#6E757B',font:{size:10}} }, y:{ grid:{color:'#E3E5E2'}, ticks:{color:'#6E757B',font:{size:10},callback:v=>`€${v}K`}, beginAtZero:false } }
       }
     });
   }
   const cCtx = document.getElementById('custSectionChart');
   if (cCtx) {
-    custChart = new Chart(cCtx, { type:'bar',
+    custChart = new Chart(cCtx, { animation: !REDUCED, type:'bar',
       data:{ labels:['Jun','Jul','Aug','Sep','Oct'], datasets:[{ label:'Customers', data:[1420,1520,1620,1710,1847], backgroundColor:'rgba(139,92,246,0.5)', borderColor:'#8b5cf6', borderWidth:1, borderRadius:4 }] },
       options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } },
-        scales:{ x:{ grid:{display:false}, ticks:{color:'#9ca3af',font:{size:10}} }, y:{ grid:{color:'#f3f4f6'}, ticks:{color:'#9ca3af',font:{size:10}}, beginAtZero:true } }
+        scales:{ x:{ grid:{display:false}, ticks:{color:'#6E757B',font:{size:10}} }, y:{ grid:{color:'#E3E5E2'}, ticks:{color:'#6E757B',font:{size:10}}, beginAtZero:true } }
       }
     });
   }
