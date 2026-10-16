@@ -29,11 +29,16 @@ default accent of AI-generated landing pages and reads as generic.
 | `--cobalt-tint` | `#EBF0F5` | Accent-tinted surface |
 | `--cobalt-on-dark` | `#8FB4D4` | Accent that stays legible on `--ink` surfaces |
 | `--teal` | `#164E4A` | Secondary accent, outbound data |
+| `--teal-tint` | `#E8EFEC` | Assistants' answers in the chat mock, and nothing else |
+| `--line-teal` | `#D2E0D9` | Border on teal-tinted surfaces |
+| `--aud-1` … `--aud-5` | `#1F2F16` `#235789` `#F3A712` `#610345` `#A4B0F5` | The five audience chips in the lede, one per team, in order. Owner-supplied, used nowhere else |
 | `--sand` | `#E6E1D8` | Quiet rule/divider, artwork halo only |
 
 Rules:
 
 - One accent (`--cobalt`) used identically in every section.
+- The `--aud-*` chips are the one exception: five flat colours in the lede, supplied by the owner,
+  used nowhere else, each paired with paper or ink text at 4.5:1 or better. They are labels, not accents.
 - Exactly one dark band per page (the Readiness Ladder). No section flips theme.
 - Warning/semantic colour is separate from brand colour. `demo.html` keeps a distinct amber for
   warnings; never reuse the brand accent to mean "attention".
@@ -48,8 +53,10 @@ Rules:
 | Body / UI | Inter 400-600 | everything else |
 | Figures | Inter, `font-variant-numeric: tabular-nums` | counters and tables |
 
-Scale (desktop): `h1` clamp(34px, 5.2vw, 58px) / 1.06 / -0.02em; `h2` clamp(26px, 3.2vw, 38px) /
-1.12; `h3` 17px/600 Inter; body 16px/1.7; small 14px; label 11px uppercase `.1em`.
+Scale (desktop): `h1` clamp(36px, 5.4vw, 62px) / 1.08 / -0.02em; `h2` clamp(25px, 3.1vw, 38px) /
+1.12; `h3` 17px/600 Inter; body 16px/1.7; small 14px; label 11px uppercase `.1em`. Two exceptions,
+both briefed: the hero proof line sits at 15px/600 in `--ink` rather than 13.5px/500 in `--ink-2`, and
+the diagram's column captions sit at 13px/700 in `--ink` rather than 11px/600 in `--ink-3`.
 
 Fraunces is restricted to display sizes on purpose. Set below ~20px it loses the optical sizing that
 makes it worth loading, and the page starts to look like every other LLM-redesigned site.
@@ -62,7 +69,9 @@ every measurement in this file. If the site is ever rebranded, change the face h
 ## Space, shape, depth
 
 - 8 px base. Section padding 96 px desktop / 64 px mobile. Container 1120 px.
-- `--r: 6px` for every card, button, input and tag. Pills use full radius. No third radius, ever.
+- `--r: 6px` for every card, button, input and tag. Pills use full radius. `--r-bubble: 16px` is
+  reserved for the message bubbles in the chat mock, which are speech, not surfaces; nothing else
+  may use it. No other radius, ever.
 - Borders do the work; shadows are a single soft, ink-tinted value used only for overlays.
 - No glow, no gradient text, no coloured blobs, no drop-shadow on cards at rest.
 
@@ -80,15 +89,57 @@ CSS transitions and animations only, plus one IntersectionObserver for reveals. 
 - Reveals fire once, on entry, with a 60 ms stagger.
 - Motivated only: hierarchy, sequence, feedback or state change. No decorative loops outside the
   hero artwork.
+- The hero assembles once, on load: pill, each headline line, supporting line, actions, proof checks,
+  then the diagram panel — a 0.05 s to 1.15 s stagger in total. That is the page's one authored
+  entrance; every other section only reveals on entry.
+- Three blurred colour fields drift behind the hero on 22–32 s alternating cycles, with a dot grid
+  fading out beneath them. Pure decoration: `prefers-reduced-motion` stops them dead.
+- The headline carries two rotators — the file noun (spreadsheets, contracts, manuals, ledgers) and the
+  discipline (machine learning, business intelligence, deep learning, AI engineering), both 4 words on a
+  12 s cycle. A word is visible for its whole slot and leaves as the next arrives, so the sentence
+  never loses its noun. Every word stays in the DOM; the rotators are `aria-hidden` and a visually
+  hidden span carries the canonical phrase, and under reduced motion only the first word shows.
+- The hero diagram runs a 10.5 s cycle and reads one lane at a time: the inbound rail marches, a token
+  with a soft halo travels it, the agent's ring pulses, the outbound rail draws, the result pops in.
+  Lanes 2 and 3 reuse the same keyframes with a different `animation-name`. Off screen, or in a hidden
+  tab, every animation inside it is paused.
+- The chat mock plays a transcript back when it comes into view, then rotates to the next use case two
+  seconds after that conversation finishes, and loops. Every line lives in the markup, so the playback
+  is decoration: with JavaScript off, or under reduced motion, and before it scrolls into view, the
+  transcript renders complete and static.
+- The rotation is the only thing on the page that moves without the visitor asking. It holds while
+  the pointer or keyboard focus is inside the window or the window is off screen, it stops for good
+  the moment the visitor chooses a use case, and it never starts under `prefers-reduced-motion`.
+  The typing dots are the only other looping animation, and they run only while visible.
+- The use cases are switched with native radio inputs and `:has()`, not with script, so the switcher
+  works with JavaScript disabled. Panels share one grid cell, so the window never changes height when
+  the conversation changes; the swap is a 300 ms cross-fade, and the outgoing panel is
+  `visibility: hidden` once it has faded, so it leaves the accessibility tree.
 - Under `prefers-reduced-motion: reduce`: every duration collapses, reveals render visible,
   counters land on their final value, and the hero artwork presents a fully drawn still frame.
 - `window.addEventListener('scroll', ...)` is banned. Use IntersectionObserver.
 
+## Disclosure
+
+- Expanding something uses native `<details>` / `<summary>`. No script, keyboard support for free,
+  and the hidden text stays in the DOM for search and for visitors with JavaScript off.
+- The `<summary>` carries the whole header row: rung number, title, one-line description, chevron.
+- The chevron rotating 180° is the only motion a disclosure has: `details[open] > summary .chev`.
+- The Readiness Ladder's six rungs are one exclusive accordion (`name="rung"`), so opening a rung
+  closes the previous one where the browser supports it, and allows more than one where it does not.
+- What opens under a rung is always the same three things: what it looks like, what staying there
+  costs, and the named next step with its published price.
+
 ## Iconography
 
 Inline SVG icons only, drawn on a 24 px grid at 1.6 stroke, sized 20 px in body copy. No emoji
-anywhere: they render differently on every OS and read as filler. Artwork geometry that is part of
-the brand (the logo, the data-flow) is exempt and lives in `img/`.
+anywhere: they render differently on every OS and read as filler. An icon used more than once is
+defined as a `<symbol>` in the existing defs block at the top of `<body>` and referenced with
+`<use>`; the logo mark and the chat mock's set follow that rule. Static brand artwork lives in
+`img/`. The hero diagram is the exception: it is inline in the page, because the page owns its loop
+(pausing it off screen), its reduced-motion still frame, and its labels as real text. Below 900 px
+that diagram is replaced by the same three examples as a list, because a diagram drawn on a 1000-unit
+grid scaled into a phone column puts its labels under the legibility floor.
 
 ## Accessibility floor
 

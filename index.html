@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Briatti | AI and data systems for messy business data</title>
@@ -8,7 +6,7 @@
   <link rel="canonical" href="https://www.briatti.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Briatti">
-  <meta property="og:title" content="Briatti | From scattered files to working decision systems">
+  <meta property="og:title" content="Briatti | Your data, made to work through Specialized Agents">
   <meta property="og:description" content="AI and data systems for messy business data. Start with a diagnostic, build only what creates measurable value.">
   <meta property="og:url" content="https://www.briatti.com/">
   <meta property="og:image" content="https://www.briatti.com/img/og.png">
@@ -71,7 +69,7 @@
     ]
   }
   </script>
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js'); if ('IntersectionObserver' in window) document.documentElement.classList.add('js-play');</script>
   <style>
     :root {
       --ink: #11181D;
@@ -85,10 +83,19 @@
       --cobalt-deep: #16395A;
       --cobalt-tint: #EBF0F5;
       --teal: #164E4A;
+      --teal-tint: #E8EFEC;
+      --line-teal: #D2E0D9;
       --sand: #E6E1D8;
+      /* audience chips: five flat marks, one per team, supplied by the owner */
+      --aud-1: #1F2F16;
+      --aud-2: #235789;
+      --aud-3: #F3A712;
+      --aud-4: #610345;
+      --aud-5: #A4B0F5;
       --line-tint: #D5DFE8;
       --cobalt-on-dark: #8FB4D4;
       --r: 6px;
+      --r-bubble: 16px;
       --e-out: cubic-bezier(.16,1,.3,1);
       --e-in-out: cubic-bezier(.65,0,.35,1);
       --gutter: 24px;
@@ -116,13 +123,11 @@
       transition: top .18s var(--e-out);
     }
     .skip:focus { top: 12px; }
-
     .container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
     section { padding: 96px 0; scroll-margin-top: calc(var(--nav-h) + 16px); }
     .sec-head { max-width: 60ch; margin-bottom: 44px; }
     .sec-head h2 { margin-bottom: 12px; }
     .sec-head p { color: var(--ink-2); font-size: 17px; }
-
     /* ---------- type ---------- */
     h1, h2, .figure {
       font-family: 'Fraunces', Georgia, serif;
@@ -131,7 +136,7 @@
       letter-spacing: -.02em;
       color: var(--ink);
     }
-    h1 { font-size: clamp(30px, 4.2vw, 50px); line-height: 1.06; }
+    h1 { font-size: clamp(34px, 5.2vw, 58px); line-height: 1.06; }
     h2 { font-size: clamp(25px, 3.1vw, 38px); line-height: 1.12; }
     h3 { font-size: 18px; font-weight: 600; line-height: 1.35; letter-spacing: -.01em; }
     p { max-width: 68ch; }
@@ -139,7 +144,6 @@
       font-size: 11px; font-weight: 600; letter-spacing: .1em;
       text-transform: uppercase; color: var(--ink-3);
     }
-
     /* ---------- nav ---------- */
     nav {
       position: sticky; top: 0; z-index: 100;
@@ -161,7 +165,6 @@
       transition: background .14s var(--e-out);
     }
     .nav-links a.nav-cta:hover { background: var(--cobalt-deep); color: #fff; }
-
     /* ---------- buttons & chips ---------- */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -173,33 +176,244 @@
     .btn-primary { background: var(--cobalt); color: #fff; }
     .btn-primary:hover { background: var(--cobalt-deep); }
     .btn:active { transform: translateY(1px); }
-    .link-arrow {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none;
-    }
-    .link-arrow svg { transition: transform .18s var(--e-out); }
-    .link-arrow:hover svg { transform: translateX(3px); }
     .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
     .chips li {
       font-size: 13px; font-weight: 500; color: var(--ink-2);
       background: var(--paper); border: 1px solid var(--line);
       padding: 5px 12px; border-radius: var(--r);
     }
+    /* the audience chips in the lede, one colour per team. Text flips to ink on the two
+       light ones so every chip clears 4.5:1 (7.25–13.74:1 on the dark three, 8.62/8.83:1
+       on the light two). */
+    .lede .chips li:nth-child(1) { background: var(--aud-1); border-color: var(--aud-1); color: var(--paper); }
+    .lede .chips li:nth-child(2) { background: var(--aud-2); border-color: var(--aud-2); color: var(--paper); }
+    .lede .chips li:nth-child(3) { background: var(--aud-3); border-color: var(--aud-3); color: var(--ink); }
+    .lede .chips li:nth-child(4) { background: var(--aud-4); border-color: var(--aud-4); color: var(--paper); }
+    .lede .chips li:nth-child(5) { background: var(--aud-5); border-color: var(--aud-5); color: var(--ink); }
     .tag {
       display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .08em;
       text-transform: uppercase; padding: 4px 9px; border-radius: 100px; margin-bottom: 14px;
     }
     .tag-start { background: var(--cobalt-tint); color: var(--cobalt); }
     .tag-plain { background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--line); }
+    /* visually hidden, for assistive tech only */
+    .vh { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
     /* ---------- hero ---------- */
-    .hero { padding: calc(var(--nav-h) + 88px) 0 40px; }
-    .hero h1 { max-width: 20ch; margin-bottom: 22px; }
-    .hero-sub { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 46ch; margin-bottom: 32px; }
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
-    .hero-art { margin-top: 64px; }
-    .hero-art img { width: 100%; height: auto; aspect-ratio: 1400 / 600; }
+    .hero { position: relative; padding: calc(var(--nav-h) + 88px) 0 88px; overflow: hidden; }
 
+    /* layered ambient background: drifting colour blobs over a dot grid */
+    .hero-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+    .hero-bg .dots {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(17,24,29,.10) 1px, transparent 1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 78%);
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, #000 30%, transparent 78%);
+    }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
+    .blob-a { width: 620px; height: 620px; top: -220px; left: -140px;
+      background: radial-gradient(circle at 30% 30%, rgba(31,78,121,.16), rgba(31,78,121,0) 70%);
+      animation: blob-drift 26s var(--e-in-out) infinite alternate; }
+    .blob-b { width: 720px; height: 720px; top: -160px; right: -220px;
+      background: radial-gradient(circle at 70% 40%, rgba(22,78,74,.13), rgba(22,78,74,0) 70%);
+      animation: blob-drift 32s var(--e-in-out) infinite alternate-reverse; }
+    .blob-c { width: 480px; height: 480px; bottom: -260px; left: 38%;
+      background: radial-gradient(circle at 50% 50%, rgba(230,225,216,.9), rgba(230,225,216,0) 70%);
+      animation: blob-drift 22s var(--e-in-out) infinite alternate; }
+    @keyframes blob-drift {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to
+   { transform: translate3d(60px, 40px, 0) scale(1.12); }
+    }
+    /* a thin light seam that grounds the section */
+    .hero::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line-2) 20%, var(--line-2) 80%, transparent);
+    }
+
+    /* eyebrow pill with a live status dot */
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cobalt); background: var(--paper);
+      border: 1px solid var(--line-tint); border-radius: 100px;
+      padding: 8px 16px; margin-bottom: 30px;
+      box-shadow: 0 1px 2px rgba(17,24,29,.04);
+      opacity: 0; animation: hero-in .7s var(--e-out) .05s forwards;
+    }
+    .pulse { position: relative; width: 8px; height: 8px; flex: none; }
+    .pulse::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal); }
+    .pulse::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--teal);
+      animation: pulse-ring 2.2s var(--e-out) infinite; }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: .55; }
+      70%, 100% { transform: scale(2.6); opacity: 0; }
+    }
+
+    /* headline: masked line reveal + rotating noun + gradient accent */
+    .hero h1 {
+      font-family: 'Fraunces', Georgia, serif; font-weight: 400;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -.02em; color: var(--ink);
+      font-size: clamp(36px, 5.4vw, 62px); line-height: 1.08;
+      max-width: 24ch; margin-bottom: 26px;
+    }
+    .hl-line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+    .hl-line > span { display: inline-block; transform: translateY(115%); animation: line-rise .95s var(--e-out) forwards; }
+    .hl-line:nth-child(1) > span { animation-delay: .15s; }
+    .hl-line:nth-child(2) > span { animation-delay: .27s; }
+    .hl-line:nth-child(3) > span { animation-delay: .39s; }
+    @keyframes line-rise { to { transform: none; } }
+
+    .accent { font-style: italic; background: linear-gradient(100deg, var(--cobalt) 20%, var(--teal) 90%);
+      -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .04em; }
+
+    /* the rotating noun: every word shares one grid cell, so the box sizes to the widest.
+       Each word is visible for its whole slot and leaves as the next arrives, so the
+       headline is never missing its noun. */
+    .rotator { display: inline-grid; vertical-align: bottom; perspective: 400px; }
+    .rotator > span { grid-area: 1 / 1; justify-self: start; position: relative; white-space: nowrap; color: var(--cobalt); opacity: 0; }
+    .rotator.rot-4 > span { animation: spin-4 12s var(--e-in-out) infinite; }
+    .rotator.rot-4 > span:nth-child(2) { animation-delay: -9s; }
+    .rotator.rot-4 > span:nth-child(3) { animation-delay: -6s; }
+    .rotator.rot-4 > span:nth-child(4) { animation-delay: -3s; }
+    /* the underline is a drawn curve, exactly as wide as the word above it: it lives inside
+       the word's own box, so it stretches with the word rather than with the widest one */
+    .rot-u { position: absolute; left: 0; bottom: -.1em; width: 100%; height: .2em; overflow: visible; }
+    .rot-u path {
+      fill: none; stroke: var(--cobalt); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke;
+      stroke-dasharray: 100; animation: hl-draw 1.1s var(--e-out) .9s backwards;
+    }
+    @keyframes hl-draw { from { stroke-dashoffset: 100; } }
+    @keyframes spin-4 {
+      0% { opacity: 0; transform: translateY(60%) rotateX(50deg); }
+      6%, 25% { opacity: 1; transform: none; }
+      31%, 100% { opacity: 0; transform: translateY(-60%) rotateX(-50deg); }
+    }
+
+    .hero-sub { font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 48ch; margin-bottom: 34px;
+      opacity: 0; animation: hero-in .8s var(--e-out) .55s forwards; }
+    @keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+    /* actions */
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
+      opacity: 0; animation: hero-in .8s var(--e-out) .68s forwards; }
+    /* the question sits left of the button, so the call to action answers it */
+    .hero-lead { font-size: 16px; font-weight: 500; color: var(--ink-2); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: var(--r);
+      font-size: 15px; font-weight: 600; letter-spacing: .005em; text-decoration: none; border: 1px solid transparent;
+      transition: transform .18s var(--e-out), box-shadow .18s var(--e-out), background .18s var(--e-out); }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, var(--cobalt), var(--cobalt-deep));
+      box-shadow: 0 1px 2px rgba(22,57,90,.25), 0 10px 24px -10px rgba(31,78,121,.5); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(22,57,90,.25), 0 16px 32px -12px rgba(31,78,121,.55); }
+    .btn:active { transform: translateY(0); }
+
+    /* proof row: checks pop in one by one */
+    .proof { list-style: none; display: flex; flex-wrap: wrap; align-items: center;
+      gap: 10px 26px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .proof li { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--ink);
+      letter-spacing: -.005em;
+      opacity: 0; transform: translateY(8px); animation: proof-in .55s var(--e-out) forwards; }
+    .proof li:nth-child(1) { animation-delay: .85s; }
+    .proof li:nth-child(2) { animation-delay: .95s; }
+    .proof li:nth-child(3) { animation-delay: 1.05s; }
+    .proof li:nth-child(4) { animation-delay: 1.15s; }
+    @keyframes proof-in { to { opacity: 1; transform: none; } }
+    .proof svg { width: 16px; height: 16px; color: var(--teal); flex: none; }
+
+    /* the diagram, promoted to a designed panel */
+    .hero-art { margin-top: 76px; position: relative;
+      border: 1px solid var(--line); border-radius: 12px;
+      background:
+        radial-gradient(ellipse 60% 90% at 12% 0%, var(--cobalt-tint), transparent 60%),
+        radial-gradient(ellipse 55% 90% at 92% 100%, var(--teal-tint), transparent 60%),
+        linear-gradient(180deg, #FFFFFF, var(--paper-2));
+      box-shadow: 0 1px 2px rgba(17,24,29,.04), 0 24px 48px -32px rgba(17,24,29,.22);
+      padding: 26px 26px 10px;
+      opacity: 0; animation: hero-in 1s var(--e-out) .5s forwards; }
+    .hero-art svg { display: block; width: 100%; height: auto; }
+
+    .agent-flow { color: var(--ink); }
+    .agent-list { display: none; }
+    .agent-flow .lbl { font: 700 13px/1 'Inter', sans-serif; letter-spacing: .07em; fill: var(--ink); }
+    .agent-flow .name { font: 500 14px/1 'Inter', sans-serif; fill: var(--ink); letter-spacing: -.01em; }
+    .agent-flow .node-lbl { font: 600 13px/1 'Inter', sans-serif; letter-spacing: .06em; fill: var(--ink); }
+    .agent-flow .out-t { font: 500 14px/1 'Inter', sans-serif; fill: var(--ink-2); }
+    .agent-flow .chip { fill: var(--paper); stroke: var(--line-2); }
+    .agent-flow .card { fill: #FFFFFF; stroke: var(--line-2); }
+    .agent-flow .glyph { fill: none; stroke: var(--ink-3); stroke-width: 1.4; stroke-linecap: round; }
+
+    /* input rails: continuous marching dashes, always alive */
+    .agent-flow .rail-in { fill: none; stroke: url(#rail-grad); stroke-width: 1.4; opacity: .55;
+      stroke-dasharray: 4 8; animation: rail-flow 1.4s linear infinite; }
+    @keyframes rail-flow { to { stroke-dashoffset: -24; } }
+
+    /* output rails: drawn per lane on the cycle */
+    .agent-flow .rail-out { fill: none; stroke: var(--teal); stroke-width: 1.4; stroke-dasharray: 100; stroke-linecap: round; }
+
+    /* the travelling token carries a soft glow */
+    .agent-flow .token-glow { fill: var(--cobalt); opacity: 0;
+      offset-path: path("M212 0 C 260 -26, 310 26, 356 0"); offset-anchor: center; transform-box: fill-box;
+      animation: t1 10.5s linear infinite; }
+    .agent-flow .token { fill: var(--cobalt); opacity: 0;
+      offset-path: path("M212 0 C 260 -26, 310 26, 356 0"); offset-anchor: center; transform-box: fill-box;
+      animation: t1 10.5s linear infinite; }
+    .agent-flow .ring { fill: none; stroke: var(--cobalt); stroke-width: 1.4; opacity: 0;
+      transform-box: fill-box; transform-origin: center; animation: p1 10.5s var(--e-out) infinite; }
+    .agent-flow .tick { fill: none; stroke: var(--teal); stroke-width: 1.6; stroke-linecap: round; }
+    .agent-flow .out { opacity: 0; transform-origin: 716px 0; }
+    .agent-flow .rail-out { animation: d1 10.5s var(--e-out) infinite; }
+    .agent-flow .out { animation: o1 10.5s var(--e-out) infinite; }
+
+    .agent-flow .r2 .token, .agent-flow .r2 .token-glow { animation-name: t2; }
+    .agent-flow .r2 .rail-out { animation-name: d2; }
+    .agent-flow .r2 .ring { animation-name: p2; }
+    .agent-flow .r2 .out { animation-name: o2; }
+    .agent-flow .r3 .token, .agent-flow .r3 .token-glow { animation-name: t3; }
+    .agent-flow .r3 .rail-out { animation-name: d3; }
+    .agent-flow .r3 .ring { animation-name: p3; }
+    .agent-flow .r3 .out { animation-name: o3; }
+
+    @keyframes t1 { 0%, 4% { opacity: 0; offset-distance: 0%; } 6% { opacity: 1; offset-distance: 8%; } 14% { opacity: 1; offset-distance: 100%; } 16%, 100% { opacity: 0; offset-distance: 100%; } }
+    @keyframes t2 { 0%, 34% { opacity: 0; offset-distance: 0%; } 36% { opacity: 1; offset-distance: 8%; } 44% { opacity: 1; offset-distance: 100%; } 46%, 100% { opacity: 0; offset-distance: 100%; } }
+    @keyframes t3 { 0%, 64% { opacity: 0; offset-distance: 0%; } 66% { opacity: 1; offset-distance: 8%; } 74% { opacity: 1; offset-distance: 100%; } 76%, 100% { opacity: 0; offset-distance: 100%; } }
+    @keyframes d1 { 0%, 14% { stroke-dashoffset: 100; } 24%, 96% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+    @keyframes d2 { 0%, 44% { stroke-dashoffset: 100; } 54%, 96% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+    @keyframes d3 { 0%, 74% { stroke-dashoffset: 100; } 84%, 96% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 100; } }
+    @keyframes p1 { 0%, 10% { opacity: 0; transform: scale(.9); } 14% { opacity: .5; } 22%, 100% { opacity: 0; transform: scale(1.08); } }
+    @keyframes p2 { 0%, 40% { opacity: 0; transform: scale(.9); } 44% { opacity: .5; } 52%, 100% { opacity: 0; transform: scale(1.08); } }
+    @keyframes p3 { 0%, 70% { opacity: 0; transform: scale(.9); } 74% { opacity: .5; } 82%, 100% { opacity: 0; transform: scale(1.08); } }
+    @keyframes o1 { 0%, 18% { opacity: 0; transform: translateX(-8px) scale(.5); } 24% { opacity: 1; transform: translateX(2px) scale(1.12); } 28%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(-8px) scale(.8); } }
+    @keyframes o2 { 0%, 48% { opacity: 0; transform: translateX(-8px) scale(.5); } 54% { opacity: 1; transform: translateX(2px) scale(1.12); } 58%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(-8px) scale(.8); } }
+    @keyframes o3 { 0%, 78% { opacity: 0; transform: translateX(-8px) scale(.5); } 84% { opacity: 1; transform: translateX(2px) scale(1.12); } 88%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(-8px) scale(.8); } }
+
+    /* loops pause off screen or in a hidden tab */
+    .is-still .agent-flow * { animation-play-state: paused; }
+
+    @media (max-width: 900px) {
+      .hero { padding: calc(var(--nav-h) + 56px) 0 56px; }
+      .hero-art { margin-top: 48px; padding: 18px 18px 6px; }
+      .hero-art .agent-flow { display: none; }
+      .agent-list { display: grid; list-style: none; border-top: 1px solid var(--line); }
+      .agent-list li { display: grid; gap: 5px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+      .al-file { font-size: 13.5px; color: var(--ink-2); }
+      .al-agent { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+      .al-out { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-2); }
+      .al-out svg { width: 15px; height: 15px; color: var(--teal); flex: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-pill, .hero-sub, .hero-actions, .hero-art, .hl-line > span { opacity: 1 !important; transform: none !important; animation: none !important; }
+      .proof li { opacity: 1 !important; transform: none !important; animation: none !important; }
+      .blob, .pulse::after { animation: none !important; }
+      .rotator > span { opacity: 0; animation: none !important; }
+      .rotator > span:first-child { opacity: 1; }
+      .agent-flow .token, .agent-flow .token-glow, .agent-flow .ring { display: none; }
+      .agent-flow .rail-out { animation: none !important; stroke-dashoffset: 0; }
+      .agent-flow .out { opacity: 1 !important; transform: none !important; animation: none !important; }
+      .agent-flow .rail-in { animation: none !important; }
+    }
     /* ---------- lede ---------- */
     .lede { padding: 0 0 96px; }
     .lede .statement {
@@ -209,7 +423,6 @@
       max-width: 30ch; margin-bottom: 20px;
     }
     .lede > .container > p:not(.statement) { font-size: 17px; color: var(--ink-2); margin-bottom: 28px; max-width: 62ch; }
-
     /* ---------- offers ---------- */
     #services { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .offers { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
@@ -217,6 +430,7 @@
       background: var(--paper); border: 1px solid var(--line);
       border-radius: var(--r); padding: 28px;
       display: flex; flex-direction: column;
+      scroll-margin-top: calc(var(--nav-h) + 16px);
     }
     .offer .tag { align-self: flex-start; }
     .offer h3 { margin-bottom: 10px; }
@@ -232,12 +446,12 @@
     .span-6 { grid-column: span 6; }
     .offer-tinted { background: var(--cobalt-tint); border-color: var(--line-tint); }
     .offer-quiet { background: var(--paper-2); }
-
     /* ---------- ladder ---------- */
     .band-ink { background: var(--ink); color: var(--paper); }
     .band-ink h2, .band-ink .figure { color: var(--paper); }
     .band-ink .sec-head p { color: rgba(251,251,250,.72); }
-    .ladder { list-style: none; position: relative; max-width: 760px; }
+    .band-ink a { color: var(--cobalt-on-dark); }
+    .ladder { list-style: none; position: relative; max-width: 840px; }
     .ladder::before {
       content: ''; position: absolute; left: 19px; top: 14px; bottom: 14px; width: 1px;
       background: linear-gradient(180deg, rgba(251,251,250,.34), rgba(251,251,250,.06));
@@ -247,25 +461,53 @@
       transition: transform 1.1s var(--e-out) .1s;
     }
     .js .ladder.is-in::before { transform: scaleY(1); }
-    .ladder li {
-      position: relative; display: grid; grid-template-columns: 40px 1fr;
-      gap: 20px; padding: 0 0 30px;
+    .ladder li { position: relative; }
+    .rung { border-top: 1px solid rgba(251,251,250,.16); }
+    .rung summary {
+      display: grid; grid-template-columns: 40px 1fr 22px; gap: 20px; align-items: start;
+      padding: 20px 0; cursor: pointer; list-style: none;
+      transition: background .18s var(--e-out);
     }
-    .ladder li:last-child { padding-bottom: 0; }
+    .rung summary::-webkit-details-marker { display: none; }
+    /* the whole row lifts out of the band on hover */
+    .rung summary:hover { background: rgba(251,251,250,.07); }
+    .rung summary:hover .rung-n { border-color: rgba(251,251,250,.55); }
+    .rung summary:hover .chev { color: var(--paper); }
+    .rung-h { display: block; margin: 8px 0 6px; font-size: 17px; font-weight: 600; color: var(--paper); }
+    .rung-p { display: block; font-size: 15px; color: rgba(251,251,250,.72); max-width: 58ch; }
     .rung-n {
       width: 39px; height: 39px; border-radius: 50%;
       border: 1px solid rgba(251,251,250,.3); background: var(--ink);
       display: flex; align-items: center; justify-content: center;
       font-family: 'Fraunces', Georgia, serif; font-size: 16px;
       font-variation-settings: "opsz" 144, "SOFT" 30; color: var(--paper);
+      transition: background .18s var(--e-out), color .18s var(--e-out), border-color .18s var(--e-out);
     }
-    .ladder li h3 { color: var(--paper); margin: 7px 0 5px; }
-    .ladder li p { font-size: 15px; color: rgba(251,251,250,.72); max-width: 54ch; }
-
+    .rung[open] .rung-n { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+    .rung-body { padding: 0 0 26px 60px; }
+    .rung-facts { display: grid; gap: 16px; max-width: 62ch; margin-bottom: 18px; }
+    .rung-facts dt {
+      font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(251,251,250,.5); margin-bottom: 6px;
+    }
+    .rung-facts dd { font-size: 15px; color: rgba(251,251,250,.8); }
+    .rung-next { font-size: 15px; color: rgba(251,251,250,.72); }
+    .rung-next a { font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(143,180,212,.4); }
+    .rung-next a:hover { border-bottom-color: var(--cobalt-on-dark); }
+    .rung-next span { color: var(--paper); font-variant-numeric: tabular-nums; }
+    .ladder-note { margin-top: 34px; font-size: 15px; color: rgba(251,251,250,.72); }
+    .ladder-note a { font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(143,180,212,.4); }
+    .ladder-note a:hover { border-bottom-color: var(--cobalt-on-dark); }
+    /* the chevron is the only thing that moves */
+    .chev {
+      width: 20px; height: 20px; margin-top: 12px; color: rgba(251,251,250,.5);
+      transition: transform .24s var(--e-out), color .14s var(--e-out);
+    }
+    details[open] > summary .chev { transform: rotate(180deg); }
     /* ---------- demos ---------- */
     .demo-rows { display: grid; gap: 56px; }
     .demo-row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
-    .demo-row-flip .demo-panel { order: 2; }
+    .demo-row-stack { grid-template-columns: 1fr; gap: 36px; }
     .demo-shot {
       display: block; border: 1px solid var(--line); border-radius: var(--r);
       overflow: hidden; background: var(--paper-2);
@@ -274,18 +516,122 @@
     .demo-shot:hover { transform: translateY(-2px); border-color: var(--line-2); }
     .demo-copy h3 { font-size: 21px; margin-bottom: 10px; }
     .demo-copy p { font-size: 16px; color: var(--ink-2); margin-bottom: 20px; }
-    .demo-panel {
-      aspect-ratio: 16 / 11; border: 1px solid var(--line); border-radius: var(--r);
-      background: var(--paper-2); display: flex; align-items: center; justify-content: center;
-      color: var(--ink-3);
+    /* ---------- chat mock ---------- */
+    .chat-mock { border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); overflow: hidden; }
+    .chat-bar {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      padding: 13px 18px; background: var(--paper-2); border-bottom: 1px solid var(--line);
     }
-    .demo-panel svg { width: 46px; height: 46px; }
-    .soon {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 500; color: var(--ink-3);
-      border: 1px dashed var(--line-2); border-radius: var(--r); padding: 8px 14px;
+    .chat-bar svg { width: 18px; height: 18px; color: var(--cobalt); flex: none; }
+    .chat-bar-t { font-size: 14px; font-weight: 600; }
+    .chat-bar-m { margin-left: auto; font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+    .chat-body { display: grid; grid-template-columns: 272px 1fr; }
+    .chat-side { display: flex; flex-direction: column; padding: 18px 14px; background: var(--paper-2); border-right: 1px solid var(--line); }
+    .chat-side-h { padding: 0 8px 10px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+    .chat-uses { display: grid; gap: 2px; }
+    .chat-use {
+      position: relative; display: grid; grid-template-columns: 16px 1fr auto; align-items: center; gap: 9px;
+      padding: 8px; border-radius: var(--r); font-size: 12.5px; color: var(--ink-2); cursor: pointer;
+      transition: background .14s var(--e-out), color .14s var(--e-out);
     }
-
+    .chat-use svg { width: 16px; height: 16px; color: var(--ink-3); }
+    .chat-use:hover { background: var(--paper); }
+    .chat-use:has(input:checked) { background: var(--cobalt); color: var(--paper); }
+    .chat-use:has(input:checked) svg { color: var(--paper); }
+    .chat-use:has(input:checked) .chat-use-m { color: rgba(251,251,250,.78); }
+    .chat-use:has(input:focus-visible) { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+    .chat-use-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .chat-use-m { font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+    .chat-pick { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .chat-side-f { margin-top: auto; padding: 12px 8px 0; font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+    .chat-thread { --chat-pad: 22px; position: relative; display: grid; gap: 16px; align-content: start; padding: var(--chat-pad); }
+    .chat-panel { display: grid; gap: 16px; align-content: start; }
+    /* native radios switch the panels, so the examples work with JavaScript off */
+    .chat-body:has(.chat-pick) .chat-panel {
+      grid-area: 1 / 1; opacity: 0; visibility: hidden;
+      transition: opacity .3s var(--e-out), visibility 0s linear .3s;
+    }
+    .chat-body:has(#cu-1:checked) .p1,
+    .chat-body:has(#cu-2:checked) .p2,
+    .chat-body:has(#cu-3:checked) .p3,
+    .chat-body:has(#cu-4:checked) .p4,
+    .chat-body:has(#cu-5:checked) .p5 {
+      opacity: 1; visibility: visible;
+      transition: opacity .3s var(--e-out), visibility 0s;
+    }
+    .chat-sys {
+      justify-self: center; padding: 4px 12px; border: 1px solid var(--line); border-radius: 100px;
+      background: var(--paper-2); font-size: 11px; font-weight: 500; color: var(--ink-3);
+      font-variant-numeric: tabular-nums;
+    }
+    .msg { display: grid; gap: 8px; max-width: 74%; }
+    .msg-a { justify-items: start; }
+    .msg-you { justify-items: end; justify-self: end; max-width: 64%; }
+    .msg-who {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
+    }
+    .msg-you .msg-who { flex-direction: row-reverse; }
+    .av { flex: none; width: 26px; height: 26px; border-radius: 100px; display: flex; align-items: center; justify-content: center; }
+    .av svg { width: 16px; height: 16px; }
+    .av-a { background: var(--teal-tint); border: 1px solid var(--line-teal); color: var(--teal); }
+    .av-you { background: var(--paper-2); border: 1px solid var(--line); color: var(--ink-2); }
+    .msg-body {
+      border: 1px solid var(--line); border-radius: var(--r-bubble); background: var(--paper-2);
+      padding: 12px 15px; font-size: 13px; line-height: 1.6; color: var(--ink-2);
+    }
+    .msg-a .msg-body {
+      background: var(--teal-tint); border-color: var(--line-teal); border-bottom-left-radius: var(--r);
+    }
+    .msg-you .msg-body {
+      background: var(--cobalt-tint); border-color: var(--line-tint); color: var(--ink);
+      border-bottom-right-radius: var(--r);
+    }
+    .msg-body strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+    .msg-body.msg-action { background: var(--paper); border-color: var(--line); border-radius: var(--r); }
+    .cites { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+    .cite {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+      border: 1px solid var(--line); border-radius: 100px; background: var(--paper);
+      font-size: 11px; font-weight: 500; color: var(--ink-2);
+    }
+    .cite svg { width: 13px; height: 13px; color: var(--cobalt); flex: none; }
+    .tasks { list-style: none; display: grid; gap: 8px; margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--line); }
+    .tasks li { display: grid; grid-template-columns: 14px 1fr; gap: 9px; align-items: start; font-size: 12.5px; color: var(--ink-2); }
+    .tasks svg { width: 14px; height: 14px; color: var(--cobalt); margin-top: 3px; }
+    .msg-note { margin-top: 11px; font-size: 11px; color: var(--ink-3); }
+    .chat-typing {
+      position: absolute; top: 0; left: var(--chat-pad); opacity: 0; pointer-events: none;
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px;
+      border: 1px solid var(--line-teal);
+      border-radius: var(--r-bubble) var(--r-bubble) var(--r-bubble) var(--r);
+      background: var(--teal-tint); font-size: 11px; color: var(--ink-3);
+      transition: transform .24s var(--e-out), opacity .16s var(--e-out) .08s;
+    }
+    .chat-typing.is-on { opacity: 1; }
+    .chat-dot {
+      width: 5px; height: 5px; border-radius: 100px; background: var(--teal); opacity: .25;
+      animation: chat-dot 1.1s var(--e-in-out) infinite; animation-play-state: paused;
+    }
+    .chat-typing.is-on .chat-dot { animation-play-state: running; }
+    .chat-dot:nth-child(2) { animation-delay: .16s; }
+    .chat-dot:nth-child(3) { animation-delay: .32s; }
+    @keyframes chat-dot { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+    .chat-composer {
+      display: flex; align-items: center; gap: 12px; padding: 11px 14px;
+      border: 1px solid var(--line); border-radius: var(--r); background: var(--paper-2);
+      font-size: 13px; color: var(--ink-3);
+    }
+    .chat-send {
+      margin-left: auto; flex: none; width: 26px; height: 26px; border-radius: 100px;
+      background: var(--cobalt); color: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .chat-send svg { width: 15px; height: 15px; }
+    /* the transcripts are complete in the markup; this only styles the playback */
+    .chat-step { transition: opacity .28s var(--e-out), transform .28s var(--e-out); }
+    .js-play .chat-step { opacity: 0; transform: translateY(8px); }
+    .js-play .chat-step.is-in { opacity: 1; transform: none; }
     /* ---------- process ---------- */
     #process { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .process-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 72px; align-items: start; }
@@ -319,7 +665,6 @@
     .steps h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin: 6px 0 6px; }
     .steps h3 span { font-size: 13px; font-weight: 500; color: var(--ink-3); }
     .steps p { font-size: 15px; color: var(--ink-2); max-width: 56ch; }
-
     /* ---------- cases ---------- */
     .cases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .case {
@@ -339,7 +684,21 @@
     .case-note { margin-top: auto; padding-top: 20px; font-size: 12px; color: var(--ink-3); }
     .case-wide { grid-column: span 2; }
     .case-wide .figure { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; color: var(--cobalt); margin-bottom: 20px; }
-
+    /* ---------- objections ---------- */
+    #faq { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .faq { max-width: 800px; }
+    .faq details { border-top: 1px solid var(--line); }
+    .faq details:last-child { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      display: grid; grid-template-columns: 1fr 20px; gap: 18px; align-items: start;
+      padding: 20px 0; cursor: pointer; list-style: none;
+      font-size: 17px; font-weight: 600; color: var(--ink);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq .chev { margin-top: 4px; color: var(--ink-3); }
+    .faq summary:hover .chev,
+    .faq details[open] > summary .chev { color: var(--ink); }
+    .faq p { padding-bottom: 22px; font-size: 15.5px; color: var(--ink-2); }
     /* ---------- pilot ---------- */
     .band-pilot { background: var(--cobalt-tint); border-top: 1px solid var(--line-tint); border-bottom: 1px solid var(--line-tint); text-align: center; }
     .band-pilot .container { max-width: 720px; }
@@ -351,7 +710,6 @@
     }
     .band-pilot h2 { margin-bottom: 16px; }
     .band-pilot p { font-size: 17px; color: var(--ink-2); margin: 0 auto 30px; max-width: 54ch; }
-
     /* ---------- about ---------- */
     #about { background: var(--paper-2); border-top: 1px solid var(--line); }
     .about-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 64px; align-items: start; }
@@ -368,7 +726,6 @@
       color: var(--ink); margin-bottom: 18px;
     }
     .about-quote figcaption { font-size: 13px; font-weight: 500; color: var(--ink-3); }
-
     /* ---------- contact ---------- */
     #contact { text-align: center; }
     #contact .container { max-width: 720px; }
@@ -376,14 +733,17 @@
     #contact p { font-size: 17px; color: var(--ink-2); margin: 0 auto 30px; max-width: 50ch; }
     .contact-alt { margin-top: 22px; font-size: 14px; color: var(--ink-3); }
     .contact-alt a { color: var(--ink-2); }
-
+    .next { margin: 40px auto 0; max-width: 46ch; text-align: left; }
+    .next .eyebrow { margin-bottom: 16px; }
+    .next-steps { list-style: none; display: grid; gap: 14px; }
+    .next-steps li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; font-size: 14.5px; color: var(--ink-2); }
+    .next-steps span { font-size: 13px; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; line-height: 1.7; }
     footer { border-top: 1px solid var(--line); padding: 40px 0; }
     .foot-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
     .foot-brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -.02em; }
     .foot-brand svg { width: 22px; height: 22px; }
     .foot-inner p { font-size: 13px; color: var(--ink-3); margin-left: auto; }
     .foot-inner a { color: var(--ink-2); }
-
     /* ---------- motion ---------- */
     .js [data-reveal] {
       opacity: 0; transform: translateY(16px);
@@ -398,12 +758,19 @@
       .offers { grid-template-columns: 1fr; }
       .offer { grid-column: auto; }
       .demo-row { grid-template-columns: 1fr; gap: 26px; }
-      .demo-row-flip .demo-panel { order: 0; }
       .process-grid { grid-template-columns: 1fr; gap: 40px; }
       .process-head { position: static; }
       .cases { grid-template-columns: 1fr; }
       .case-wide { grid-column: span 1; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      /* the diagram needs its width; below this it becomes the same three examples as a list */
+      .hero-art .agent-flow { display: none; }
+      .agent-list { display: grid; list-style: none; border-top: 1px solid var(--line); }
+      .agent-list li { display: grid; gap: 5px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+      .al-file { font-size: 13.5px; color: var(--ink-2); }
+      .al-agent { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+      .al-out { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-2); }
+      .al-out svg { width: 15px; height: 15px; color: var(--teal); flex: none; }
     }
     @media (max-width: 720px) {
       :root { --gutter: 20px; }
@@ -412,6 +779,15 @@
       .hero h1 br { display: none; }
       .hero-sub { font-size: 17px; }
       .case { padding: 24px; }
+      .rung summary { grid-template-columns: 34px 1fr 20px; gap: 14px; padding: 18px 0; }
+      .rung-h { margin-top: 3px; font-size: 16px; }
+      .rung-body { padding-left: 0; }
+      .faq summary { font-size: 16px; gap: 14px; }
+      .chat-body { grid-template-columns: 1fr; }
+      .chat-side { padding: 16px 12px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .chat-thread { --chat-pad: 16px; }
+      .msg { max-width: 88%; }
+      .msg-you { max-width: 82%; }
       .foot-inner p { margin-left: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -422,21 +798,31 @@
         scroll-behavior: auto !important;
       }
       .js [data-reveal] { opacity: 1; transform: none; }
+      .js-play .chat-step { opacity: 1; transform: none; }
       .js .steps::before, .js .ladder::before { transform: scaleY(1); }
+      /* the hero diagram holds a fully drawn still frame: no animation, final state stated */
+      .agent-flow .fc, .agent-flow .token, .agent-flow .ring, .agent-flow .bar,
+      .agent-flow .dot, .agent-flow .rail-out, .agent-flow .out, .agent-flow .spine { animation: none; }
+      .agent-flow .fc { fill: var(--paper); stroke: var(--line); }
+      .agent-flow .dot { fill: var(--teal); }
+      .agent-flow .bar { transform: scaleX(1); }
+      .agent-flow .token, .agent-flow .ring { display: none; }
+      .agent-flow .rail-out { stroke-dashoffset: 0; }
+      .agent-flow .out { opacity: 1; transform: none; }
     }
-  </style>
-</head>
-<body>
-<svg class="mark-defs" aria-hidden="true" focusable="false">
+  </style></head><body><svg class="mark-defs" aria-hidden="true" focusable="false">
   <symbol id="mark" viewBox="30 20 175 175">
         <path d="M116.348 33.2713L142.242 33.2119C149.758 33.1987 158.725 32.9492 166.064 34.5917C177.576 37.1682 187.753 43.0405 194.163 53.1893C199.784 62.0899 201.543 74.379 199.308 84.5898C197.755 91.6795 193.043 100.448 187.524 105.29C185.774 106.826 184.088 107.886 182.116 109.115C196.881 117.627 204.254 129.649 204.236 146.959C204.212 171.199 183.215 189.168 160.04 190.965C153.876 191.443 147.265 191.215 141.025 191.237C132.076 191.309 123.126 191.307 114.177 191.233L114.11 173.507C124.539 173.156 135.599 173.682 146.096 173.449C151.556 173.33 156.997 173.664 162.408 172.759C183 169.314 192.897 148.048 181.177 130.423C174.536 121.661 164.323 118.642 153.681 118.74C139.632 118.869 125.434 118.259 111.421 119.135C109.161 119.48 105.37 120.927 103.826 122.582C101.293 125.296 101.748 132.201 101.689 135.71C101.588 141.456 101.577 147.202 101.656 152.948L101.639 191.422C95.6568 191.354 89.674 191.354 83.6918 191.423C83.5064 184.415 83.663 177.341 83.5787 170.313C83.4668 157.014 83.4627 143.579 83.4412 130.289C83.4245 120.041 87.9382 111.537 96.6454 106.179C106.523 100.102 115.534 101.029 126.437 101.037L148.765 101.126C152.863 101.111 158.135 101.202 162.003 100.256C173.344 97.4843 182.586 88.4803 182.385 76.3006C182.272 69.5179 180.672 63.8961 175.859 59.006C172.605 55.6846 168.496 53.3276 163.987 52.1953C157.824 50.5899 148.439 51.04 141.797 51.0398L114.089 51.0575C113.988 46.4814 113.751 37.6101 114.133 33.3254L116.348 33.2713Z" fill="currentColor"/>
         <path d="M52.887 33.2747C59.0009 33.2624 64.7558 33.0827 70.8906 33.4163C70.671 47.6821 71.2865 190.588 71.1179 190.907C71.0569 191.022 70.9489 191.105 70.8647 191.204C65.1184 191.554 58.5793 191.352 52.7667 191.347C52.4197 172.833 52.8293 154.053 52.8557 135.518L52.887 33.2747Z" fill="currentColor"/>
         <path d="M83.6477 33.1898C89.6915 33.3256 95.7365 33.3928 101.782 33.3912L101.761 75.0962C101.741 81.2169 101.95 88.5765 101.722 94.5692L83.5168 94.3959C83.6889 80.5682 83.3444 66.6183 83.5305 52.7718C83.6168 46.3584 83.3417 39.5705 83.6477 33.1898Z" fill="currentColor"/>
       </symbol>
-</svg>
-<a class="skip" href="#main">Skip to content</a>
-
-<nav id="nav">
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 21v-16a2 2 0 0 1 2 -2h7l5 5v13a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14l11 -11"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6 -6"/></symbol></svg><a class="skip" href="#main">Skip to content</a><nav id="nav">
   <div class="container nav-inner">
     <a class="brand" href="/" aria-label="Briatti home">
       <svg viewBox="30 20 175 175" aria-hidden="true"><use href="#mark"/></svg>
@@ -449,28 +835,128 @@
       <a href="#about">About</a>
       <a href="demo.html" class="nav-cta">View the dashboard</a>
     </div>
-  </div>
-</nav>
-
-<main id="main">
-
+  </div></nav><main id="main">
   <header class="hero">
-    <div class="container">
-      <h1>From scattered files to<br>working decision systems</h1>
-      <p class="hero-sub">Operations, finance and commercial teams turn spreadsheets, documents and reports into dashboards, AI assistants and automated workflows.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Book a diagnostic call</a>
-        <a class="link-arrow" href="demo.html">View the dashboard
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></svg>
-        </a>
-      </div>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="dots"></div>
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="blob blob-c"></div>
     </div>
-    <div class="container hero-art">
-      <img src="img/data-flow.svg" width="1400" height="600" fetchpriority="high"
-           alt="Reports, PDFs, spreadsheets and databases flowing into Briatti, and back out as dashboards, insights, AI assistants and agents.">
+
+    <div class="container">
+      <p class="hero-pill"><span class="pulse" aria-hidden="true"></span>AI &amp; data systems for messy business data</p>
+
+      <h1>
+        <span class="hl-line"><span>We take your <span class="rotator rot-4" aria-hidden="true"><span>spreadsheets,</span><span>contracts,</span><span>manuals,</span><span>ledgers,</span></span><span class="vh">data</span></span></span>
+        <span class="hl-line"><span>and put <span class="rotator rot-4" aria-hidden="true"><span>Machine Learning<svg class="rot-u" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 70 2, 150 11, 297 4" pathLength="100"/></svg></span><span>Business Intelligence<svg class="rot-u" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 70 2, 150 11, 297 4" pathLength="100"/></svg></span><span>Deep Learning<svg class="rot-u" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 70 2, 150 11, 297 4" pathLength="100"/></svg></span><span>AI Engineering<svg class="rot-u" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 70 2, 150 11, 297 4" pathLength="100"/></svg></span></span><span class="vh">machine learning</span></span></span>
+        <span class="hl-line"><span>to <em class="accent">work</em> on it.</span></span>
+      </h1>
+
+      <p class="hero-sub">Spreadsheets, contracts, manuals and ledgers, read by the agent that knows that format. What comes back is cited, drafted and ready to act on.</p>
+
+      <div class="hero-actions">
+        <span class="hero-lead">Don't know where to start?</span>
+        <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Talk to the expert</a>
+      </div>
+
+      <ul class="proof">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Fixed scope, published pricing</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>First build at zero risk</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>One person from question to production</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A one-week diagnostic to start</li>
+      </ul>
+    </div>
+
+    <div class="container hero-art" id="hero-art">
+      <svg class="agent-flow" viewBox="0 0 1000 448" role="img" aria-labelledby="af-title af-desc">
+        <title id="af-title">Files routed to the agent that knows the format</title>
+        <desc id="af-desc">Three files on the left travel to the agent that specialises in their format. Each agent returns usable output on the right, cited and verified.</desc>
+
+        <defs>
+          <linearGradient id="rail-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#1F4E79"/>
+            <stop offset="1" stop-color="#164E4A"/>
+          </linearGradient>
+        </defs>
+
+        <text class="lbl" x="0" y="26">YOUR FILES</text>
+        <text class="lbl" x="461" y="26" text-anchor="middle">SPECIALIZED AGENTS</text>
+        <text class="lbl" x="714" y="26">USABLE OUTPUT</text>
+
+        <g class="lane r1" transform="translate(0,120)">
+          <rect class="chip" x="0" y="-27" width="212" height="54" rx="6"/>
+          <g class="glyph"><rect x="16" y="-11" width="15" height="20" rx="2"/><path d="M21 -6h5M21 -2h5"/></g>
+          <text class="name" x="44" y="5">invoices_q2.xlsx</text>
+          <path class="rail-in" d="M212 0 C 260 -26, 310 26, 356 0"/>
+          <circle class="token-glow" r="11" cx="0" cy="0"/>
+          <circle class="token" r="5.5" cx="0" cy="0"/>
+          <circle class="ring" cx="461" cy="0" r="44"/>
+          <rect class="card" x="356" y="-34" width="210" height="68" rx="6"/>
+          <text class="node-lbl" x="461" y="5" text-anchor="middle">INVOICE AGENT</text>
+          <path class="rail-out" pathLength="100" d="M566 0 C 610 26, 660 -26, 700 0"/>
+          <g class="out">
+            <circle class="tick" cx="716" cy="0" r="9"/>
+            <path class="tick" d="M712 0l3 3l6 -6"/>
+            <text class="out-t" x="736" y="5">12 invoices matched to POs</text>
+          </g>
+        </g>
+
+        <g class="lane r2" transform="translate(0,240)">
+          <rect class="chip" x="0" y="-27" width="212" height="54" rx="6"/>
+          <g class="glyph"><rect x="16" y="-11" width="15" height="20" rx="2"/><path d="M21 -6h5M21 -2h5M21 2h3"/></g>
+          <text class="name" x="44" y="5">contract_2026.pdf</text>
+          <path class="rail-in" d="M212 0 C 260 -26, 310 26, 356 0"/>
+          <circle class="token-glow" r="11" cx="0" cy="0"/>
+          <circle class="token" r="5.5" cx="0" cy="0"/>
+          <circle class="ring" cx="461" cy="0" r="44"/>
+          <rect class="card" x="356" y="-34" width="210" height="68" rx="6"/>
+          <text class="node-lbl" x="461" y="5" text-anchor="middle">CONTRACT AGENT</text>
+          <path class="rail-out" pathLength="100" d="M566 0 C 610 26, 660 -26, 700 0"/>
+          <g class="out">
+            <circle class="tick" cx="716" cy="0" r="9"/>
+            <path class="tick" d="M712 0l3 3l6 -6"/>
+            <text class="out-t" x="736" y="5">3 renewal dates extracted</text>
+          </g>
+        </g>
+
+        <g class="lane r3" transform="translate(0,360)">
+          <rect class="chip" x="0" y="-27" width="212" height="54" rx="6"/>
+          <g class="glyph"><rect x="16" y="-11" width="15" height="20" rx="2"/><path d="M21 -6h5M21 -2h5M21 2h3"/></g>
+          <text class="name" x="44" y="5">manual_pumps.pdf</text>
+          <path class="rail-in" d="M212 0 C 260 -26, 310 26, 356 0"/>
+          <circle class="token-glow" r="11" cx="0" cy="0"/>
+          <circle class="token" r="5.5" cx="0" cy="0"/>
+          <circle class="ring" cx="461" cy="0" r="44"/>
+          <rect class="card" x="356" y="-34" width="210" height="68" rx="6"/>
+          <text class="node-lbl" x="461" y="5" text-anchor="middle">MANUAL AGENT</text>
+          <path class="rail-out" pathLength="100" d="M566 0 C 610 26, 660 -26, 700 0"/>
+          <g class="out">
+            <circle class="tick" cx="716" cy="0" r="9"/>
+            <path class="tick" d="M712 0l3 3l6 -6"/>
+            <text class="out-t" x="736" y="5">Torque spec, page 88, cited</text>
+          </g>
+        </g>
+      </svg>
+      <ul class="agent-list">
+        <li>
+          <span class="al-file">invoices_q2.xlsx</span>
+          <span class="al-agent">Invoice agent</span>
+          <span class="al-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>12 invoices matched to POs</span>
+        </li>
+        <li>
+          <span class="al-file">contract_2026.pdf</span>
+          <span class="al-agent">Contract agent</span>
+          <span class="al-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>3 renewal dates extracted</span>
+        </li>
+        <li>
+          <span class="al-file">manual_pumps.pdf</span>
+          <span class="al-agent">Manual agent</span>
+          <span class="al-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Torque spec, page 88, cited</span>
+        </li>
+      </ul>
     </div>
   </header>
-
   <section class="lede" aria-labelledby="lede-h">
     <div class="container">
       <p class="statement" id="lede-h">Most companies don't need &ldquo;AI transformation.&rdquo;</p>
@@ -484,7 +970,6 @@
       </ul>
     </div>
   </section>
-
   <section id="services" aria-labelledby="services-h">
     <div class="container">
       <div class="sec-head">
@@ -492,74 +977,160 @@
         <p>Four concrete offers. Fixed scope, clear pricing, fast delivery.</p>
       </div>
       <div class="offers">
-        <article class="offer offer-tinted span-7" data-reveal>
+        <article class="offer offer-tinted span-7" id="offer-audit" data-reveal>
           <span class="tag tag-start">Start here</span>
           <h3>AI / Data Readiness Audit</h3>
           <p>In five days we audit your data, identify the use cases that matter, and hand you a ranked roadmap. No commitment required.</p>
           <ul>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Data maturity score &amp; source inventory</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Top five use cases ranked by return</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A 30-day implementation roadmap</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A source inventory: every file, system and gap in one table</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Five use cases, ranked by return and by effort</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A 30-day roadmap you can start on Monday</li>
           </ul>
           <p class="price">Starts at <strong>&euro;5,000</strong> <span>&middot; 1 week</span></p>
         </article>
-
-        <article class="offer span-5" data-reveal style="--d:.06s">
+        <article class="offer span-5" id="offer-dashboard" data-reveal style="--d:.06s">
           <span class="tag tag-plain">Popular</span>
           <h3>Dashboard + AI Insights</h3>
           <p>Turn messy data into a clean dashboard that explains what changed, flags anomalies and answers questions.</p>
           <ul>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Data cleaning pipeline</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>KPI dashboard with AI summaries</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Natural-language questions over metrics</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A data pipeline you can rerun when the files change</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>The dashboard, live, on your own numbers</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Metric definitions written down, and a handover session</li>
           </ul>
           <p class="price">Starts at <strong>&euro;12,000</strong> <span>&middot; 2&ndash;6 weeks</span></p>
         </article>
-
-        <article class="offer span-6" data-reveal style="--d:.12s">
+        <article class="offer span-6" id="offer-files" data-reveal style="--d:.12s">
           <span class="tag tag-plain">Popular</span>
           <h3>File Q&amp;A Assistant</h3>
           <p>Upload your PDFs, manuals and reports. Your team asks questions and gets answers with the sources cited.</p>
           <ul>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Secure document ingestion</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Source-cited chat interface</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Admin panel and a 30-question evaluation set</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Your documents ingested, indexed and searchable</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>The assistant, citing a file and a page on every answer</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A 30-question evaluation set, scored, plus an admin guide</li>
           </ul>
           <p class="price">Starts at <strong>&euro;15,000</strong> <span>&middot; 2&ndash;4 weeks</span></p>
         </article>
-
-        <article class="offer offer-quiet span-6" data-reveal style="--d:.18s">
+        <article class="offer offer-quiet span-6" id="offer-agents" data-reveal style="--d:.18s">
           <span class="tag tag-plain">Advanced</span>
           <h3>Agent Automation</h3>
           <p>An agent that does the repetitive work inside your own tools: email triage, report generation, data entry, summaries.</p>
           <ul>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Workflow analysis &amp; design</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Prototype or production build</li>
-            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>Integration with existing tools</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A written map of the workflow as it really runs today</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A working prototype wired into the tools your team uses</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg>A runbook and a training session, so it survives without me</li>
           </ul>
           <p class="price">Tailored pricing <span>&middot; 3&ndash;8 weeks</span></p>
         </article>
       </div>
     </div>
   </section>
-
   <section id="ladder" class="band-ink" aria-labelledby="ladder-h">
     <div class="container">
       <div class="sec-head">
         <h2 id="ladder-h">The AI Readiness Ladder</h2>
-        <p>Where your business is today, and what the next step looks like.</p>
+        <p>Open the row that sounds like your week. Each one says what it is costing you and what the next step out of it is.</p>
       </div>
       <ol class="ladder" data-rise>
-        <li><span class="rung-n">1</span><div><h3>Data Chaos</h3><p>Files, spreadsheets and emails, with no structure and no single source of truth.</p></div></li>
-        <li><span class="rung-n">2</span><div><h3>Data Visibility</h3><p>Dashboards and KPIs bring clarity. You can see what is happening.</p></div></li>
-        <li><span class="rung-n">3</span><div><h3>Data Reliability</h3><p>Cleaned pipelines and defined metrics. Your numbers can be trusted.</p></div></li>
-        <li><span class="rung-n">4</span><div><h3>Predictive Intelligence</h3><p>Forecasts and anomaly detection. You can see what is likely to happen next.</p></div></li>
-        <li><span class="rung-n">5</span><div><h3>Knowledge Intelligence</h3><p>Language models over your documents and databases. Ask a question, get a sourced answer.</p></div></li>
-        <li><span class="rung-n">6</span><div><h3>Agentic Automation</h3><p>Agents run the workflow on their own, so your team gets its hours back.</p></div></li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">1</span>
+              <span><span class="rung-h">Data Chaos</span><span class="rung-p">Files, spreadsheets and emails, with no structure and no single source of truth.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>The same number lives in three files and nobody can say which one is right. Reporting is a person, not a system.</dd></div>
+                <div><dt>What it costs you</dt><dd>Most of a working week every month, spent assembling things you already own.</dd></div>
+              </dl>
+              <p class="rung-next">Start with the <a href="#offer-audit">AI / Data Readiness Audit</a> <span>&euro;5,000 &middot; 1 week</span></p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">2</span>
+              <span><span class="rung-h">Data Visibility</span><span class="rung-p">Dashboards and KPIs bring clarity. You can see what is happening.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>You can see last month, but only after somebody has rebuilt the report by hand.</dd></div>
+                <div><dt>What it costs you</dt><dd>Decisions arrive late, and nobody trusts the numbers enough to act on them.</dd></div>
+              </dl>
+              <p class="rung-next">The <a href="#offer-dashboard">Dashboard + AI Insights</a> build makes the numbers serve themselves <span>&euro;12,000</span></p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">3</span>
+              <span><span class="rung-h">Data Reliability</span><span class="rung-p">Cleaned pipelines and defined metrics. Your numbers can be trusted.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>The dashboard exists, but every meeting opens with an argument about the definition of a KPI.</dd></div>
+                <div><dt>What it costs you</dt><dd>You defend the numbers instead of using them, and that argument costs more than the data did.</dd></div>
+              </dl>
+              <p class="rung-next">Same build, different half: <a href="#offer-dashboard">Dashboard + AI Insights</a> writes the definitions down <span>&euro;12,000</span></p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">4</span>
+              <span><span class="rung-h">Predictive Intelligence</span><span class="rung-p">Forecasts and anomaly detection. You can see what is likely to happen next.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>You can see what happened, and you still find out about problems when a customer mentions them.</dd></div>
+                <div><dt>What it costs you</dt><dd>Every issue is discovered by the people who feel it first: customers, drivers, the warehouse.</dd></div>
+              </dl>
+              <p class="rung-next">Forecasting and anomaly flags on the same numbers: <a href="#offer-dashboard">Dashboard + AI Insights</a> <span>&euro;12,000</span></p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">5</span>
+              <span><span class="rung-h">Knowledge Intelligence</span><span class="rung-p">Language models over your documents and databases. Ask a question, get a sourced answer.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>Your manuals, policies and contracts are searchable by filename and by whoever has been there longest.</dd></div>
+                <div><dt>What it costs you</dt><dd>Answers live in one person's head, and every question interrupts them.</dd></div>
+              </dl>
+              <p class="rung-next">The <a href="#offer-files">File Q&amp;A Assistant</a> answers with the page it read <span>&euro;15,000</span></p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <details class="rung" name="rung">
+            <summary>
+              <span class="rung-n">6</span>
+              <span><span class="rung-h">Agentic Automation</span><span class="rung-p">Agents run the workflow on their own, so your team gets its hours back.</span></span>
+              <svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg>
+            </summary>
+            <div class="rung-body">
+              <dl class="rung-facts">
+                <div><dt>If this is you</dt><dd>Someone still copies between systems every morning, and the process only runs when they are at their desk.</dd></div>
+                <div><dt>What it costs you</dt><dd>The same hours, every week, plus the errors that come with doing it by hand.</dd></div>
+              </dl>
+              <p class="rung-next">Then it is <a href="#offer-agents">Agent Automation</a>, scoped after a diagnostic <span>Tailored</span></p>
+            </div>
+          </details>
+        </li>
       </ol>
+      <p class="ladder-note">Not sure which row you are? That is exactly what the one-week diagnostic is for. <a href="#contact">Talk to the expert</a></p>
     </div>
   </section>
-
   <section id="demos" aria-labelledby="demos-h">
     <div class="container">
       <div class="sec-head">
@@ -578,20 +1149,214 @@
             <a class="btn btn-primary" href="demo.html">View the dashboard</a>
           </div>
         </article>
-        <article class="demo-row demo-row-flip" data-reveal style="--d:.06s">
-          <div class="demo-panel" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8"/><path d="M8 13h6"/><path d="M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z"/></svg>
+        <article class="demo-row demo-row-stack" data-reveal style="--d:.06s">
+          <div class="chat-mock">
+            <div class="chat-bar">
+              <svg aria-hidden="true"><use href="#i-chat"/></svg>
+              <span class="chat-bar-t">Company documents</span>
+              <span class="chat-bar-m" aria-hidden="true">5 sets &middot; 52 files</span>
+            </div>
+            <div class="chat-body">
+              <div class="chat-side">
+                <p class="chat-side-h">Use cases</p>
+                <div class="chat-uses" role="radiogroup" aria-label="Example use cases">
+                  <label class="chat-use"><input class="chat-pick" type="radio" name="chatcase" id="cu-1" data-panel="#p1" checked><svg aria-hidden="true"><use href="#i-folder"/></svg><span class="chat-use-n">Supplier contracts</span><span class="chat-use-m">12 files</span></label>
+                  <label class="chat-use"><input class="chat-pick" type="radio" name="chatcase" id="cu-2" data-panel="#p2"><svg aria-hidden="true"><use href="#i-folder"/></svg><span class="chat-use-n">HR policies</span><span class="chat-use-m">9 files</span></label>
+                  <label class="chat-use"><input class="chat-pick" type="radio" name="chatcase" id="cu-3" data-panel="#p3"><svg aria-hidden="true"><use href="#i-folder"/></svg><span class="chat-use-n">Sales &amp; margin</span><span class="chat-use-m">5 files</span></label>
+                  <label class="chat-use"><input class="chat-pick" type="radio" name="chatcase" id="cu-4" data-panel="#p4"><svg aria-hidden="true"><use href="#i-folder"/></svg><span class="chat-use-n">Invoice register</span><span class="chat-use-m">4 files</span></label>
+                  <label class="chat-use"><input class="chat-pick" type="radio" name="chatcase" id="cu-5" data-panel="#p5"><svg aria-hidden="true"><use href="#i-folder"/></svg><span class="chat-use-n">Plant manuals</span><span class="chat-use-m">22 files</span></label>
+                </div>
+                <p class="chat-side-f">Indexed today</p>
+              </div>
+              <div class="chat-thread">
+                <div class="chat-panel p1" id="p1">
+                  <p class="chat-sys chat-step">Read all 12 files &middot; 340 pages</p>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Which suppliers are past their agreed payment terms this quarter?</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Reading the contracts">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">Two of them signed a 2026 addendum that changed their terms. Should I count those as late as well?</div>
+                  </div>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Yes, count them. Then draft a reminder for each one. Don't send anything yet.</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Searching the contracts">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">
+                      <p>Three suppliers are past their terms: <strong>47</strong>, <strong>31</strong> and <strong>12</strong> days over. The largest is invoice 88213, <strong>&euro;18,400</strong>.</p>
+                      <p class="cites">
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>contracts_2024_26.xlsx &middot; p.4</span>
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>payment_ledger.xlsx &middot; rows 118&ndash;140</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Drafting 3 reminders">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body msg-action">
+                      <p>Three reminders drafted and saved to /drafts.</p>
+                      <ul class="tasks">
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>All 12 files read and searched</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Payment ledger cross-checked</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>3 reminders drafted, none sent</span></li>
+                      </ul>
+                      <p class="msg-note">Waiting for your review</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-panel p2" id="p2">
+                  <p class="chat-sys chat-step">Read all 9 files &middot; 210 pages</p>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">How much parental leave do we offer in Germany, and how much in Spain?</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Comparing the two handbooks">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">
+                      <p>Germany: <strong>14 weeks</strong>, full pay for the first 8. Spain: <strong>16 weeks</strong>, full pay for the first 12. Both run from the birth date.</p>
+                      <p class="cites">
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>handbook_de_2026.pdf &middot; p.22</span>
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>handbook_es_2026.pdf &middot; p.19</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Put both side by side, then draft the reply to the Hamburg team.</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Building the comparison">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body msg-action">
+                      <p>Comparison ready. The reply is drafted and waiting for you.</p>
+                      <ul class="tasks">
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>9 policies read and compared</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>4 differences flagged for legal</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>1 reply drafted, none sent</span></li>
+                      </ul>
+                      <p class="msg-note">Drafted only, nothing sent</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-panel p3" id="p3">
+                  <p class="chat-sys chat-step">Read all 5 files &middot; 96 pages</p>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Which product lines lost margin last quarter?</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Checking the margin bridge">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">
+                      <p>Two. Installation services fell <strong>6.2</strong> points to 21.4%, and spare parts fell <strong>3.1</strong> points to 38.9%.</p>
+                      <p class="cites">
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>margin_report_q2.xlsx &middot; sheet 3</span>
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>sales_2026_h1.csv &middot; rows 44&ndash;96</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Add a chart to the board pack, and flag the two accounts that drove it.</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Building the chart">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body msg-action">
+                      <p>Chart added to the board pack draft. Both accounts flagged.</p>
+                      <ul class="tasks">
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>5 reports read</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Margin bridge rebuilt</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>1 chart added, not published</span></li>
+                      </ul>
+                      <p class="msg-note">Waiting for your review</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-panel p4" id="p4">
+                  <p class="chat-sys chat-step">Read all 4 files &middot; 1,180 rows</p>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Did we pay the same invoice twice this year?</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Matching invoice numbers">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">
+                      <p>Yes, twice. Invoice <strong>4417</strong> at &euro;2,340 and invoice <strong>5590</strong> at &euro;860, both paid in March from the same account.</p>
+                      <p class="cites">
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>invoice_register.xlsx &middot; rows 212, 388</span>
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>bank_export_q1.csv &middot; rows 90, 141</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Draft a credit note request for each, and don't send anything.</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Drafting 2 requests">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body msg-action">
+                      <p>Two credit note requests drafted, one per supplier.</p>
+                      <ul class="tasks">
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>1,180 rows matched on invoice number</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>2 duplicates confirmed against the bank export</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>2 requests drafted, none sent</span></li>
+                      </ul>
+                      <p class="msg-note">Waiting for your review</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-panel p5" id="p5">
+                  <p class="chat-sys chat-step">Read all 22 files &middot; 640 pages</p>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">What is the torque setting for pump P-12, and when was it last serviced?</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Searching the manuals">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body">
+                      <p><strong>42 Nm</strong> on the coupling bolts, re-torqued every 500 hours. Last service on 14 May: oil and seals replaced.</p>
+                      <p class="cites">
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>manual_pumps.pdf &middot; p.88</span>
+                        <span class="cite"><svg aria-hidden="true"><use href="#i-file"/></svg>maintenance_log_2026.xlsx &middot; row 61</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="msg msg-you chat-step">
+                    <p class="msg-who"><span class="av av-you" aria-hidden="true"><svg><use href="#i-user"/></svg></span>You</p>
+                    <div class="msg-body">Draft the service sheets for anything past 500 hours.</div>
+                  </div>
+                  <div class="msg msg-a chat-step" data-think="Checking the run hours">
+                    <p class="msg-who"><span class="av av-a" aria-hidden="true"><svg viewBox="30 20 175 175"><use href="#mark"/></svg></span>Briatti assistant</p>
+                    <div class="msg-body msg-action">
+                      <p>Two units are past their interval. Service sheets drafted.</p>
+                      <ul class="tasks">
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>22 manuals read</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Run hours checked against the log</span></li>
+                        <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>2 service sheets drafted, none issued</span></li>
+                      </ul>
+                      <p class="msg-note">Waiting for your review</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-typing" aria-hidden="true">
+                  <span class="chat-dot"></span><span class="chat-dot"></span><span class="chat-dot"></span>
+                  <span class="chat-typing-t">Searching the contracts</span>
+                </div>
+                <div class="chat-composer" aria-hidden="true">
+                  <span>Ask a question about these files&hellip;</span>
+                  <span class="chat-send"><svg><use href="#i-send"/></svg></span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="demo-copy">
             <h3>Chat With Your Files</h3>
-            <p>Upload documents and ask questions in plain language. Answers come back with the source cited, so every claim is traceable to a page.</p>
-            <p class="soon">In build &middot; not public yet</p>
+            <p>Upload documents and ask questions in plain language. Answers come back with the source cited, so every claim is traceable to a page. You can also hand the assistant a task: list what is overdue, draft the reminders, and stop before anything is sent.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
-
   <section id="process" aria-labelledby="process-h">
     <div class="container process-grid">
       <div class="process-head">
@@ -642,7 +1407,6 @@
       </ol>
     </div>
   </section>
-
   <section id="examples" aria-labelledby="examples-h">
     <div class="container">
       <div class="sec-head">
@@ -660,7 +1424,6 @@
           <p>A firm with hundreds of internal documents needed instant access to policies, reports and procedures. We built a secure assistant that answers with cited sources.</p>
           <p class="case-note">Anonymised example based on a real engagement</p>
         </article>
-
         <article class="case" data-reveal style="--d:.06s">
           <p class="case-dept">Business intelligence</p>
           <h3>A dashboard with AI-driven insight</h3>
@@ -671,7 +1434,6 @@
           <p>A company with scattered sales data needed visibility. We built a dashboard with automatic anomaly detection, forecasting and natural-language questions over the metrics.</p>
           <p class="case-note">Anonymised example based on a real engagement</p>
         </article>
-
         <article class="case case-wide" data-reveal style="--d:.12s">
           <p class="case-dept">AI readiness</p>
           <h3>A data audit and a 30-day roadmap</h3>
@@ -682,7 +1444,52 @@
       </div>
     </div>
   </section>
-
+  <!-- TODO: proof slot, deliberately empty. What belongs here, between the cases and
+       the FAQ: one named client and their words, or a "this is what the €5,000 audit
+       delivers" worked example built from a redacted one-pager. Anonymous percentages
+       read as decoration to the sceptical buyer this page is written for. -->
+  <section id="faq" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="sec-head">
+        <h2 id="faq-h">Straight answers</h2>
+        <p>What everyone asks before committing, answered the way we would answer it on the call.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>My data is a mess. Is that a problem?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>No, that is the normal starting point, and it is what the diagnostic is for. You do not need clean data to begin. You need to know which parts are usable, which are not, and which workflow is worth fixing first.</p>
+        </details>
+        <details>
+          <summary>How long until something is actually working?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>The diagnostic is one week. A first working build on your own data usually follows within two to six weeks, and you see it in iterations rather than one delivery at the end.</p>
+        </details>
+        <details>
+          <summary>What do you need from me?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>One person who knows where the data lives, and read access to the files or systems. Two hours a week, not a project team and not a steering committee.</p>
+        </details>
+        <details>
+          <summary>Who owns what you build?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>You do: the code, the pipeline, the documents, the definitions. It is handed over at the end with a runbook, written so the work does not quietly depend on me being available.</p>
+        </details>
+        <details>
+          <summary>Where does our data live, and who can see it?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>The technical proposal states where each part runs, in writing, before anything gets built, including which model provider sees what. Nothing is built until you have approved that.</p>
+        </details>
+        <details>
+          <summary>What if the pilot does not work out?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>You owe nothing. The first solution is built at no cost, and if you are not happy with it we stop there. That is the whole point of running it that way.</p>
+        </details>
+        <details>
+          <summary>Will you sign an NDA?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>Yes. Send yours and we will sign it before you send anything sensitive.</p>
+        </details>
+        <details>
+          <summary>We already have a data team. Do we still need you?<svg class="chev" aria-hidden="true"><use href="#i-chevron"/></svg></summary>
+          <p>Then you need less, and probably one specific piece: the models, the evaluation, or the integration. That is a normal outcome of the diagnostic, and a smaller engagement than the full build.</p>
+        </details>
+      </div>
+    </div>
+  </section>
   <section id="pilot" class="band-pilot" aria-labelledby="pilot-h">
     <div class="container">
       <p class="pill">Zero-Risk Pilot</p>
@@ -691,7 +1498,6 @@
       <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=Free%20Pilot">Claim the free pilot</a>
     </div>
   </section>
-
   <section id="about" aria-labelledby="about-h">
     <div class="container about-grid">
       <div>
@@ -718,38 +1524,175 @@
            inside the .about-grid once the photograph exists. -->
     </div>
   </section>
-
   <section id="contact" aria-labelledby="contact-h">
     <div class="container">
       <h2 id="contact-h">Let's talk</h2>
       <p>No pitch and no pressure. We will look at your data situation, tell you what is possible, and say honestly whether we can help.</p>
-      <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Book a diagnostic call</a>
+      <a class="btn btn-primary" href="mailto:roberto.arce@briatti.com?subject=AI%2FData%20Diagnostic%20Call">Talk to the expert</a>
       <p class="contact-alt">Or write directly: <a href="mailto:roberto.arce@briatti.com">roberto.arce@briatti.com</a></p>
+      <div class="next">
+        <p class="eyebrow">What happens next</p>
+        <ol class="next-steps">
+          <li><span>1</span>You write one paragraph about the problem, in your own words.</li>
+          <li><span>2</span>We take a 30-minute call and look at the data you actually have.</li>
+          <li><span>3</span>You get a fixed-price proposal within two working days, or an honest no.</li>
+        </ol>
+      </div>
     </div>
-  </section>
-
-</main>
-
-<footer>
+  </section></main><footer>
   <div class="container foot-inner">
     <div class="foot-brand">
       <svg viewBox="30 20 175 175" aria-hidden="true"><use href="#mark"/></svg>
       <span>Briatti</span>
     </div>
     <p>AI and data systems for messy business data &middot; <a href="mailto:roberto.arce@briatti.com">roberto.arce@briatti.com</a> &middot; &copy; 2026 Briatti</p>
-  </div>
-</footer>
-
-<script>
+  </div></footer><script>
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var items = document.querySelectorAll('[data-reveal], [data-rise]');
-
+    // chat mock: every transcript is already complete in the markup, so JS-off
+    // loses nothing. This plays the visible one back, then rotates to the next.
+    var mock = document.querySelector('.chat-mock');
+    var typing = mock ? mock.querySelector('.chat-typing') : null;
+    var thread = mock ? mock.querySelector('.chat-thread') : null;
+    var picks = mock ? Array.prototype.slice.call(mock.querySelectorAll('.chat-pick')) : [];
+    // the panels are switched by native radios, which need :has() in CSS
+    var hasTabs = !!(window.CSS && CSS.supports && CSS.supports('selector(:has(*))'));
+    var settleChat = function (panel) {
+      var all = (panel || mock || document).querySelectorAll('.chat-step');
+      for (var s = 0; s < all.length; s++) all[s].classList.add('is-in');
+      if (typing) typing.classList.remove('is-on');
+    };
+    if (reduce || !mock || !thread || !typing || !picks.length || !hasTabs || !('IntersectionObserver' in window)) {
+      settleChat();
+    } else {
+      var HOLD = 2000;
+    // gap after a conversation finishes playing
+      var SETTLED = 1200; // shorter wait for one that has already played
+      var held = 0;
+       // pointer or focus is inside the window
+      var inView = false;
+      var userPicked = false;
+      var autoPicking = false;
+      var timer = 0;
+      var placeTyping = function (after) {
+        var a = after.getBoundingClientRect();
+        var t = thread.getBoundingClientRect();
+        typing.style.transform = 'translateY(' + Math.round(a.bottom - t.top + 8) + 'px)';
+      };
+      // park the indicator where it first appears, so it never slides in from the top
+      var parkTyping = function (panel) {
+        var first = panel.querySelector('.chat-step[data-think]');
+        if (!first) return;
+        typing.style.transition = 'none';
+        placeTyping(first.previousElementSibling || first);
+        void typing.offsetWidth;
+        typing.style.transition = '';
+      };
+      var later = function (ms, fn) { window.setTimeout(fn, ms); };
+      // one pass per conversation: the assistant thinks before it speaks
+      var play = function (panel, done) {
+        if (!panel) return;
+        if (panel.getAttribute('data-played')) {
+          if (done) later(SETTLED, done);
+          return;
+        }
+        panel.setAttribute('data-played', '1');
+        parkTyping(panel);
+        var steps = panel.querySelectorAll('.chat-step');
+        var at = 200;
+        for (var i = 0; i < steps.length; i++) {
+          (function (step, before, when) {
+            var think = step.getAttribute('data-think');
+            if (think) {
+              later(when, function () {
+                typing.querySelector('.chat-typing-t').textContent = think;
+                placeTyping(before);
+                typing.classList.add('is-on');
+              });
+              when += 600;
+            }
+            later(when, function () {
+              if (think) { placeTyping(step); typing.classList.remove('is-on'); }
+              step.classList.add('is-in');
+            });
+          })(steps[i], steps[i - 1] || steps[i], at);
+          at += steps[i].getAttribute('data-think') ? 1000 : 400;
+        }
+        if (done) later(at + 400, done);
+      };
+      var panelFor = function (pick) {
+        return mock.querySelector(pick.getAttribute('data-panel'));
+      };
+      var current = mock.querySelector('.chat-pick:checked');
+      var stopAuto = function () {
+        userPicked = true;
+        window.clearTimeout(timer);
+      };
+      // play, then hand over to the next use case two seconds later
+      var show = function (panel) {
+        play(panel, function () {
+          if (!userPicked) scheduleAdvance(HOLD);
+        });
+      };
+      var advance = function () {
+        if (userPicked || !picks.length) return;
+        if (held || !inView) { scheduleAdvance(600); return; }
+        var next = picks[(picks.indexOf(current) + 1) % picks.length];
+        autoPicking = true;
+        next.checked = true;
+        next.dispatchEvent(new Event('change', { bubbles: true }));
+        autoPicking = false;
+      };
+      var scheduleAdvance = function (ms) {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(advance, ms);
+      };
+      for (var p = 0; p < picks.length; p++) {
+        picks[p].addEventListener('change', function () {
+          current = this;
+          if (!autoPicking) stopAuto();
+          show(panelFor(this));
+        });
+      }
+      // a pointer, a keyboard and the viewport all hold the rotation
+      mock.addEventListener('pointerenter', function () { held++; });
+      mock.addEventListener('pointerleave', function () { held = Math.max(0, held - 1); });
+      mock.addEventListener('focusin', function () { held++; });
+      mock.addEventListener('focusout', function () { held = Math.max(0, held - 1); });
+      var uses = mock.querySelector('.chat-uses');
+      if (uses) uses.addEventListener('click', stopAuto);
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+      }, { threshold: 0.1 }).observe(mock);
+      var chatIo = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        chatIo.unobserve(entries[0].target);
+        show(panelFor(current));
+      }, { rootMargin: '0px 0px -16% 0px', threshold: 0.25 });
+      chatIo.observe(thread);
+    }
+    // the hero diagram is the only other loop: it stops when it is off screen or the tab is hidden
+    var art = document.getElementById('hero-art');
+    if (art && 'IntersectionObserver' in window) {
+      var inView = false;
+      var visible = !document.hidden;
+      var settle = function () {
+        art.classList.toggle('is-still', !(inView && visible));
+      };
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        settle();
+      }, { threshold: 0 }).observe(art);
+      document.addEventListener('visibilitychange', function () {
+        visible = !document.hidden;
+        settle();
+      });
+    }
     if (reduce || !('IntersectionObserver' in window)) {
       for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
       return;
     }
-
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
@@ -757,9 +1700,7 @@
         io.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-
     for (var j = 0; j < items.length; j++) io.observe(items[j]);
-
     // counters: the final value is already in the markup, so JS-off loses nothing
     var counters = document.querySelectorAll('[data-count]');
     var cio = new IntersectionObserver(function (entries) {
@@ -781,7 +1722,6 @@
       });
     }, { threshold: 0.5 });
     for (var k = 0; k < counters.length; k++) cio.observe(counters[k]);
-
     // nav shadow appears once the page has scrolled past the hero top
     var sentinel = document.createElement('div');
     sentinel.setAttribute('aria-hidden', 'true');
@@ -790,7 +1730,4 @@
     new IntersectionObserver(function (entries) {
       document.getElementById('nav').classList.toggle('is-stuck', !entries[0].isIntersecting);
     }, { threshold: 1 }).observe(sentinel);
-  })();
-</script>
-</body>
-</html>
+  })();</script></body></html>
