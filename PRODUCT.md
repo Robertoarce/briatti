@@ -6,10 +6,12 @@ what the product is, who it is for, and what must not change without a deliberat
 ## What this is
 
 The marketing site for **Briatti**, a one-person AI and data consultancy. Static HTML served by
-GitHub Pages from `main`. No build step, no framework, no package manager. Two pages:
+GitHub Pages from `main`. No build step, no framework, no package manager. Four pages:
 
 - `index.html` - the landing page (the product)
 - `demo.html` - a working, self-contained executive dashboard demo the landing page links to
+- `legal.html` - who operates the site, what it does with your data, and the terms prices are on
+- `404.html` - the not-found page
 
 ## Who it is for
 
@@ -47,9 +49,13 @@ question to production system, by one accountable person.
 ## Hard constraints
 
 - Static hosting. Editing an HTML file must be the whole deployment.
-- No third-party runtime the site depends on. Fonts are the only external request.
+- Nothing is loaded from a third party. The typefaces (`fonts/`) and Chart.js (`vendor/`) are served
+  from this repository, so no visitor's IP address reaches anyone except the host. Google Fonts and
+  the jsDelivr CDN were removed for exactly that reason and must not come back.
 - The site must work with JavaScript disabled. JS may only enhance, never gate content.
 - Every page must be usable and legible from 320 px upward.
+- Anything a visitor could read as a measured result must be true or labelled illustrative. Case
+  study figures and product demos are examples, not client results, and the pages say so.
 
 ## History worth knowing
 

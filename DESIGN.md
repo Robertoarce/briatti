@@ -1,7 +1,9 @@
 # DESIGN.md
 
 The design system for briatti.com. Tokens here are the single source of truth; `index.html`
-declares them once in `:root` and nothing hardcodes a colour outside that block.
+declares them once in `:root` and nothing hardcodes a colour outside that block. `legal.html` and
+`404.html` reuse the same tokens (and the same self-hosted `@font-face` block) at a reduced scale,
+with no site navigation of their own.
 
 ## Design read
 

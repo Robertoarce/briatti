@@ -12,14 +12,54 @@
   <meta property="og:url" content="https://www.briatti.com/demo.html">
   <meta property="og:image" content="https://www.briatti.com/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Briatti — Executive Dashboard">
+  <meta name="twitter:description" content="A working executive dashboard: revenue forecasting, customer analytics, segment filtering and AI diagnostics.">
+  <meta name="twitter:image" content="https://www.briatti.com/img/og.png">
+  <meta name="twitter:image:alt" content="The Briatti executive dashboard, showing revenue, forecast confidence and an AI insight panel.">
+  <meta property="og:image:alt" content="The Briatti executive dashboard, showing revenue, forecast confidence and an AI insight panel.">
+  <meta property="og:site_name" content="Briatti">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="img/icon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <!-- Chart.js 4.4.7, MIT, served from this repository rather than a CDN: no third-party
+         request, and nothing on the page depends on another company staying online. -->
+  <script src="vendor/chart.umd.min.js"></script>
   <style>
+    /* Fonts are self-hosted, so the page makes no request to a third party. Both faces are
+       OFL: see fonts/LICENSES.md. */
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url(fonts/fraunces-var-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url(fonts/fraunces-var-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400 600;
+      font-display: swap;
+      src: url(fonts/inter-var-latin.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400 600;
+      font-display: swap;
+      src: url(fonts/inter-var-latin-ext.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
     :root {
       --bg: #F4F5F3; --card: #fff; --border: #E3E5E2; --border2: #D9DCD8;
       --text: #11181D; --text2: #4A5259; --text3: #63696F;
@@ -400,7 +440,7 @@
         <button class="sb-item" data-section="insights" onclick="setActiveSection('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Insights</span><span class="sb-badge">3</span></button>
         <button class="sb-item" data-section="reports" onclick="setActiveSection('reports')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Reports</span></button>
       </nav>
-      <div class="sb-footer"><a href="index.html" class="sb-back-link">Back to briatti.com</a></div>
+      <div class="sb-footer"><a href="index.html" class="sb-back-link">Back to briatti.com</a> &middot; <a href="legal.html" class="sb-back-link">Legal &amp; privacy</a></div>
     </aside>
 
     <!-- MAIN -->
