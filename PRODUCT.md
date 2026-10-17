@@ -40,6 +40,22 @@ undocumented data and no idea which workflow is worth automating first.
 Published prices are a commercial commitment. They live on the page and in structured data and
 must stay consistent between the two. Never invent or interpolate a price.
 
+### How a call to action works
+
+There is no form and no backend: every CTA is a `mailto:` to `roberto.arce@briatti.com`. Two
+consequences are load-bearing.
+
+- **A `mailto:` does nothing at all** on a machine with no mail handler, and gives no feedback either
+  way. So the address is also printed under each CTA as plain, selectable text, and a click copies it
+  to the clipboard and says so. That is progressive enhancement: with JS off the printed address is
+  still there.
+- **Each CTA carries its own subject**, `(hero)`, `(contact)` or `Free Pilot`, so an email says which
+  button produced it. There is no analytics on the site, by design, so the subject line is the only
+  measurement there is.
+
+Each link also pre-fills a body with three prompts (what is slow, where the data lives, what to build
+first). Keep them short: a long template reads like a form and defeats the point of an email.
+
 ## Voice
 
 Direct, plain, slightly blunt. Short declarative sentences. No hype, no AI mysticism, no
