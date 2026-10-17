@@ -3,7 +3,8 @@
 The design system for briatti.com. Tokens here are the single source of truth; `index.html`
 declares them once in `:root` and nothing hardcodes a colour outside that block. `legal.html` and
 `404.html` reuse the same tokens (and the same self-hosted `@font-face` block) at a reduced scale,
-with no site navigation of their own.
+with no site navigation of their own. Caveat is the one exception: it is declared only in
+`index.html`, because the hero lead is its only user.
 
 ## Design read
 
@@ -51,7 +52,8 @@ Rules:
 
 | Role | Family | Notes |
 | --- | --- | --- |
-| Display | Fraunces (`opsz` 9-144, `SOFT` 30) | `h1`, `h2`, and metric figures only |
+| Display | Fraunces (`opsz` 9-144, `SOFT` 30) | `h1`, `h2`, and metric figures |
+| Hand | Caveat 400-700 | the hero lead only |
 | Body / UI | Inter 400-600 | everything else |
 | Figures | Inter, `font-variant-numeric: tabular-nums` | counters and tables |
 
@@ -62,6 +64,14 @@ the diagram's column captions sit at 13px/700 in `--ink` rather than 11px/600 in
 
 Fraunces is restricted to display sizes on purpose. Set below ~20px it loses the optical sizing that
 makes it worth loading, and the page starts to look like every other LLM-redesigned site.
+
+**One hand-written face, briefed by the owner:** the hero lead (`Don't know where to start?`) is
+Caveat 600 at 25px in `--ink`. It is the only place on the page that speaks as the owner rather than
+as the interface, which is why it is allowed to break the two-face rule. Caveat runs small for its em
+and slants already, so 25px lands at roughly the optical size of 22px in Fraunces, and no italic or
+`opsz` is applied. It sits at the top of the fold, i.e. inside the hero's LCP region, so it is
+`font-display: swap` like the rest; the Latin subset is 75 KB and the Latin-ext subset is added only
+if a page ever needs those glyphs.
 
 **Accepted trade-off:** the Impeccable detector flags both faces as "overused" (Inter, Fraunces).
 That is recorded, not ignored. They stay because Fraunces and Inter were the incumbent brand choice
@@ -94,6 +104,10 @@ CSS transitions and animations only, plus one IntersectionObserver for reveals. 
 - The hero assembles once, on load: pill, each headline line, supporting line, actions, proof checks,
   then the diagram panel — a 0.05 s to 1.15 s stagger in total. That is the page's one authored
   entrance; every other section only reveals on entry.
+- The hero arrow draws itself as the actions land (`stroke-dashoffset` on a `pathLength="100"` path,
+  0.6 s for the shaft, then 0.34 s for the head), then nudges 4 px towards the button on a 2.8 s loop.
+  That loop is the one decorative cycle outside the hero diagram, kept because the button is the page's
+  only commercial action. Under reduced motion the arrow is drawn at full length and stopped.
 - Three blurred colour fields drift behind the hero on 22–32 s alternating cycles, with a dot grid
   fading out beneath them. Pure decoration: `prefers-reduced-motion` stops them dead.
 - The headline carries two rotators — the file noun (spreadsheets, contracts, manuals, ledgers) and the
@@ -138,7 +152,9 @@ Inline SVG icons only, drawn on a 24 px grid at 1.6 stroke, sized 20 px in body 
 anywhere: they render differently on every OS and read as filler. An icon used more than once is
 defined as a `<symbol>` in the existing defs block at the top of `<body>` and referenced with
 `<use>`; the logo mark and the chat mock's set follow that rule. Static brand artwork lives in
-`img/`. The hero diagram is the exception: it is inline in the page, because the page owns its loop
+`img/`. Two exceptions. The hero arrow is an annotation stroke, not an icon: 52 × 36 at 2 px, drawn
+to sit beside the hand-written lead, and `aria-hidden` because the button it points at is labelled
+already. And the hero diagram is inline in the page, because the page owns its loop
 (pausing it off screen), its reduced-motion still frame, and its labels as real text. Below 900 px
 that diagram is replaced by the same three examples as a list, because a diagram drawn on a 1000-unit
 grid scaled into a phone column puts its labels under the legibility floor.
