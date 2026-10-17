@@ -42,19 +42,30 @@ must stay consistent between the two. Never invent or interpolate a price.
 
 ### How a call to action works
 
-There is no form and no backend: every CTA is a `mailto:` to `roberto.arce@briatti.com`. Two
-consequences are load-bearing.
+The funnel is a form, and the form is the only thing on the page that talks to a server.
 
-- **A `mailto:` does nothing at all** on a machine with no mail handler, and gives no feedback either
-  way. So the address is also printed under each CTA as plain, selectable text, and a click copies it
-  to the clipboard and says so. That is progressive enhancement: with JS off the printed address is
-  still there.
-- **Each CTA carries its own subject**, `(hero)`, `(contact)` or `Free Pilot`, so an email says which
-  button produced it. There is no analytics on the site, by design, so the subject line is the only
-  measurement there is.
+- **One address, publicly: `contact@briatti.com`.** It is what the footer, the form relay, the
+  structured data and the legal page all use. `roberto.arce@briatti.com` still exists and still
+  receives mail, but it is not the address the site advertises.
+- **Both CTAs are anchors to `#contact`**, not `mailto:` links: the hero says "Request a callback"
+  and the pilot band says "Claim the free pilot". A `mailto:` fails silently on any machine with no
+  mail handler, which is common on desktop, so it must never be the only route.
+- **The form posts to FormSubmit** (`formsubmit.co/contact@briatti.com`), a relay that forwards the
+  message by email. With JS on, the script intercepts the submit, posts to the relay's `/ajax/`
+  endpoint and reports the result in the page; with JS off the plain POST still works and the visitor
+  lands on the relay's confirmation page.
+- **`_captcha` is `false` on purpose.** The relay's default is Google reCAPTCHA, which would load a
+  third-party script — the opposite of everything else on this site. Spam is handled by the `_honey`
+  honeypot field instead, plus the fact that the form has no publicly linked endpoint.
+- **`source` records which button sent them** ("Request a callback" or "Claim the free pilot"), set by
+  the script on click. There is no analytics by design, so this is the only funnel measurement there
+  is.
+- **A plain email fallback sits under each CTA**, and a click on it copies the address and says so.
+  That is progressive enhancement: with JS off the printed address is still there.
 
-Each link also pre-fills a body with three prompts (what is slow, where the data lives, what to build
-first). Keep them short: a long template reads like a form and defeats the point of an email.
+The first submission sends an activation email to `contact@briatti.com`. Until that link is clicked,
+the relay refuses submissions, and the form's error state tells the visitor to email instead — so
+watch for it the first time someone uses the form.
 
 ## Voice
 
@@ -67,7 +78,9 @@ question to production system, by one accountable person.
 - Static hosting. Editing an HTML file must be the whole deployment.
 - Nothing is loaded from a third party. The typefaces (`fonts/`) and Chart.js (`vendor/`) are served
   from this repository, so no visitor's IP address reaches anyone except the host. Google Fonts and
-  the jsDelivr CDN were removed for exactly that reason and must not come back.
+  the jsDelivr CDN were removed for exactly that reason and must not come back. There is one
+  deliberate exception, and it only fires when a visitor submits the form: that POST goes to the
+  FormSubmit relay. Nothing is fetched from a third party on load, and `legal.html` says so.
 - The site must work with JavaScript disabled. JS may only enhance, never gate content.
 - Every page must be usable and legible from 320 px upward.
 - Anything a visitor could read as a measured result must be true or labelled illustrative. Case

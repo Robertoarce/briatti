@@ -86,6 +86,11 @@ every measurement in this file. If the site is ever rebranded, change the face h
   may use it. No other radius, ever.
 - Borders do the work; shadows are a single soft, ink-tinted value used only for overlays.
 - No glow, no gradient text, no coloured blobs, no drop-shadow on cards at rest.
+- The contact form is the one input surface: fields sit on `--paper-2` inside a `--paper` card with
+  the shared `--r`, a `--line-2` hairline and a 2 px `--cobalt` focus ring with 1 px offset. Labels
+  stay above their field at 13 px/600; placeholders are not used, because a placeholder disappears
+  the moment someone types. Its status line is `role="status"` and `aria-live="polite"`, teal on
+  success, ink on failure — no new colour token is introduced for the error state.
 
 ## Motion
 
