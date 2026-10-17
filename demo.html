@@ -99,6 +99,10 @@
     .header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px 0; flex-shrink:0; }
     .h-left h1 { font-size:22px; font-weight:700; letter-spacing:-.03em; }
     .h-left .sub { font-size:13px; color:var(--text3); margin-top:2px; }
+    /* the figures on this page are invented. Saying so in the header, where it cannot be missed,
+       keeps the demo honest and matches how legal.html describes it. */
+    .demo-note { font-size:12px; line-height:1.45; color:var(--text2); margin-top:6px; max-width:54ch; }
+    .demo-note strong { color:var(--accent); font-weight:600; }
     .h-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
     .h-btn { display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--card); font-size:12px; font-weight:500; color:var(--text2); font-family:inherit; cursor:pointer; transition:all .15s; }
     .h-btn:hover { border-color:var(--border2); background:var(--hover); }
@@ -451,6 +455,7 @@
         <div class="h-left">
           <h1 id="pageTitle">Dashboard</h1>
           <div class="sub" id="pageSub">Executive business overview</div>
+          <p class="demo-note"><strong>Demo data.</strong> Every figure here is invented to show the interface. None of it is a client&rsquo;s results.</p>
         </div>
         <div class="h-right" id="headerControls"></div><button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       </header>
