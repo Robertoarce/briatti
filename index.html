@@ -929,9 +929,20 @@
     .case-figs dt { font-size: 11px; font-weight: 600; letter-spacing: .1em;
       text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
     .case > p { font-size: 15px; color: var(--ink-2); }
+    /* each case is told as three beats, so the beats are labelled rather than run together */
+    .case-steps { list-style: none; display: grid; gap: 18px; }
+    .case-steps li { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+    .case-steps .k {
+      display: block; font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px;
+    }
     .case-note { margin-top: auto; padding-top: 20px; font-size: 12px; color: var(--ink-3); }
     .case-wide { grid-column: span 2; }
     .case-wide .figure { font-size: clamp(24px, 3vw, 36px); line-height: 1.15; color: var(--cobalt); margin-bottom: 20px; }
+    /* the wide case has room to show the three beats side by side instead of one long line */
+    @media (min-width: 901px) {
+      .case-wide .case-steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    }
     /* ---------- objections ---------- */
     #faq { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .faq { max-width: 800px; }
@@ -1679,7 +1690,11 @@
             <div><dt>Less search time</dt><dd data-count="85" data-prefix="~" data-suffix="%">~85%</dd></div>
             <div><dt>Availability</dt><dd>24/7</dd></div>
           </dl>
-          <p>A firm with hundreds of internal documents needed instant access to policies, reports and procedures. We built a secure assistant that answers with cited sources.</p>
+          <ul class="case-steps">
+            <li><span class="k">The mess</span>Policies, procedures and reports sat in three places: a shared drive nobody fully trusted, an intranet last edited years ago, and people's inboxes. New starters asked the same twenty questions, and the answer depended on who they asked.</li>
+            <li><span class="k">What shipped</span>An assistant over the documents that answers in plain language and cites the file and page it read. Where the source files do not contain the answer, it says so instead of inventing one. It reads with the permissions the reader already has.</li>
+            <li><span class="k">What changed</span>"Where is that policy" became a link instead of a person. The same assistant now covers onboarding, so the newest hire can answer questions that used to travel up to whoever had been there longest.</li>
+          </ul>
           <p class="case-note">Illustrative example, not a client result</p>
         </article>
         <article class="case" data-reveal style="--d:.06s">
@@ -1689,14 +1704,22 @@
             <div><dt>Revenue at risk flagged</dt><dd data-count="48" data-prefix="&euro;" data-suffix="K/yr">&euro;48K/yr</dd></div>
             <div><dt>Growth identified</dt><dd data-count="12" data-prefix="+" data-suffix="%">+12%</dd></div>
           </dl>
-          <p>A company with scattered sales data needed visibility. We built a dashboard with automatic anomaly detection, forecasting and natural-language questions over the metrics.</p>
+          <ul class="case-steps">
+            <li><span class="k">The mess</span>Sales history lived in the accounting package, the pipeline in a spreadsheet one person maintained, and returns in a folder kept by hand. The monthly report took two days to assemble, and by the time it was ready the month had moved on.</li>
+            <li><span class="k">What shipped</span>One pipeline that cleans and joins the three sources, a dashboard on the six metrics that drive the month, and forecasting and anomaly detection over them. Every metric ships with a written definition, so two people reading the same number mean the same thing.</li>
+            <li><span class="k">What changed</span>The monthly meeting starts from the dashboard instead of from an argument about whose number is right. The first thing it surfaced was a discount pattern in one product line that nobody had spotted in the spreadsheet.</li>
+          </ul>
           <p class="case-note">Illustrative example, not a client result</p>
         </article>
         <article class="case case-wide" data-reveal style="--d:.12s">
           <p class="case-dept">AI readiness</p>
           <h3>A data audit and a 30-day roadmap</h3>
           <p class="figure">5 use cases identified, 2 quick wins</p>
-          <p>A growing company with a lot of AI enthusiasm and no clear direction needed a decision. In one week we audited the data sources, identified the use cases that were actually feasible, and delivered a prioritised roadmap.</p>
+          <ul class="case-steps">
+            <li><span class="k">The mess</span>Six ideas had been pitched by three different vendors. Everyone agreed that AI was urgent and nobody could say which of the six would pay for itself, in what order, or on top of which data.</li>
+            <li><span class="k">What shipped</span>A one-week audit: every source inventoried and scored for what it can actually support, each use case ranked on feasibility and value, and the two that could ship within weeks separated from the four that need plumbing first. The deliverable is a 30-day roadmap with owners and preconditions, not a deck.</li>
+            <li><span class="k">What changed</span>The question moved from "should we do AI" to a dated plan with two things shipping first. Each of the other four carries its precondition in writing, so the next conversation starts from the data rather than from the pitch.</li>
+          </ul>
           <p class="case-note">Illustrative example, not a client result</p>
         </article>
       </div>
