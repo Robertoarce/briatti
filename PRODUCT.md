@@ -57,6 +57,37 @@ question to production system, by one accountable person.
 - Anything a visitor could read as a measured result must be true or labelled illustrative. Case
   study figures and product demos are examples, not client results, and the pages say so.
 
+## Search and AI visibility
+
+Aligned with Google's *Optimizing your website for generative AI features* guide (last updated
+2026-07-10). That guide's position is that visibility in AI Overviews and AI Mode is still
+rank-driven SEO, so nothing on this site is written or marked up to target AI systems specifically.
+
+What is in place, and why it stays:
+
+- **Content first.** Priced offers, the Readiness Ladder, the process timeline, anonymised worked
+  examples and eight straight Q&A answers are the non-commodity material. They are the reason the
+  page can be quoted, not the metadata around them.
+- **Content is in the HTML**, never injected. The FAQ answers are in `<details>`, the case studies in
+  `<article>`, and no text is assembled by script, so a crawler that does not run JavaScript still
+  sees the whole page. JS only enhances.
+- **Structured data stays** (`Organization`, `Person`, `WebSite`, `WebPage`, `OfferCatalog`,
+  `FAQPage`). It is not required for AI features and there is no special AI schema; it earns its place
+  through ordinary rich results. Prices in it must match the page (see above).
+- **robots.txt allows** the general crawler and the named AI crawlers. Nothing here is private.
+- **Freshness fields must be bumped with the copy**: `sitemap.xml` `lastmod`, plus `dateModified` on
+  the `WebPage` node in the JSON-LD. A stale date is worse than no date.
+- **Fonts are preloaded** (`fraunces`, `inter`, `caveat`, latin subsets) because all three paint above
+  the fold; `crossorigin` is required or the preload is discarded and fetched twice.
+
+Deliberately not done, per the same guide: no `llms.txt` or other AI text files, no content
+"chunking" for machines, no rewriting copy around long-tail queries, no invented schema, and no
+pursuit of third-party "mentions". Those are listed in the guide as ineffective for Google Search.
+
+Owner-side actions that no commit can do: verify the property in Search Console, submit
+`sitemap.xml`, switch the site into Search generative AI features there, and watch the Generative AI
+performance report. A Google Business Profile is what surfaces the business in local answers.
+
 ## History worth knowing
 
 The site was built, redesigned, and partially reverted through mid-2026. `main` holds a deliberately

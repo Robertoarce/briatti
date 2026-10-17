@@ -25,6 +25,11 @@
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="img/icon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <!-- all three faces paint above the fold, so start them with the document rather than after
+       the inline stylesheet is parsed. crossorigin is required or the preload is not reused. -->
+  <link rel="preload" href="fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/caveat-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -88,7 +93,9 @@
       "about": {
         "@id": "https://www.briatti.com/#org"
       },
-      "inLanguage": "en"
+      "inLanguage": "en",
+      "datePublished": "2025-10-28",
+      "dateModified": "2026-10-17"
     },
     {
       "@type": "OfferCatalog",
