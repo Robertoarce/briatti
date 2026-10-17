@@ -64,8 +64,14 @@ The funnel is a form, and the form is the only thing on the page that talks to a
   That is progressive enhancement: with JS off the printed address is still there.
 
 The first submission sends an activation email to `contact@briatti.com`. Until that link is clicked,
-the relay refuses submissions, and the form's error state tells the visitor to email instead — so
-watch for it the first time someone uses the form.
+the relay refuses every submission, and the form's error state tells the visitor to email instead.
+
+Verified 2026-10-17 against the live endpoint: `POST https://formsubmit.co/ajax/contact@briatti.com`
+answers `200` with `{"success":"false","message":"This form needs Activation. …"}`. So the relay is
+reachable and speaking to the address; what is missing is the activation click. The response body is
+JSON even though its `Content-Type` says `text/html`, which is why the script parses the body and not
+the header. Once activated the same call should answer `{"success":"true"}`, and that is the one thing
+no local test can prove — run the form once from the deployed site and check the inbox.
 
 ## Voice
 
