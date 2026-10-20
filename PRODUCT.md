@@ -28,6 +28,17 @@ undocumented data and no idea which workflow is worth automating first.
 
 ## The commercial proposition
 
+**The practice is broader than the offers.** Briatti is an AI engineering practice, and the page
+frames it with three disciplines: **AI engineering** (models, pipelines, agents built to run in
+production), **automation** (workflows that stop consuming hours) and **optimisation** (process,
+model cost and performance, and commercial decisions). The four offers below are the way those
+disciplines are bought, not the limit of what the practice does. Optimisation is spelled out that way
+on purpose: it covers process, running cost and decisions, so no single reading is over-promised.
+
+The data is never the pitch. Documents, spreadsheets and messy files are ordinary inputs; the promise
+is what gets built on top of them. Copy that reduces Briatti to "we turn your PDFs into a dashboard"
+is off-brand and should be rewritten, not published.
+
 1. **AI / Data Readiness Audit** - entry offer, fixed price, 1 week. The wedge.
 2. **Dashboard + AI Insights** - the volume product.
 3. **File Q&A Assistant** - cited answers over company documents.
