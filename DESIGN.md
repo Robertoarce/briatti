@@ -9,17 +9,19 @@ with no site navigation of their own. Caveat is the one exception: it is declare
 ## Design read
 
 A B2B services landing page for sceptical SMB operators, in an editorial trust-first language,
-built with native CSS and SVG only. Dials: variance 6, motion 6, density 3.
+built with native CSS and SVG only. Dials: variance 6, motion 5, density 3.
 
 ## Palette - "Cobalt + Paper"
 
-Derived from the two brand assets that already existed: the logo mark (ink `#11181D` on `#FBFBFA`)
-and the data-flow artwork (cobalt / teal). This replaces the previous indigo `#6366f1`, which is the
-default accent of AI-generated landing pages and reads as generic.
+The brand board at `_source/img/qwenlogo.png` supplies ink `#111111`, cobalt `#1F4E79`, teal
+`#164E4A` and sand `#E6E1D8`. The owner keeps `#FBFBFA` for the paper (the logo plate) and the
+original cool neutrals; the board's `#FAF9F6` is not used. This replaces the previous indigo
+`#6366f1`, which is the default accent of AI-generated landing pages and reads as generic.
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#11181D` | Primary text, logo, dark band background |
+| `--ink` | `#111111` | Primary text, logo, dark band background |
+| `--ink-rgb` | `17,17,17` | Alpha helper for the dot grid and the two overlay shadows; not a second colour |
 | `--ink-2` | `#4A5259` | Secondary text |
 | `--ink-3` | `#63696F` | Labels, captions, meta. Held dark enough to clear 4.5:1 on `--paper-2`, not just on white |
 | `--paper` | `#FBFBFA` | Page background (the logo plate colour) |
@@ -31,22 +33,25 @@ default accent of AI-generated landing pages and reads as generic.
 | `--cobalt-deep` | `#16395A` | Accent hover/active |
 | `--cobalt-tint` | `#EBF0F5` | Accent-tinted surface |
 | `--cobalt-on-dark` | `#8FB4D4` | Accent that stays legible on `--ink` surfaces |
-| `--teal` | `#164E4A` | Secondary accent, outbound data |
-| `--teal-tint` | `#E8EFEC` | Assistants' answers in the chat mock, and nothing else |
+| `--teal` | `#164E4A` | Secondary accent, outbound data, the Zero-Risk Pilot band |
+| `--teal-tint` | `#E8EFEC` | Assistants' answers in the chat mock and the hero diagram panel |
 | `--line-teal` | `#D2E0D9` | Border on teal-tinted surfaces |
 | `--aud-1` … `--aud-5` | `#1F2F16` `#235789` `#F3A712` `#610345` `#A4B0F5` | The five audience chips in the lede, one per team, in order. Owner-supplied, used nowhere else |
-| `--sand` | `#E6E1D8` | Quiet rule/divider, artwork halo only |
+| `--sand` | `#E6E1D8` | Quiet rule/divider; the OG card's rule |
 
 Rules:
 
-- One accent (`--cobalt`) used identically in every section.
+- Cobalt is the action accent, used identically in every section. Teal is the data/background
+  accent: the hero diagram panel, the assistant bubbles and the Zero-Risk Pilot band.
 - The `--aud-*` chips are the one exception: five flat colours in the lede, supplied by the owner,
   used nowhere else, each paired with paper or ink text at 4.5:1 or better. They are labels, not accents.
-- Exactly one dark band per page (the Readiness Ladder). No section flips theme.
+- Two deep bands per page: the Readiness Ladder in `--ink` and the Zero-Risk Pilot in `--teal`.
+  No other section flips theme.
 - Warning/semantic colour is separate from brand colour. `demo.html` keeps a distinct amber for
   warnings; never reuse the brand accent to mean "attention".
-- Nothing outside this block hardcodes a colour. The only literal left in the file is the
-  `theme-color` meta value, which cannot reference a custom property.
+- Nothing outside this block hardcodes a brand colour. The `theme-color` meta value is the one
+  literal that cannot reference a custom property. The ladder's paper-on-ink alphas are the
+  `--paper` value, and the overlay shadows use `--ink-rgb`.
 
 ## Type
 
@@ -55,12 +60,15 @@ Rules:
 | Display | Fraunces (`opsz` 9-144, `SOFT` 30) | `h1`, `h2`, and metric figures |
 | Hand | Caveat 400-700 | the hero lead only |
 | Body / UI | Inter 400-600 | everything else |
-| Figures | Inter, `font-variant-numeric: tabular-nums` | counters and tables |
+| Figures | Inter, `font-variant-numeric: tabular-nums` | prices and tables. The illustrative case figures are Fraunces display |
 
 Scale (desktop): `h1` clamp(36px, 5.4vw, 62px) / 1.08 / -0.02em; `h2` clamp(25px, 3.1vw, 38px) /
-1.12; `h3` 17px/600 Inter; body 16px/1.7; small 14px; label 11px uppercase `.1em`. Two exceptions,
+1.12; `h3` 18px/600 Inter; body 16px/1.7; small 14px; label 11px uppercase `.1em`. Two exceptions,
 both briefed: the hero proof line sits at 15px/600 in `--ink` rather than 13.5px/500 in `--ink-2`, and
 the diagram's column captions sit at 13px/700 in `--ink` rather than 11px/600 in `--ink-3`.
+
+The hero's one coloured word, `work`, is roman Fraunces in `--cobalt` with a hand-drawn underline.
+Fraunces is loaded in roman only, so no italic is requested and no synthetic slant is produced.
 
 Fraunces is restricted to display sizes on purpose. Set below ~20px it loses the optical sizing that
 makes it worth loading, and the page starts to look like every other LLM-redesigned site.
@@ -85,6 +93,9 @@ every measurement in this file. If the site is ever rebranded, change the face h
   reserved for the message bubbles in the chat mock, which are speech, not surfaces; nothing else
   may use it. No other radius, ever.
 - Borders do the work; shadows are a single soft, ink-tinted value used only for overlays.
+- The hero panel is a `--teal-tint` card; the contact form is a paper card. Both use the shared
+  `--r` and a hairline; no shadow at rest. The only shadows are the sticky nav and the mobile menu
+  panel, both overlays.
 - No glow, no gradient text, no coloured blobs, no drop-shadow on cards at rest.
 - The contact form is the one input surface: fields sit on `--paper-2` inside a `--paper` card with
   the shared `--r`, a `--line-2` hairline and a 2 px `--cobalt` focus ring with 1 px offset. Labels
@@ -105,21 +116,19 @@ CSS transitions and animations only, plus one IntersectionObserver for reveals. 
 - Only `transform`, `opacity`, `offset-distance` and `stroke-dashoffset` animate.
 - Reveals fire once, on entry, with a 60 ms stagger.
 - Motivated only: hierarchy, sequence, feedback or state change. No decorative loops outside the
-  hero artwork.
-- The hero assembles once, on load: pill, each headline line, supporting line, actions, proof checks,
-  then the diagram panel — a 0.05 s to 1.15 s stagger in total. That is the page's one authored
-  entrance; every other section only reveals on entry.
+  hero artwork, the arrow nudge and the chat rotation.
+- The hero assembles once, on load: pill, each headline line, supporting line, actions and proof
+  checks — a 0.05 s to 1.15 s stagger. The diagram panel paints with the page; its lanes run when it
+  enters the viewport. That is the page's one authored entrance; every other section only reveals on
+  entry.
 - The hero arrow draws itself as the actions land (`stroke-dashoffset` on a `pathLength="100"` path,
   0.6 s for the shaft, then 0.34 s for the head), then nudges 4 px towards the button on a 2.8 s loop.
-  That loop is the one decorative cycle outside the hero diagram, kept because the button is the page's
-  only commercial action. Under reduced motion the arrow is drawn at full length and stopped.
-- Three blurred colour fields drift behind the hero on 22–32 s alternating cycles, with a dot grid
-  fading out beneath them. Pure decoration: `prefers-reduced-motion` stops them dead.
-- The headline carries two rotators — the file noun (spreadsheets, contracts, manuals, ledgers) and the
-  discipline (machine learning, business intelligence, deep learning, AI engineering), both 4 words on a
-  12 s cycle. A word is visible for its whole slot and leaves as the next arrives, so the sentence
-  never loses its noun. Every word stays in the DOM; the rotators are `aria-hidden` and a visually
-  hidden span carries the canonical phrase, and under reduced motion only the first word shows.
+  That loop is kept because the button is the page's only commercial action. Under reduced motion the
+  arrow is drawn at full length and stopped.
+- The headline is fixed: `We put AI engineering / to work on the business / you already run.` The one
+  coloured word, `work`, carries a hand-drawn underline that draws once after the line lands (1.1 s,
+  0.9 s delay) and does not loop. There is no rotating noun, no hidden canonical copy and no second
+  phrase for a crawler to concatenate.
 - The hero diagram runs a 10.5 s cycle and reads one lane at a time: the inbound rail marches, a token
   with a soft halo travels it, the agent's ring pulses, the outbound rail draws, the result pops in.
   Lanes 2 and 3 reuse the same keyframes with a different `animation-name`. Off screen, or in a hidden
@@ -128,16 +137,16 @@ CSS transitions and animations only, plus one IntersectionObserver for reveals. 
   seconds after that conversation finishes, and loops. Every line lives in the markup, so the playback
   is decoration: with JavaScript off, or under reduced motion, and before it scrolls into view, the
   transcript renders complete and static.
-- The rotation is the only thing on the page that moves without the visitor asking. It holds while
-  the pointer or keyboard focus is inside the window or the window is off screen, it stops for good
-  the moment the visitor chooses a use case, and it never starts under `prefers-reduced-motion`.
-  The typing dots are the only other looping animation, and they run only while visible.
+- The chat rotation, the arrow nudge and the hero diagram are the only loops that move without the
+  visitor asking. The use-case rotation holds while the pointer or keyboard focus is inside the
+  window or the window is off screen, it stops for good the moment the visitor chooses a use case,
+  and it never starts under `prefers-reduced-motion`. The typing dots run only while visible.
 - The use cases are switched with native radio inputs and `:has()`, not with script, so the switcher
   works with JavaScript disabled. Panels share one grid cell, so the window never changes height when
   the conversation changes; the swap is a 300 ms cross-fade, and the outgoing panel is
   `visibility: hidden` once it has faded, so it leaves the accessibility tree.
-- Under `prefers-reduced-motion: reduce`: every duration collapses, reveals render visible,
-  counters land on their final value, and the hero artwork presents a fully drawn still frame.
+- Under `prefers-reduced-motion: reduce`: every duration collapses, reveals render visible, the
+  accent underline is drawn at full length, and the hero artwork presents a fully drawn still frame.
 - `window.addEventListener('scroll', ...)` is banned. Use IntersectionObserver.
 
 ## Disclosure
@@ -156,13 +165,15 @@ CSS transitions and animations only, plus one IntersectionObserver for reveals. 
 Inline SVG icons only, drawn on a 24 px grid at 1.6 stroke, sized 20 px in body copy. No emoji
 anywhere: they render differently on every OS and read as filler. An icon used more than once is
 defined as a `<symbol>` in the existing defs block at the top of `<body>` and referenced with
-`<use>`; the logo mark and the chat mock's set follow that rule. Static brand artwork lives in
-`img/`. Two exceptions. The hero arrow is an annotation stroke, not an icon: 52 × 36 at 2 px, drawn
-to sit beside the hand-written lead, and `aria-hidden` because the button it points at is labelled
-already. And the hero diagram is inline in the page, because the page owns its loop
-(pausing it off screen), its reduced-motion still frame, and its labels as real text. Below 900 px
-that diagram is replaced by the same three examples as a list, because a diagram drawn on a 1000-unit
-grid scaled into a phone column puts its labels under the legibility floor.
+`<use>`; the chat mock's set follows that rule. The favicon (`img/favicon.svg`) is the canonical
+brand icon: the nav, footer, legal page, 404 page, OG card and `Organization` logo use it. The bare
+`#mark` symbol survives only in the chat avatar. Static brand artwork lives in `img/`. Two exceptions.
+The hero arrow is an annotation stroke, not an icon: 52 × 36 at 2 px, drawn to sit beside the
+hand-written lead, and `aria-hidden` because the button it points at is labelled already. And the
+hero diagram is inline in the page, because the page owns its loop (pausing it off screen), its
+reduced-motion still frame, and its labels as real text. Below 1024 px that diagram is replaced by
+the same three examples as a list, because a diagram drawn on a 1000-unit grid scaled into a narrow
+column puts its labels under the legibility floor.
 
 ## Accessibility floor
 

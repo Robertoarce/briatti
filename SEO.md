@@ -24,13 +24,11 @@ selectors that were bound to the old levels moved with them: `.chart-hdr`, `.ins
 
 Two caveats recorded rather than acted on:
 
-- **The hero h1 repeats itself to a crawler.** The rotating line holds four phrases
-  (`AI engineering`, `automation`, `optimisation`, `data engineering`) and hides a single `.vh` copy of
-  "AI engineering" from assistive technology. A crawler reads the whole run:
-  "We put AI engineering automation optimisation data engineering AI engineering to work on the
-  business you already run." One h1, every term on-topic, but repetitive. Left alone because the
-  alternatives are genuine service terms and changing it means restructuring the hero. Revisit only if
-  Search Console shows the page surfacing for the wrong phrase.
+- **The hero h1 is fixed.** The four-phrase rotator was removed on 2026-10-25. The h1 now reads
+  "We put AI engineering to work on the business you already run." once, so a crawler no longer
+  concatenates four phrases and the page has one stable title. The h1 still carries the primary
+  discipline (AI engineering); automation, optimisation and data engineering remain in the services
+  copy and the body.
 - **`demo.html` has a UI-shaped h1.** Its `h1` is the mock app's page title (`Dashboard`, rewritten by
   script as sections change), while the page's own title is in `<title>`. That is reasonable for a
   demo and is not worth diverging from the design.
@@ -116,3 +114,28 @@ the voice rules and the published-price commitments.
 - **Index state per URL:** Search Console URL Inspection.
 
 Until at least one of those exists, everything above is demand evidence without a scoreboard.
+
+## Baseline, recorded 2026-10-25
+
+Taken the day the property was created, so it is the starting line rather than a result.
+
+- **Property:** `https://www.briatti.com/` (URL prefix), verified 2026-10-25 through the HTML-file
+  method. The file is `google58cdbe91304840da.html` at the site root, committed as `51dc901`, and it
+  must stay in place or verification lapses. Owner account: `titorimus@gmail.com`.
+- **Sitemap:** `https://www.briatti.com/sitemap.xml` submitted 2026-10-25 10:11Z. Listed with
+  `errors: 0`, `warnings: 0`, `isPending: true`.
+- **Coverage at verification**, from URL Inspection:
+  - `/` — *Submitted and indexed*, last crawled 2026-10-18, `robotsTxtState: ALLOWED`,
+    Google-selected canonical equals the user-declared one.
+  - `/demo.html` — *Discovered, currently not indexed*.
+  - `/legal.html` — *URL is unknown to Google*.
+  Both unindexed pages were put into the priority crawl queue through *Request indexing* on the same
+  day, so their next state is Google's to decide, not ours.
+- **Performance:** Search Analytics for 2026-09-27 → 2026-10-24 returned **no rows** — the response
+  contained only `responseAggregationType: byProperty`. That is expected: Search Console only
+  accumulates data from the moment a property exists, and the UI still said "processing data, please
+  check again in a day or so".
+
+What to compare next time: clicks, impressions, average position and the query list for
+`https://www.briatti.com/`, plus whether `/demo.html` and `/legal.html` moved out of their current
+coverage states. Until roughly 2026-10-28 there is nothing meaningful to read.

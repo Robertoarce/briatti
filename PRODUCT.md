@@ -5,13 +5,22 @@ what the product is, who it is for, and what must not change without a deliberat
 
 ## What this is
 
-The marketing site for **Briatti**, a one-person AI and data consultancy. Static HTML served by
-GitHub Pages from `main`. No build step, no framework, no package manager. Four pages:
+The marketing site for **Briatti**, an AI and data consultancy. Static HTML served by
+GitHub Pages (the published content matches `site/merge` as of 2026-10-25; confirm the branch in the
+Pages settings). No build step, no framework, no package manager. Four pages:
 
 - `index.html` - the landing page (the product)
 - `demo.html` - a working, self-contained executive dashboard demo the landing page links to
 - `legal.html` - who operates the site, what it does with your data, and the terms prices are on
 - `404.html` - the not-found page
+
+## The brand board
+
+The palette and icon come from the board at `_source/img/qwenlogo.png` (kept out of the published
+site): ink `#111111`, cobalt `#1F4E79`, teal `#164E4A`, sand `#E6E1D8`. The owner keeps the logo
+plate `#FBFBFA` for the paper and the original cool neutrals; the board's `#FAF9F6` is not used.
+`img/favicon.svg` is the canonical icon: the nav, footer, legal page, 404 page, OG card and
+`Organization` logo all use it. The bare mark survives only in the chat avatar.
 
 ## Who it is for
 
@@ -58,9 +67,10 @@ The funnel is a form, and the form is the only thing on the page that talks to a
 - **One address, publicly: `contact@briatti.com`.** It is what the footer, the form relay, the
   structured data and the legal page all use. `roberto.arce@briatti.com` still exists and still
   receives mail, but it is not the address the site advertises.
-- **Both CTAs are anchors to `#contact`**, not `mailto:` links: the hero says "Request a callback"
-  and the pilot band says "Claim the free pilot". A `mailto:` fails silently on any machine with no
-  mail handler, which is common on desktop, so it must never be the only route.
+- **Every call to action is an anchor to `#contact`**, not a `mailto:` link: the hero says "Request
+  a callback", the nav and footer say "Contact", and the pilot band says "Claim the free pilot".
+  The nav is the persistent action; the dashboard demo is a normal link. A `mailto:` fails silently
+  on any machine with no mail handler, which is common on desktop, so it must never be the only route.
 - **The form posts to FormSubmit** (`formsubmit.co/contact@briatti.com`), a relay that forwards the
   message by email. With JS on, the script intercepts the submit, posts to the relay's `/ajax/`
   endpoint and reports the result in the page; with JS off the plain POST still works and the visitor
@@ -68,9 +78,9 @@ The funnel is a form, and the form is the only thing on the page that talks to a
 - **`_captcha` is `false` on purpose.** The relay's default is Google reCAPTCHA, which would load a
   third-party script — the opposite of everything else on this site. Spam is handled by the `_honey`
   honeypot field instead, plus the fact that the form has no publicly linked endpoint.
-- **`source` records which button sent them** ("Request a callback" or "Claim the free pilot"), set by
-  the script on click. There is no analytics by design, so this is the only funnel measurement there
-  is.
+- **`source` records which button sent them** ("Request a callback", "Claim the free pilot", or
+  "nav: Contact"/"footer: Contact"), set by the script on click. There is no analytics by design, so
+  this is the only funnel measurement there is.
 - **A plain email fallback sits under each CTA**, and a click on it copies the address and says so.
   That is progressive enhancement: with JS off the printed address is still there.
 
@@ -90,7 +100,11 @@ accepted on that date; whether they reach the inbox is the one thing only the ma
 
 Direct, plain, slightly blunt. Short declarative sentences. No hype, no AI mysticism, no
 "transformation" language. The founder's credibility is the asset: full-chain delivery from business
-question to production system, by one accountable person.
+question to production system, by one accountable team.
+
+The site speaks as **we**: Briatti is a company with future employees, not a solo practitioner.
+The founder is named in the About note and the legal operator line, but he does not narrate the
+marketing copy. The company voice is the point; the founder's accountability is still the asset.
 
 ## Hard constraints
 
@@ -103,7 +117,8 @@ question to production system, by one accountable person.
 - The site must work with JavaScript disabled. JS may only enhance, never gate content.
 - Every page must be usable and legible from 320 px upward.
 - Anything a visitor could read as a measured result must be true or labelled illustrative. Case
-  study figures and product demos are examples, not client results, and the pages say so.
+  study figures and product demos are examples, not client results; each case carries an
+  "Illustrative example" flag before its figures, and the pages say so.
 
 ## Search and AI visibility
 
@@ -147,3 +162,9 @@ and hover lifts, followed by three direct edits in the GitHub web editor. A sepa
 (`next-step`) holds a sharper diagnostic-first positioning, a process timeline, priced use-case
 cards and anonymised case studies. This merge takes the substance from `next-step` and the settled
 visual restraint from `main`.
+
+On 2026-10-25 the hero was brought back under that restraint: the four-phrase rotator, the blurred
+colour fields, the pulsing status dot, the gradient/faux-italic word and the floating hero panel were
+removed; the h1 is fixed; the nav CTA points at the form; the proof cards label their figures before
+showing them; the site speaks as "we" for the company; and the palette was aligned to the brand
+board.
