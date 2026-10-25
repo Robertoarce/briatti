@@ -74,15 +74,17 @@ The funnel is a form, and the form is the only thing on the page that talks to a
 - **A plain email fallback sits under each CTA**, and a click on it copies the address and says so.
   That is progressive enhancement: with JS off the printed address is still there.
 
-The first submission sends an activation email to `contact@briatti.com`. Until that link is clicked,
-the relay refuses every submission, and the form's error state tells the visitor to email instead.
+The relay is activated. Before that click it refused every submission, and the form's error state told
+the visitor to email instead.
 
-Verified 2026-10-17 against the live endpoint: `POST https://formsubmit.co/ajax/contact@briatti.com`
-answers `200` with `{"success":"false","message":"This form needs Activation. …"}`. So the relay is
-reachable and speaking to the address; what is missing is the activation click. The response body is
-JSON even though its `Content-Type` says `text/html`, which is why the script parses the body and not
-the header. Once activated the same call should answer `{"success":"true"}`, and that is the one thing
-no local test can prove — run the form once from the deployed site and check the inbox.
+Verified 2026-10-20 against the live endpoint: `POST https://formsubmit.co/ajax/contact@briatti.com`
+with `Origin` and `Referer: https://www.briatti.com/` answers `200` with
+`{"success":"true","message":"The form was submitted successfully."}`, and the plain POST returns the
+relay's "Thanks!" page with a return link to the site. A call that carries no `Referer` is refused with
+"Make sure you open this page through a web server…" — that is the relay's origin heuristic, not a fault
+at this end, and a browser always sends one. The response body is JSON even though its `Content-Type`
+says `text/html`, which is why the script parses the body and not the header. Two test submissions were
+accepted on that date; whether they reach the inbox is the one thing only the mailbox can show.
 
 ## Voice
 
@@ -129,6 +131,9 @@ What is in place, and why it stays:
 Deliberately not done, per the same guide: no `llms.txt` or other AI text files, no content
 "chunking" for machines, no rewriting copy around long-tail queries, no invented schema, and no
 pursuit of third-party "mentions". Those are listed in the guide as ineffective for Google Search.
+
+The evidence behind those choices — heading structure per page, crawler access, and the keyword demand
+data with its caveats — is in `SEO.md`.
 
 Owner-side actions that no commit can do: verify the property in Search Console, submit
 `sitemap.xml`, switch the site into Search generative AI features there, and watch the Generative AI

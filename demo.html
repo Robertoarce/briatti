@@ -200,7 +200,7 @@
     .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; min-height:200px; }
     .chart-card:hover { box-shadow:var(--shadow-sm); }
     .chart-hdr { display:flex; align-items:center; justify-content:space-between; padding:14px 18px 0; gap:12px; flex-wrap:wrap; }
-    .chart-hdr h3 { font-size:14px; font-weight:600; }
+    .chart-hdr h2 { font-size:14px; font-weight:600; }
     .chart-hdr .legend { display:flex; gap:14px; }
     .chart-hdr .legend span { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text3); font-weight:500; }
     .chart-hdr .legend span::before { content:''; width:8px; height:3px; border-radius:2px; }
@@ -214,7 +214,7 @@
 
     .insights-panel { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; overflow:hidden; }
     .insights-hdr { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
-    .insights-hdr h3 { font-size:14px; font-weight:600; }
+    .insights-hdr h2 { font-size:14px; font-weight:600; }
     .insights-hdr span { font-size:11px; color:var(--text3); font-weight:500; background:var(--hover); padding:2px 8px; border-radius:100px; }
     .insights-scroll { flex:1; overflow-y:auto; padding:8px 14px; }
     .insights-scroll::-webkit-scrollbar { width:3px; }
@@ -255,7 +255,7 @@
     .diag-card .dc-change.down { color:var(--red); }
     .diag-side { display:flex; flex-direction:column; gap:8px; }
     .diag-side-card { background:var(--hover); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; }
-    .diag-side-card h4 { font-size:12px; font-weight:600; color:var(--text2); margin-bottom:8px; }
+    .diag-side-card h3 { font-size:12px; font-weight:600; color:var(--text2); margin-bottom:8px; }
     .diag-side-card .sc-row { display:flex; justify-content:space-between; padding:4px 0; font-size:12px; }
     .diag-side-card .sc-row .scl { color:var(--text3); }
     .diag-side-card .sc-row .scr { font-weight:600; color:var(--text); }
@@ -273,7 +273,7 @@
     .report-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .report-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; transition:all .2s; }
     .report-card:hover { border-color:var(--border2); box-shadow:var(--shadow-sm); }
-    .report-card h4 { font-size:14px; font-weight:600; margin-bottom:4px; }
+    .report-card h3 { font-size:14px; font-weight:600; margin-bottom:4px; }
     .report-card p { font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:12px; }
     .report-card .rc-btn { padding:6px 16px; border-radius:var(--radius-sm); font-size:11px; font-weight:600; font-family:inherit; cursor:pointer; transition:all .15s; border:1px solid var(--border); background:var(--card); color:var(--text2); }
     .report-card .rc-btn:hover { border-color:var(--accent); color:var(--accent); }
@@ -340,13 +340,13 @@
       .main-analytics { grid-template-columns:1fr; min-height:300px; gap:12px; }
       .chart-card { min-height:180px; }
       .chart-hdr { padding:12px 14px 0; }
-      .chart-hdr h3 { font-size:13px; }
+      .chart-hdr h2 { font-size:13px; }
       .chart-hdr .legend { gap:8px; }
       .chart-body { padding:4px 8px 0; }
       .chart-annotation { bottom:12px; right:12px; font-size:11px; padding:4px 8px; }
       .insights-panel { max-height:200px; }
       .insights-hdr { padding:12px 14px; }
-      .insights-hdr h3 { font-size:13px; }
+      .insights-hdr h2 { font-size:13px; }
       .insights-scroll { padding:6px 10px; }
       .iitem { padding:8px 10px; }
       .diag-grid { grid-template-columns:1fr; gap:10px; }
@@ -409,7 +409,7 @@
       .seg-btn { padding:4px 9px; font-size:11px; }
       .bottom-sect .seg-control { justify-content:center; }
       .report-card { padding:12px; }
-      .report-card h4 { font-size:13px; }
+      .report-card h3 { font-size:13px; }
       .report-card p { font-size:11px; }
       .sidebar { width:100%; max-width:260px; }
       .h-btn-wrap .dp-popup { width:240px; }
@@ -479,8 +479,8 @@
             <div class="di-card"><div class="di-icon green"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7" /> <path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3" /> <path d="M9.7 17l4.6 0" /></svg></div><div class="di-body"><div class="di-label">Recommended Action</div><div class="di-value" style="color:var(--green)">Launch Premium Tier</div><div class="di-sub">€249/mo — 12 accounts pre-interested</div></div><span class="di-tag good">High impact</span></div>
           </section>
           <section aria-label="Main analytics" class="main-analytics">
-            <div class="chart-card"><div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div><div class="chart-body"><canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas><div class="chart-annotation"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M4 19l16 0" /> <path d="M4 15l4 -6l4 2l4 -5l4 4" /></svg> <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div></div></div>
-            <div class="insights-panel"><div class="insights-hdr"><h3>AI Insights</h3><span>Updated 2m ago</span></div><div class="insights-scroll">
+            <div class="chart-card"><div class="chart-hdr"><h2>Revenue &amp; Forecast</h2><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div><div class="chart-body"><canvas id="mainChart" aria-label="Revenue and forecast chart" role="img"></canvas><div class="chart-annotation"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M4 19l16 0" /> <path d="M4 15l4 -6l4 2l4 -5l4 4" /></svg> <strong>+22.3%</strong> YoY · Forecast peak: <strong>€348K</strong></div></div></div>
+            <div class="insights-panel"><div class="insights-hdr"><h2>AI Insights</h2><span>Updated 2m ago</span></div><div class="insights-scroll">
               <div class="isect"><div class="isect-title">Opportunities</div>
                 <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Premium tier launch</span></div><div class="ii-desc">Revenue ceiling can be broken with a €249/mo enterprise plan.</div><div class="ii-foot green">Impact: +€48K/yr</div></div>
                 <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Content channel scaling</span></div><div class="ii-desc">Content CAC is 30% lower than social — reallocation could save 12%.</div><div class="ii-foot green">Impact: −€5 CAC</div></div></div>
@@ -500,10 +500,10 @@
               <button class="seg-btn" role="tab" aria-selected="false" onclick="setDiagTab('retention')">Retention</button>
               <button class="seg-btn" role="tab" aria-selected="false" onclick="setDiagTab('channels')">Channels</button>
             </div>
-            <div class="diag-pane" data-diag="revenue"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Gross Revenue</div><div class="dc-value blue">€284,650</div><div class="dc-change up">↑ 12.3% vs Sep</div></div><div class="diag-card"><div class="dc-label">Gross Margin</div><div class="dc-value green">60%</div><div class="dc-change up">+2.1pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Net Profit</div><div class="dc-value green">€102,474</div><div class="dc-change up">↑ 15.7% vs Sep</div></div><div class="diag-card"><div class="dc-label">Nov Forecast</div><div class="dc-value blue">€312K</div><div class="dc-change up">+9.6% vs Oct</div></div></div><div class="diag-side"><div class="diag-side-card"><h4>Cost Breakdown</h4><div class="sc-row"><span class="scl">COGS</span><span class="scr" style="color:var(--red)">€113,860</span></div><div class="sc-row"><span class="scl">Operating Costs</span><span class="scr" style="color:var(--orange)">€68,316</span></div><div class="sc-total"><span class="scl">Total Costs</span><span class="scr">€182,176</span></div></div></div></div></div>
-            <div class="diag-pane hidden" data-diag="customers"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Active Customers</div><div class="dc-value">1,847</div><div class="dc-change up">↑ 8.1% vs Sep</div></div><div class="diag-card"><div class="dc-label">New Customers</div><div class="dc-value green">+206</div><div class="dc-change up">+12% vs Sep</div></div><div class="diag-card"><div class="dc-label">Churned Customers</div><div class="dc-value red">−68</div><div class="dc-change down">−5.2% vs Sep</div></div><div class="diag-card"><div class="dc-label">Net Growth</div><div class="dc-value green">+138</div><div class="dc-change up">+7.4% vs Sep</div></div></div><div class="diag-side"><div class="diag-side-card"><h4>Customer Mix</h4><div class="sc-row"><span class="scl">Enterprise</span><span class="scr">48%</span></div><div class="sc-row"><span class="scl">SMB</span><span class="scr">34%</span></div><div class="sc-row"><span class="scl">Individual</span><span class="scr">18%</span></div></div></div></div></div>
-            <div class="diag-pane hidden" data-diag="retention"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Retention Rate</div><div class="dc-value green">95.8%</div><div class="dc-change up">+0.6pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Churn Rate</div><div class="dc-value red">4.2%</div><div class="dc-change down">−0.8pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Customer LTV</div><div class="dc-value">€2,840</div><div class="dc-change up">+12.1% YoY</div></div><div class="diag-card"><div class="dc-label">Revenue at Risk</div><div class="dc-value red">€48K/yr</div><div class="dc-change down">From churn</div></div></div><div class="diag-side"><div class="diag-side-card"><h4>Churn Breakdown</h4><div class="sc-row"><span class="scl">SMB Monthly</span><span class="scr" style="color:var(--red)">7.2%</span></div><div class="sc-row"><span class="scl">Enterprise</span><span class="scr" style="color:var(--green)">2.1%</span></div><div class="sc-row"><span class="scl">Annual Plans</span><span class="scr" style="color:var(--green)">1.4%</span></div></div></div></div></div>
-            <div class="diag-pane hidden" data-diag="channels"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">CAC</div><div class="dc-value orange">€42</div><div class="dc-change down">+14% vs Sep</div></div><div class="diag-card"><div class="dc-label">Organic CAC</div><div class="dc-value green">€31</div><div class="dc-change up">−6% vs Sep</div></div><div class="diag-card"><div class="dc-label">Paid CAC</div><div class="dc-value red">€58</div><div class="dc-change down">+18% vs Sep</div></div><div class="diag-card"><div class="dc-label">LTV:CAC Ratio</div><div class="dc-value">67.6x</div><div class="dc-change up">Healthy</div></div></div><div class="diag-side"><div class="diag-side-card"><h4>Channel Efficiency</h4><div class="sc-row"><span class="scl">Organic</span><span class="scr" style="color:var(--green)">Best</span></div><div class="sc-row"><span class="scl">Content</span><span class="scr" style="color:var(--green)">Improving</span></div><div class="sc-row"><span class="scl">Social Ads</span><span class="scr" style="color:var(--red)">Needs review</span></div></div></div></div></div>
+            <div class="diag-pane" data-diag="revenue"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Gross Revenue</div><div class="dc-value blue">€284,650</div><div class="dc-change up">↑ 12.3% vs Sep</div></div><div class="diag-card"><div class="dc-label">Gross Margin</div><div class="dc-value green">60%</div><div class="dc-change up">+2.1pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Net Profit</div><div class="dc-value green">€102,474</div><div class="dc-change up">↑ 15.7% vs Sep</div></div><div class="diag-card"><div class="dc-label">Nov Forecast</div><div class="dc-value blue">€312K</div><div class="dc-change up">+9.6% vs Oct</div></div></div><div class="diag-side"><div class="diag-side-card"><h3>Cost Breakdown</h3><div class="sc-row"><span class="scl">COGS</span><span class="scr" style="color:var(--red)">€113,860</span></div><div class="sc-row"><span class="scl">Operating Costs</span><span class="scr" style="color:var(--orange)">€68,316</span></div><div class="sc-total"><span class="scl">Total Costs</span><span class="scr">€182,176</span></div></div></div></div></div>
+            <div class="diag-pane hidden" data-diag="customers"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Active Customers</div><div class="dc-value">1,847</div><div class="dc-change up">↑ 8.1% vs Sep</div></div><div class="diag-card"><div class="dc-label">New Customers</div><div class="dc-value green">+206</div><div class="dc-change up">+12% vs Sep</div></div><div class="diag-card"><div class="dc-label">Churned Customers</div><div class="dc-value red">−68</div><div class="dc-change down">−5.2% vs Sep</div></div><div class="diag-card"><div class="dc-label">Net Growth</div><div class="dc-value green">+138</div><div class="dc-change up">+7.4% vs Sep</div></div></div><div class="diag-side"><div class="diag-side-card"><h3>Customer Mix</h3><div class="sc-row"><span class="scl">Enterprise</span><span class="scr">48%</span></div><div class="sc-row"><span class="scl">SMB</span><span class="scr">34%</span></div><div class="sc-row"><span class="scl">Individual</span><span class="scr">18%</span></div></div></div></div></div>
+            <div class="diag-pane hidden" data-diag="retention"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">Retention Rate</div><div class="dc-value green">95.8%</div><div class="dc-change up">+0.6pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Churn Rate</div><div class="dc-value red">4.2%</div><div class="dc-change down">−0.8pp vs Sep</div></div><div class="diag-card"><div class="dc-label">Customer LTV</div><div class="dc-value">€2,840</div><div class="dc-change up">+12.1% YoY</div></div><div class="diag-card"><div class="dc-label">Revenue at Risk</div><div class="dc-value red">€48K/yr</div><div class="dc-change down">From churn</div></div></div><div class="diag-side"><div class="diag-side-card"><h3>Churn Breakdown</h3><div class="sc-row"><span class="scl">SMB Monthly</span><span class="scr" style="color:var(--red)">7.2%</span></div><div class="sc-row"><span class="scl">Enterprise</span><span class="scr" style="color:var(--green)">2.1%</span></div><div class="sc-row"><span class="scl">Annual Plans</span><span class="scr" style="color:var(--green)">1.4%</span></div></div></div></div></div>
+            <div class="diag-pane hidden" data-diag="channels"><div class="diag-grid"><div class="diag-cards"><div class="diag-card"><div class="dc-label">CAC</div><div class="dc-value orange">€42</div><div class="dc-change down">+14% vs Sep</div></div><div class="diag-card"><div class="dc-label">Organic CAC</div><div class="dc-value green">€31</div><div class="dc-change up">−6% vs Sep</div></div><div class="diag-card"><div class="dc-label">Paid CAC</div><div class="dc-value red">€58</div><div class="dc-change down">+18% vs Sep</div></div><div class="diag-card"><div class="dc-label">LTV:CAC Ratio</div><div class="dc-value">67.6x</div><div class="dc-change up">Healthy</div></div></div><div class="diag-side"><div class="diag-side-card"><h3>Channel Efficiency</h3><div class="sc-row"><span class="scl">Organic</span><span class="scr" style="color:var(--green)">Best</span></div><div class="sc-row"><span class="scl">Content</span><span class="scr" style="color:var(--green)">Improving</span></div><div class="sc-row"><span class="scl">Social Ads</span><span class="scr" style="color:var(--red)">Needs review</span></div></div></div></div></div>
           </section>
         </div>
 
@@ -516,7 +516,7 @@
             <div class="kpi-card churn"><div class="kpi-top"><span class="kpi-label">Churn Rate</span><span class="kpi-note good">Below 5% target</span></div><div class="kpi-value lg churn">4.2%</div><div class="kpi-bottom"><span class="kpi-change down">↓ 0.8pp MoM</span><span style="font-size:12px;color:var(--text3)">Best rate all year</span></div></div>
           </section>
           <div class="kpi-layout" style="display:grid;grid-template-columns:1fr 260px;gap:16px;flex:1">
-            <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h3>KPI Performance</h3></div>
+            <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h2>KPI Performance</h2></div>
               <div style="padding:4px 0"><table style="width:100%;border-collapse:collapse;font-size:13px">
                 <thead><tr style="border-bottom:1px solid var(--border);color:var(--text3);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em"><th style="text-align:left;padding:10px 14px">Metric</th><th style="text-align:right;padding:10px 14px">Current</th><th style="text-align:right;padding:10px 14px">Previous</th><th style="text-align:right;padding:10px 14px">Change</th><th style="text-align:center;padding:10px 14px">Status</th><th style="text-align:left;padding:10px 14px">Owner</th></tr></thead>
                 <tbody>
@@ -527,7 +527,7 @@
                   <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px;font-weight:500">CAC</td><td style="padding:10px 14px;text-align:right;font-weight:600">€42</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">€37</td><td style="padding:10px 14px;text-align:right;color:var(--red);font-weight:500">+14%</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--red-light);color:var(--red);font-weight:500">Risk</span></td><td style="padding:10px 14px;color:var(--text2)">Marketing</td></tr>
                   <tr><td style="padding:10px 14px;font-weight:500">Retention Rate</td><td style="padding:10px 14px;text-align:right;font-weight:600">95.8%</td><td style="padding:10px 14px;text-align:right;color:var(--text3)">95.2%</td><td style="padding:10px 14px;text-align:right;color:var(--green);font-weight:500">+0.6pp</td><td style="padding:10px 14px;text-align:center"><span style="font-size:11px;padding:1px 8px;border-radius:100px;background:var(--green-light);color:var(--green);font-weight:500">Healthy</span></td><td style="padding:10px 14px;color:var(--text2)">Customer Success</td></tr>
                 </tbody></table></div></div>
-            <div class="diag-side-card" style="background:var(--hover);border:1px solid var(--border);padding:16px"><h4 style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px">Key KPI Notes</h4>
+            <div class="diag-side-card" style="background:var(--hover);border:1px solid var(--border);padding:16px"><h3 style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px">Key KPI Notes</h3>
               <div style="display:flex;flex-direction:column;gap:10px">
                 <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--green);font-weight:600"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M5 12l5 5l10 -10" /></svg></span> Revenue and profit remain above target. Growth trajectory is strong across both metrics.</div>
                 <div style="font-size:12px;color:var(--text2);line-height:1.5;padding:8px 10px;background:var(--card);border-radius:var(--radius-sm);border:1px solid var(--border)"><span style="color:var(--red);font-weight:600"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/> <path d="M12 9v4" /> <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /> <path d="M12 16h.01" /></svg></span> CAC is rising and requires marketing channel review. Social ad spend is the primary driver.</div>
@@ -556,7 +556,7 @@
             </div>
           </div>
           <div class="chart-card" style="flex:1;min-height:280px">
-            <div class="chart-hdr"><h3>Revenue &amp; Forecast</h3><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div>
+            <div class="chart-hdr"><h2>Revenue &amp; Forecast</h2><div class="legend"><span class="act">Actual</span><span class="fct">Forecast</span><span class="tgt">Target</span></div></div>
             <div class="chart-body"><canvas id="revSectionChart" aria-label="Revenue and forecast chart" role="img"></canvas></div>
           </div>
           <div class="seg-control" role="tablist">
@@ -608,8 +608,8 @@
             <div class="kpi-card rev"><div class="kpi-top"><span class="kpi-label">LTV:CAC</span><span class="kpi-note good">Healthy</span></div><div class="kpi-value lg rev">67.6x</div><div class="kpi-bottom"><span class="kpi-change up">+3.2x YoY</span><span style="font-size:12px;color:var(--text3)">CAC: €42</span></div></div>
           </div>
           <div class="main-analytics" style="flex:1">
-            <div class="chart-card"><div class="chart-hdr"><h3>Customer Growth</h3></div><div class="chart-body"><canvas id="custSectionChart" aria-label="Customer growth chart" role="img"></canvas></div></div>
-            <div class="insights-panel"><div class="insights-hdr"><h3>Customer Breakdown</h3><span>By segment</span></div>
+            <div class="chart-card"><div class="chart-hdr"><h2>Customer Growth</h2></div><div class="chart-body"><canvas id="custSectionChart" aria-label="Customer growth chart" role="img"></canvas></div></div>
+            <div class="insights-panel"><div class="insights-hdr"><h2>Customer Breakdown</h2><span>By segment</span></div>
               <div class="insights-scroll">
                 <div class="isect"><div class="isect-title">Segment Mix</div>
                   <div class="iitem"><div class="ii-top"><div class="ii-dot blue"></div><span class="ii-title">Enterprise</span><span style="margin-left:auto;font-size:12px;font-weight:600">48%</span></div></div>
@@ -643,7 +643,7 @@
             </div>
           </div>
           <div class="insights-panel" style="flex:1">
-            <div class="insights-hdr"><h3>AI Insights</h3><span id="insightPeriod">Weekly view</span></div>
+            <div class="insights-hdr"><h2>AI Insights</h2><span id="insightPeriod">Weekly view</span></div>
             <div class="insights-scroll" id="insightContent" style="max-height:none;padding:12px 16px">
               <div class="isect"><div class="isect-title">Summary</div>
                 <div class="iitem"><div class="ii-top"><div class="ii-dot green"></div><span class="ii-title">Weekly performance</span></div><div class="ii-desc">Revenue reached <strong>€72,150</strong> this week, up 3.2% from last week. Customer growth is steady at +34 new. AOV slightly increased to €156. Overall healthy momentum.</div></div>
@@ -660,12 +660,12 @@
         <!-- ═══ REPORTS ═══ -->
         <div class="section hidden" id="sec-reports">
           <div class="report-grid">
-            <div class="report-card"><h4>Executive Summary</h4><p>Weekly snapshot of revenue, customers, churn, and AI recommendations.</p><button class="rc-btn" onclick="alert('Generating Executive Summary…')">Generate</button></div>
-            <div class="report-card"><h4>Revenue Forecast</h4><p>Actuals, forecast, target gap, and margin outlook with trend analysis.</p><button class="rc-btn" onclick="alert('Generating Revenue Forecast…')">Generate</button></div>
-            <div class="report-card"><h4>Customer Health</h4><p>Retention, churn drivers, health score, and segment risk breakdown.</p><button class="rc-btn" onclick="alert('Generating Customer Health…')">Generate</button></div>
-            <div class="report-card"><h4>Channel Efficiency</h4><p>CAC, LTV:CAC ratio, paid vs organic performance comparison.</p><button class="rc-btn" onclick="alert('Generating Channel Efficiency…')">Generate</button></div>
+            <div class="report-card"><h3>Executive Summary</h3><p>Weekly snapshot of revenue, customers, churn, and AI recommendations.</p><button class="rc-btn" onclick="alert('Generating Executive Summary…')">Generate</button></div>
+            <div class="report-card"><h3>Revenue Forecast</h3><p>Actuals, forecast, target gap, and margin outlook with trend analysis.</p><button class="rc-btn" onclick="alert('Generating Revenue Forecast…')">Generate</button></div>
+            <div class="report-card"><h3>Customer Health</h3><p>Retention, churn drivers, health score, and segment risk breakdown.</p><button class="rc-btn" onclick="alert('Generating Customer Health…')">Generate</button></div>
+            <div class="report-card"><h3>Channel Efficiency</h3><p>CAC, LTV:CAC ratio, paid vs organic performance comparison.</p><button class="rc-btn" onclick="alert('Generating Channel Efficiency…')">Generate</button></div>
           </div>
-          <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h3>Recent Exports</h3></div>
+          <div class="chart-card" style="border:1px solid var(--border)"><div class="chart-hdr"><h2>Recent Exports</h2></div>
             <div style="padding:4px 0"><table class="export-table">
               <thead><tr><th>Report</th><th>Format</th><th>Created</th><th>Status</th><th>Action</th></tr></thead>
               <tbody>
