@@ -19,8 +19,15 @@ Pages settings). No build step, no framework, no package manager. Four pages:
 The palette and icon come from the board at `_source/img/qwenlogo.png` (kept out of the published
 site): ink `#111111`, cobalt `#1F4E79`, teal `#164E4A`, sand `#E6E1D8`. The owner keeps the logo
 plate `#FBFBFA` for the paper and the original cool neutrals; the board's `#FAF9F6` is not used.
-`img/favicon.svg` is the canonical icon: the nav, footer, legal page, 404 page, OG card and
-`Organization` logo all use it. The bare mark survives only in the chat avatar.
+The page ink is the original `#11181D`; the favicon, OG card and Organization logo keep the board's
+`#111111`, a deliberate one-step split. `img/favicon.svg` is the canonical icon: the nav, footer,
+legal page, 404 page, OG card and `Organization` logo all use it. The bare mark survives only in the
+chat avatar.
+
+The visual layer is the pre-redesign one: the hero carries the cobalt-to-teal gradient word, three
+blurred colour fields, the pulse dot, the raised 12px gradient panel and the gradient action; the
+Readiness Ladder is the one dark band; the Zero-Risk Pilot is the cobalt-tint band; the chat keeps
+the teal assistant bubble. The sections below the hero stay flat and border-first.
 
 ## Who it is for
 
@@ -160,11 +167,14 @@ The site was built, redesigned, and partially reverted through mid-2026. `main` 
 "clean, non-AI look" pass (`8cd33ef`) that stripped particles, gradient text, glow orbs, emoji icons
 and hover lifts, followed by three direct edits in the GitHub web editor. A separate branch
 (`next-step`) holds a sharper diagnostic-first positioning, a process timeline, priced use-case
-cards and anonymised case studies. This merge takes the substance from `next-step` and the settled
-visual restraint from `main`.
+cards and anonymised case studies. This merge takes the substance from `next-step` and restores the
+pre-redesign visual layer on the page; the fixed h1, company voice, nav form CTA and labelled proof
+stay.
 
-On 2026-10-25 the hero was brought back under that restraint: the four-phrase rotator, the blurred
-colour fields, the pulsing status dot, the gradient/faux-italic word and the floating hero panel were
-removed; the h1 is fixed; the nav CTA points at the form; the proof cards label their figures before
-showing them; the site speaks as "we" for the company; and the palette was aligned to the brand
-board.
+On 2026-10-25 the hero was first brought under restraint (the four-phrase rotator, blurred fields,
+pulse, gradient word and floating panel removed; the h1 fixed; the nav CTA pointed at the form; the
+proof cards labelled; the site moved to "we"). It was then restored to the pre-redesign visual layer
+at the owner's direction: the blurred fields, pulse, gradient word, raised gradient panel and
+gradient action are back, while the fixed h1, company voice, nav form CTA, labelled proof and footer
+remain. The palette uses the board's cobalt, teal, sand and asset ink `#111111`, the page ink
+`#11181D` and the owner's `#FBFBFA` paper.
