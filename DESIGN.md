@@ -193,6 +193,28 @@ reduced-motion still frame, and its labels as real text. Below 1024 px that diag
 the same three examples as a list, because a diagram drawn on a 1000-unit grid scaled into a narrow
 column puts its labels under the legibility floor.
 
+## Measurement UI
+
+- **The consent card is a card, not a wall.** It is fixed to the bottom-left on desktop and to the
+  bottom edge on mobile, paper with a hairline border and the same 6 px radius as the form; never a
+  full-screen overlay, never a modal that traps focus. It is inserted as the first child of `<body>`
+  so its two buttons are the first stops in the tab order, while `position: fixed` keeps it out of
+  the layout and off the CLS score. It has no close button: a choice is required, and "No thanks"
+  is as prominent as "Allow analytics" in weight, if not in colour.
+- **The footer "Privacy settings" control is a quiet text button**, not a badge or a second banner.
+  It appears once analytics is configured and reopens the same card, so withdrawing consent costs
+  one click.
+- **A/B changes are pre-paint.** `js/ab.js` writes `data-ab-<key>` to `<html>` before the body is
+  parsed. Structural variants are CSS selectors on that attribute; copy above the fold is kept
+  invisible for at most 1.2 s while it is swapped. A test must not use a scroll listener to show or
+  hide itself; the mobile sticky CTA uses IntersectionObserver sentinels, per the rule above.
+- **A test may change wording, order or disclosure, never the offer.** Prices, the zero-risk pilot
+  and the claims in the case studies stay true in every arm. Headings, `<title>` and meta
+  descriptions are not test targets: changing them by arm is cloaking and splits SEO signals.
+- **`?ab=preview` is for the owner, not for visitors.** Its panel is dark ink, sits over the page,
+  and is reachable only by query string. It must never ship a visible "test" label to a normal
+  visitor.
+
 ## Accessibility floor
 
 - Body text contrast at or above 4.5:1 against its background; large text at or above 3:1.

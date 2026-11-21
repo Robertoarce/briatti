@@ -26,7 +26,7 @@
         "name": "Legal & privacy",
         "isPartOf": { "@id": "https://www.briatti.com/#site" },
         "inLanguage": "en",
-        "dateModified": "2026-10-25"
+        "dateModified": "2026-11-18"
       }
     ]
   }
@@ -116,6 +116,11 @@
       dl > div { grid-template-columns: 1fr; gap: 2px; }
     }
   </style>
+  <link rel="stylesheet" href="css/experiments.css?v=20261118">
+  <script src="js/analytics.config.js?v=20261118"></script>
+  <script src="js/experiments.config.js?v=20261118"></script>
+  <script src="js/ab.js?v=20261118"></script>
+  <script src="js/tracking.js?v=20261118" defer></script>
 </head>
 <body>
   <header>
@@ -129,7 +134,7 @@
   <main>
     <div class="container">
       <h1>Legal &amp; privacy</h1>
-      <p class="lede">The plain version first: this site sets no cookies, runs no analytics, and loads nothing from a third party. The only personal data we ever see is what you choose to send us by email or through the contact form, and the form is the one place where anything passes through another company.</p>
+      <p class="lede">The plain version first: this site sets no cookies, loads no third-party code, and runs no advertising. If you allow it, pseudonymous PostHog analytics measures which buttons lead to enquiries and runs the A/B tests on this page; if you decline, no analytics request is made. The identifying personal data we see is what you choose to send us by email or through the contact form.</p>
 
       <h2>Who runs this site</h2>
       <dl>
@@ -141,23 +146,31 @@
              the address is available on request. -->
         <div><dt>Postal address</dt><dd>Available on request: write to the address above and we will send it.</dd></div>
         <div><dt>Hosting</dt><dd>GitHub Pages, operated by GitHub Inc. (United States). Like any web host, it records the IP address of visitors in its access logs.</dd></div>
-        <div><dt>Updated</dt><dd>25 October 2026</dd></div>
+        <div><dt>Updated</dt><dd>18 November 2026</dd></div>
       </dl>
 
       <h2>What this site does with your data</h2>
       <ul>
-        <li>No cookies and no local storage: nothing is stored in your browser.</li>
-        <li>No analytics, no pixels, no advertising, no tracking of any kind.</li>
-        <li>No third-party requests while you read. The three typefaces are served from this domain rather than from a font CDN, so your IP address is not handed to anyone else just for opening a page.</li>
-        <li>One exception, and only when you use it: the contact form is delivered by FormSubmit (formsubmit.co), a form relay that passes your message and your IP address to our mailbox. Nothing is sent there until you press the button, and the form deliberately runs without a CAPTCHA so that no Google script is loaded.</li>
-        <li>No profiling and no automated decisions about you, and we do not use anything you send to train AI models.</li>
+        <li><strong>No cookies, no advertising, no cross-site tracking.</strong> The site sets no cookie and loads no ad or social pixel.</li>
+        <li><strong>No third-party code.</strong> The typefaces, Chart.js, the A/B engine and the analytics client are all served from this domain. Two requests can leave this site: a consent-gated analytics event, described below, and the form relay when you submit.</li>
+        <li><strong>Analytics only with your permission.</strong> If you allow it, PostHog records a random ID, the pages you open, the A/B variant you saw, clicks on calls to action and form events. If you decline, no analytics request is made. Your choice is stored in local storage so we do not ask again; beyond that choice, declining stores nothing else.</li>
+        <li><strong>The contact form is delivered by FormSubmit (formsubmit.co)</strong>, a relay that passes your message and your IP address to our mailbox. That happens only when you press the button. The form deliberately runs without a CAPTCHA, so no Google script is loaded.</li>
+        <li><strong>No profiling, no automated decisions and no sale of data</strong>, and we do not use anything you send to train AI models.</li>
       </ul>
       <p>If you use the form or email us, we handle what you send: your name, your email address, your company and phone number if you give them, and the content of your message. The form marks the name, email and message as required; company and phone are optional and you can leave them empty. We use all of it to answer you and, if we go on to work together, to deliver that work. The legal basis is your request and the steps needed to take it forward, or our legitimate interest in replying to a business enquiry. It is not used for marketing and there is no newsletter.</p>
       <p>We keep it for as long as the enquiry or the engagement needs, plus whatever record-keeping law requires. We do not sell it and we do not pass it to anyone who does not need it to answer you.</p>
-      <p>Two companies handle data on our behalf, and both are in the United States: GitHub (hosting, which logs visitors' IP addresses) and FormSubmit (the form relay, which sees a submission and your IP address). Using either one means your data is transferred outside the EU. Each publishes data-processing terms for that transfer; ask us and we will send you the link and the safeguard that applies. Nothing is stored on this site itself: there is no database behind it.</p>
+      <p>Three companies handle data on our behalf: GitHub (hosting, which logs visitors' IP addresses), FormSubmit (the form relay, which sees a submission and your IP address), and, only if you allow analytics, PostHog (analytics). All three involve a transfer outside the EU; GitHub and FormSubmit are in the United States, and PostHog is a US company with this project's event data hosted in the EU. Each publishes data-processing terms for that transfer; ask us and we will send you the link and the safeguard that applies. Nothing is stored on this site itself: there is no database behind it.</p>
+
+      <h2 id="analytics">Analytics and A/B tests</h2>
+      <p><strong>Who processes it.</strong> If you allow analytics, events are sent to PostHog Cloud EU, operated by PostHog, Inc. (United States), with the project data hosted in the EU (Frankfurt). The project token is public and write-only; it cannot read data. PostHog acts as our processor under its data-processing terms. Ask us and we will send the link and the safeguard that applies to the transfer.</p>
+      <p><strong>What is recorded.</strong> A random identifier stored in your browser, plus a session identifier in session storage that lasts until the tab closes; the page URL, title and referring page; viewport and screen size; the browser and device type that PostHog derives from the request; which A/B variant you saw; clicks on links that lead to the contact form; when the form enters the viewport; the first field you focus; submit, success and error events; and how long the form took. The form events never include what you type: no name, email, company, phone or message content, and no keystrokes. There is no session recording, no heatmap, no autocapture and no advertising.</p>
+      <p><strong>IP addresses.</strong> The request necessarily reaches PostHog from your IP address. We do not use it to identify or locate you: the PostHog project is configured to discard client IP addresses, so the address is not stored with the event. We add no other personal data to these events.</p>
+      <p><strong>Why, and for how long.</strong> The purpose is to understand which wording leads to enquiries and to improve this page. The legal basis is your consent (Article 6(1)(a) GDPR). Events are kept for 12 months. You can withdraw at any time with <strong>Privacy settings</strong> in the footer; withdrawal stops future collection and does not affect the lawfulness of what was collected before. A Global Privacy Control or Do Not Track signal from your browser is treated as a refusal, and no analytics is loaded.</p>
+      <p><strong>A/B tests.</strong> The page may show different wording to different visitors, assigned at random. The variant is chosen in your browser, not from anything personal, and it is recorded only if you allowed analytics. If you decline, a variant may still be shown so that the page does not flip between versions, but nothing about that visit is recorded.</p>
+      <p><strong>Declining.</strong> If you decline, the page stores only your refusal, plus an in-memory ID that disappears when the tab closes. No analytics request is made and no analytics identifier is stored on your device.</p>
 
       <h2>Your rights</h2>
-      <p>You can ask for a copy of what we hold, have it corrected or erased, restrict or object to how we use it, and ask for it in a portable form. Write to the address above and we will answer within a month. If you believe we have handled your data badly, you can complain to your national data-protection authority; in Spain that is the Agencia Española de Protección de Datos.</p>
+      <p>You can ask for a copy of what we hold, have it corrected or erased, restrict or object to how we use it, withdraw consent, and ask for it in a portable form. Write to the address above and we will answer within a month. If you believe we have handled your data badly, you can complain to your national data-protection authority; in Spain that is the Agencia Española de Protección de Datos.</p>
 
       <h2>Prices, claims and examples</h2>
       <p>Prices on this site are in euros and exclude VAT. The figures in the case studies and in the product demonstrations are illustrative examples, not measured client results. Nothing on this site is a quotation: a price is only fixed in a written proposal.</p>
@@ -174,7 +187,7 @@
   </main>
 
   <footer>
-    <div class="container">&copy; 2026 Briatti &middot; <a href="/">Back to briatti.com</a></div>
+    <div class="container">&copy; 2026 Briatti &middot; <a href="/">Back to briatti.com</a> &middot; <button type="button" class="privacy-settings" data-consent-open>Privacy settings</button></div>
   </footer>
 </body>
 </html>

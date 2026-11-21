@@ -1135,7 +1135,13 @@
       .agent-flow .rail-out { stroke-dashoffset: 0; }
       .agent-flow .out { opacity: 1; transform: none; }
     }
-  </style></head><body><svg class="mark-defs" aria-hidden="true" focusable="false">
+  </style>
+  <link rel="stylesheet" href="css/experiments.css?v=20261118">
+  <script src="js/analytics.config.js?v=20261118"></script>
+  <script src="js/experiments.config.js?v=20261118"></script>
+  <script src="js/ab.js?v=20261118"></script>
+  <script src="js/tracking.js?v=20261118" defer></script>
+</head><body><svg class="mark-defs" aria-hidden="true" focusable="false">
   <symbol id="mark" viewBox="30 20 175 175">
         <path d="M116.348 33.2713L142.242 33.2119C149.758 33.1987 158.725 32.9492 166.064 34.5917C177.576 37.1682 187.753 43.0405 194.163 53.1893C199.784 62.0899 201.543 74.379 199.308 84.5898C197.755 91.6795 193.043 100.448 187.524 105.29C185.774 106.826 184.088 107.886 182.116 109.115C196.881 117.627 204.254 129.649 204.236 146.959C204.212 171.199 183.215 189.168 160.04 190.965C153.876 191.443 147.265 191.215 141.025 191.237C132.076 191.309 123.126 191.307 114.177 191.233L114.11 173.507C124.539 173.156 135.599 173.682 146.096 173.449C151.556 173.33 156.997 173.664 162.408 172.759C183 169.314 192.897 148.048 181.177 130.423C174.536 121.661 164.323 118.642 153.681 118.74C139.632 118.869 125.434 118.259 111.421 119.135C109.161 119.48 105.37 120.927 103.826 122.582C101.293 125.296 101.748 132.201 101.689 135.71C101.588 141.456 101.577 147.202 101.656 152.948L101.639 191.422C95.6568 191.354 89.674 191.354 83.6918 191.423C83.5064 184.415 83.663 177.341 83.5787 170.313C83.4668 157.014 83.4627 143.579 83.4412 130.289C83.4245 120.041 87.9382 111.537 96.6454 106.179C106.523 100.102 115.534 101.029 126.437 101.037L148.765 101.126C152.863 101.111 158.135 101.202 162.003 100.256C173.344 97.4843 182.586 88.4803 182.385 76.3006C182.272 69.5179 180.672 63.8961 175.859 59.006C172.605 55.6846 168.496 53.3276 163.987 52.1953C157.824 50.5899 148.439 51.04 141.797 51.0398L114.089 51.0575C113.988 46.4814 113.751 37.6101 114.133 33.3254L116.348 33.2713Z" fill="currentColor"/>
         <path d="M52.887 33.2747C59.0009 33.2624 64.7558 33.0827 70.8906 33.4163C70.671 47.6821 71.2865 190.588 71.1179 190.907C71.0569 191.022 70.9489 191.105 70.8647 191.204C65.1184 191.554 58.5793 191.352 52.7667 191.347C52.4197 172.833 52.8293 154.053 52.8557 135.518L52.887 33.2747Z" fill="currentColor"/>
@@ -1198,7 +1204,7 @@
             <path class="arw-head" pathLength="100" d="M33.6 15.8 L43 16.4 L42.6 6.6"/>
           </g>
         </svg>
-        <a class="btn btn-primary" href="#contact">Request a callback</a>
+        <a class="btn btn-primary" href="#contact" data-ab-copy="hero.cta" data-ab-eager>Request a callback</a>
       </div>
       <p class="cta-alt">Prefer email? <a href="mailto:contact@briatti.com">contact@briatti.com</a>.</p>
 
@@ -1854,7 +1860,7 @@
       <p class="pill">Zero-Risk Pilot</p>
       <h2 id="pilot-h">Your first build, at no cost</h2>
       <p>We build your first solution at no cost. You invest one short call to explain your needs; we do the rest. If you are happy, we discuss what comes next. If not, you owe nothing.</p>
-      <a class="btn btn-primary" href="#contact">Claim the free pilot</a>
+      <a class="btn btn-primary" href="#contact" data-ab-copy="pilot.cta">Claim the free pilot</a>
       <p class="cta-alt">Prefer email? <a href="mailto:contact@briatti.com">contact@briatti.com</a>.</p>
     </div>
   </section>
@@ -1888,8 +1894,10 @@
       <h2 id="contact-h">Let's talk</h2>
       <p>No pitch and no pressure. Tell us what you need, and we will say honestly whether we can help.</p>
       <!-- Posts to FormSubmit, which relays the message to contact@briatti.com. _captcha is off on
-           purpose: it would load Google reCAPTCHA, and nothing on this page calls a third party
-           until someone presses the button. With JS on, the script keeps the visitor on the page. -->
+           purpose: it would load Google reCAPTCHA, and this page loads no third-party script. The
+           only other request to a third party is the consent-gated analytics event; nothing is sent
+           there until the visitor allows it. With JS on, the script keeps the visitor on the page
+           and records the outcome. -->
       <form class="contact-form" action="https://formsubmit.co/contact@briatti.com" method="POST">
         <input type="hidden" name="_subject" value="Callback request from briatti.com">
         <input type="hidden" name="_template" value="table">
@@ -1906,7 +1914,7 @@
             <input id="cf-email" name="email" type="email" autocomplete="email" required>
           </div>
         </div>
-        <div class="field-row">
+        <div class="field-row" id="cf-optional">
           <div class="field">
             <label for="cf-company">Company <span>&middot; optional</span></label>
             <input id="cf-company" name="company" type="text" autocomplete="organization">
@@ -1916,11 +1924,12 @@
             <input id="cf-phone" name="phone" type="tel" autocomplete="tel">
           </div>
         </div>
+        <button type="button" class="form-more" data-ab-optional-toggle aria-expanded="false" aria-controls="cf-optional">Add company and phone <span>&middot; optional</span></button>
         <div class="field">
           <label for="cf-message">How would you like to be helped?</label>
           <textarea id="cf-message" name="message" rows="4" required></textarea>
         </div>
-        <button class="btn btn-primary" type="submit">Request a callback</button>
+        <button class="btn btn-primary" type="submit" data-ab-copy="form.submit">Request a callback</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
       <p class="contact-alt">Or write directly: <a href="mailto:contact@briatti.com">contact@briatti.com</a></p>
@@ -2134,7 +2143,7 @@
     if (form && window.fetch) {
       var status = form.querySelector('.form-status');
       var sendBtn = form.querySelector('button[type="submit"]');
-      // which button sent them here, since there is no analytics to tell us
+      // which button sent them here, so the relay email says it too (the tracker records the same click)
       var sources = document.querySelectorAll('a[href="#contact"]');
       for (var f = 0; f < sources.length; f++) {
         sources[f].addEventListener('click', (function (link) {
@@ -2165,11 +2174,15 @@
           status.className = 'form-status is-ok';
           status.textContent = 'Thank you. We answer within one working day, usually sooner.';
           sendBtn.textContent = 'Sent';
+          try { document.dispatchEvent(new CustomEvent('briatti:form-success')); } catch (err) {}
         })['catch'](function () {
           status.className = 'form-status is-error';
           status.innerHTML = 'That did not go through. Write to <a href="mailto:contact@briatti.com">contact@briatti.com</a> instead and we will pick it up there.';
           sendBtn.disabled = false;
-          sendBtn.textContent = 'Request a callback';
+          // put back whatever label the A/B variant gave the button
+          if (window.BriattiAB && window.BriattiAB.refresh) window.BriattiAB.refresh();
+          else sendBtn.textContent = 'Request a callback';
+          try { document.dispatchEvent(new CustomEvent('briatti:form-error')); } catch (err) {}
         });
       });
     }

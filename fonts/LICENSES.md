@@ -1,6 +1,6 @@
 # Fonts
 
-All three families are self-hosted from this directory so the site makes no third-party request.
+All three families are self-hosted from this directory so loading a typeface makes no third-party request.
 
 - **Inter** by Rasmus Andersson - SIL Open Font License 1.1
 - **Fraunces** by Undercase Type (Phaedra Charles, Flavia Zimbardi) - SIL Open Font License 1.1

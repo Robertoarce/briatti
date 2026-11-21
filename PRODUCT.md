@@ -69,7 +69,7 @@ must stay consistent between the two. Never invent or interpolate a price.
 
 ### How a call to action works
 
-The funnel is a form, and the form is the only thing on the page that talks to a server.
+The funnel ends in a form. Analytics records the path to it; the form is the only place a visitor's message leaves the page.
 
 - **One address, publicly: `contact@briatti.com`.** It is what the footer, the form relay, the
   structured data and the legal page all use. `roberto.arce@briatti.com` still exists and still
@@ -86,8 +86,9 @@ The funnel is a form, and the form is the only thing on the page that talks to a
   third-party script — the opposite of everything else on this site. Spam is handled by the `_honey`
   honeypot field instead, plus the fact that the form has no publicly linked endpoint.
 - **`source` records which button sent them** ("Request a callback", "Claim the free pilot", or
-  "nav: Contact"/"footer: Contact"), set by the script on click. There is no analytics by design, so
-  this is the only funnel measurement there is.
+  "nav: Contact"/"footer: Contact"), set by the script on click. The analytics client records the
+  same click, and the hidden `ab_variants` field carries the test variants the visitor saw into the
+  relay email. With JS off, neither is set; `source` stays "contact section".
 - **A plain email fallback sits under each CTA**, and a click on it copies the address and says so.
   That is progressive enhancement: with JS off the printed address is still there.
 
@@ -103,6 +104,34 @@ at this end, and a browser always sends one. The response body is JSON even thou
 says `text/html`, which is why the script parses the body and not the header. Two test submissions were
 accepted on that date; whether they reach the inbox is the one thing only the mailbox can show.
 
+## Measurement and experiments
+
+Added 2026-11-18. The site now measures itself, but only with consent. `legal.html` is the source of
+truth for what is collected; this section records how the machinery works.
+
+- **PostHog, first-party client.** `js/analytics.config.js` holds the EU project token, and
+  `js/tracking.js` posts pseudonymous events to `eu.i.posthog.com/i/v0/e/` (anonymous in PostHog's sense: a random browser id, no person profile). There is no posthog-js
+  bundle, no autocapture, no session replay and no cookie. The token is public and write-only.
+- **Consent before any event.** The consent card stores `briatti_consent_v1` and, if allowed,
+  `briatti_vid` in local storage. Decline stores only the refusal; no analytics request is made.
+  Global Privacy Control and Do Not Track are treated as a refusal. **Privacy settings** in the
+  footer reopens the card. Nothing about the form's contents is ever an event.
+- **A/B engine.** `js/experiments.config.js` declares experiments; `js/ab.js` hashes a stable
+  visitor id, sets `data-ab-<key>` on `<html>` before first paint, swaps copy and writes `ab_variants`
+  into the form. Assignment is deterministic, needs no server and does not flicker.
+- **No unmeasured split.** `requireAnalytics: true` means experiments do not run until a valid token
+  is configured. A test that cannot be measured must not change the page.
+- **Funnel.** `$pageview` -> `form_view` -> `form_start` -> `form_submit` -> `form_submit_success`,
+  plus `form_cta_click` for the links that lead to the form. `tools/ab_report.py` turns those events
+  into rates, lift and significance.
+- **Never captured:** field values, keystrokes, session recordings, or an identity. Events are
+  anonymous in PostHog's sense (`$process_person_profile: false`), and the PostHog project is set to discard client IP
+  addresses.
+- **Changing this requires a legal update.** A new processor, pixel, recording tool or event that
+  carries personal data must be reflected in `legal.html` in the same commit.
+
+The live experiments, the activation checklist and the statistical rules are in `AB-TESTING.md`.
+
 ## Voice
 
 Direct, plain, slightly blunt. Short declarative sentences. No hype, no AI mysticism, no
@@ -115,12 +144,12 @@ marketing copy. The company voice is the point; the founder's accountability is 
 
 ## Hard constraints
 
-- Static hosting. Editing an HTML file must be the whole deployment.
-- Nothing is loaded from a third party. The typefaces (`fonts/`) and Chart.js (`vendor/`) are served
-  from this repository, so no visitor's IP address reaches anyone except the host. Google Fonts and
-  the jsDelivr CDN were removed for exactly that reason and must not come back. There is one
-  deliberate exception, and it only fires when a visitor submits the form: that POST goes to the
-  FormSubmit relay. Nothing is fetched from a third party on load, and `legal.html` says so.
+- Static hosting. Editing a file must be the whole deployment; there is no build step.
+- No third-party code is loaded. The typefaces (`fonts/`), Chart.js (`vendor/`), the A/B engine and
+  the analytics client are served from this repository. Google Fonts and the jsDelivr CDN were
+  removed for exactly that reason and must not come back. The only requests to another company are
+  (a) the analytics event, which fires only after consent, and (b) the form POST to the FormSubmit
+  relay, which fires only on submit. `legal.html` describes both.
 - The site must work with JavaScript disabled. JS may only enhance, never gate content.
 - Every page must be usable and legible from 320 px upward.
 - Anything a visitor could read as a measured result must be true or labelled illustrative. Case

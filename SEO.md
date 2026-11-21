@@ -33,6 +33,14 @@ Two caveats recorded rather than acted on:
   script as sections change), while the page's own title is in `<title>`. That is reasonable for a
   demo and is not worth diverging from the design.
 
+## A/B tests
+
+Since 2026-11-18 the page can vary its call-to-action labels and its form structure by test arm
+(see `AB-TESTING.md`). Headings, `<title>`, meta descriptions, canonical URLs and structured data are
+not test targets. Both arms serve the same indexable page; there is no `noindex`, no cloaking and no
+separate URL per variant. A visitor's arm is chosen in the browser after the document is parsed, so
+a crawler sees the control markup and the structured data exactly as before.
+
 ## Crawler access
 
 Verified 2026-10-25. `https://www.briatti.com/robots.txt` answers HTTP 200 and is byte-identical to

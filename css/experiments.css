@@ -1,0 +1,293 @@
+/* Briatti experiments, consent and QA preview styles.
+ *
+ * Everything here is keyed off markup that the site's own pages provide or that js/ab.js adds:
+ *   html[data-ab-<experiment-key>="<variant>"]   structural variants
+ *   [data-ab-copy="<key>"]                       copy swapped by js/ab.js
+ *   .ph-consent                                  analytics consent card
+ *   .ab-panel                                    ?ab=preview QA panel
+ *
+ * The palette comes from each page's :root, with fallbacks so the banner still reads if the
+ * stylesheet is ever used on a page that has not defined the custom properties.
+ */
+
+/* ---------- pre-paint copy cover (above-the-fold tests only) ---------- */
+/* An empty cobalt button for a few milliseconds is less jarring than a label visibly changing
+   under the pointer. js/ab.js removes this class as soon as it has swapped the copy, and a 1.2s
+   timer removes it even if that script fails. */
+html.ab-copy-pending [data-ab-eager] {
+  color: transparent !important;
+  text-shadow: none !important;
+}
+
+/* ---------- contact form: optional fields behind one disclosure ---------- */
+.form-more {
+  display: none;
+  justify-self: start;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cobalt, #1F4E79);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.form-more span { font-weight: 500; color: var(--ink-3, #63696F); }
+.form-more:hover { color: var(--cobalt-deep, #16395A); }
+.form-more:focus-visible { outline: 2px solid var(--cobalt, #1F4E79); outline-offset: 3px; border-radius: 2px; }
+
+html[data-ab-form_friction="lean"] #cf-optional { display: none; }
+html[data-ab-form_friction="lean"] .contact-form:not(.is-expanded) .form-more { display: inline-flex; }
+html[data-ab-form_friction="lean"] .contact-form.is-expanded #cf-optional { display: grid; }
+html[data-ab-form_friction="lean"] .contact-form.is-expanded .form-more { display: none; }
+
+/* ---------- mobile sticky CTA (draft experiment) ---------- */
+.ab-sticky-cta { display: none; }
+@media (max-width: 720px) {
+  html[data-ab-sticky_mobile_cta="bar"] .ab-sticky-cta {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 13px 20px;
+    border-radius: var(--r, 6px);
+    background: linear-gradient(135deg, var(--cobalt, #1F4E79), var(--cobalt-deep, #16395A));
+    color: #FFFFFF;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(var(--cobalt-deep-rgb, 22, 57, 90), .25), 0 18px 34px -16px rgba(var(--cobalt-rgb, 31, 78, 121), .65);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity .2s cubic-bezier(.16, 1, .3, 1), transform .2s cubic-bezier(.16, 1, .3, 1), visibility .2s;
+  }
+  html[data-ab-sticky_mobile_cta="bar"] .ab-sticky-cta.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+/* ---------- consent card ---------- */
+.ph-consent {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 110;
+  width: min(400px, calc(100vw - 40px));
+  padding: 20px 20px 16px;
+  background: var(--paper, #FBFBFA);
+  border: 1px solid var(--line-2, #D9DCD8);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(var(--ink-rgb, 17, 24, 29), .05), 0 26px 52px -22px rgba(var(--ink-rgb, 17, 24, 29), .4);
+  color: var(--ink, #11181D);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .24s cubic-bezier(.16, 1, .3, 1), transform .24s cubic-bezier(.16, 1, .3, 1);
+}
+.ph-consent.is-visible { opacity: 1; transform: none; }
+.ph-consent.is-leaving { opacity: 0; transform: translateY(8px); }
+
+.ph-consent .ph-consent-head { margin-bottom: 10px; }
+.ph-consent .ph-consent-kicker {
+  margin: 0 0 5px;
+  max-width: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-3, #63696F);
+}
+.ph-consent .ph-consent-title {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--ink, #11181D);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+.ph-consent .ph-consent-body p {
+  margin: 0 0 8px;
+  max-width: none;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2, #4A5259);
+}
+.ph-consent .ph-consent-body p:last-child { margin-bottom: 0; }
+
+.ph-consent .ph-consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.ph-consent .ph-consent-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 14px;
+  border: 1px solid var(--line-2, #D9DCD8);
+  border-radius: var(--r, 6px);
+  background: var(--paper-2, #F4F5F3);
+  color: var(--ink, #11181D);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .16s ease, border-color .16s ease, transform .16s ease;
+}
+.ph-consent .ph-consent-btn:hover { border-color: var(--ink-3, #63696F); background: var(--white, #FFFFFF); }
+.ph-consent .ph-consent-btn:active { transform: translateY(1px); }
+.ph-consent .ph-consent-btn-primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--cobalt, #1F4E79), var(--cobalt-deep, #16395A));
+  color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(var(--cobalt-deep-rgb, 22, 57, 90), .25), 0 8px 18px -10px rgba(var(--cobalt-rgb, 31, 78, 121), .6);
+}
+.ph-consent .ph-consent-btn-primary:hover { background: var(--cobalt-deep, #16395A); border-color: transparent; }
+.ph-consent :focus-visible { outline: 2px solid var(--cobalt, #1F4E79); outline-offset: 2px; border-radius: 3px; }
+
+.ph-consent .ph-consent-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  margin: 12px 0 0;
+  max-width: none;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-3, #63696F);
+}
+.ph-consent .ph-consent-note a { color: var(--ink-2, #4A5259); text-decoration: underline; text-underline-offset: 2px; }
+.ph-consent .ph-consent-note a:hover { color: var(--ink, #11181D); }
+.ph-consent .ph-consent-link {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-2, #4A5259);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.ph-consent .ph-consent-link:hover { color: var(--ink, #11181D); }
+
+/* the static footer control that reopens the card */
+.privacy-settings {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-2, #4A5259);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.privacy-settings:hover { color: var(--ink, #11181D); text-decoration: underline; text-underline-offset: 2px; }
+footer .foot-links .privacy-settings { font-size: 13px; }
+footer .privacy-settings { margin: 0; }
+/* the dashboard demo's sidebar is dark */
+.sb-footer .privacy-settings { color: var(--accent-on-dark, #8FB4D4); font-size: 11px; }
+.sb-footer .privacy-settings:hover { color: #FFFFFF; }
+
+@media (max-width: 560px) {
+  .ph-consent {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-height: min(78vh, 420px);
+    overflow-y: auto;
+    padding: 18px 18px 14px;
+  }
+  .ph-consent .ph-consent-title { font-size: 20px; }
+  .ph-consent .ph-consent-btn { flex: 1 1 auto; min-height: 42px; }
+}
+
+/* ---------- ?ab=preview QA panel ---------- */
+.ab-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 120;
+  width: min(360px, calc(100vw - 32px));
+  max-height: 70vh;
+  overflow: auto;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--ink, #11181D);
+  color: var(--paper, #FBFBFA);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  box-shadow: 0 30px 60px -20px rgba(17, 24, 29, .6);
+}
+.ab-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.ab-panel-head strong { font-size: 13px; letter-spacing: .01em; }
+.ab-panel-close { color: var(--paper, #FBFBFA); font-size: 22px; line-height: .8; text-decoration: none; }
+.ab-panel-note { margin: 0 0 12px; color: rgba(251, 251, 250, .6); font-size: 11px; }
+.ab-panel-empty { margin: 0 0 12px; color: rgba(251, 251, 250, .75); }
+.ab-panel-row { margin-bottom: 10px; }
+.ab-panel-row label { display: grid; gap: 4px; font-weight: 600; }
+.ab-panel select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid rgba(251, 251, 250, .22);
+  border-radius: 4px;
+  background: rgba(251, 251, 250, .08);
+  color: var(--paper, #FBFBFA);
+  font: inherit;
+}
+.ab-panel select option { color: #11181D; }
+.ab-panel-status { color: rgba(251, 251, 250, .55); font-size: 11px; font-weight: 400; }
+.ab-panel-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(251, 251, 250, .14); }
+.ab-panel-actions button,
+.ab-panel-actions a {
+  color: var(--cobalt-on-dark, #8FB4D4);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ph-consent,
+  .ab-sticky-cta { transition-duration: .01ms; }
+}
+@media print {
+  .ph-consent, .ab-panel, .ab-sticky-cta { display: none !important; }
+}
